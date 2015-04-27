@@ -1,0 +1,87 @@
+body {
+
+    color: white;
+
+    background: #121212;
+
+}
+
+/*.clock {
+
+    margin:0 auto; 
+
+    padding:10px; 
+
+    color:#fff; 
+
+    text-shadow:0 0 5px #00c6ff; 
+
+    text-align:center; 
+
+}*/
+
+
+
+/*.clock #date { 
+
+    font-size:36px; 
+
+    line-height: 36px;
+
+}*/
+
+
+
+.clock ul {
+
+    margin: 0;
+
+}
+
+
+
+.clock ul li { 
+
+    display:inline; 
+
+    /*font-size:92px; 
+
+    line-height: 100px;*/
+
+}
+
+
+
+.clock #point { 
+
+    position:relative; 
+
+    -moz-animation:clock-point 1s ease infinite; 
+
+    -webkit-animation:clock-point 1s ease infinite; 
+
+}
+
+
+
+@-webkit-keyframes clock-point {
+
+    0% {opacity:1.0; text-shadow:0 0 20px #00c6ff;}
+
+    50% {opacity:0; text-shadow:none; }
+
+    100% {opacity:1.0; text-shadow:0 0 20px #00c6ff; }	
+
+}
+
+
+
+@-moz-keyframes clock-point {
+
+    0% {opacity:1.0; text-shadow:0 0 20px #00c6ff;}
+
+    50% {opacity:0; text-shadow:none; }
+
+    100% {opacity:1.0; text-shadow:0 0 20px #00c6ff; }	
+
+}
