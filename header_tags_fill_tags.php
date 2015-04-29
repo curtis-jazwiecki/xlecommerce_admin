@@ -83,7 +83,8 @@
   }
   else
     $checkedCats['none'] = 'Checked';
-   
+  
+
   /****************** FILL THE MANUFACTURERS ******************/
    
   if (isset($manufacturers_fill))
@@ -96,7 +97,7 @@
     }
     else
     { 
-      $manufacturers_tags_query = tep_db_query("select m.manufacturers_name, m.manufacturers_id, mi.languages_id, mi.manufacturers_htc_title_tag, mi.manufacturers_htc_desc_tag, mi.manufacturers_htc_keywords_tag from " . TABLE_MANUFACTURERS . " m, " . TABLE_MANUFACTURERS_INFO . " mi where mi.languages_id = '" . $langID . "'");
+      $manufacturers_tags_query = tep_db_query("select m.manufacturers_name, m.manufacturers_id, mi.languages_id, mi.manufacturers_htc_title_tag, mi.manufacturers_htc_desc_tag, mi.manufacturers_htc_keywords_tag from " . TABLE_MANUFACTURERS . " m, " . TABLE_MANUFACTURERS_INFO . " mi where m.manufacturers_id=mi.manufacturers_id and mi.languages_id = '" . $langID . "'");
       while ($manufacturers_tags = tep_db_fetch_array($manufacturers_tags_query))
       {
         $updateDB = false;
@@ -130,7 +131,9 @@
   }
   else
     $checkedManuf['none'] = 'Checked';
-       
+
+
+
   /****************** FILL THE PRODUCTS ******************/  
   
   if (isset($products_fill))
@@ -205,7 +208,7 @@
     $checkedMetaDesc['no'] = 'Checked';
     $checkedMetaDesc['yes'] = '';
   }
- 
+
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

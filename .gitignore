@@ -40,7 +40,10 @@ Thumbs.db
 # OSC and Other files
 ######################
 *error_log*
-cache
-temp
-backups
+webmail/logs/errors
+cache/
+temp/
+backups/
 includes/configure.php
+export_files/
+shipping_labels/
