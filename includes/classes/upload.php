@@ -92,7 +92,7 @@
         chmod($this->destination . $this->filename, $this->permissions);
 
         if ($this->message_location == 'direct') {
-          $messageStack->add(SUCCESS_FILE_SAVED_SUCCESSFULLY, 'success');
+          $messageStack->add_session(SUCCESS_FILE_SAVED_SUCCESSFULLY, 'success');
         } else {
           $messageStack->add_session(SUCCESS_FILE_SAVED_SUCCESSFULLY, 'success');
         }

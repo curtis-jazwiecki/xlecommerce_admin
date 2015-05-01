@@ -13,7 +13,7 @@
   require('includes/application_top.php');
 
   if (!tep_session_is_registered('current_path')) {
-    $current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full/";
+    $current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
     tep_session_register('current_path');
   }
 
@@ -22,11 +22,11 @@
     tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
   }
 
-  if (strstr($current_path, '..')) $current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full/";
+  if (strstr($current_path, '..')) $current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
 
-  if (!is_dir($current_path)) $current_path =  DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full/";
+  if (!is_dir($current_path)) $current_path =  DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
 
-  if (!preg_match('@^' . DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full/@", $current_path)) $current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full/";
+  if (!preg_match('@^' . DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full/@", $current_path)) $current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
 
   $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
 
@@ -56,7 +56,8 @@
         break;
       case 'processuploads':
         for ($i=1; $i<6; $i++) {
-          if (isset($GLOBALS['file_' . $i]) && tep_not_null($GLOBALS['file_' . $i])) {
+         // if (isset($GLOBALS['file_' . $i]) && tep_not_null($GLOBALS['file_' . $i])) {
+          if (isset($_FILES['file_'. $i]) && !empty($_FILES['file_'. $i]['name'])) {
             new upload('file_' . $i, $current_path);
           }
         }
