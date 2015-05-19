@@ -159,7 +159,7 @@
         break;              
       case 'group_new':
         $admin_groups_name = ucwords(strtolower(tep_db_prepare_input($HTTP_POST_VARS['admin_groups_name'])));
-        $name_replace = preg_replace ("/ ", "%/", $admin_groups_name);
+        $name_replace = preg_replace ("/\s+/", "%", $admin_groups_name);
         
         if (($admin_groups_name == '' || NULL) || (strlen($admin_groups_name) <= 5) )
 		  {

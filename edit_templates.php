@@ -194,6 +194,7 @@ $selected_template = $rowz['configuration_value'];
                                    <!-- ALSO SEE ACCORDIAN CSS AND SCRIPT IN <head> AREA -->
                                     <?php
                                     foreach($templates as $template){
+                                       if (basename($template) != 'template13' && basename($template) != 'template14' && basename($template) != 'template15' && basename($template) != 'template16' && basename($template) != 'template17') {
                                         $current_template = 'full/' . basename($template);  
                                     ?>
                                     <div id="wrapper">	
@@ -251,6 +252,7 @@ $selected_template = $rowz['configuration_value'];
                                           
                                         </div>
                                     <?php
+                                      }
                                     }
                                     ?>
                                     </div>

@@ -31,7 +31,8 @@
 */
 ?>
 <span style="color:#FFFFFF">OBN E-Commerce Solution Copyright &copy; 2014 <a href="http://www.outdoorbusinessnetwork.com" target="_blank">Outdoor Business Network, Inc.</a><br>
-Powered By <a href="http://www.outdoorbusinessnetwork.com">OBN V6.0</a></span>
+Powered By <a href="http://www.outdoorbusinessnetwork.com">OBN V6.0</a><br />
+CloudCommerce V<?php echo trim(implode('', file(DIR_FS_CATALOG . 'includes/version.php'))); ?></span>
     </td>
   </tr>
   <tr>

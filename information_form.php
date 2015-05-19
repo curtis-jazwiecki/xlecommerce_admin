@@ -142,7 +142,7 @@ if(!strstr($info_group['locked'], 'information_description')) {
 	<tr>
 		<td colspan="2" align="right"><?php 
 				// Decide when to show the buttons (Determine or 'locked' is active)
-				if( (empty($info_group['locked'])) || ($information_action == 'Edit')) {
+				if( (!empty($info_group['locked'])) || ($information_action == 'Edit')) {
 					echo tep_image_submit('button_insert_b.gif', IMAGE_INSERT);
 				}
 				echo '&nbsp;<a href="' . tep_href_link(FILENAME_INFORMATION_MANAGER, "gID=$gID", 'NONSSL') . '">' . tep_image_button('button_cancel_b.gif', IMAGE_CANCEL) . '</a>'; 

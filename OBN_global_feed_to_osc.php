@@ -745,7 +745,7 @@ class global_feed_to_osc{
                                               } else {
                                                 $name_id = $specification_name_array[$temp_name];
                                               }
-                                                tep_db_query("insert into product_specification_values (specification_name_id, value) values ('" . (int)$name_id . "', '" . str_replace("'", "\'", tep_db_input($temp_value)) . "') on duplicate key update id=last_insert_id(id)");
+                                                tep_db_query("insert into product_specification_values (specification_name_id, value) values ('" . (int)$name_id . "', '" .  tep_db_input($temp_value) . "') on duplicate key update id=last_insert_id(id)");
                                                 $value_query = tep_db_query("select last_insert_id() as value_id");
                                                 $value_info = tep_db_fetch_array($value_query);
                                                 $value_id = $value_info['value_id'];

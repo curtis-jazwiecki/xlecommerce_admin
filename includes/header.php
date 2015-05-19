@@ -51,7 +51,7 @@
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#26a5dc" style="font: Georgia, 'Times New Roman', Times, serif; margin: 0px; font-size: 12px;">
                     <tr valign="center" style="height: 24px; max-height: 24px; overflow: auto ">
                       <form action="<?php echo HTTP_SERVER.DIR_WS_ADMIN.'index.php'; ?>" method="get">
-                      <td align="left" valign="top" style="overflow: auto;">
+                      <td align="left" valign="top" style="overflow: auto;">                     
                         <select name="search_drop_box" style="font-size: 12px" style="margin: 0; padding: 0;">
                           <option name="" value="" selected>Search For:</option>
                           <option name="product" value="product">Product</option>
