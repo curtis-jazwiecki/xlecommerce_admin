@@ -114,7 +114,7 @@ while ($row = tep_db_fetch_array($price_update_query))
 // Query to get the selected products and make the changes
     //$products_update_query = tep_db_query('SELECT p.products_id AS id, p.base_price AS price, p.lock_price FROM products p, products_to_categories pcat WHERE p.products_id = pcat.products_id ' . $where_string);
 	$products_update_query = tep_db_query('SELECT p.products_id AS id, p.base_price AS price, p.lock_price, p.markup FROM products p, products_to_categories pcat WHERE p.products_id = pcat.products_id ' . $where_string);
-//	echo 'SELECT p.products_id AS id, p.base_price AS price, p.lock_price, p.markup FROM products p, products_to_categories pcat WHERE p.products_id = pcat.products_id ' . $where_string;
+	echo 'SELECT p.products_id AS id, p.base_price AS price, p.lock_price, p.markup FROM products p, products_to_categories pcat WHERE p.products_id = pcat.products_id ' . $where_string;
 
     $count = 0;
 

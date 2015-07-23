@@ -550,7 +550,7 @@ class global_feed_to_osc{
                                 //'parent_products_model' => (empty($temp_parent_prod_model) ? 'null' : $temp_parent_prod_model),
                                 );
 				
-					if ($parent_products_model_exists && !empty($temp_parent_prod_model) && $temp_parent_prod_model != 'NULL') {
+					if ($parent_products_model_exists && !empty($temp_parent_prod_model)) {
 						$sql_data_array['parent_products_model'] = $temp_parent_prod_model;
 					}
 					

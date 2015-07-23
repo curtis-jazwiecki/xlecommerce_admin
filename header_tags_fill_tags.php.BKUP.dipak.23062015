@@ -237,24 +237,9 @@
       }  
     }
 	
-	$fillmetadesc = 'no';
-	if($checkedMetaDesc['yes'] == 'Checked'){
-		$fillmetadesc = 'yes';
-	}
-	
-	$fillmetadesc_length = "";
-	if(isset($productsMetaDescLength) && ($productsMetaDescLength != '')){
-		$fillmetadesc_length = $productsMetaDescLength;
-	}
-	
 	if(count($checkedProds) > 0){
 		tep_db_query("delete from header_tags_selection where product_selection <> ''");
-		tep_db_query("delete from header_tags_selection where fillmetadesc <> ''");
-		tep_db_query("delete from header_tags_selection where fillmetadesc_length <> ''");
-		
-		tep_db_query("INSERT INTO header_tags_selection set product_selection = '".$product_selection."'");
-		tep_db_query("INSERT INTO header_tags_selection set fillmetadesc = '".$fillmetadesc."'");
-		tep_db_query("INSERT INTO header_tags_selection set fillmetadesc_length = '".$fillmetadesc_length."'"); 
+		tep_db_query("INSERT INTO header_tags_selection set product_selection = '".$product_selection."'"); 
 	}
   
   }else{ 
@@ -278,16 +263,6 @@
 		if(!empty($prev_selection['category_selection'])){
 	  		$checkedCats[$prev_selection['category_selection']] = 'Checked';
 	  	}
-		
-		if(!empty($prev_selection['fillmetadesc_length'])){
-			$productsMetaDescLength = $prev_selection['fillmetadesc_length'];
-		}
-		
-		if(!empty($prev_selection['fillmetadesc'])){
-			$checkedMetaDesc = array();
-			$checkedMetaDesc[$prev_selection['fillmetadesc']] = 'Checked';
-		}
-		
 	  }
   }
 ?>
@@ -349,7 +324,7 @@ td.HTC_subHead {color: #000000; font-size: 14px; }
         <td class="main" style="color:#000000">Fill products meta description with Products Description?</td>
         <td align=left style="color:#000000"><INPUT TYPE="radio" NAME="group4" VALUE="fillMetaDesc_yes" <?php echo $checkedMetaDesc['yes']; ?>> Yes</td>
         <td align=left style="color:#000000"><INPUT TYPE="radio" NAME="group4" VALUE="fillmetaDesc_no" <?php echo $checkedMetaDesc['no']; ?>> No</td>
-        <td align="right" class="main" style="color:#000000"><?php echo 'Limit to '. tep_draw_input_field('fillMetaDescrlength', $productsMetaDescLength, 'maxlength="255", size="5"', false) . ' characters.'; ?> </td>
+        <td align="right" class="main" style="color:#000000"><?php echo 'Limit to '. tep_draw_input_field('fillMetaDescrlength', '', 'maxlength="255", size="5"', false) . ' characters.'; ?> </td>
        </tr>
       </table></td> 
      </tr>     

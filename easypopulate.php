@@ -679,6 +679,14 @@ header("Pragma: ");
     <p class="smallText">
 
 <?php
+if(is_uploaded_file($_FILES['usrfl']['tmp_name'])){
+    global $usrfl;
+    $usrfl = $_FILES['usrfl']['tmp_name'];
+    $usrfl_name = $_FILES['usrfl']['name'];
+    $usrfl_size = $_FILES['usrfl']['size'];;
+}
+
+
 
 if (($localfile or is_uploaded_file($usrfl)) && $split==0) {
 	//*******************************
@@ -703,6 +711,7 @@ if (($localfile or is_uploaded_file($usrfl)) && $split==0) {
 		// get the entire file into an array
 		$readed = file(DIR_FS_DOCUMENT_ROOT . $tempdir . $usrfl_name);
 	}
+        
 	if ($localfile){
 		// move the file to where we can work with it
 		$file = tep_get_uploaded_file('usrfl');			$attribute_options_query = "select distinct products_options_id from " . TABLE_PRODUCTS_OPTIONS . " order by products_options_id";
@@ -744,8 +753,7 @@ if (($localfile or is_uploaded_file($usrfl)) && $split==0) {
 		$filelayout[ $cleanheader ] = $lll++; //
 	}
 	unset($readed[0]); //  we don't want to process the headers with the data
-
-	// now we've got the array broken into parts by the expicit end-of-row marker.
+        // now we've got the array broken into parts by the expicit end-of-row marker.
 	array_walk($readed, 'walk');
 	tep_set_categories_status(0);
 
@@ -760,14 +768,14 @@ if (($localfile || is_uploaded_file($usrfl)) && $split==1) {
 	// move the file to where we can work with it
 	if ($localfile) {
 		$infp = fopen(DIR_FS_DOCUMENT_ROOT . $tempdir . $localfile, "r");
-		} else {
-	$file = tep_get_uploaded_file('usrfl');
+	} else {
+		$file = tep_get_uploaded_file('usrfl');
 	//echo "Trying to move file...";
 	if (is_uploaded_file($file['tmp_name'])) {
 		tep_copy_uploaded_file($file, DIR_FS_DOCUMENT_ROOT . $tempdir);
 	}
 
-	$infp = fopen(DIR_FS_DOCUMENT_ROOT . $tempdir . $usrfl_name, "r");
+		$infp = fopen(DIR_FS_DOCUMENT_ROOT . $tempdir . $usrfl_name, "r");
 	}
 
 	//toprow has the field headers
