@@ -47,3 +47,7 @@ backups/
 includes/configure.php
 export_files/
 shipping_labels/
+*.BKUP*
+attributeManager_old/
+images/graphs/
+

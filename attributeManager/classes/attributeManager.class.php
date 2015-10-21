@@ -68,6 +68,9 @@ interface attributeManagerInterface {
 	 */
 	var $arrAllTemplatesAndAttributes = array();
 	
+	
+	var $arrAllChildProducts = array();
+	
 	/**
 	 * __construct()- 
 	 * Sets up page actions and sets the interface language
@@ -116,7 +119,7 @@ interface attributeManagerInterface {
 		}
 		// not called from the page. ie costruct
 		else {
-			$langId = amGetSesssionVariable(AM_SESSION_CURRENT_LANG_VAR_NAME);
+			$langId = amGetSessionVariable(AM_SESSION_CURRENT_LANG_VAR_NAME);
 			if(false !== $langId)
 				$this->intLanguageId = $langId;
 			else 
@@ -149,7 +152,7 @@ interface attributeManagerInterface {
 				$this->strTemplateOrder = $get['templateOrder'];
 			}
 		}else{
-			$templateOrder = amGetSesssionVariable(AM_SESSION_CURRENT_TEMPLATE_ORDER);
+			$templateOrder = amGetSessionVariable(AM_SESSION_CURRENT_TEMPLATE_ORDER);
 			if(false !== $templateOrder)
 				$this->strTemplateOrder = $templateOrder;
 			else 
@@ -174,37 +177,15 @@ interface attributeManagerInterface {
 	 * @return array all options
 	 */
 	function getAllOptions() {
-		global $_SESSION;
-		$current_products_id = $_SESSION['current_products_id'];
 		if(0 === count($this->arrAllOptions)) {
-            //BOF:hash_task
-            /*
-            //EOF:hash_task
-			$queryString = "select * from ".TABLE_PRODUCTS_OPTIONS." where language_id='".amDB::input($this->intLanguageId)."' and is_xml_feed_option='0' order by ";
-            //BOF:hash_task
-            */
-            //$parent_query = tep_db_query("select parent_products_model from products where products_id='55293'");
-            $parent_query = tep_db_query("select parent_products_model from products where products_id='" . (int)$current_products_id . "'");
-            if (tep_db_num_rows($parent_query)){
-                $info = tep_db_fetch_array($parent_query);
-                $parent_id_query = tep_db_query("select products_id from products where products_model='" . $info['parent_products_model'] . "'");
-                if (tep_db_num_rows($parent_id_query)){
-                    $parent_id = tep_db_fetch_array($parent_id_query);
-                    $queryString = "select po.* from " . TABLE_PRODUCTS_OPTIONS . " po inner join products_attributes pa on po.products_options_id=pa.options_id where pa.products_id='" . (int)$parent_id['products_id'] . "' and po.language_id='".amDB::input($this->intLanguageId)."' order by ";
-                } else {
-                    $queryString = "select * from ".TABLE_PRODUCTS_OPTIONS." where language_id='".amDB::input($this->intLanguageId)."' order by ";
-                }
-            } else {
-                $queryString = "select * from ".TABLE_PRODUCTS_OPTIONS." where language_id='".amDB::input($this->intLanguageId)."' order by ";
-            }
-            //EOF:hash_task
+			$queryString = "select * from ".TABLE_PRODUCTS_OPTIONS." where language_id='".amDB::input($this->intLanguageId)."' order by ";
 			$queryString .= !AM_USE_SORT_ORDER ?  "products_options_name" : AM_FIELD_OPTION_SORT_ORDER;
 			$query = amDB::query($queryString);
-					
 
 			while($res = amDB::fetchArray($query))
 				$this->arrAllOptions[$res['products_options_id']] = $res['products_options_name'];
 		}
+		
 		return $this->arrAllOptions;
 	}
 	
@@ -216,20 +197,7 @@ interface attributeManagerInterface {
 	 */
 	function getAllOptionValues() {
 		if(0 === count($this->arrAllOptionValues)) {
-		  //BOF:hash_task
-          /*
-          //EOF:hash_task
 			$query = amDB::query("select * from ".TABLE_PRODUCTS_OPTIONS_VALUES." where language_id='".amDB::input($this->intLanguageId)."'");
-		  //BOF:hash_task
-          */
-			$temp = array_keys($this->getAllOptions());
-			if (empty($temp)){
-				$query = amDB::query("select pov.* from " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov inner join products_options_values_to_products_options pov2po on pov.products_options_values_id=pov2po.products_options_values_id where pov.language_id='".amDB::input($this->intLanguageId)."' and pov2po.products_options_id in (0)");
-			} else {
-				$query = amDB::query("select pov.* from " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov inner join products_options_values_to_products_options pov2po on pov.products_options_values_id=pov2po.products_options_values_id where pov.language_id='".amDB::input($this->intLanguageId)."' and pov2po.products_options_id in (" . implode(',', array_keys($this->getAllOptions())) . ")");
-			}
-
-          //EOF:hash_task
 			while($res = amDB::fetchArray($query))
 				$this->arrAllOptionValues[$res['products_options_values_id']] = $res['products_options_values_name'];
 		}
@@ -248,26 +216,15 @@ interface attributeManagerInterface {
 			$allOptions = $this->getAllOptions();
 			$allOptionValues = $this->getAllOptionValues();
 		
-			//$query = amDB::query("select * from ".TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS);
-            //BOF:hash_task
-            /*
-            //EOF:hash_task
-			$query = amDB::query("select pov2po.* from products_options popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov left join " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " pov2po on pov.products_options_values_id = pov2po.products_options_values_id where pov.language_id = '". amDB::input($this->intLanguageId)."' and popt.is_xml_feed_option = '0' and pov2po.products_options_id = popt.products_options_id");
-            //BOF:hash_task
-            */
-			$temp = array_keys($allOptions);
-			if (empty($temp)){
-				$query = amDB::query("select pov2po.* from products_options popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov left join " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " pov2po on pov.products_options_values_id = pov2po.products_options_values_id where pov.language_id = '". amDB::input($this->intLanguageId)."' and pov2po.products_options_id = popt.products_options_id and pov2po.products_options_id in (0)");
-			} else {
-				$query = amDB::query("select pov2po.* from products_options popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov left join " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " pov2po on pov.products_options_values_id = pov2po.products_options_values_id where pov.language_id = '". amDB::input($this->intLanguageId)."' and pov2po.products_options_id = popt.products_options_id and pov2po.products_options_id in (" . implode(',', array_keys($allOptions)) . ")");
-			}
-
-            //EOF:hash_task
+			$query = amDB::query("select * from ".TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS);
+		
 			$optionsId = null;
 			while($res = amDB::fetchArray($query)) {
 				if($res['products_options_id'] != $optionsId) {
 					$optionsId = $res['products_options_id'];
-					$this->arrAllOptionsAndValues[$optionsId]['name'] = $allOptions[$optionsId];
+					if ($optionsId != 0) {
+						$this->arrAllOptionsAndValues[$optionsId]['name'] = $allOptions[$optionsId];
+					}
 				}
 				$this->arrAllOptionsAndValues[$optionsId]['values'][$res['products_options_values_id']] = $allOptionValues[$res['products_options_values_id']];
 			}
@@ -438,7 +395,12 @@ interface attributeManagerInterface {
   				// Added by Red Earth Design, Inc. to populate price and prefix
   				$this->arrAllTemplatesAndAttributes[$templateID]['price_prefix'][$res['option_values_id']] = $res['price_prefix'];
   				$this->arrAllTemplatesAndAttributes[$templateID]['options_values_price'][$res['option_values_id']] = $res['options_values_price'];
-			}
+          
+                if (AM_USE_MPW) {
+                  $this->arrAllTemplatesAndAttributes[$templateID]['weight_prefix'][$res['option_values_id']] = $res['price_weight'];
+                  $this->arrAllTemplatesAndAttributes[$templateID]['options_values_weight'][$res['option_values_id']] = $res['options_values_weight'];
+                }
+           }
 		}
 		return $this->arrAllTemplatesAndAttributes;
 	}
@@ -533,7 +495,7 @@ interface attributeManagerInterface {
   								'option_values_id' => $optionValuesId,
   								'price_prefix' => $values['values'][$optionValuesId]['prefix'],
   								'options_values_price' => $values['values'][$optionValuesId]['price']
-  							);
+                            );
   						} else {
 	  						$data = array(
   								'template_id' => $newTemplateId,
@@ -544,6 +506,11 @@ interface attributeManagerInterface {
   								'products_options_sort_order' => $values['values'][$optionValuesId]['sortOrder']
   							);
   						}
+
+                        if (AM_USE_MPW) {
+                          $data['weight_prefix'] = $values['values'][$optionValuesId]['weight_prefix'];
+                          $data['options_values_weight'] = $values['values'][$optionValuesId]['weight'];
+                        }
   						//echo '<br><br>Array DATA:: <br><br>';
   						//print_r($data);
 						amDB::perform(AM_TABLE_ATTRIBUTES_TO_TEMPLATES,$data);
@@ -620,7 +587,9 @@ interface attributeManagerInterface {
   										'option_id' => $optionsId,
   										'option_value_id' => $optionValuesId,
   										'price' => $allTemplatesAttributes[$templateId]['options_values_price'][$optionValuesId],
-  										'prefix' => $allTemplatesAttributes[$templateId]['price_prefix'][$optionValuesId]
+  										'prefix' => $allTemplatesAttributes[$templateId]['price_prefix'][$optionValuesId],
+                      'weight' => $allTemplatesAttributes[$templateId]['options_values_weight'][$optionValuesId],
+                      'weight_prefix' => $allTemplatesAttributes[$templateId]['weight_prefix'][$optionValuesId]
   									)
   								);
   							}
@@ -632,7 +601,9 @@ interface attributeManagerInterface {
   										'option_value_id' => $optionValuesId,
   										'price' => $allTemplatesAttributes[$templateId]['options_values_price'][$optionValuesId],
   										'prefix' => $allTemplatesAttributes[$templateId]['price_prefix'][$optionValuesId],
-									    'sortOrder' => $allTemplatesAttributes[$templateId]['sortOrder'][$optionValuesId]
+									    'sortOrder' => $allTemplatesAttributes[$templateId]['sortOrder'][$optionValuesId],
+                      'weight' => $allTemplatesAttributes[$templateId]['options_values_weight'][$optionValuesId],
+                      'weight_prefix' => $allTemplatesAttributes[$templateId]['weight_prefix'][$optionValuesId],
 									  )
 									);	
 								}
@@ -643,7 +614,9 @@ interface attributeManagerInterface {
   										'option_value_id' => $optionValuesId,
   										'price' => $allTemplatesAttributes[$templateId]['options_values_price'][$optionValuesId],
   										'prefix' => $allTemplatesAttributes[$templateId]['price_prefix'][$optionValuesId],
-									    'stockTracking' => '0'
+									    'stockTracking' => '0',
+                      'weight' => $allTemplatesAttributes[$templateId]['options_values_weight'][$optionValuesId],
+                      'weight_prefix' => $allTemplatesAttributes[$templateId]['weight_prefix'][$optionValuesId]
 									  )
 									);	
 								}
@@ -655,7 +628,9 @@ interface attributeManagerInterface {
   										'price' => $allTemplatesAttributes[$templateId]['options_values_price'][$optionValuesId],
   										'prefix' => $allTemplatesAttributes[$templateId]['price_prefix'][$optionValuesId],
 									    'sortOrder' => $allTemplatesAttributes[$templateId]['sortOrder'][$optionValuesId],
-									    'stockTracking' => '0'
+									    'stockTracking' => '0',
+                      'weight' => $allTemplatesAttributes[$templateId]['options_values_weight'][$optionValuesId],
+                      'weight_prefix' => $allTemplatesAttributes[$templateId]['weight_prefix'][$optionValuesId]
 									  )
 									);	
 								}
@@ -718,8 +693,9 @@ interface attributeManagerInterface {
 		$returnArray = array();
 		
 		foreach($allOptionsAndValues as $optionId => $optionValues)
+		if(isset($optionValues['name'])) {
 			$returnArray[$optionId] = $optionValues['name'];
-		
+		}		
 		// remove any already assigned
 		if(true === $subtract) {
 			
@@ -772,7 +748,7 @@ interface attributeManagerInterface {
 		// just get the values for the specified option id
 		else {
 			if(array_key_exists($optionId,$allOptionsAndValues))
-				if(is_array($allOptionsAndValues[$optionId]['values']))
+				if((array_key_exists('values',$allOptionsAndValues[$optionId])) && (is_array($allOptionsAndValues[$optionId]['values'])))
 					foreach($allOptionsAndValues[$optionId]['values'] as $optionValueId => $optionValueText) 
 						$returnArray[$optionValueId] = $optionValueText;
 		}
@@ -783,7 +759,7 @@ interface attributeManagerInterface {
 			$allProductsOptionsAndValues = $this->getAllProductOptionsAndValues();
 			
 			// get all of the values
-			if(null === $optionId) {
+			if((null === $optionId) || (!array_key_exists($optionId,$allProductsOptionsAndValues))) {
 				$tAll = array();
 				
 				foreach($allProductsOptionsAndValues as $optionId => $details)
@@ -882,13 +858,21 @@ interface attributeManagerInterface {
 		echo (is_array($ent) || is_object($ent)) ? '<pre style="text-align:left">'.print_r($ent, true).'</pre>' : $ent;
 	}
 	
-	
+	/**
+	 * Gets all child product id of a parent product from the database
+	 * @access protected
+	 * @return array all child product ids
+	 */
+	function getAllChildProducts($products_id) {
+		$queryString = "select products_id from ".TABLE_PRODUCTS." where parent_products_model = (select products_model from ".TABLE_PRODUCTS." where products_id = '".amDB::input($products_id)."')";
+		
+		$query = amDB::query($queryString);
+
+		while($res = amDB::fetchArray($query))
+			$this->arrAllChildProducts[] = $res['products_id'];
+		
+		return $this->arrAllChildProducts;
+	}
 	
 }
-
-
-
-
-
-
 ?>

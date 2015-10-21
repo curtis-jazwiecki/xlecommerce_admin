@@ -28,12 +28,32 @@ if(is_array(${AM_SESSION_VAR_NAME}) && is_numeric($products_id)){
         		'options_values_price' => amDB::input($newAttribute['price']),
         		'price_prefix' => amDB::input($newAttribute['prefix'])
         	);
+
+            if (AM_USE_MPW) {
+              $newAttributeData['options_values_weight'] = amDB::input($newAttribute['weight']);
+              $newAttributeData['weight_prefix'] = amDB::input($newAttribute['weight_prefix']);
+            }
+
         	if (AM_USE_SORT_ORDER) {
         		$newAttributeData[AM_FIELD_OPTION_VALUE_SORT_ORDER] = amDB::input($newAttribute['sortOrder']);
         	}
 		
 		// insert it into the database
 		amDB::perform(TABLE_PRODUCTS_ATTRIBUTES, $newAttributeData);
+		
+		// code added on 09-10-2015 #start
+		$child_products = $this->getAllChildProducts($this->intPID);
+		
+		if( (isset($child_products)) && (count($child_products) > 0) ){
+			foreach($child_products as $child_products_id){
+				$newAttributeData['products_id'] = $child_products_id;
+				amDB::perform(TABLE_PRODUCTS_ATTRIBUTES, $newAttributeData);
+			}
+		}
+		
+		// code added on 09-10-2015 #ends
+		
+		
 	}
 	
 	/**

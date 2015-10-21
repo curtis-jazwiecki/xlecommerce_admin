@@ -22,6 +22,8 @@ class amDB {
 	 * @package $strQuery sting - sql query string
 	 * @return query reference
 	 */
+	
+	
 	static function query($strQuery) {
 		return tep_db_query($strQuery);
 	}
@@ -42,7 +44,7 @@ class amDB {
 	 * @param $ref - referece from a mysql query
 	 * @return int - number of fields in result
 	 */
-	static function numFields($ref) {
+	function numFields($ref) {
 		return mysql_num_fields($ref);
 	}
 	
@@ -53,7 +55,7 @@ class amDB {
 	 * @param $offset - offset of a field
 	 * @return string - name of the field
 	 */
-	static function fieldName($ref,$offset) {
+	function fieldName($ref,$offset) {
 		return mysql_field_name($ref,$offset);
 	}
 	
@@ -88,10 +90,10 @@ class amDB {
 	static function getOne($strQuery) {
 		$res = amDB::query($strQuery);
 		if ($res && amDB::numRows($res)) 
-			//return mysql_result($res, 0, 0);
-			$row = $res->fetch_array();
-			return $row[0];
-		return false;
+			//return mysql_result($res,0,0);
+		          $data = $res->fetch_row();
+                  return $data[0];
+		          return false;
 	}
 	
 	/**
@@ -138,7 +140,7 @@ class amDB {
 	 * @param $link sting - db link name
 	 * @return void
 	 */
-	static function insertId($link = 'db_link' ) {
+	function insertId($link = 'db_link' ) {
 		global $$link;
 		return mysql_insert_id($$link);
 	}
