@@ -3506,7 +3506,10 @@ if (tep_not_null($action))
 
 
 
-                }
+                }else{
+					//added on 27-10-2015 to insert NULL value to parent_products_model column
+					$sql_data_array['parent_products_model'] = NULL;
+				}
 
 
 
@@ -4395,11 +4398,20 @@ if (tep_not_null($action))
 
 
                     //}
+					
+					
+					
+					
 
 
 
                 }
-
+				
+				
+			// added on 27-10-2015 
+			if (empty($HTTP_POST_VARS['parent_products_model'])) {
+				tep_db_query("update products set parent_products_model = NULL where products_id='" . (int)$products_id . "'");
+			}
 
 
                 //parent-child 25Feb2014 (MA) BOF
@@ -4446,7 +4458,7 @@ if (tep_not_null($action))
 
 
 
-                                tep_db_query("update products set parent_products_model = '" . $parent_model .
+                                tep_db_query("update products set parent_products_model = '" . (!empty($parent_model) ? $parent_model:NULL) .
 
 
 

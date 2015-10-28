@@ -19,14 +19,24 @@
 
   if (isset($HTTP_GET_VARS['goto'])) {
     $current_path = $HTTP_GET_VARS['goto'];
-    tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+    $_SESSION['current_path'] = $current_path; 
+	tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
   }
 
-  if (strstr($current_path, '..')) $current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
+  if (strstr($current_path, '..')) {
+	  $current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
+  }
+  
+  if (!is_dir($current_path)) {
+	  $current_path =  DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
+  }
 
-  if (!is_dir($current_path)) $current_path =  DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
-
-  if (!preg_match('@^' . DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full/@", $current_path)) $current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
+  
+  if (preg_match('@^' . DIR_FS_DOCUMENT_ROOT."images/@", $current_path)){
+	  // do nothing
+  }else{
+	  $current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
+  }
 
   $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
 
@@ -97,7 +107,7 @@
   $in_directory = substr(substr(DIR_FS_DOCUMENT_ROOT."images/", strrpos(DIR_FS_DOCUMENT_ROOT."images/", '/')), 1);
   $current_path_array = explode('/', $current_path);
   $document_root_array = explode('/', DIR_FS_DOCUMENT_ROOT."images/");
-  $goto_array = array(array('id' => DIR_FS_DOCUMENT_ROOT."images/", 'text' => $in_directory));
+  $goto_array = array(array('id' => DIR_FS_DOCUMENT_ROOT."images/", 'text' => "images"));
   for ($i=0, $n=sizeof($current_path_array); $i<$n; $i++) {
     if ((isset($document_root_array[$i]) && ($current_path_array[$i] != $document_root_array[$i])) || !isset($document_root_array[$i])) {
       $goto_array[] = array('id' => implode('/', array_slice($current_path_array, 0, $i+1)), 'text' => $current_path_array[$i]);

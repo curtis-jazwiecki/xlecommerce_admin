@@ -486,6 +486,10 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
             for ($i=(sizeof($category_path[0])-1); $i>0; $i--) {
               $category_path_string .= $category_path[0][$i]['id'] . '_';
             }
+			
+			//echo '<pre>';
+				//print_r($category_path);
+			//echo '</pre>';
             $category_path_string = substr($category_path_string, 0, -1);
 
             $heading[] = array('text' => '<b>' . $cInfo->categories_name . '</b>');

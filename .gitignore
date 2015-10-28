@@ -49,5 +49,5 @@ export_files/
 shipping_labels/
 *.BKUP*
 attributeManager_old/
-images/graphs/
+images/graphs/*
 

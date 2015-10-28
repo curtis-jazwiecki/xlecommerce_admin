@@ -116,6 +116,7 @@ function generate_frontend_category_path($id, $from = 'category', $categories_ar
     if (!is_array($categories_array)) $categories_array = array();
 
     if ($from == 'product') {
+		
       $categories_query = tep_db_query("select categories_id from frontend_products_to_categories where products_id = '" . (int)$id . "'");
       while ($categories = tep_db_fetch_array($categories_query)) {
         if ($categories['categories_id'] == '0') {
@@ -129,12 +130,19 @@ function generate_frontend_category_path($id, $from = 'category', $categories_ar
         }
         $index++;
       }
-    } elseif ($from == 'category') {
-      $category_query = tep_db_query("select cd.categories_name, c.parent_id from frontend_categories c, frontend_categories_description cd where c.categories_id = cd.categories_id and cd.language_id = '" . (int)$languages_id . "'");
+    
+	} elseif ($from == 'category') {
+      
+	  $category_query = tep_db_query("select cd.categories_name, c.parent_id from frontend_categories c, frontend_categories_description cd where c.categories_id = cd.categories_id and cd.language_id = '" . (int)$languages_id . "' and c.categories_id = '".$id."'");
+	  
       $category = tep_db_fetch_array($category_query);
-      $categories_array[$index][] = array('id' => $id, 'text' => $category['categories_name']);
-      if ( (tep_not_null($category['parent_id'])) && ($category['parent_id'] != '0') ) $categories_array = generate_frontend_category_path($category['parent_id'], 'category', $categories_array, $index);
-    }
+      
+	  $categories_array[$index][] = array('id' => $id, 'text' => $category['categories_name']);
+      
+	  if ( (tep_not_null($category['parent_id'])) && ($category['parent_id'] != '0') ) 
+	  	$categories_array = generate_frontend_category_path($category['parent_id'], 'category', $categories_array, $index);
+    
+	}
 
     return $categories_array;
 }
