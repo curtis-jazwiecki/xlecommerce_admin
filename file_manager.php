@@ -34,6 +34,9 @@
   
   if (preg_match('@^' . DIR_FS_DOCUMENT_ROOT."images/@", $current_path)){
 	  // do nothing
+  }else if(preg_match('@^' . DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full/@", $current_path)){
+	  
+	  //$current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
   }else{
 	  $current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
   }
@@ -109,9 +112,28 @@
   $document_root_array = explode('/', DIR_FS_DOCUMENT_ROOT."images/");
   $goto_array = array(array('id' => DIR_FS_DOCUMENT_ROOT."images/", 'text' => "images"));
   for ($i=0, $n=sizeof($current_path_array); $i<$n; $i++) {
-    if ((isset($document_root_array[$i]) && ($current_path_array[$i] != $document_root_array[$i])) || !isset($document_root_array[$i])) {
-      $goto_array[] = array('id' => implode('/', array_slice($current_path_array, 0, $i+1)), 'text' => $current_path_array[$i]);
+    if($current_path_array[$i] == 'includes' || $current_path_array[$i] == 'sts_templates'){
+		continue;
+	}
+	if ((isset($document_root_array[$i]) && ($current_path_array[$i] != $document_root_array[$i])) || !isset($document_root_array[$i])) {
+      $goto_array[] = array('id' => implode('/', array_slice($current_path_array, 0, $i+1)), 'text' => $current_path_array[$i] =='full' ? 'templates':$current_path_array[$i]);
     }
+  }
+  
+  $flag = 1;
+  foreach($goto_array as $unique_goto){
+	  if($unique_goto['text'] == 'templates'){
+	  		$flag = 0;
+			break;
+			
+	  }
+  }
+  
+  if($flag == 1){
+	  $goto_array[] = array(
+		'id' => DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full", 
+		'text' => "templates"
+  	  );
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
