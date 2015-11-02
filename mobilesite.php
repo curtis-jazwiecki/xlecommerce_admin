@@ -11,6 +11,13 @@
 */
 
   require('includes/application_top.php');
+  
+  $check_mobile_template_query = tep_db_query("select count(*) as total from " . TABLE_CONFIGURATION . " where configuration_key='MOBILE_TEMPLATE_FOLDER'");
+  $result = tep_db_fetch_array($check_mobile_template_query);
+  if ($result['total'] <= 0) {
+    tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, use_function, date_added) values ('Mobile Template Folder', 'MOBILE_TEMPLATE_FOLDER', '', 'Set the template for mobile site', '99999', '0', '', '', now())");
+  }
+  
 
   $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
   //print_r($_POST);
@@ -31,6 +38,13 @@ if($_POST['mstat'])
 	//echo'<h1>123213</h1>';
 	
 	$updateQry = tep_db_query("UPDATE `".TABLE_CONFIGURATION."` SET `configuration_value` = '".$nval."' WHERE `configuration_id` = '743'");
+}
+
+if (isset($_POST['mobile_template'])) {
+    tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value='" . $_POST['mobile_template'] . "' where configuration_key='MOBILE_TEMPLATE_FOLDER'");
+    $mobile_template=$_POST['mobile_template'];
+} else {
+    $mobile_template=MOBILE_TEMPLATE_FOLDER;
 }
 $currentVal = tep_db_query("SELECT `configuration_value` FROM `".TABLE_CONFIGURATION."` WHERE `configuration_id` = '743' LIMIT 0 , 1");
 $currentValue = tep_db_fetch_array($currentVal);	
@@ -72,6 +86,28 @@ $currentValue = tep_db_fetch_array($currentVal);
               <tr>
                 <td class="main" style="color:#FFFFFF">Mobile Site Status</td>
                 <td style="color:#fff;"><input type="radio" value="t" name="mstat" <?php if($currentValue['configuration_value']=='True') echo'checked="checked"';?>> ON <input type="radio" value="f" name="mstat" <?php if($currentValue['configuration_value']=='False') echo'checked="checked"';?>> OFF </td>
+              </tr>
+              <tr>
+                <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+              </tr>
+               <tr>
+                <td class="main" style="color:#FFFFFF">Mobile Site Template</td>
+                <td style="color:#fff;">
+                <?php
+                $templates_folder = DIR_FS_CATALOG . DIR_WS_INCLUDES . 'sts_templates/full/';
+                $default_dir = array('_notes', 'boxes', 'images', 'content');
+                $templates_array[]= array('id'=>'',
+                                        'text' => 'Please Select');
+                if ($handle = opendir($templates_folder)) {
+                    while (false !== ($entry = readdir($handle))) {
+                     if (is_dir($templates_folder . $entry) && $entry != "." && $entry != ".." && !in_array($entry,$default_dir)) {
+                       $templates_array[] = array('id'=>$entry,
+                                                  'text' => $entry);
+                     }
+                  }
+               } 
+                echo tep_draw_pull_down_menu('mobile_template', $templates_array,$mobile_template)
+                ?></td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
