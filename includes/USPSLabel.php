@@ -1,18 +1,6 @@
 <?php
-function USPSLabel(
-    $userName,
-    $password,
-    $FromName,
-    $FromAddress2,
-    $FromCity,
-    $FromState,
-    $FromZip5,
-    $ToName,
-    $ToAddress2,
-    $ToCity,
-    $ToState,
-    $ToZip5
-    ) {
+function USPSLabel($from,$to) {
+		
 
 // This script was written by Mark Sanborn at http://www.marksanborn.net
 // If this script benefits you are your business please consider a donation
@@ -53,24 +41,24 @@ curl_setopt($ch, CURLOPT_POST, 1);
 
  // $data = "API=DeliveryConfirmationV4.0Request&XML=<DeliveryConfirmationV4.0Request USERID=\"$userName\" PASSWORD=\"$password\"> 
 // $data = "API=DelivConfirmCertifyV4Request&XML=<DelivConfirmCertifyV4.0Request USERID=\"$userName\" PASSWORD=\"$password\">
-$data = "API=DeliveryConfirmationV4&XML=<DeliveryConfirmationV4.0Request USERID=\"$userName\" PASSWORD=\"$password\">
+$data = "API=DeliveryConfirmationV4&XML=<DeliveryConfirmationV4.0Request USERID='".$from['userName']."' PASSWORD=''>
 <Revision>2</Revision>
 <ImageParameters />
-<FromName>$FromName</FromName>
+<FromName>".$from['FromName']."</FromName>
 <FromFirm />
 <FromAddress1 />
-<FromAddress2>$FromAddress2</FromAddress2>
-<FromCity>$FromCity</FromCity>
-<FromState>$FromState</FromState>
-<FromZip5>$FromZip5</FromZip5>
+<FromAddress2>".$from['FromAddress2']."</FromAddress2>
+<FromCity>".$from['FromCity']."</FromCity>
+<FromState>".$from['FromState']."</FromState>
+<FromZip5>".$from['FromZip5']."</FromZip5>
 <FromZip4 />
-<ToName>$ToName</ToName>
+<ToName>".$to['ToName']."</ToName>
 <ToFirm />
 <ToAddress1 />
-<ToAddress2>$ToAddress2</ToAddress2>
-<ToCity>$ToCity</ToCity>
-<ToState>$ToState</ToState>
-<ToZip5>$ToZip5</ToZip5>
+<ToAddress2>".$to['ToAddress2']."</ToAddress2>
+<ToCity>".$to['ToCity']."</ToCity>
+<ToState>".$to['ToState']."</ToState>
+<ToZip5>".$to['ToZip5']."</ToZip5>
 <ToZip4 />
 <WeightInOunces>$weightOunces</WeightInOunces>
 <ServiceType>Priority</ServiceType>
@@ -98,6 +86,7 @@ $data = "API=DeliveryConfirmationV4&XML=<DeliveryConfirmationV4.0Request USERID=
 <ExtraServices />
 </DeliveryConfirmationV4.0Request>";
 
+
 // send the POST values to USPS
 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
@@ -107,6 +96,8 @@ $result=curl_exec($ch);
 /* debug the stupid thing */
 // var_dump($result);
 
+
+
 $data = strstr($result, '<?');
 /* no idea what this does */
 // echo '<!-- '. $data. ' -->'; // Uncomment to show XML in comments
@@ -115,7 +106,6 @@ $data = strstr($result, '<?');
 $xmlParser = new uspsxmlParser();
 $fromUSPS = $xmlParser->xmlparser($data);
 $fromUSPS = $xmlParser->getData();
-
 curl_close($ch);
 return $fromUSPS;
 }

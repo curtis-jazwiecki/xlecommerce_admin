@@ -66,7 +66,6 @@ $product_weight_query = tep_db_fetch_array(tep_db_query("select SUM(products_wei
 
 if ($vendor_id){
 	$get_vendor_details = tep_db_fetch_array(tep_db_query("select * from vendors where vendors_id = '".(int)$vendor_id."'"));
-	
 	$from_params_array = array(
 		"userName" 	 => @constant('MODULE_SHIPPING_USPS_USERID_'.$vendor_id),
 		"FromName" 	 => $get_vendor_details['vendors_name'],
@@ -92,6 +91,7 @@ if ($vendor_id){
 	$USPSResponse = USPSLabel($from_params_array,$to_params_array);
 	
 } else {
+	
 	$USPSResponse = USPSLabel(MODULE_SHIPPING_USPS_USERID, SHIPPING_LABEL_USPS_FROM_NAME,SHIPPING_LABEL_USPS_FROM_ADDRESS,SHIPPING_LABEL_USPS_FROM_CITY,SHIPPING_LABEL_USPS_FROM_STATE,SHIPPING_LABEL_USPS_FROM_ZIP, $result['customers_name'] ,$result['customers_street_address'], $result['customers_city'], convert_state( $result['customers_state'], 'abbrev' ), $result['customers_postcode'], $product_weight_query['products_weight'], $parsed_shipping_code);
 }
 // Debug
@@ -99,11 +99,10 @@ if ($vendor_id){
 
 tep_db_query("update orders_shipping set usps_track_num = '".$USPSResponse['DelivConfirmCertifyV4.0Response']['DeliveryConfirmationNumber']['VALUE']."' where orders_id = '".$order_id."' and 	vendors_id = '".$vendor_id."'");
 // get the label from the returned array
-$USPSLabel = $USPSResponse['DelivConfirmCertifyV4.0Response']['DeliveryConfirmationLabel']['VALUE'];
+$USPSLabel = $USPSResponse['DeliveryConfirmationV4.0Response']['DeliveryConfirmationLabel']['VALUE'];
 
 // turn label into pdf
 $label_pdf = base64_decode($USPSLabel);
-
 // write the pdf
 $label_name = $order_id.'_'.$vendor_id.'_usps_label.pdf';
 @file_put_contents('shipping_labels/'.$label_name, $label_pdf);
