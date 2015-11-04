@@ -128,19 +128,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script language="javascript" src="includes/general.js"></script>
-<script>
-  $(function() {
-    $( "#product" ).autocomplete({
+<script type="text/javascript">
+  jQuery(function() {
+    jQuery( "#product" ).autocomplete({
       source: "specials.php?action=autocomplete",
       minLength: 3,
       select: function( event, ui ) {
 		event.preventDefault();
-		$('#productid').val(ui.item.value);
-		$('#product').val(ui.item.label);
+		jQuery('#productid').val(ui.item.value);
+		jQuery('#product').val(ui.item.label);
       }
     });
   });
