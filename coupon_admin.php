@@ -180,6 +180,14 @@
 <script language="JavaScript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
 <script language="javascript">
   var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",scBTNMODE_CUSTOMBLUE);
+  
+function addCategories(category_string){
+	jQuery('input:text[name=coupon_categories]').val(category_string);
+}
+
+function addProducts(product_string){
+	jQuery('input:text[name=coupon_products]').val(product_string);
+}
 </script>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
@@ -728,7 +736,7 @@ $customer = tep_db_fetch_array($customer_query);
       </tr>
       <tr>
         <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_CATEGORIES; ?></td>
-        <td align="left"><?php echo tep_draw_input_field('coupon_categories', $coupon_categories); ?> <A HREF="validcategories.php" TARGET="_blank" ONCLICK="window.open('validcategories.php', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
+        <td align="left"><?php echo tep_draw_input_field('coupon_categories', $coupon_categories); ?> <A HREF="validcategories.php" TARGET="_blank" ONCLICK="window.open('validcategories.php?cat_type=obn', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
         <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_CATEGORIES_HELP; ?></td>
       </tr>
       <tr>
