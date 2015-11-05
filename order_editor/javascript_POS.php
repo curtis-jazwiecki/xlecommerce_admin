@@ -458,7 +458,13 @@ function updateShippingZone(field, value) {
 	  xmlHttp.open("POST", url, true);//GET does not work with this data
 	 
 	  xmlHttp.onreadystatechange=
-              function(){if(xmlHttp.readyState!=4)return;if(xmlHttp.status==200){reloadDiv('totalsBlock', xmlHttp.responseText);}};
+              function(){
+				  if(xmlHttp.readyState!=4)
+				  	return;
+				  if(xmlHttp.status==200){
+					reloadDiv('totalsBlock', xmlHttp.responseText);
+				  }
+			  };
 		 
       xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xmlHttp.setRequestHeader("Content-length", formdata.length);
@@ -468,7 +474,46 @@ function updateShippingZone(field, value) {
 	
    }//end function obtainTotals() {
    
-   
+  function obtainTotalsAndReload() { //this is used for processing/updating order totals
+  
+    createRequest();
+	
+    // Set up data variable
+    var formdata = "";
+	 
+    // Loop through form fields
+    for (i=0; i < document.edit_order.elements.length; i++) {
+	   if (!(document.edit_order.elements[i].name.indexOf('update_shipping')!=-1 && document.edit_order.elements[i].name.indexOf('title')!=-1)){
+		formdata += encodeURIComponent(document.edit_order.elements[i].name) + "=" + encodeURIComponent(document.edit_order.elements[i].value) + "&";
+	   }
+     }
+		  formdata += "action=reload_totals&";
+		  formdata += "oID=<?php echo $_GET['oID']; ?>"
+	 var url = "<?php echo FILENAME_ORDERS_EDIT_AJAX_POS; ?>";
+	 
+	  //hey- we're busy here
+	  document.getElementById("totalsBlock").innerHTML = '<div align="center"><img src="order_editor/images/working.gif"><br><?php echo AJAX_WORKING; ?><br></div>';  
+	  //if you do this before you loop the form the data will be lost
+
+	  xmlHttp.open("POST", url, true);//GET does not work with this data
+	 
+	  xmlHttp.onreadystatechange=
+              function(){
+				  if(xmlHttp.readyState!=4)
+				  	return;
+				  if(xmlHttp.status==200){
+					location.reload();
+					//reloadDiv('totalsBlock', xmlHttp.responseText);
+				  }
+			  };
+		 
+      xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xmlHttp.setRequestHeader("Content-length", formdata.length);
+      xmlHttp.setRequestHeader("Connection", "close");
+      xmlHttp.send(formdata);
+		  
+	
+   }//end function obtainTotals() {
    
    function newOrderEmail() { //sending out new order confirmation emails the AJAX way
     
