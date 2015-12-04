@@ -42,17 +42,7 @@ $return .='
 	}
 if ($_GET['section']== 'amAddOption') {
 $style = 'style="margin:3px 0px 3px 0px;" id="stockTracking_1" size="4"';
-//$optionSortDrop = array('1', '2', '3', '4', '5', '6', '7', '8', '9');
-$optionSortDrop = array();
-$optionSortDrop[] = array('id' => '1', 'text' => '1');
-$optionSortDrop[] = array('id' => '2', 'text' => '2');
-$optionSortDrop[] = array('id' => '3', 'text' => '3');
-$optionSortDrop[] = array('id' => '4', 'text' => '4');
-$optionSortDrop[] = array('id' => '5', 'text' => '5');
-$optionSortDrop[] = array('id' => '6', 'text' => '6');
-$optionSortDrop[] = array('id' => '7', 'text' => '7');
-$optionSortDrop[] = array('id' => '8', 'text' => '8');
-$optionSortDrop[] = array('id' => '9', 'text' => '9');
+$optionSortDrop = array('1', '2', '3', '4', '5', '6', '7', '8', '9');
 $return .= '	<tr>';
 if(AM_USE_SORT_ORDER) {
 	$return .= '<td>'.AM_AJAX_SORT.tep_draw_pull_down_menu('optionSortDropDown', $optionSortDrop, '', 'id="optionSortDropDown"').'</td>';
@@ -61,7 +51,7 @@ if(AM_USE_SORT_ORDER) {
 }
 
 if(AM_USE_QT_PRO) {
-	$return .='	<td>'.AM_AJAX_TRACK_STOCK.' <img src="attributeManager/images/icon_up.png" id="imgCheck_1" onclick="checkBox(1)" title="'.AM_AJAX_TRACK_STOCK_IMGALT.'" />
+	$return .='	<td>'.AM_AJAX_TRACK_STOCK.' <img src="attributeManager/images/icon_unchecked.gif" id="imgCheck_1" onclick="checkBox(1)" title="'.AM_AJAX_TRACK_STOCK_IMGALT.'" />
 		    '. tep_draw_hidden_field('stockTracking_1', '0', $style).'
 			</td>';
 } else {

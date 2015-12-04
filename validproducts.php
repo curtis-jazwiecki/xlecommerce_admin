@@ -18,6 +18,7 @@ require('includes/application_top.php');
 ?>
 <html>
 <head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <title>Valid Categories/Products List</title>
 <style type="text/css">
 <!--
@@ -31,19 +32,21 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
 <body>
 <table width="550" border="1" cellspacing="1" bordercolor="gray">
 <tr>
-<td colspan="3">
+<td colspan="4">
 <h4><?php echo TEXT_VALID_PRODUCTS_LIST; ?></h4>
 </td>
 </tr>
 <?
-    echo "<tr><th>". TEXT_VALID_PRODUCTS_ID . "</th><th>" . TEXT_VALID_PRODUCTS_NAME . "</th><th>" . TEXT_VALID_PRODUCTS_MODEL . "</th></tr><tr>";
+    echo "<tr><tr><th>Select</th><th>". TEXT_VALID_PRODUCTS_ID . "</th><th>" . TEXT_VALID_PRODUCTS_NAME . "</th><th>" . TEXT_VALID_PRODUCTS_MODEL . "</th></tr><tr>";
     $result = tep_db_query("SELECT * FROM products, products_description WHERE products.products_id = products_description.products_id and products_description.language_id = '" . $languages_id . "' ORDER BY products_description.products_name");
     if ($row = tep_db_fetch_array($result)) {
         do {
-            echo "<td>".$row["products_id"]."</td>\n";
-            echo "<td>".$row["products_name"]."</td>\n";
-            echo "<td>".$row["products_model"]."</td>\n";
-            echo "</tr>\n";
+            echo "<tr>";
+			echo '<td align="center"><input type="checkbox" value="'.$row["products_id"].'" name="chkproductbox[]" class="chk_products_id"></td>';
+			echo "<td align='center'>".$row["products_id"]."</td>";
+            echo "<td>".$row["products_name"]."</td>";
+            echo "<td>".$row["products_model"]."</td>";
+            echo "</tr>";
         }
         while($row = tep_db_fetch_array($result));
     }
@@ -52,7 +55,23 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
 <br>
 <table width="550" border="0" cellspacing="1">
 <tr>
-<td align=middle><input type="button" value="Close Window" onClick="window.close()"></td>
+<td align=middle><input type="button" value="Close Window" onClick="ClosePopUp();"></td>
 </tr></table>
+<script type="text/javascript">
+function ClosePopUp(){
+	var sThisVal = [];
+	var product_string = '';
+	$('input:checkbox.chk_products_id').each(function () {
+       if(this.checked){
+	   	 sThisVal[sThisVal.length] = $(this).val();
+	   }
+    });
+	if(sThisVal.length > 0){
+		product_string = sThisVal.join(",");
+		window.opener.addProducts(product_string);
+	}
+	window.close();
+}
+</script>
 </body>
 </html>

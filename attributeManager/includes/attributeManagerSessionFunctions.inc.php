@@ -30,7 +30,7 @@ function amSessionIsRegistered($strSessionVar) {
 	return tep_session_is_registered($strSessionVar);
 }
 
-function &amGetSesssionVariable($strSessionVar) {
+function amGetSessionVariable($strSessionVar) {
 	if(isset($GLOBALS[$strSessionVar]))
 		return $GLOBALS[$strSessionVar];
 	return false;

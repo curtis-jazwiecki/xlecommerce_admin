@@ -219,7 +219,7 @@ $imageURL = GF_IMAGE_URL;
 if(SEO_ENABLED=='true'){
 
    $productURL = 'product_info.php'; // ***** Revised for SEO
-
+  
    $productParam = "products_id=";   // ***** Added for SEO
 
 }else{
@@ -243,9 +243,9 @@ if(CONVERT_CURRENCY)
        $productParam="currency=" . CURRENCY_TYPE . "&products_id=";
 
    }else{
-
+		
        $productURL = "http://" . DOMAIN_NAME . "/product_info.php?currency=" . CURRENCY_TYPE . "&products_id=";  //where CURRENCY_TYPE is your currency type (eg. USD, EUR, GBP)
-
+		
    }
 
 }
@@ -589,17 +589,17 @@ if(OPTIONS_ENABLED == 1) {
 
    if(OPTIONS_ENABLED_AGE_RANGE == 1) 		$output .= "\tage_range";
 
-   if(OPTIONS_ENABLED_BRAND == 1)            	$output .= "\tbrand";
+   if(OPTIONS_ENABLED_BRAND == 1)            	$output .= "\tbrand"; //
 
-   if(OPTIONS_ENABLED_CONDITION == 1)       	$output .= "\tcondition";
+   if(OPTIONS_ENABLED_CONDITION == 1)       	$output .= "\tcondition"; // 
 
    if(OPTIONS_ENABLED_CURRENCY == 1)        	$output .= "\tcurrency";
 
-   if(OPTIONS_ENABLED_EXPIRATION == 1)      	$output .= "\texpiration_date";
+   if(OPTIONS_ENABLED_EXPIRATION == 1)      	$output .= "\texpiration_date"; //
 
    if(OPTIONS_ENABLED_FEED_LANGUAGE == 1)   	$output .= "\tlanguage";
 
-   if(OPTIONS_ENABLED_GOOGLE_PRODUCT_CATEGORY == 1) $output .= "\tgoogle product_category";
+   if(OPTIONS_ENABLED_GOOGLE_PRODUCT_CATEGORY == 1) $output .= "\tgoogle product_category"; // 
 
    if(OPTIONS_ENABLED_GTIN == 1)            	$output .= "\tgtin";
 
@@ -607,11 +607,11 @@ if(OPTIONS_ENABLED == 1) {
 
    if(OPTIONS_ENABLED_MADE_IN == 1)         	$output .= "\tmade_in";
 
-   if(OPTIONS_ENABLED_MPN == 1)                 $output .= "\tmpn";
+   if(OPTIONS_ENABLED_MPN == 1)                 $output .= "\tmpn"; //
 
    if(OPTIONS_ENABLED_PRODUCT_MODEL == 1)   	$output .= "\tmodel";
 
-   if(OPTIONS_ENABLED_PRODUCT_TYPE == 1)    	$output .= "\tproduct_type";
+   if(OPTIONS_ENABLED_PRODUCT_TYPE == 1)    	$output .= "\tproduct_type"; //
 
    if(OPTIONS_ENABLED_SHIPPING == 1)         	$output .= "\tshipping";
 
@@ -785,9 +785,9 @@ while( $row = mysql_fetch_object( $result ) ) {
 
       if(SEO_ENABLED=='true'){
 
-          $output .= tep_href_link($productURL,$productParam . $row->id, 'NONSSL', false) . $google_utm . "\t";
+          $output .= str_replace("ad_obnv6/","",tep_href_link($productURL,$productParam . $row->id, 'NONSSL', false)) . $google_utm . "\t";
 
-          $pURL = tep_href_link($productURL,$productParam . $row->id, 'NONSSL', false);
+          $pURL = str_replace("ad_obnv6/","",tep_href_link($productURL,$productParam . $row->id, 'NONSSL', false));
 
       } else {
 
@@ -993,8 +993,6 @@ while( $row = mysql_fetch_object( $result ) ) {
 
    }
 
-
-
    $already_sent[$row->id] = 1;
 
    $loop_counter++;
@@ -1018,10 +1016,14 @@ while( $row = mysql_fetch_object( $result ) ) {
 }
 
 
+$fp = fopen( DIR_FS_DOCUMENT_ROOT.$OutFile , "a" );
 
-$fp = fopen( $OutFile , "a" );
+//$fout = fwrite( $fp , $output );
 
-$fout = fwrite( $fp , $output );
+if (fwrite( $fp , $output ) === FALSE) {
+	echo "Cannot write to file ($filename)";
+	exit;
+}
 
 fclose( $fp );
 
@@ -1107,7 +1109,7 @@ $csvStr = str_replace("\t", '",", ', $output);
 
 
 
-$fp = fopen( $csvFileLocn , "a" );
+$fp = fopen( DIR_FS_DOCUMENT_ROOT.$csvFileLocn , "a" );
 
 $fout = fwrite( $fp , $csvStr );
 
@@ -1138,7 +1140,7 @@ chmod($OutFile, 0777);
 
 
 function ftp_file( $ftpservername, $ftpusername, $ftppassword, $ftpsourcefile, $ftpdirectory, $ftpdestinationfile ) {
-
+	
    // set up basic connection
 
    $conn_id = ftp_connect($ftpservername);
@@ -1233,7 +1235,7 @@ function ftp_file( $ftpservername, $ftpusername, $ftppassword, $ftpsourcefile, $
 
 if (FTP_ENABLED)
 
-   ftp_file( GF_FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, $source_file, "", $destination_file);
+   ftp_file( GF_FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, DIR_FS_DOCUMENT_ROOT.$source_file, "", $destination_file);
 
 
 

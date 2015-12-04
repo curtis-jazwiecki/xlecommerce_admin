@@ -29,6 +29,16 @@ Released under the GNU General Public License
 */
 
 require('includes/application_top.php');
+
+// added on 09-11-2015 #start
+if(isset($_POST) && count($_POST) > 0){
+	foreach($_POST as $key => $value){
+		$$key = $value;
+	}
+}
+
+// added on 09-11-2015 #ends
+
 require(DIR_WS_LANGUAGES . $language . '/qbi_general.php');
 require(DIR_WS_LANGUAGES . $language . '/orders.php'); // needed for email text
 require(DIR_WS_INCLUDES . 'qbi_version.php');

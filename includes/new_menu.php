@@ -203,6 +203,8 @@ li#range:hover ul{
 			    { echo '<li class="block"><a href="' . tep_href_link(FILENAME_CONFIGURATION, 'gID=' . $configuration_groups['cgID'], 'NONSSL') . '">' . $configuration_groups['cgTitle'] . '</a></li>'; }
 
 			//  echo '<li class="block"><a href="' . tep_href_link("configuration_frontend.php", 'gID=' . $configuration_groups['cgID'], 'NONSSL') . '">Frontend Categories</a></li>';
+			
+			echo '<li class="block"><a href="' . tep_href_link("store_logo.php",'', 'NONSSL') . '">Store Logo</a></li>';
 
 	          echo '  </ul>';
 

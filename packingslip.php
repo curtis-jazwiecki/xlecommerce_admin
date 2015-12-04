@@ -40,7 +40,9 @@ body{ background-color: #FFF; }
     <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td class="pageHeading2"><?php echo nl2br(STORE_NAME_ADDRESS); ?></td>
-        <td class="pageHeading2" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'oscommerce.gif', 'osCommerce', '204', '50'); ?></td>
+        <td class="pageHeading2" align="right">
+        <?php echo tep_image(HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . 'store_logo.png', 'cloudcommerce', '204', '50'); ?>
+		<?php //echo tep_image(DIR_WS_IMAGES . 'oscommerce.gif', 'osCommerce', '204', '50'); ?></td>
       </tr>
     </table></td>
   </tr>

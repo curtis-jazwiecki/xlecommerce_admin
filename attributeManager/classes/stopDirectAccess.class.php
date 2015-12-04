@@ -42,7 +42,7 @@ class stopDirectAccess {
 	 * @param $sessionVar string session variable name
 	 * @return void
 	 */
-	static function deAuthorise($sessionVar) {
+	function deAuthorise($sessionVar) {
 		amSessionUnregister($sessionVar);
 	}
 	

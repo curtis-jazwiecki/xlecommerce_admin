@@ -80,9 +80,49 @@ if(isset($_GET['action']) && $_GET['action'] == 'getProduct'){
         if(!empty($_GET['parent_id'])){
             $parent_id = $_GET['parent_id'];
             $parent_model = $_GET['parent_model'];
-            foreach($pid_array as $val){
-                tep_db_query("update products set parent_products_model = '".$parent_model."' where products_id = '".$val."'");
-            }
+            $parent_attributes_array = array();
+			// get all attributes of parent product #start
+			
+			$parent_attributes_query = tep_db_query("select * from products_attributes where products_id = '".(int)$parent_id."'");
+			if(tep_db_num_rows($parent_attributes_query)){
+				
+				while($result_attribute = tep_db_fetch_array($parent_attributes_query)){
+					
+					$parent_attributes_array[] = array(
+						"options_id" => $result_attribute['options_id'],
+						"options_values_id" => $result_attribute['options_values_id'],
+						"options_values_price" => $result_attribute['options_values_price'],
+						"price_prefix" => $result_attribute['price_prefix'],
+						"products_options_sort_order" => $result_attribute['products_options_sort_order'],
+						"attributes_hide_from_groups" => $result_attribute['attributes_hide_from_groups']
+					);
+				
+				}
+			}
+			
+					
+			// get all attributes of parent product #ends
+			
+			foreach($pid_array as $val){
+            
+			    tep_db_query("update products set parent_products_model = '".$parent_model."' where products_id = '".$val."'");
+			
+				if(count($parent_attributes_array) > 0){
+					foreach($parent_attributes_array as $parent_attributes){
+						tep_db_query("insert into products_attributes set 
+							products_id = '".(int)$val."',
+							options_id = '".$parent_attributes['options_id']."',
+							options_values_id = '".$parent_attributes['options_values_id']."',
+							options_values_price = '".$parent_attributes['options_values_price']."',
+							price_prefix = '".$parent_attributes['price_prefix']."',
+							products_options_sort_order = '".$parent_attributes['products_options_sort_order']."',
+							attributes_hide_from_groups = '".$parent_attributes['attributes_hide_from_groups']."'");
+					}
+					
+				}
+			
+			}
+			
         }
         $productListQuery = tep_db_query("select p.products_id, pd.products_name, p.products_model FROM products p, products_description pd WHERE p.products_id = pd.products_id and p.products_id in (".$_GET['pid'].")");
         while($productList = tep_db_fetch_array($productListQuery)){
@@ -94,7 +134,26 @@ if(isset($_GET['action']) && $_GET['action'] == 'getProduct'){
     echo $prodListStr;
     exit();
 }elseif(isset($_GET['action']) && $_GET['action'] == 'deletepackageChild' && !empty($_GET['pid'])){
-    tep_db_query("update products set parent_products_model = '' where products_id = '".$_GET['pid']."'");
+    
+	// delete all parent attributes from this child product #start
+	
+	$parent_attributes_query = tep_db_query("select * from products_attributes where products_id = ( select products_id from products where products_model like (select parent_products_model from products where products_id = '".(int)$_GET['pid']."'))");
+	
+	while($result_attributes = tep_db_fetch_array($parent_attributes_query)){
+		tep_db_query("delete from products_attributes where 
+		products_id = '".(int)$_GET['pid']."' and
+		options_id = '".$result_attributes['options_id']."' and
+		options_values_id = '".$result_attributes['options_values_id']."'");
+	}
+	
+	// delete all parent attributes from this child product #ends
+	
+	
+	
+	tep_db_query("update products set parent_products_model = '' where products_id = '".$_GET['pid']."'");
+	
+	
+	
     $allpid = explode(',',$_GET['allpid']);
     $newpid = array();
     if(!empty($allpid)){
@@ -203,7 +262,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'getProduct'){
             </tr>
             <tr class="dataTableRow">
                 <td class="dataTableContent" valign="top">&nbsp;</td>
-                <td class="dataTableContent" valign="top" aligh="center"><input id="add_button" style="display: none;" type="button" onclick="showSelectedProducts($('#selected_products').val());" value="add"></td>
+                <td class="dataTableContent" valign="top" aligh="center"><input id="add_button" style="display: none;" type="button" onClick="showSelectedProducts($('#selected_products').val());" value="add"></td>
             </tr>
             <?php
                 $product_text = '';
@@ -229,6 +288,6 @@ if(isset($_GET['action']) && $_GET['action'] == 'getProduct'){
                 <td class="dataTableContent" valign="top">&nbsp;</td>
             </tr>
         </table>
-        <input type="button" value="close" name="close" onclick="closethis();">
+        <input type="button" value="close" name="close" onClick="closethis();">
     </body>
 </html>

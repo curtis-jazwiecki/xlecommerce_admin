@@ -29,6 +29,7 @@ define ('NODE_PARENT_PRODUCT_MODEL', 'ParentProductModel');
 define ('NODE_PRODUCT_QUANTITY', 'ProductQuantity');
 define ('NODE_PRODUCT_MANUFACTURER', 'ProductManufacturer');
 define ('NODE_PRODUCT_PRICE', 'WholesalePrice');
+define ('NODE_PRODUCT_UPC', 'UPC_EAN');
 //BOF:mod 20120402
 define ('NODE_MAP_PRICE', 'MAPPrice');
 //EOF:mod 20120402
@@ -412,6 +413,7 @@ class global_feed_to_osc{
 					$temp_manuf_osc_id = 0;
 					$temp_prod_osc_id = 0;
 					$prod_exists = 0;
+                    $temp_product_upc = (string)$product->{NODE_PRODUCT_UPC};
 					//echo $temp_name . ' : ' . $temp_prod_cat_id . ' : ' . $temp_prod_desc . ' : ' . $temp_prod_model . ' : ' . $temp_prod_qty . ' : ' . $temp_prod_manuf . ' : ' . $temp_prod_price . ' : ' . $temp_prod_map . ' : ' . $temp_prod_weight . ' : ' . $temp_prod_image . '<br>';
                 if (!empty($temp_prod_manuf)) {
                    if(!isset($this->manufacturers[$temp_prod_manuf])) {
@@ -682,7 +684,8 @@ class global_feed_to_osc{
 					}
 					//EOF:mod 05032012
 
-					$sql_data_array = array('unit_cost' => $temp_prod_price,
+					$sql_data_array = array('upc_ean' => $temp_product_upc,
+                                            'unit_cost' => $temp_prod_price,
 											'unit_cost_cur' => $this->currency_code,
 											//BOF:mod 20120419
 											'min_acceptable_price' => $temp_prod_map,
@@ -714,7 +717,8 @@ class global_feed_to_osc{
 												'options_id' => $this->product_options[$temp_option_id]['osc_option_id'],
 												'options_values_id' => $this->product_option_values[$temp_value_id]['osc_value_id'],
 												'options_values_price' => $temp_prod_price,
-												'price_prefix' => '');
+												'price_prefix' => '',
+                                                'obn_attribute' => '1');
 						if (tep_db_num_rows($sql)){
 							$sql_info = tep_db_fetch_array($sql);
                             $attributes_array[] = $sql_info['products_attributes_id'];
@@ -727,12 +731,12 @@ class global_feed_to_osc{
 						
 					}
                     if (sizeof($attributes_array) > 0)
-                       tep_db_query("delete from products_attributes where products_id='" . (int)$temp_prod_osc_id . "' and products_attributes_id not in (" . implode(",", $attributes_array) . ")");
+                       tep_db_query("delete from products_attributes where products_id='" . (int)$temp_prod_osc_id . "' and obn_attribute='1' and products_attributes_id not in (" . implode(",", $attributes_array) . ")");
 					//echo "18...";
                     
      
                                         if ($specification_table_exists) {
-                                            tep_db_query("delete from product_specifications where products_id='" . (int)$temp_prod_osc_id . "'");
+                                            tep_db_query("delete from product_specifications where products_id='" . (int)$temp_prod_osc_id . "' and obn_spec='1'");
                                             foreach($product->Specifications->children() as $specification){
                                                 $temp_name = (string)$specification->SpecificationName;
                                                 $temp_value = (string)$specification->SpecificationValue;
@@ -750,7 +754,7 @@ class global_feed_to_osc{
                                                 $value_info = tep_db_fetch_array($value_query);
                                                 $value_id = $value_info['value_id'];
 
-                                                tep_db_query("insert ignore into product_specifications (products_id, specification_id) values ('" . (int)$temp_prod_osc_id . "', '" . (int)$value_id  . "')");
+                                                tep_db_query("insert ignore into product_specifications (products_id, specification_id, obn_spec) values ('" . (int)$temp_prod_osc_id . "', '" . (int)$value_id  . "', '1')");
                                             } 
                                           } 
 

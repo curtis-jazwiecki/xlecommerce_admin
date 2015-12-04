@@ -140,4 +140,5 @@ define('FILENAME_EMAIL_TEMPLATE', 'email_template.php');
   define('FILENAME_LAYOUT_MANAGER', 'layout_manager.php');
   define('FILENAME_MODULE_BOXES', 'modules_boxes.php');
   define('FILENAME_MODULE_BOXES_LAYOUT', 'modules_boxes_layout.php');
+  define('FILENAME_STORE_LOGO', 'store_logo.php');
 ?>

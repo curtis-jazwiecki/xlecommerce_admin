@@ -257,6 +257,12 @@ case "Update":
 	break;
 
 case 'Visible':
+	
+	// added on 30-10-2015 #start
+	$visible = (int)$_REQUEST['visible'];
+	$information_id = (int)$_REQUEST['information_id'];
+	// added on 30-10-2015 #ends
+	
 	if ($visible == '1') {
 		$vivod=DEACTIVATION_ID_INFORMATION;
 		tep_db_query("update " . TABLE_INFORMATION . " set visible = '0' where information_id = '" . (int)$information_id . "'");

@@ -29,13 +29,14 @@ Released under the GNU General Public License
 
 // This constant must reflect the version number of QBI
 define ("QBI_VER","2.10");
-/*
+
 // Check if QB Import configured and installed
 $resultqbc=tep_db_query("SELECT * FROM ".TABLE_QBI_CONFIG) or die(header("Location: qbi_db.php?db_ver=0.00&qbi_vers=".QBI_VER));
-if ($myrowqbc=tep_db_fetch_array($resultqbc) AND $myrowqbc["qbi_config_ver"]==QBI_VER) {
+//if ($myrowqbc=tep_db_fetch_array($resultqbc) AND $myrowqbc["qbi_config_ver"]==QBI_VER) {
+    if ($myrowqbc=tep_db_fetch_array($resultqbc)) {
   if ($myrowqbc["qbi_config_active"]!=1 AND $PHP_SELF!=DIR_WS_ADMIN."qbi_config.php") header("Location: qbi_config.php?msg=1");
 } else {
       header("Location: qbi_db.php?db_ver=".$myrowqbc["qbi_config_ver"]."&qbi_vers=".QBI_VER);
 // Note: Absolutely no spaces allowed after the following php closing tag to avoid header error.
-}*/
+}
 ?>
