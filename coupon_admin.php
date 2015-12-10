@@ -111,7 +111,9 @@
       }
       break;
     case 'update_confirm':
-      if ( ($HTTP_POST_VARS['back_x']) || ($HTTP_POST_VARS['back_y']) ) {
+     
+	  
+	  if ( ($HTTP_POST_VARS['back_x']) || ($HTTP_POST_VARS['back_y']) ) {
         if ($HTTP_GET_VARS['oldaction'] == 'voucheredit') {
           $HTTP_GET_VARS['action'] = 'voucheredit';
         } else {
@@ -138,16 +140,34 @@
                                 'coupon_expire_date' => $HTTP_POST_VARS['coupon_finishdate'],
                                 'date_created' => (($HTTP_POST_VARS['date_created'] != '0') ? $HTTP_POST_VARS['date_created'] : 'now()'),
                                 'date_modified' => 'now()');
-        $languages = tep_get_languages();
+								
+        
+		
+		
+		$languages = tep_get_languages();
+		//echo '<pre>';
+		//print_r($_POST);
+		//print_r($languages);
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
           $language_id = $languages[$i]['id'];
           $sql_data_marray[$i] = array('coupon_name' => tep_db_prepare_input($HTTP_POST_VARS['coupon_name'][$language_id]),
                                  'coupon_description' => tep_db_prepare_input($HTTP_POST_VARS['coupon_desc'][$language_id])
                                  );
         }
+		
+		
 //        $query = tep_db_query("select coupon_code from " . TABLE_COUPONS . " where coupon_code = '" . tep_db_prepare_input($HTTP_POST_VARS['coupon_code']) . "'");    
 //        if (!tep_db_num_rows($query)) {
-        if ($HTTP_GET_VARS['oldaction']=='voucheredit') {
+        
+		//echo '<pre>';
+			//print_r($sql_data_array);
+		//echo '<br>*******************************************<br>';
+			//print_r($sql_data_marray);
+		//echo '</pre>';
+		
+		//exit;
+		
+		if ($HTTP_GET_VARS['oldaction']=='voucheredit') {
           tep_db_perform(TABLE_COUPONS, $sql_data_array, 'update', "coupon_id='" . (int)$coupon_id . "'"); 
           for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
           $language_id = $languages[$i]['id'];
@@ -155,8 +175,10 @@
 //            tep_db_perform(TABLE_COUPONS_DESCRIPTION, $sql_data_marray[$i], 'update', "coupon_id='" . $HTTP_GET_VARS['cid']."'");            
           }
         } else {   
-          $query = tep_db_perform(TABLE_COUPONS, $sql_data_array);
-          $insert_id = tep_db_insert_id($query);
+          
+		  $query = tep_db_perform(TABLE_COUPONS, $sql_data_array);
+          
+		  $insert_id = tep_db_insert_id();
           
           for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
             $language_id = $languages[$i]['id'];
@@ -743,24 +765,25 @@ $customer = tep_db_fetch_array($customer_query);
 <?php
 // molafish: fixed reset to default of dates when editing an existing coupon or showing an error message
     if ($HTTP_GET_VARS['action'] == 'new' && !$HTTP_POST_VARS['coupon_startdate'] && !$HTTP_GET_VARS['oldaction'] == 'new') {
-      $coupon_startdate = explode("[-]", date('Y-m-d'));
+      $coupon_startdate = explode("-", date('Y-m-d'));
     } elseif (tep_not_null($HTTP_POST_VARS['coupon_startdate'])) {
-      $coupon_startdate = explode("[-]", $HTTP_POST_VARS['coupon_startdate']);
+      $coupon_startdate = explode("-", $HTTP_POST_VARS['coupon_startdate']);
     } elseif (!$HTTP_GET_VARS['oldaction'] == 'new') {   // for action=voucheredit
-      $coupon_startdate = explode("[-]", date('Y-m-d', strtotime($coupon['coupon_start_date'])));
+      $coupon_startdate = explode("-", date('Y-m-d', strtotime($coupon['coupon_start_date'])));
     } else {   // error is being displayed
-      $coupon_startdate = explode("[-]", date('Y-m-d', mktime(0, 0, 0, $HTTP_POST_VARS['coupon_startdate_month'],$HTTP_POST_VARS['coupon_startdate_day'] ,$HTTP_POST_VARS['coupon_startdate_year'] )));
+      $coupon_startdate = explode("-", date('Y-m-d', mktime(0, 0, 0, $HTTP_POST_VARS['coupon_startdate_month'],$HTTP_POST_VARS['coupon_startdate_day'] ,$HTTP_POST_VARS['coupon_startdate_year'] )));
     }
     if ($HTTP_GET_VARS['action'] == 'new' && !$HTTP_POST_VARS['coupon_finishdate'] && !$HTTP_GET_VARS['oldaction'] == 'new') {
-      $coupon_finishdate = explode("[-]", date('Y-m-d'));
+      $coupon_finishdate = explode("-", date('Y-m-d'));
       $coupon_finishdate[0] = $coupon_finishdate[0] + 1;
     } elseif (tep_not_null($HTTP_POST_VARS['coupon_finishdate'])) {
-      $coupon_finishdate = explode("[-]", $HTTP_POST_VARS['coupon_finishdate']);
+      $coupon_finishdate = explode("-", $HTTP_POST_VARS['coupon_finishdate']);
     } elseif (!$HTTP_GET_VARS['oldaction'] == 'new') {   // for action=voucheredit
-      $coupon_finishdate = explode("[-]", date('Y-m-d', strtotime($coupon['coupon_expire_date'])));
+      $coupon_finishdate = explode("-", date('Y-m-d', strtotime($coupon['coupon_expire_date'])));
     } else {   // error is being displayed
-      $coupon_finishdate = explode("[-]", date('Y-m-d', mktime(0, 0, 0, $HTTP_POST_VARS['coupon_finishdate_month'],$HTTP_POST_VARS['coupon_finishdate_day'] ,$HTTP_POST_VARS['coupon_finishdate_year'] )));
+      $coupon_finishdate = explode("-", date('Y-m-d', mktime(0, 0, 0, $HTTP_POST_VARS['coupon_finishdate_month'],$HTTP_POST_VARS['coupon_finishdate_day'] ,$HTTP_POST_VARS['coupon_finishdate_year'] )));
     }
+
 ?>
         <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_STARTDATE; ?></td>
         <td align="left"><?php echo tep_draw_date_selector('coupon_startdate', mktime(0,0,0, $coupon_startdate[1], $coupon_startdate[2], $coupon_startdate[0])); ?></td>

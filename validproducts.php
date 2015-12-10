@@ -37,8 +37,8 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
 </td>
 </tr>
 <?
-    echo "<tr><tr><th>Select</th><th>". TEXT_VALID_PRODUCTS_ID . "</th><th>" . TEXT_VALID_PRODUCTS_NAME . "</th><th>" . TEXT_VALID_PRODUCTS_MODEL . "</th></tr><tr>";
-    $result = tep_db_query("SELECT * FROM products, products_description WHERE products.products_id = products_description.products_id and products_description.language_id = '" . $languages_id . "' ORDER BY products_description.products_name");
+    echo "<tr><tr><th>Select <input type='checkbox' name='selall' id='selall' onclick='selectAllCheckboxes(this);'></th><th>". TEXT_VALID_PRODUCTS_ID . "</th><th>" . TEXT_VALID_PRODUCTS_NAME . "</th><th>" . TEXT_VALID_PRODUCTS_MODEL . "</th></tr><tr>";
+    $result = tep_db_query("SELECT * FROM products, products_description WHERE products.products_id = products_description.products_id and products_description.language_id = '" . $languages_id . "' and (parent_products_model IS NULL or parent_products_model = '') ORDER BY products_description.products_name");
     if ($row = tep_db_fetch_array($result)) {
         do {
             echo "<tr>";
@@ -71,6 +71,14 @@ function ClosePopUp(){
 		window.opener.addProducts(product_string);
 	}
 	window.close();
+}
+
+function selectAllCheckboxes(ele){
+	if($(ele).is(':checked')){
+    	$(".chk_products_id").prop('checked', true);
+	}else {
+		$(".chk_products_id").prop('checked', false);
+	}
 }
 </script>
 </body>

@@ -33,8 +33,8 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
     </td>
 </tr>
 <tr>
-	<td colspan="3" align="center">
-    	&nbsp;
+	<td colspan="3" align="center">&nbsp;
+    	
     </td>
 </tr>
 
@@ -43,7 +43,7 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
 	<td colspan="3"><h4><?php echo TEXT_VALID_CATEGORIES_LIST; ?></h4></td>
 </tr>
 <?
-    echo "<tr><th>Select</th><th>" . TEXT_VALID_CATEGORIES_ID . "</th><th>" . TEXT_VALID_CATEGORIES_NAME . "</th></tr>";
+    echo "<tr><th>Select <br> <input type='checkbox' name='selall' id='selall' onclick='selectAllCheckboxes(this);'> </th><th>" . TEXT_VALID_CATEGORIES_ID . "</th><th>" . TEXT_VALID_CATEGORIES_NAME . "</th></tr>";
     
 	if( (isset($_GET['cat_type'])) && ($_GET['cat_type'] == 'obn') ){
 	
@@ -94,6 +94,14 @@ function ClosePopUp(){
 		window.opener.addCategories(category_string);
 	}
 	window.close();
+}
+
+function selectAllCheckboxes(ele){
+	if($(ele).is(':checked')){
+    	$(".chk_categories_id").prop('checked', true);
+	}else {
+		$(".chk_categories_id").prop('checked', false);
+	}
 }
 </script>
 </body>
