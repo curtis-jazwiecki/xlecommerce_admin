@@ -561,10 +561,12 @@ class global_feed_to_osc{
 						//if ($flag_manual_price || ($flag_manual_price && OBN_POPULATE_MANUAL_PRICE=='true' && OBN_ACTIVATE_MANUAL_PRICE_FOR_ALL_ITEMS=='true')){
 						if ($flag_manual_price || (OBN_POPULATE_MANUAL_PRICE=='true' && OBN_ACTIVATE_MANUAL_PRICE_FOR_ALL_ITEMS=='true')){
 							$sql_data_array['products_price'] = $temp_prod_map;
-							$sql_data_array['manual_price'] = $temp_prod_map;
 							$sql_data_array['lock_price'] = '1';
 						}
 					}
+                    
+                    if (empty($temp_prod_map)) $temp_prod_map = 0;
+                    $sql_data_array['manual_price'] = $temp_prod_map;
 					//EOF:mod 20120419
 					if ($prod_exists){
 						if($flag_prod_qty){

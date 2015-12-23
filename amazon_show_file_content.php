@@ -1,6 +1,6 @@
 <?php
 require('includes/application_top.php');
-require('/home/visionou/amazon_mws/config.php');
+require(DIR_FS_ROOT.'amazon_mws/config.php');
 $type = $_GET['type'];
 $file_name = $_GET['file_name'];
 $xml = null;

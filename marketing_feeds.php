@@ -25,6 +25,47 @@
      * 
      * let us know in case of creating provision for fields existing in tables other than above
      */
+     function getQpuPrice($base_price,$markup,$roundoff_flag){
+        $qpu_price = 0;
+            
+        if (empty($markup)){
+            $markup = '0';
+        }
+    
+        if (strpos($markup, '-')){
+            $operator = '-';
+        } else{
+            $operator = '+';
+        }
+    
+        $markup = str_replace("-", "", $markup);
+    
+        if (strpos($markup, '%')){
+            $markup_flag = 'p';
+            $markup = str_replace("%", "", $markup);
+            $markup_price = $base_price * ((float)$markup / 100);
+        } else {
+            $markup_flag = 'f';
+            $markup_price = (float)$markup;
+        }
+    
+        if ($operator == '+'){
+            $price = $base_price + $markup_price;
+        } else{
+            $price = $base_price - $markup_price;
+        }
+            
+        if ($operator == '+'){
+            $price = $base_price + $markup_price;
+        } else{
+            $price = $base_price - $markup_price;
+        }
+            
+        $qpu_price = ($roundoff_flag ? apply_roundoff(round($price, 4)) : round($price,4));
+        
+        return $qpu_price;
+    
+    }
  
     $fields = array(
         'products_id' => array(
@@ -57,6 +98,21 @@
             'title' => 'product Model', 
             'desc'  => 'Product model',
         ),
+        'products_url' => array(
+            'id' => TAB_PRODUCT. '.products_url', 
+            'title' => 'Product URL', 
+            'desc'  => 'Product URL',
+        ),
+        'manufacturers_name' => array(
+            'id' => TAB_MANUFACTURER . '.manufacturers_name', 
+            'title' => 'Product Manufacturer', 
+            'desc'  => 'Product Manufacturer',
+        ),
+        'upc_ean' => array(
+            'id' => TAB_EXTENDED . '.upc_ean', 
+            'title' => 'Product UPC', 
+            'desc'  => 'Product UPC',
+        ),
         'products_image' => array(
             'id' => TAB_PRODUCT . '.products_image', 
             'title' => 'product Small Image', 
@@ -77,10 +133,10 @@
             'title' => 'Product Size', 
             'desc'  => 'Product\'s size information',
         ),
-        'products_price' => array(
-            'id' => TAB_PRODUCT . '.products_largeimage', 
-            'title' => 'Product Large Image', 
-            'desc'  => 'Product\'s price',
+        'qpu_price' => array(
+            'id' => TAB_PRODUCT . '.qpu_price', 
+            'title' => 'Product Price', 
+            'desc'  => 'Product\'s QPU Price',
         ),
         'products_weight' => array(
             'id' => TAB_PRODUCT . '.products_weight', 
@@ -164,7 +220,24 @@
             $file_name = time() . '.csv';
             $columns = $_POST['columns'];
             
-            $query = tep_db_query("select " . $columns . " from " . 
+            $select_columns = explode(",", $columns);
+            foreach ($select_columns as $key => $data) {
+               foreach ($fields as $a => $b) {
+                if ($data == $b['id']) {
+                    $show[] = $a;
+                    $header[] = $b['title'];
+                }
+               } 
+               if ($data == 'products.qpu_price') {
+                $select_fields .= 'products.base_price, products.markup, products.roundoff_flag,';
+               }else if($data == 'products.products_url'){
+                     $select_fields .= 'products.products_id,';
+               } else
+                $select_fields .= $data . ",";
+            }
+            
+            
+            $query = tep_db_query("select " . substr($select_fields,0,-1) . " from " . 
             TAB_PRODUCT . " 
             inner join " . TAB_PRODUCT_DESC . " on (products.products_id=products_description.products_id and products_description.language_id='" . (int)$languages_id . "') 
             left join " . TAB_EXTENDED . " on products.products_id=products_extended.osc_products_id 
@@ -179,9 +252,22 @@
             
             $handle = @fopen( 'php://output', 'w' );
             
-            fputcsv($handle, explode(',', $columns));
+            fputcsv($handle, $header);
             while($row = tep_db_fetch_array($query)){
-                fputcsv($handle, array_values($row));
+                if(in_array('products.products_url',$select_columns)){
+                    $row['products_url'] = tep_catalog_href_link('product_info.php', 'products_id=' . $row['products_id']);
+                }
+                
+                if(in_array('products.qpu_price',$select_columns)){
+                    
+                    $row['qpu_price'] = getQpuPrice($row['base_price'],$row['markup'],$row['roundoff_flag']);
+                                    
+                }
+               
+                foreach ($show as $key => $value) {
+                    $output[$value] = $row[$value];
+                }
+                fputcsv($handle, array_values($output));
             }
             fclose($handle);
             exit;

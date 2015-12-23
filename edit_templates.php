@@ -224,7 +224,7 @@ $selected_template = $rowz['configuration_value'];
                                                                     echo $row['key'] . ': ' . $row['value'] . '<br>';
                                                                 } elseif($row['type']=='file'){
                                                                     echo '<div>';
-                                                                    echo '<div style="float:left;">' . str_pad('<a class="file_link" href="' . $_SERVER['PHP_SELF'] . '?action=edit&file=' . $row['file'] . '&id=' . $template_id . '">' . (!empty($row['description']) ? $row['description'] : $row['file']) . '</a>', 50, '&nbsp;') . (!empty($row['variable']) ? ' (' . $row['variable'] . ')' : '') . '</div><div style="float:right;">' . date('m/d/y', filemtime($dir . 'template'. $template_id . '/' . $row['file'])) . '</div>';
+                                                                    echo '<div style="float:left;">' . str_pad('<a class="file_link" href="' . $_SERVER['PHP_SELF'] . '?action=edit&file=' . $row['file'] . '&id=' . $template_id . '">' . (!empty($row['description']) ? $row['description'] : $row['file']) . '</a>', 50, '&nbsp;') . (!empty($row['variable']) ? ' (' . $row['variable'] . ')' : '') . '</div><div style="float:right;">' . (file_exists($dir . 'template'. $template_id . '/' . $row['file']) ? date('m/d/y', filemtime(utf8_decode($dir . 'template'. $template_id . '/' . $row['file']))):'') . '</div>';
                                                                     echo '</div><br>';
                                                                 }
                                                             }
