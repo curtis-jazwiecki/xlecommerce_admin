@@ -97,6 +97,7 @@ class page_class {
         var $maxpages; //shows up to 2 * this number and makes a sliding scale 
         var $show; //number of results per page 
         function page_class($count=0,$show=5,$max=9){ 
+            global $_POST;
                 $this->counts = $count; 
                 $this->show = $show; 
                 $this->maxpages = $max; 

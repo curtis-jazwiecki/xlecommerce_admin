@@ -75,7 +75,7 @@ define('MATCH_PAGE', 'Results page:');
 define('MATCH_PREV', 'Previous');
 define('MATCH_NEXT', 'Next');
 define('MATCH_SUCCESS', 'Matches updated.');
-define('MATCH_OSC', 'osCommerce');
+define('MATCH_OSC', 'CloudCommerce');
 define('MATCH_QB', 'Quickbooks');
 
 // Warnings

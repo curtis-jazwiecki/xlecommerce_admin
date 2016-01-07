@@ -213,4 +213,15 @@ admin side functions/database.php
       return $string;
     }
   }
+  
+  
+  function tep_db_affected_rows($link = 'db_link') {
+    global $$link;
+
+    if (class_exists('mysqli')) {
+      return mysqli_affected_rows($$link);
+    } else {
+      return mysql_affected_rows($$link);
+    }
+  }
 ?>
