@@ -406,9 +406,9 @@ if (isset($stage) AND $stage=='process' AND isset($engine) AND $engine=='orders'
 
 // Find current array value
 
-          $prodoptcust=mysql_escape_string(end($prod_opt_cust));  // Size, etc.
+          $prodoptcust=tep_db_input(end($prod_opt_cust));  // Size, etc.
 
-          $prodoptvalcust=mysql_escape_string(end($prod_opt_val_cust)); // Small, Large, etc.
+          $prodoptvalcust=tep_db_input(end($prod_opt_val_cust)); // Small, Large, etc.
 
 
 
@@ -608,7 +608,7 @@ if (isset($stage) AND $stage=='process' AND isset($engine) AND $engine=='orders'
 
         (SHIP_TAX==1) ? $ship_taxable="Y" : $ship_taxable="N";
 
-		$order_data.="SPL\t\t$transtype\t".$myrowo["purchdate"]."\t\t\t\t\t\t\tN\t\t\t\t\t\t\n";
+	//	$order_data.="SPL\t\t$transtype\t".$myrowo["purchdate"]."\t\t\t\t\t\t\tN\t\t\t\t\t\t\n";
 
         $order_data.="SPL\t\t$transtype\t".$myrowo["purchdate"]."\t".SHIP_ACCT."\t\t".SHIP_CLASS."\t".-$myrowots["value"]."\t\t".SHIP_DESC."\tN\t-1\t".$myrowots["value"]."\t".SHIP_NAME."\t$ship_taxable\t\t\n";
 
