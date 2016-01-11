@@ -1,46 +1,37 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.42 2003/06/29 22:50:52 hpdl Exp $
-
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
+  $Id: language_manager.php
+  
+  Copyright (c) 2015 OBN
+  
 */
 
   require('includes/application_top.php');
 
   if (!tep_session_is_registered('current_path')) {
-    $current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
+    $current_path = DIR_FS_DOCUMENT_ROOT."includes/languages/";
     tep_session_register('current_path');
   }
 
   if (isset($HTTP_GET_VARS['goto'])) {
     $current_path = $HTTP_GET_VARS['goto'];
     $_SESSION['current_path'] = $current_path; 
-	tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+	tep_redirect(tep_href_link(FILENAME_LANGUAGE_MANAGER));
   }
 
   if (strstr($current_path, '..')) {
-	  $current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
+	  $current_path = DIR_FS_DOCUMENT_ROOT."includes/languages/";
   }
   
   if (!is_dir($current_path)) {
-	  $current_path =  DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
+	  $current_path =  DIR_FS_DOCUMENT_ROOT."includes/languages/";
   }
 
   
   if (preg_match('@^' . DIR_FS_DOCUMENT_ROOT."includes/languages/@", $current_path)){
     // do nothing
-  }else if (preg_match('@^' . DIR_FS_DOCUMENT_ROOT."images/@", $current_path)){
-	  // do nothing
-  }else if(preg_match('@^' . DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full/@", $current_path)){
-	  
-	  //$current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
   }else{
-	  $current_path = DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full";
+	  $current_path = DIR_FS_DOCUMENT_ROOT."includes/languages/";
   }
 
   $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
@@ -49,24 +40,32 @@
     switch ($action) {
       case 'reset':
         tep_session_unregister('current_path');
-        tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+        tep_redirect(tep_href_link(FILENAME_LANGUAGE_MANAGER));
         break;
       case 'deleteconfirm':
-        if (strstr($HTTP_GET_VARS['info'], '..')) tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+        if (strstr($HTTP_GET_VARS['info'], '..')) tep_redirect(tep_href_link(FILENAME_LANGUAGE_MANAGER));
 
         tep_remove($current_path . '/' . $HTTP_GET_VARS['info']);
-        if (!$tep_remove_error) tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+        if (!$tep_remove_error) tep_redirect(tep_href_link(FILENAME_LANGUAGE_MANAGER));
         break;
       case 'insert':
         if (mkdir($current_path . '/' . $HTTP_POST_VARS['folder_name'], 0777)) {
-          tep_redirect(tep_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($HTTP_POST_VARS['folder_name'])));
+          tep_redirect(tep_href_link(FILENAME_LANGUAGE_MANAGER, 'info=' . urlencode($HTTP_POST_VARS['folder_name'])));
         }
         break;
       case 'save':
-        if ($fp = fopen($current_path . '/' . $HTTP_POST_VARS['filename'], 'w+')) {
-          fputs($fp, stripslashes($HTTP_POST_VARS['file_contents']));
-          fclose($fp);
-          tep_redirect(tep_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($HTTP_POST_VARS['filename'])));
+        
+        if(count($_POST['constant'])){
+            if ($fp = fopen($current_path . '/' . $HTTP_POST_VARS['filename'], 'w+')) {
+                fputs($fp, "<?php"."\n");
+                foreach($_POST['constant'] as $constantKey => $constantValue){
+                    $str_constant = 'define("'.trim(addslashes($constantKey)).'", "'.trim(addslashes($constantValue)).'");'."\n";
+                    fputs($fp, $str_constant);
+                }
+                fputs($fp, "?>");
+                fclose($fp);
+                tep_redirect(tep_href_link(FILENAME_LANGUAGE_MANAGER, 'info=' . urlencode($HTTP_POST_VARS['filename'])));            
+            }
         }
         break;
       case 'processuploads':
@@ -77,7 +76,7 @@
           }
         }
 
-        tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+        tep_redirect(tep_href_link(FILENAME_LANGUAGE_MANAGER));
         break;
       case 'download':
         header('Content-type: application/x-octet-stream');
@@ -95,7 +94,7 @@
         }
         break;
       case 'edit':
-        if (strstr($HTTP_GET_VARS['info'], '..')) tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+        if (strstr($HTTP_GET_VARS['info'], '..')) tep_redirect(tep_href_link(FILENAME_LANGUAGE_MANAGER));
 
         $file_writeable = true;
         if (!is_writeable($current_path . '/' . $HTTP_GET_VARS['info'])) {
@@ -104,47 +103,26 @@
         }
         break;
       case 'delete':
-        if (strstr($HTTP_GET_VARS['info'], '..')) tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+        if (strstr($HTTP_GET_VARS['info'], '..')) tep_redirect(tep_href_link(FILENAME_LANGUAGE_MANAGER));
         break;
     }
   }
 
-  $in_directory = substr(substr(DIR_FS_DOCUMENT_ROOT."images/", strrpos(DIR_FS_DOCUMENT_ROOT."images/", '/')), 1);
   $current_path_array = explode('/', $current_path);
-  $document_root_array = explode('/', DIR_FS_DOCUMENT_ROOT."images/");
   
-  
-  
-  
-  $goto_array = array(array('id' => DIR_FS_DOCUMENT_ROOT."images/", 'text' => "images"),array('id' => DIR_FS_DOCUMENT_ROOT."includes/languages/", 'text' => "languages"));
+  $goto_array = array(array('id' => DIR_FS_DOCUMENT_ROOT."includes/languages/", 'text' => "languages"));
   
   for ($i=0, $n=sizeof($current_path_array); $i<$n; $i++) {
     if(empty($current_path_array[$i])){
         continue;
         
     }
-    if($current_path_array[$i] == 'includes' || $current_path_array[$i] == 'sts_templates' || $current_path_array[$i] == 'languages'){
+    if($current_path_array[$i] == 'languages'){
 		continue;
 	}
 	if ((isset($document_root_array[$i]) && ($current_path_array[$i] != $document_root_array[$i])) || !isset($document_root_array[$i])) {
       $goto_array[] = array('id' => implode('/', array_slice($current_path_array, 0, $i+1)), 'text' => $current_path_array[$i] =='full' ? 'templates':$current_path_array[$i]);
     }
-  }
-  
-  $flag = 1;
-  foreach($goto_array as $unique_goto){
-	  if($unique_goto['text'] == 'templates'){
-	  		$flag = 0;
-			break;
-			
-	  }
-  }
-  
-  if($flag == 1){
-	  $goto_array[] = array(
-		'id' => DIR_FS_DOCUMENT_ROOT."includes/sts_templates/full", 
-		'text' => "templates"
-  	  );
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -167,46 +145,63 @@
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr><?php echo tep_draw_form('goto', FILENAME_FILE_MANAGER, '', 'get'); ?>
+          <tr><?php echo tep_draw_form('goto', FILENAME_LANGUAGE_MANAGER, '', 'get'); ?>
             <td class="pageHeading"><?php echo HEADING_TITLE . '<br><span class="smallText">' . $current_path . '</span>'; ?></td>
             <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', '1', HEADING_IMAGE_HEIGHT); ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_pull_down_menu('goto', $goto_array, $current_path, 'onChange="this.form.submit();"'); ?></td>
+            <td class="pageHeading" align="right">&nbsp;<?php //echo tep_draw_pull_down_menu('goto', $goto_array, $current_path, 'onChange="this.form.submit();"'); ?></td>
           </form></tr>
         </table></td>
       </tr>
 <?php
   if ( (($action == 'new_file') && ($directory_writeable == true)) || ($action == 'edit') ) {
-    if (isset($HTTP_GET_VARS['info']) && strstr($HTTP_GET_VARS['info'], '..')) tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+    if (isset($HTTP_GET_VARS['info']) && strstr($HTTP_GET_VARS['info'], '..')) tep_redirect(tep_href_link(FILENAME_LANGUAGE_MANAGER));
 
     if (!isset($file_writeable)) $file_writeable = true;
     $file_contents = '';
     if ($action == 'new_file') {
       $filename_input_field = tep_draw_input_field('filename');
     } elseif ($action == 'edit') {
-      if ($file_array = file($current_path . '/' . $HTTP_GET_VARS['info'])) {
+      
+        $constantsBeforeInclude = getUserDefinedConstants();
+        include($current_path . '/' . $HTTP_GET_VARS['info']);
+        $constantsAfterInclude = getUserDefinedConstants();
+        $languageConstants = array_diff_assoc($constantsAfterInclude, $constantsBeforeInclude);
+      
+      /*if ($file_array = file($current_path . '/' . $HTTP_GET_VARS['info'])) {
         $file_contents = addslashes(implode('', $file_array));
-      }
+      }*/
       $filename_input_field = $HTTP_GET_VARS['info'] . tep_draw_hidden_field('filename', $HTTP_GET_VARS['info']);
     }
 ?>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
-      <tr><?php echo tep_draw_form('new_file', FILENAME_FILE_MANAGER, 'action=save'); ?>
+      <tr><?php echo tep_draw_form('new_file', FILENAME_LANGUAGE_MANAGER, 'action=save'); ?>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><?php echo TEXT_FILE_NAME; ?></td>
-            <td class="main"><?php echo $filename_input_field; ?></td>
+            <td class="main" style="color:white;"><?php echo TEXT_FILE_NAME; ?></td>
+            <td class="main" style="color:white;"><?php echo $filename_input_field; ?></td>
           </tr>
+            
           <tr>
-            <td class="main" valign="top"><?php echo TEXT_FILE_CONTENTS; ?></td>
-            <td class="main"><?php echo tep_draw_textarea_field('file_contents', 'soft', '80', '20', $file_contents, (($file_writeable) ? '' : 'readonly')); ?></td>
+            <td class="main" style="color:white;">&nbsp;</td>
+            <td class="main" style="color:white;">&nbsp;</td>
+          </tr>   
+                 
+          <?php
+          foreach($languageConstants as $constantKey => $constantValue){?>
+          <tr>
+            <td class="main" valign="top" style="color:white;"><?php echo $constantKey; ?></td>
+            <td class="main">
+                <textarea name="constant[<?php echo $constantKey; ?>]" id="<?php echo $constantKey; ?>"><?php echo trim(stripslashes($constantValue)); ?></textarea>
+            </td>
           </tr>
+          <?php } ?>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td align="right" class="main" colspan="2"><?php if ($file_writeable == true) echo tep_image_submit('button_save.gif', IMAGE_SAVE) . '&nbsp;'; echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) : '')) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?></td>
+            <td align="right" class="main" colspan="2"><?php if ($file_writeable == true) echo tep_image_submit('button_save.gif', IMAGE_SAVE) . '&nbsp;'; echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) : '')) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?></td>
           </tr>
         </table></td>
       </form></tr>
@@ -287,19 +282,19 @@
       } else {
         $icon = (isset($fInfo) && is_object($fInfo) && ($contents[$i]['name'] == $fInfo->name) ? tep_image(DIR_WS_ICONS . 'current_folder.gif', ICON_CURRENT_FOLDER) : tep_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER));
       }
-      $link = tep_href_link(FILENAME_FILE_MANAGER, 'goto=' . $goto_link);
+      $link = tep_href_link(FILENAME_LANGUAGE_MANAGER, 'goto=' . $goto_link);
     } else {
       $icon = tep_image(DIR_WS_ICONS . 'file_download.gif', ICON_FILE_DOWNLOAD);
-      $link = tep_href_link(FILENAME_FILE_MANAGER, 'action=download&filename=' . urlencode($contents[$i]['name']));
+      $link = tep_href_link(FILENAME_LANGUAGE_MANAGER, 'action=download&filename=' . urlencode($contents[$i]['name']));
     }
 ?>
-                <td class="dataTableContent" onClick="document.location.href='<?php echo tep_href_link(FILENAME_FILE_MANAGER, $onclick_link); ?>'"><?php echo '<a href="' . $link . '">' . $icon . '</a>&nbsp;' . $contents[$i]['name']; ?></td>
-                <td class="dataTableContent" align="right" onClick="document.location.href='<?php echo tep_href_link(FILENAME_FILE_MANAGER, $onclick_link); ?>'"><?php echo ($contents[$i]['is_dir'] ? '&nbsp;' : $contents[$i]['size']); ?></td>
-                <td class="dataTableContent" align="center" onClick="document.location.href='<?php echo tep_href_link(FILENAME_FILE_MANAGER, $onclick_link); ?>'"><tt><?php echo $contents[$i]['permissions']; ?></tt></td>
-                <td class="dataTableContent" onClick="document.location.href='<?php echo tep_href_link(FILENAME_FILE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['user']; ?></td>
-                <td class="dataTableContent" onClick="document.location.href='<?php echo tep_href_link(FILENAME_FILE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['group']; ?></td>
-                <td class="dataTableContent" align="center" onClick="document.location.href='<?php echo tep_href_link(FILENAME_FILE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['last_modified']; ?></td>
-                <td class="dataTableContent" align="right"><?php if ($contents[$i]['name'] != '..') echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($contents[$i]['name']) . '&action=delete') . '">' . tep_image(DIR_WS_ICONS . 'delete.gif', ICON_DELETE) . '</a>&nbsp;'; if (isset($fInfo) && is_object($fInfo) && ($fInfo->name == $contents[$i]['name'])) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($contents[$i]['name'])) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo '<a href="' . $link . '">' . $icon . '</a>&nbsp;' . $contents[$i]['name']; ?></td>
+                <td class="dataTableContent" align="right" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo ($contents[$i]['is_dir'] ? '&nbsp;' : $contents[$i]['size']); ?></td>
+                <td class="dataTableContent" align="center" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><tt><?php echo $contents[$i]['permissions']; ?></tt></td>
+                <td class="dataTableContent" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['user']; ?></td>
+                <td class="dataTableContent" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['group']; ?></td>
+                <td class="dataTableContent" align="center" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['last_modified']; ?></td>
+                <td class="dataTableContent" align="right"><?php if ($contents[$i]['name'] != '..') echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, 'info=' . urlencode($contents[$i]['name']) . '&action=delete') . '">' . tep_image(DIR_WS_ICONS . 'delete.gif', ICON_DELETE) . '</a>&nbsp;'; if (isset($fInfo) && is_object($fInfo) && ($fInfo->name == $contents[$i]['name'])) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, 'info=' . urlencode($contents[$i]['name'])) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
   }
@@ -307,8 +302,8 @@
               <tr>
                 <td colspan="7"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr valign="top">
-                    <td class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=reset') . '">' . tep_image_button('button_reset_b.gif', IMAGE_RESET) . '</a>'; ?></td>
-                    <td class="smallText" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) . '&' : '') . 'action=upload') . '">' . tep_image_button('button_upload_b.gif', IMAGE_UPLOAD) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_FILE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) . '&' : '') . 'action=new_file') . '">' . tep_image_button('button_new_file_b.gif', IMAGE_NEW_FILE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_FILE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) . '&' : '') . 'action=new_folder') . '">' . tep_image_button('button_new_folder.gif', IMAGE_NEW_FOLDER) . '</a>'; ?></td>
+                    <td class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, 'action=reset') . '">' . tep_image_button('button_reset_b.gif', IMAGE_RESET) . '</a>'; ?></td>
+                    <td class="smallText" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) . '&' : '') . 'action=upload') . '">' . tep_image_button('button_upload_b.gif', IMAGE_UPLOAD) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) . '&' : '') . 'action=new_file') . '">' . tep_image_button('button_new_file_b.gif', IMAGE_NEW_FILE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) . '&' : '') . 'action=new_folder') . '">' . tep_image_button('button_new_folder.gif', IMAGE_NEW_FOLDER) . '</a>'; ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -321,36 +316,36 @@
       case 'delete':
         $heading[] = array('text' => '<b>' . $fInfo->name . '</b>');
 
-        $contents = array('form' => tep_draw_form('file', FILENAME_FILE_MANAGER, 'info=' . urlencode($fInfo->name) . '&action=deleteconfirm'));
+        $contents = array('form' => tep_draw_form('file', FILENAME_LANGUAGE_MANAGER, 'info=' . urlencode($fInfo->name) . '&action=deleteconfirm'));
         $contents[] = array('text' => TEXT_DELETE_INTRO);
         $contents[] = array('text' => '<br><b>' . $fInfo->name . '</b>');
-        $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, (tep_not_null($fInfo->name) ? 'info=' . urlencode($fInfo->name) : '')) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (tep_not_null($fInfo->name) ? 'info=' . urlencode($fInfo->name) : '')) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
       case 'new_folder':
         $heading[] = array('text' => '<b>' . TEXT_NEW_FOLDER . '</b>');
 
-        $contents = array('form' => tep_draw_form('folder', FILENAME_FILE_MANAGER, 'action=insert'));
+        $contents = array('form' => tep_draw_form('folder', FILENAME_LANGUAGE_MANAGER, 'action=insert'));
         $contents[] = array('text' => TEXT_NEW_FOLDER_INTRO);
         $contents[] = array('text' => '<br>' . TEXT_FILE_NAME . '<br>' . tep_draw_input_field('folder_name'));
-        $contents[] = array('align' => 'center', 'text' => '<br>' . (($directory_writeable == true) ? tep_image_submit('button_save.gif', IMAGE_SAVE) : '') . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) : '')) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . (($directory_writeable == true) ? tep_image_submit('button_save.gif', IMAGE_SAVE) : '') . ' <a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) : '')) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
       case 'upload':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_UPLOAD . '</b>');
 
-        $contents = array('form' => tep_draw_form('file', FILENAME_FILE_MANAGER, 'action=processuploads', 'post', 'enctype="multipart/form-data"'));
+        $contents = array('form' => tep_draw_form('file', FILENAME_LANGUAGE_MANAGER, 'action=processuploads', 'post', 'enctype="multipart/form-data"'));
         $contents[] = array('text' => TEXT_UPLOAD_INTRO);
 
         $file_upload = '';
         for ($i=1; $i<6; $i++) $file_upload .= tep_draw_file_field('file_' . $i) . '<br>';
 
         $contents[] = array('text' => '<br>' . $file_upload);
-        $contents[] = array('align' => 'center', 'text' => '<br>' . (($directory_writeable == true) ? tep_image_submit('button_upload.gif', IMAGE_UPLOAD) : '') . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) : '')) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . (($directory_writeable == true) ? tep_image_submit('button_upload.gif', IMAGE_UPLOAD) : '') . ' <a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) : '')) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
       default:
         if (isset($fInfo) && is_object($fInfo)) {
           $heading[] = array('text' => '<b>' . $fInfo->name . '</b>');
 
-          if (!$fInfo->is_dir) $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($fInfo->name) . '&action=edit') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a>');
+          if (!$fInfo->is_dir) $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, 'info=' . urlencode($fInfo->name) . '&action=edit') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a>');
           $contents[] = array('text' => '<br>' . TEXT_FILE_NAME . ' <b>' . $fInfo->name . '</b>');
           if (!$fInfo->is_dir) $contents[] = array('text' => '<br>' . TEXT_FILE_SIZE . ' <b>' . $fInfo->size . '</b>');
           $contents[] = array('text' => '<br>' . TEXT_LAST_MODIFIED . ' ' . $fInfo->last_modified);
@@ -371,6 +366,10 @@
       </tr>
 <?php
   }
+function getUserDefinedConstants() {
+    $constants = get_defined_constants(true);
+    return (isset($constants['user']) ? $constants['user'] : array());  
+}
 ?>
     </table></td>
 <!-- body_text_eof //-->
