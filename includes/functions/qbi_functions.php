@@ -698,8 +698,8 @@ function pay_methods() {
 			$pay_mod_text=substr($pay_mod_text,$start,$end-$start);
             $pay_mod=str_replace(".php","",$pay_mod_file);
 			// Update or insert into db
-            $result=tep_db_query("SELECT * FROM ".TABLE_QBI_PAYOSC." WHERE qbi_payosc_mod='$pay_mod' AND language_id='".$lang_id."'");
-            if (tep_db_fetch_array($result)) {
+            $query=tep_db_query("SELECT * FROM ".TABLE_QBI_PAYOSC." WHERE qbi_payosc_mod='$pay_mod' AND language_id='".$lang_id."'");
+            if (tep_db_num_rows($query)) {
               tep_db_query("UPDATE ".TABLE_QBI_PAYOSC." SET qbi_payosc_text='$pay_mod_text' WHERE qbi_payosc_id='".$result["qbi_payosc_id"]."'");
             } else {
               tep_db_query("INSERT INTO ".TABLE_QBI_PAYOSC." (qbi_payosc_mod,language_id,qbi_payosc_text) VALUES ('$pay_mod','$lang_id','$pay_mod_text')");
@@ -925,7 +925,7 @@ function ship_process($qname,$qrefnum,$qhidden) {
 	$result=tep_db_query("SELECT * FROM ".TABLE_QBI_SHIPQB." WHERE qbi_shipqb_refnum='$qrefnum' LIMIT 1");
 	if (tep_db_fetch_array($result)) {
 		tep_db_query("UPDATE ".TABLE_QBI_SHIPQB." SET qbi_shipqb_name='$qname',qbi_shipqb_hidden='$qhidden' WHERE qbi_shipqb_refnum='$qrefnum'");
-		if (mysql_affected_rows()>0) {
+		if (tep_db_affected_rows()>0) {
 			$message.="<td>".SETUP_UPDATED."</td>\r\n";
 		} else {
 			$message.="<td>".SETUP_NO_CHANGE."</td>\r\n";

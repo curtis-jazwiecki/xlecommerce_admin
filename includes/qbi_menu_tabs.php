@@ -1,4 +1,10 @@
 <?php
+foreach ($_GET as $key=>$value) {
+    $$key = $value;
+}
+foreach ($_POST as $key=>$value) {
+    $$key = $value;
+}
 require(DIR_WS_INCLUDES . 'qbi_menu_items.php');
 
   echo "<div id=\"nav\"><ul class=\"level1\">\r\n";
@@ -14,6 +20,7 @@ require(DIR_WS_INCLUDES . 'qbi_menu_items.php');
       foreach($submenuarray[$x] as $submenulabel=>$submenuurl) {
         echo '<li';
         echo ($PHP_SELF!=$submenuurl) ? ' class="subinactive"><a href="'.$submenuurl.'">' : ' class="subactive"><a href="'.$submenuurl.'" id="subcurrent">';
+       //echo ($PHP_SELF!=$submenuurl) ? ' class="subactive"><a href="'.$submenuurl.'">' : ' class="subactive"><a href="'.$submenuurl.'" id="subcurrent">';
         echo $submenulabel."</a></li>\r\n";
       }
  	  echo '</ul>';

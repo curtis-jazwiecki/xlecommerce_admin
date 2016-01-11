@@ -14720,7 +14720,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-    echo 'Store Quantity';
+    echo 'Warehouse Quantity';
 
 
 
@@ -14796,7 +14796,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main">Warehouse Quantity</td>
+            <td class="main">Store Quantity</td>
 
 
 

@@ -2754,4 +2754,16 @@ function delete_files($dir) {
     if(is_dir($file)) delete_files($file); else unlink($file); 
   } rmdir($dir); 
 }
+
+////
+// Return date in raw format
+// $date should be in format mm/dd/yyyy
+// raw date is in format YYYYMMDD, or DDMMYYYY
+function tep_date_raw($date, $reverse = false) {
+  if ($reverse) {
+    return substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 6, 4);
+  } else {
+    return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
+  }
+}
 ?>

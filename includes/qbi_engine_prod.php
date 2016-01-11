@@ -145,38 +145,40 @@ if (isset($stage) AND $stage=='process' AND isset($engine) AND $engine=='product
       $resultpx = tep_db_query("SELECT DISTINCT options_id FROM ".TABLE_PRODUCTS_ATTRIBUTES." WHERE products_id='$prod_id' ORDER BY options_id");
 
       if ($myrowpx=tep_db_fetch_array($resultpx)) {
-
+        
 	    $options_id=$myrowpx["options_id"];
 
 		$option_data=prod_options($prod_id,$options_id,$prod_name,$prod_desc,$prod_price);
 
-	    if ($myrowpx=tep_db_fetch_array($resultpx)) {
+	   // if ($myrowpx=tep_db_fetch_array($resultpx)) {
 
-          $options_id_sub=$myrowpx["options_id"];
+        //  $options_id_sub=$myrowpx["options_id"];
+        if (sizeof($option_data) > 0) {
 
           foreach ($option_data as $option_row) {
 
-		    $option_data=prod_options($prod_id,$options_id_sub,$option_row[0],$option_row[1],$option_row[2]);
+		   // $option_data=prod_options($prod_id,$options_id_sub,$option_row[0],$option_row[1],$option_row[2]);
 
-		    foreach ($option_data as $option_row) {
+		  //  foreach ($option_data as $option_row) {
 
 		      $prod_data.="INVITEM\t".$option_row[0]."\t$item_type\t".$option_row[1]."\t".$option_row[1]."\t".ITEM_ACCT."\t".ITEM_ASSET_ACCT."\t".ITEM_COG_ACCT."\t".$option_row[2]."\t0\t$ptaxable\t\t\t\t\t\t\t\n";
 
-			}
+		//	}
+            }
 
-		  }
+		  } 
 
 		} else {
 
-		  foreach ($option_data as $option_row) {
+	//	  foreach ($option_data as $option_row) {
 
-	        $prod_data.="INVITEM\t".$option_row[0]."\t$item_type\t".$option_row[1]."\t".$option_row[1]."\t".ITEM_ACCT."\t".ITEM_ASSET_ACCT."\t".ITEM_COG_ACCT."\t".$option_row[2]."\t0\t$ptaxable\t\t\t\t\t\t\t\n";
+	    //    $prod_data.="INVITEM\t".$option_row[0]."\t$item_type\t".$option_row[1]."\t".$option_row[1]."\t".ITEM_ACCT."\t".ITEM_ASSET_ACCT."\t".ITEM_COG_ACCT."\t".$option_row[2]."\t0\t$ptaxable\t\t\t\t\t\t\t\n";
 
-		  }
+		//  }
 
 		}
 
-      }
+  //    }
 
 	  
 

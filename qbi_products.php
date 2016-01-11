@@ -35,6 +35,9 @@ require(DIR_WS_INCLUDES . 'qbi_definitions.php');
 require(DIR_WS_INCLUDES . 'qbi_page_top.php');
 require(DIR_WS_INCLUDES . 'qbi_menu_tabs.php');
 
+foreach ($_POST as $key=>$value) {
+    $$key = $value;
+}
 $filenames=array("qbi_input/items.iif","qbi_input/items.IIF","qbi_input/lists.iif","qbi_input/lists.IIF");
 if (!isset($stage)) { 
   foreach($filenames as $filename) {
@@ -56,9 +59,11 @@ if (!isset($stage)) {
   }
   item_group_list();
 } elseif (isset($stage) AND $stage=="processfile") {
-
 // Open, read, and parse iif to import QB items
-  $handle = fopen($file_name, "rb");
+  if (!$handle = fopen($file_name, "rb")) {
+    echo 'can not open file';
+    exit;
+  }
   unset($iif_refnum);
   echo '<table class="lists" width="100%" bgcolor="#FFFFFF">';
   while (($iifread=fgetcsv($handle, 512, "\t"))!==FALSE) {
