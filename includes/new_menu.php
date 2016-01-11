@@ -685,7 +685,11 @@ Compare products side-by-side
 //	  echo '  <li class="block"><a href="'.FILENAME_DEFINE_LANGUAGE.'">'.BOX_TOOLS_DEFINE_LANGUAGE.'</a></li>';
 
 	  echo '  <li class="block"><a href="'.FILENAME_FILE_MANAGER.'">'.BOX_TOOLS_FILE_MANAGER.'</a></li>';
-
+	  
+	  // added on 11-01-2016 #starts
+	  echo '  <li class="block"><a href="'.FILENAME_LANGUAGE_MANAGER.'">Language Manager</a></li>';
+	  // added on 11-01-2016 #ends
+	  
 	  echo '  <li class="block"><a href="'.FILENAME_MAIL.'">'.BOX_TOOLS_MAIL.'</a></li>';
 
 	  echo '  <li class="block"><a href="'.FILENAME_NEWSLETTERS.'">'.BOX_TOOLS_NEWSLETTER_MANAGER.'</a></li>';
