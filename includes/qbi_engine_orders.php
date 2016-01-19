@@ -345,7 +345,8 @@ if (isset($stage) AND $stage=='process' AND isset($engine) AND $engine=='orders'
       $class_id=0;
 
       $order_data="";
-
+      
+      $tax_rate = TAX_RATE;
 
 
 // Start product line item loop
@@ -371,6 +372,8 @@ if (isset($stage) AND $stage=='process' AND isset($engine) AND $engine=='orders'
         $prod_totalprice=$prod_price*$prod_quan;
 
         ($myrowop["products_tax"]>0) ? $prod_taxable="Y" : $prod_taxable="N";
+        
+        ($myrowop["products_tax"]>0) ? $tax_rate = $myrowop["products_tax"] : "";
 
         ($myrowop["products_tax_class_id"]>0) ? $prod_tax_class_id=$myrowop["products_tax_class_id"] : $prod_tax_class_id=0;			
 
@@ -660,7 +663,7 @@ if (isset($stage) AND $stage=='process' AND isset($engine) AND $engine=='orders'
 
           }
 
-          $order_data.="SPL\t\t$transtype\t".$myrowo["purchdate"]."\tSales Tax Payable\t".TAX_AGENCY."\t\t".-$tax_amt."\t\t\tN\t\t".TAX_RATE."%\t".TAX_NAME."\tN\t\tAUTOSTAX\n";
+          $order_data.="SPL\t\t$transtype\t".$myrowo["purchdate"]."\tSales Tax Payable\t".TAX_AGENCY."\t\t".-$tax_amt."\t\t\tN\t\t".$tax_rate."%\t".TAX_NAME."\tN\t\tAUTOSTAX\n";
 
         }
 
