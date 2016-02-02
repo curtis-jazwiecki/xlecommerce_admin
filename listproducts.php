@@ -40,7 +40,7 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
    $get_result=tep_db_fetch_array($coupon_get);
 
     echo "<tr><th>Product ID</th><th>Product Name</th><th>Product Size</th></tr><tr>";
-    $pr_ids = explode(",", $get_result['restrict_to_products']);
+    $pr_ids = split("[,]", $get_result['restrict_to_products']);
     for ($i = 0; $i < count($pr_ids); $i++) {
       $result = tep_db_query("SELECT * FROM products, products_description WHERE products.products_id = products_description.products_id and products_description.language_id = '" . $languages_id . "'and products.products_id = '" . $pr_ids[$i] . "'");
       if ($row = tep_db_fetch_array($result)) {

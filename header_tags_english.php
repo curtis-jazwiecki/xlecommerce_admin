@@ -158,39 +158,37 @@
      WriteHeaderTagsFile($filename, $fp);  
   }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<style type="text/css">
-td.HTC_Head {color: sienna; font-size: 24px; font-weight: bold; } 
-td.HTC_subHead {color: #000000; font-size: 14px; } 
-.dataTableHeadingRow { background-color: #C9C9C9; background-image:url(../../images/template/admin_table_heading_content.jpg); background-repeat:repeat-x; }
-.dataTableHeadingContent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; font-weight: bold; }
-.pageHeading { font-family: Verdana, Arial, sans-serif; font-size: 18px; color: #FFFFFF; font-weight: bold; }
-</style> 
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="1" cellspacing="1">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE_ENGLISH; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE_ENGLISH; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="1" bgcolor="#EEEEEE">
-         <tr bgcolor="#030c2c">
-      <td class="pageHeading"><?php echo HEADING_TITLE_ENGLISH; ?></td>
-      </tr>
-       <tr bgcolor="#030c2c">
-      <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
-      </tr>
-     <tr class="dataTableHeadingRow">
-      <td class="dataTableHeadingContent" height="15"></td>
-     </tr>
+    <td><table class="table table-bordered table-hover">
      <tr>
       <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
@@ -205,43 +203,43 @@ td.HTC_subHead {color: #000000; font-size: 14px; }
      <tr>
       <td align="right"><?php echo tep_draw_form('header_tags', FILENAME_HEADER_TAGS_ENGLISH, '', 'post') . tep_draw_hidden_field('action', 'process'); ?></td>
        <tr>
-        <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table class="table table-bordered table-hover">
          <tr>
-          <td class="smallText" width="20%" style="font-weight: bold;"><?php echo HEADING_TITLE_CONTROLLER_DEFAULT_TITLE; ?></td>
-          <td class="smallText" ><?php echo tep_draw_input_field('main_title', tep_not_null($main_title) ? $main_title : '', 'maxlength="255", size="60"', false); ?> </td>
+          <td><?php echo HEADING_TITLE_CONTROLLER_DEFAULT_TITLE; ?></td>
+          <td><?php echo tep_draw_input_field('main_title', tep_not_null($main_title) ? $main_title : '', 'maxlength="255", size="60"', false); ?> </td>
          <tr> 
          <tr>
-          <td class="smallText" width="20%" style="font-weight: bold;"><?php echo HEADING_TITLE_CONTROLLER_DEFAULT_DESCRIPTION; ?></td>
-          <td class="smallText" ><?php echo tep_draw_input_field('main_desc', tep_not_null($main_desc) ? $main_desc : '', 'maxlength="255", size="60"', false); ?> </td>
+          <td><?php echo HEADING_TITLE_CONTROLLER_DEFAULT_DESCRIPTION; ?></td>
+          <td><?php echo tep_draw_input_field('main_desc', tep_not_null($main_desc) ? $main_desc : '', 'maxlength="255", size="60"', false); ?> </td>
          <tr> 
          <tr>
-          <td class="smallText" width="20%" style="font-weight: bold;"><?php echo HEADING_TITLE_CONTROLLER_DEFAULT_KEYWORDS; ?></td>
-          <td class="smallText" ><?php echo tep_draw_input_field('main_keyword', tep_not_null($main_key) ? $main_key : '', 'maxlength="255", size="60"', false); ?> </td>
+          <td><?php echo HEADING_TITLE_CONTROLLER_DEFAULT_KEYWORDS; ?></td>
+          <td><?php echo tep_draw_input_field('main_keyword', tep_not_null($main_key) ? $main_key : '', 'maxlength="255", size="60"', false); ?> </td>
          <tr> 
          
-         <span style="color:#FFFFFF"><?php for ($i = 0, $id = 0; $i < count($sections['titles']); ++$i, $id += 3) { ?></span>
+         <span><?php for ($i = 0, $id = 0; $i < count($sections['titles']); ++$i, $id += 3) { ?></span>
          <tr>
           <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
          </tr>         
          <tr>
-          <td colspan="3" ><table border="0" width="100%">
+          <td colspan="3" ><table class="table table-bordered table-hover">
          <tr>
-          <td colspan="3" class="smallText" width="20%" style="font-weight: bold;"><?php echo $sections['titles'][$i]; ?></td>
-          <td class="smallText">HTTA: </td>
+          <td colspan="3"><?php echo $sections['titles'][$i]; ?></td>
+          <td>HTTA: </td>
           <td align="left"><?php echo tep_draw_checkbox_field($args['title_switch_name'][$i], '', $args['title_switch'][$i], ''); ?> </td>
-          <td class="smallText">HTDA: </td>
+          <td>HTDA: </td>
           <td align="left"><?php echo tep_draw_checkbox_field($args['desc_switch_name'][$i], '', $args['desc_switch'][$i], ''); ?> </td>
-          <td class="smallText">HTKA: </td>
+          <td>HTKA: </td>
           <td align="left"><?php echo tep_draw_checkbox_field($args['keyword_switch_name'][$i], '', $args['keyword_switch'][$i], ''); ?> </td>
-          <td class="smallText">HTCA: </td>
+          <td>HTCA: </td>
           <td align="left"><?php echo tep_draw_checkbox_field($args['cat_switch_name'][$i], '', $args['cat_switch'][$i], ''); ?> </td>
          
           <?php if ($sections['titles'][$i] == "product_info") { ?>
-          <td class="smallText">HTPA: </td>
+          <td>HTPA: </td>
           <td align="left"><?php echo tep_draw_checkbox_field($args['catprod_switch_name'][$i], '', $args['catprod_switch'][$i], ''); ?> </td>
           <?php } ?>
          
-          <td width="50%" class="smallText"> <script>document.writeln('<a style="cursor:hand" onclick="javascript:popup=window.open('
+          <td> <script>document.writeln('<a style="cursor:hand" onclick="javascript:popup=window.open('
                                            + '\'<?php echo tep_href_link('header_tags_popup_help.php'); ?>\',\'popup\','
                                            + '\'scrollbars,resizable,width=520,height=550,left=50,top=50\'); popup.focus(); return false;">'
                                            + '<font color="red"><u><?php echo HEADING_TITLE_CONTROLLER_EXPLAIN; ?></u></font></a>');
@@ -252,21 +250,21 @@ td.HTC_subHead {color: #000000; font-size: 14px; }
          </tr>
          
          <tr>
-          <td colspan="3" ><table border="0" width="100%">
+          <td colspan="3"><table class="table table-bordered table-hover">
            <tr>
-            <td width="2%">&nbsp;</td>
-            <td class="smallText" width="12%"><?php echo HEADING_TITLE_CONTROLLER_TITLE; ?></td>
-            <td class="smallText" ><?php echo tep_draw_input_field($id, $args['title'][$i], 'maxlength="255", size="60"', false, 300); ?> </td>
+            <td>&nbsp;</td>
+            <td><?php echo HEADING_TITLE_CONTROLLER_TITLE; ?></td>
+            <td><?php echo tep_draw_input_field($id, $args['title'][$i], 'maxlength="255", size="60"', false, 300); ?> </td>
            </tr>
            <tr>
-            <td width="2%">&nbsp;</td>
-            <td class="smallText" width="12%"><?php echo HEADING_TITLE_CONTROLLER_DESCRIPTION; ?></td>
-            <td class="smallText" ><?php echo tep_draw_input_field($id+1, $args['desc'][$i], 'maxlength="255", size="60"', false); ?> </td>
+            <td>&nbsp;</td>
+            <td><?php echo HEADING_TITLE_CONTROLLER_DESCRIPTION; ?></td>
+            <td><?php echo tep_draw_input_field($id+1, $args['desc'][$i], 'maxlength="255", size="60"', false); ?> </td>
            </tr>
            <tr>
-            <td width="2%">&nbsp;</td>
-            <td class="smallText" width="12%"><?php echo HEADING_TITLE_CONTROLLER_KEYWORDS; ?></td>
-            <td class="smallText" ><?php echo tep_draw_input_field($id+2, $args['keyword'][$i], 'maxlength="255", size="60"', false); ?> </td>
+            <td>&nbsp;</td>
+            <td><?php echo HEADING_TITLE_CONTROLLER_KEYWORDS; ?></td>
+            <td><?php echo tep_draw_input_field($id+2, $args['keyword'][$i], 'maxlength="255", size="60"', false); ?> </td>
            </tr>
           </table></td>
          </tr>
@@ -290,12 +288,17 @@ td.HTC_subHead {color: #000000; font-size: 14px; }
 <!-- body_text_eof //-->
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+<style type="text/css">
+td.HTC_Head {color: sienna; font-size: 24px; font-weight: bold; } 
+td.HTC_subHead {color: #000000; font-size: 14px; } 
+.dataTableHeadingRow { background-color: #C9C9C9; background-image:url(../../images/template/admin_table_heading_content.jpg); background-repeat:repeat-x; }
+.dataTableHeadingContent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; font-weight: bold; }
+.pageHeading { font-family: Verdana, Arial, sans-serif; font-size: 18px; color: #FFFFFF; font-weight: bold; }
+</style>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

@@ -22,13 +22,34 @@
   define ('LOGIN_EMAIL_USERNAME' , $login_email_username);
   define ('LOGIN_EMAIL_PASSWORD' , $login_email_password);
 ?>
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="ie ie6 lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="ie ie7 lt-ie9 lt-ie8"        lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="ie ie8 lt-ie9"               lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="ie ie9"                      lang="en"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-ie">
+<!--<![endif]-->
+
+<head>
+   <!-- Meta-->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+   <meta name="description" content="">
+   <meta name="keywords" content="">
+   <meta name="author" content="">
+   <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
+   <title><?php echo TITLE; ?></title>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <script>
 	var jQuery = jQuery.noConflict();
 	jQuery(function(){
 		jQuery('input[name="search_text"]').keydown(function(event){
+			
 			if (event.keyCode==13){
 				if (jQuery('select[name="search_drop_box"]').val()==''){
 					keyword = jQuery('input[name="search_text"]').val();
@@ -39,62 +60,137 @@
 		});
 	});
 </script>
-<table border="0" align="center" width="100%" cellspacing="0" cellpadding="0" background="../../images/template/admin_bg.jpg" style="margin: 0px auto; width:100%; background:url(../../images/template/admin_bg.jpg); background-repeat: repeat-x;">
-  <tr>
-    <td>
-      <table border="0" align="center" width="100%" cellspacing="0" cellpadding="0" style="margin: 0px auto;">
-        <tr>
-          <td>
-            <table border="0" align="center" width="760px" cellspacing="0" cellpadding="0" style="margin: 0px auto; background: url(../../images/template/header2.jpg)">
-              <tr>
-                <td colspan="3" style="background-color: #999">
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#26a5dc" style="font: Georgia, 'Times New Roman', Times, serif; margin: 0px; font-size: 12px;">
-                    <tr valign="center" style="height: 24px; max-height: 24px; overflow: auto ">
-                      <form action="<?php echo HTTP_SERVER.DIR_WS_ADMIN.'index.php'; ?>" method="get">
-                      <td align="left" valign="top" style="overflow: auto;">                     
-                        <select name="search_drop_box" style="font-size: 12px" style="margin: 0; padding: 0;">
+
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+   <!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script><script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->
+   <!-- Bootstrap CSS-->
+   <link rel="stylesheet" href="app/css/bootstrap.css">
+   <!-- Vendor CSS-->
+   <link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.min.css">
+   <link rel="stylesheet" href="vendor/animo/animate+animo.css">
+   <link rel="stylesheet" href="vendor/csspinner/csspinner.min.css">
+   <!-- START Page Custom CSS-->
+   <!-- END Page Custom CSS-->
+   <!-- App CSS-->
+   <link rel="stylesheet" href="app/css/app.css">
+   <!-- Modernizr JS Script-->
+   <script src="vendor/modernizr/modernizr.js" type="application/javascript"></script>
+   <!-- FastClick for mobiles-->
+   <script src="vendor/fastclick/fastclick.js" type="application/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<script language="javascript" src="includes/general.js"></script>
+<?php require('includes/account_check.js.php'); ?>
+</head>
+
+<body>
+   <!-- START Main wrapper-->
+   <section class="wrapper">
+      <!-- START Top Navbar-->
+      <nav role="navigation" class="navbar navbar-default navbar-top navbar-fixed-top">
+         <!-- START navbar header-->
+         <div class="navbar-header">
+            <a href="#" class="navbar-brand">
+               <div class="brand-logo"><img style="width: 57px; height: 33px;" src="images/logo.png" alt="Admin Logo" class="media-object"></div>
+               <div class="brand-logo-collapsed"><img style="width: 57px; height: 33px;" src="images/logo.png" alt="Admin Logo sort" class="media-object"></div>
+            </a>
+         </div>
+
+<div class="nav-wrapper">
+            <!-- START Left navbar-->
+            <ul class="nav navbar-nav">
+               <li>
+                  <a href="#" data-toggle="aside">
+                     <em class="fa fa-align-left"></em>
+                  </a>
+               </li>
+               <li>
+                  <a href="#" data-toggle="navbar-search">
+                     <em class="fa fa-search"></em>
+                  </a>
+               </li>
+            </ul>
+            <!-- END Left navbar-->
+            <!-- START Right Navbar-->
+            <ul class="nav navbar-nav navbar-right">
+               <!-- START Messages menu (dropdown-list)-->
+               <?php 
+                  if (tep_session_is_registered('login_id')) {
+                    echo '<li> <a href="' . tep_href_link(FILENAME_LOGOFF, '', 'NONSSL') . '" class="headerLink">' . '<button type="button" data-toggle="tooltip" data-title="Logout" class="btn-link">' . '<em class="fa fa-power-off text-muted"></em>' . '</button>' . '</a></li>';
+                  } else {
+                    echo '<li><a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '" class="headerLink">' . HEADER_TITLE_TOP . '</a></li>';
+                  }
+                //Admin end 
+    
+               // echo '<li> <a href="' . tep_catalog_href_link() . '" class="headerLink">' . HEADER_TITLE_ONLINE_CATALOG . '</a></li>'; ?>
+
+<!--               <li>
+                  <a href="#" data-toggle="offsidebar">
+                     <em class="fa fa-align-right"></em>
+                  </a>
+               </li>
+-->               <!-- END Contacts menu-->
+            </ul>
+            <!-- END Right Navbar-->
+         </div>
+         <!-- END Nav wrapper-->
+         <!-- START Search form-->
+        
+           <form action="<?php echo HTTP_SERVER.DIR_WS_ADMIN.'index.php'; ?>" role="form"  method="get" role="search" class="form-inline navbar-form">
+                    <div class="form-group has-feedback"> 
+                     <div class="col-md-2 col-xs-6" style="padding:0 2px 0 0;">
+                        <select name="search_drop_box" class="form-control m-b bg-primary">
+                                      <option name="" value="" selected>Search For:</option>
+                                      <option name="product" value="product">Product</option>
+                                      <option name="order_number" value="order_number">Order Number</option>
+                                      <option name="customer" value="customer">Customer Name</option>
+                                    </select>
+                      </div>
+                     <div class="col-md-10 col-xs-6" style="padding:0;">
+                        <input name="search_text" type="text" placeholder="Type and hit Enter.." class="form-control bg-primary">
+                     </div>
+                    </div>
+             </form>
+        
+            
+         
+                       <?php /*?> <form action="<?php echo HTTP_SERVER.DIR_WS_ADMIN.'index.php'; ?>" method="get" role="search" class="navbar-form">
+                          <div class="form-group has-feedback">
+                              <div class="form-group">
+                                 <div class="col-sm-3">
+                                    <select name="search_drop_box">
+                                      <option name="" value="" selected>Search For:</option>
+                                      <option name="product" value="product">Product</option>
+                                      <option name="order_number" value="order_number">Order Number</option>
+                                      <option name="customer" value="customer">Customer Name</option>
+                                    </select>
+                                 </div>
+                                 <div class="col-sm-3">
+                                    <input name="search_text" type="text" placeholder="Type and hit Enter.." class="form-control">
+                                 </div>
+                             </div>
+                           </form>
+                              </div><?php */?>
+         
+         
+         <?php /*?><form action="<?php echo HTTP_SERVER.DIR_WS_ADMIN.'index.php'; ?>" method="get" role="search" class="navbar-form">
+            <div class="form-group has-feedback">
+                        <select name="search_drop_box">
                           <option name="" value="" selected>Search For:</option>
                           <option name="product" value="product">Product</option>
                           <option name="order_number" value="order_number">Order Number</option>
                           <option name="customer" value="customer">Customer Name</option>
                         </select>
-                        <input name="search_text" type="text" size="13" style="margin: 0px; font-size: 12px" />
-                        <input type="image" src="../images/template/go_button.jpg" style="margin: 1px 0px -5px 0px; padding: 0px;" />
-                      </td>
-                      </form>
-                      <td>
-                          <span style="font-family:Arial, Helvetica, sans-serif; color:#FFFFFF; font-size:12px; font-weight:bold">Welcome, <?php echo STORE_ADMIN_NAME; ?></span>
-                      </td>
-                      <td width="*" align="right" class="smallText2">
-                <?php 
-                  if (tep_session_is_registered('login_id')) {
-                    echo '<a href="' . tep_href_link(FILENAME_ADMIN_ACCOUNT, '', 'SSL') . '" class="headerLink">' . HEADER_TITLE_ACCOUNT . '</a> | <a href="' . tep_href_link(FILENAME_LOGOFF, '', 'NONSSL') . '" class="headerLink">' . HEADER_TITLE_LOGOFF . '</a>';
-                  } else {
-                    echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '" class="headerLink">' . HEADER_TITLE_TOP . '</a>';
-                  }
-                //Admin end 
-    
-                echo ' | <a href="' . tep_catalog_href_link() . '" class="headerLink">' . HEADER_TITLE_ONLINE_CATALOG . '</a>'; ?></td>
-    
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-            <table border="0" width="760" cellspacing="0" cellpadding="0" background="../images/template/header2.jpg" style="background-position: top;" align="center" style="margin: 0px auto;">
-              <tr height="100">
-                <td width="760px" height="100px"></td>
-              </tr>
-            </table>
-            <table border="0" width="760px" cellspacing="0" cellpadding="0" background="../images/template/nav_bg.jpg" align="center" style="margin: 0px auto;">
-              <tr>
-                <td colspan="3" style="max-height: 24px;"><?php include("includes/new_menu.php"); ?></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
+               <input name="search_text" type="text" placeholder="Type and hit Enter.." class="form-control">
+               <div data-toggle="navbar-search-dismiss" class="fa fa-times form-control-feedback"></div>
+            </div>
+            <input type="image" src="../images/template/go_button.jpg" style="margin: 1px 0px -5px 0px; padding: 0px;" />
+         </form><?php */?>
+         <!-- END Search form-->
+</nav>
+
+      <!-- START aside-->
+      <aside class="aside">
+         <!-- START Sidebar (left)-->
+         <?php include("includes/new_menu.php"); ?>
+      </aside>
+      <!-- End aside-->

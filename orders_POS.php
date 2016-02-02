@@ -329,13 +329,7 @@
 
   include(DIR_WS_CLASSES . 'order.php');
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <script type="text/javascript">
 //BOF:shipment_export
 function validate_shipment_export_selection(formRef){
@@ -357,70 +351,87 @@ function validate_shipment_export_selection(formRef){
 }
 //EOF:shipment_export
 </script>
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<?php
-  require(DIR_WS_INCLUDES . 'header.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
+    <td><table class="table table-bordered table-hover">
 <!-- left_navigation //-->
 <?php //require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td><table class="table table-bordered table-hover">
 <?php
   if (($action == 'edit') && ($order_exists == true)) {
     $order = new order($oID);
 ?>
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
-          <td class="pageHeading" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS_EDIT, 'oID=' . $_GET['oID']) . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS_INVOICE, 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . tep_image_button('button_invoice.gif', IMAGE_ORDERS_INVOICE) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS_PACKINGSLIP, 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . tep_image_button('button_packingslip.gif', IMAGE_ORDERS_PACKINGSLIP) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('action'))) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a> '; ?></td>
+            <td><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+          <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS_EDIT, 'oID=' . $_GET['oID']) . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS_INVOICE, 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . tep_image_button('button_invoice.gif', IMAGE_ORDERS_INVOICE) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS_PACKINGSLIP, 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . tep_image_button('button_packingslip.gif', IMAGE_ORDERS_PACKINGSLIP) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('action'))) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a> '; ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <td><table class="table table-bordered table-hover">
           <tr>
             <td colspan="3"><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
-            <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main" valign="top"><b><?php echo ENTRY_CUSTOMER; ?></b></td>
-                <td class="main"><?php echo tep_address_format($order->customer['format_id'], $order->customer, 1, '', '<br>'); ?></td>
+                <td valign="top"><b><?php echo ENTRY_CUSTOMER; ?></b></td>
+                <td><?php echo tep_address_format($order->customer['format_id'], $order->customer, 1, '', '<br>'); ?></td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
               </tr>
               <tr>
-                <td class="main"><b><?php echo ENTRY_TELEPHONE_NUMBER; ?></b></td>
-                <td class="main"><?php echo $order->customer['telephone']; ?></td>
+                <td><b><?php echo ENTRY_TELEPHONE_NUMBER; ?></b></td>
+                <td><?php echo $order->customer['telephone']; ?></td>
               </tr>
               <tr>
-                <td class="main"><b><?php echo ENTRY_EMAIL_ADDRESS; ?></b></td>
-                <td class="main"><?php echo '<a href="mailto:' . $order->customer['email_address'] . '"><u>' . $order->customer['email_address'] . '</u></a>'; ?></td>
-              </tr>
-            </table></td>
-            <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="main" valign="top"><b><?php echo ENTRY_SHIPPING_ADDRESS; ?></b></td>
-                <td class="main"><?php echo tep_address_format($order->delivery['format_id'], $order->delivery, 1, '', '<br>'); ?></td>
+                <td><b><?php echo ENTRY_EMAIL_ADDRESS; ?></b></td>
+                <td><?php echo '<a href="mailto:' . $order->customer['email_address'] . '"><u>' . $order->customer['email_address'] . '</u></a>'; ?></td>
               </tr>
             </table></td>
-            <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main" valign="top"><b><?php echo ENTRY_BILLING_ADDRESS; ?></b></td>
-                <td class="main"><?php echo tep_address_format($order->billing['format_id'], $order->billing, 1, '', '<br>'); ?></td>
+                <td><b><?php echo ENTRY_SHIPPING_ADDRESS; ?></b></td>
+                <td><?php echo tep_address_format($order->delivery['format_id'], $order->delivery, 1, '', '<br>'); ?></td>
+              </tr>
+            </table></td>
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td valign="top"><b><?php echo ENTRY_BILLING_ADDRESS; ?></b></td>
+                <td><?php echo tep_address_format($order->billing['format_id'], $order->billing, 1, '', '<br>'); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -430,10 +441,10 @@ function validate_shipment_export_selection(formRef){
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
       <tr>
-        <td><table border="0" cellspacing="0" cellpadding="2">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="main"><b><?php echo ENTRY_PAYMENT_METHOD; ?></b></td>
-            <td class="main"><?php echo $order->info['payment_method']; ?></td>
+            <td><b><?php echo ENTRY_PAYMENT_METHOD; ?></b></td>
+            <td><?php echo $order->info['payment_method']; ?></td>
           </tr>
 <?php
     if (tep_not_null($order->info['cc_type']) || tep_not_null($order->info['cc_owner']) || tep_not_null($order->info['cc_number'])) {
@@ -442,20 +453,20 @@ function validate_shipment_export_selection(formRef){
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo ENTRY_CREDIT_CARD_TYPE; ?></td>
-            <td class="main"><?php echo $order->info['cc_type']; ?></td>
+            <td><?php echo ENTRY_CREDIT_CARD_TYPE; ?></td>
+            <td><?php echo $order->info['cc_type']; ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo ENTRY_CREDIT_CARD_OWNER; ?></td>
-            <td class="main"><?php echo $order->info['cc_owner']; ?></td>
+            <td><?php echo ENTRY_CREDIT_CARD_OWNER; ?></td>
+            <td><?php echo $order->info['cc_owner']; ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo ENTRY_CREDIT_CARD_NUMBER; ?></td>
-            <td class="main"><?php echo $order->info['cc_number']; ?></td>
+            <td><?php echo ENTRY_CREDIT_CARD_NUMBER; ?></td>
+            <td><?php echo $order->info['cc_number']; ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo ENTRY_CREDIT_CARD_EXPIRES; ?></td>
-            <td class="main"><?php echo $order->info['cc_expires']; ?></td>
+            <td><?php echo ENTRY_CREDIT_CARD_EXPIRES; ?></td>
+            <td><?php echo $order->info['cc_expires']; ?></td>
           </tr>
 <?php
     }
@@ -472,18 +483,18 @@ function validate_shipment_export_selection(formRef){
             echo tep_draw_form('shipment_export', FILENAME_ORDERS, tep_get_all_get_params(array('action')) . 'action=shipment_export'); 
             //EOF:shipment_export
             ?>
-            <table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr class="dataTableHeadingRow">
-            <td class="dataTableHeadingContent" colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
+          <table class="table table-bordered table-hover">
+          <tr>
+            <td colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
             <!--BOF:shipment_export -->
-            <td class="dataTableHeadingContent"><?php echo 'Shipment Export'; ?></td>
+            <td><?php echo 'Shipment Export'; ?></td>
             <!--EOF:shipment_export -->
-            <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
-            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TAX; ?></td>
-            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
-            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
-            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></td>
-            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
+            <td><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
+            <td align="right"><?php echo TABLE_HEADING_TAX; ?></td>
+            <td align="right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
+            <td align="right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
+            <td align="right"><?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></td>
+            <td align="right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
           </tr>
 <?php
     for ($i=0, $n=sizeof($order->products); $i<$n; $i++) {
@@ -513,9 +524,9 @@ function validate_shipment_export_selection(formRef){
 		}
 		
 		
-      echo '          <tr class="dataTableRow">' . "\n" .
-           '            <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
-           '            <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
+      echo '          <tr>' . "\n" .
+           '            <td valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
+           '            <td valign="top">' . $order->products[$i]['name'];
 
       if (isset($order->products[$i]['attributes']) && (sizeof($order->products[$i]['attributes']) > 0)) {
         for ($j = 0, $k = sizeof($order->products[$i]['attributes']); $j < $k; $j++) {
@@ -533,27 +544,27 @@ function validate_shipment_export_selection(formRef){
 
       echo '            </td>' . "\n" .
 		   //BOF:shipment_export
-		   '<td class="dataTableContent" valign="top"><input type="checkbox" name="chk_shipment_export[]" id="chk_shipment_export[]" value="' . $order->products[$i]['orders_products_id'] . '" ' . ($item_export_status=='1' ? ' checked ' : '') . ' /></td>' .
+		   '<td><input type="checkbox" name="chk_shipment_export[]" id="chk_shipment_export[]" value="' . $order->products[$i]['orders_products_id'] . '" ' . ($item_export_status=='1' ? ' checked ' : '') . ' /></td>' .
 		   //EOF:shipment_export
-           '            <td class="dataTableContent" valign="top">' . $order->products[$i]['model'] . '</td>' . "\n" .
-           '            <td class="dataTableContent" align="right" valign="top">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n" .
-           '            <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format($order->products[$i]['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
-           '            <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format(tep_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
-           '            <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format($order->products[$i]['final_price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
-           '            <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format(tep_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n";
+           '            <td>' . $order->products[$i]['model'] . '</td>' . "\n" .
+           '            <td align="right">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n" .
+           '            <td align="right"><b>' . $currencies->format($order->products[$i]['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
+           '            <td align="right"><b>' . $currencies->format(tep_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
+           '            <td align="right"><b>' . $currencies->format($order->products[$i]['final_price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
+           '            <td align="right"><b>' . $currencies->format(tep_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n";
       echo '          </tr>' . "\n";
 	  
 	  if ($wpcheck == 'WP' || $wpcheck=='wp') {
-	  echo '<tr class="dataTableRow">';
-	  echo '<td class="dataTableContent" align="right" valign="top"></td>';
-	  echo '<td class="dataTableContent" align="left" valign="top" colspan="8">Model No.:' . $stock_numbers[0] . ' | Jazz: ' . $qty  . ' | ID:' . $stock_numbers[1] . ' | CA:' . $stock_numbers[2] . ' | TN:' . $stock_numbers[3] . ' | PA:' . $stock_numbers[4] . ' | IN:' . $stock_numbers[5] . '</td>';
+	  echo '<tr>';
+	  echo '<td align="right" valign="top"></td>';
+	  echo '<td align="left" valign="top" colspan="8">Model No.:' . $stock_numbers[0] . ' | Jazz: ' . $qty  . ' | ID:' . $stock_numbers[1] . ' | CA:' . $stock_numbers[2] . ' | TN:' . $stock_numbers[3] . ' | PA:' . $stock_numbers[4] . ' | IN:' . $stock_numbers[5] . '</td>';
 	  echo '</tr>';
 	  }
     }
           //BOF:shipment_export
          echo '<tr>
              <td colspan=2"></td>
-             <td class="dataTableContent" align="left" valign="top" colspan="7">
+             <td align="left" colspan="7">
                 <input type="submit" value="Mark Items for Shipment Export" onclick="javascript:return validate_shipment_export_selection(this.form);" />
 		<input type="hidden" name="operation_mode" id="operation_mode" value="" />
               </td></tr>';
@@ -564,8 +575,8 @@ function validate_shipment_export_selection(formRef){
 <?php
     for ($i = 0, $n = sizeof($order->totals); $i < $n; $i++) {
       echo '              <tr>' . "\n" .
-           '                <td align="right" class="smallText">' . $order->totals[$i]['title'] . '</td>' . "\n" .
-           '                <td align="right" class="smallText">' . $order->totals[$i]['text'] . '</td>' . "\n" .
+           '                <td align="right">' . $order->totals[$i]['title'] . '</td>' . "\n" .
+           '                <td align="right">' . $order->totals[$i]['text'] . '</td>' . "\n" .
            '              </tr>' . "\n";
     }
 ?>
@@ -583,86 +594,86 @@ function validate_shipment_export_selection(formRef){
       <tr>
         <td class="main"><table border="1" cellspacing="0" cellpadding="5">
           <tr>
-            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_DATE_ADDED; ?></b></td>
-            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_CUSTOMER_NOTIFIED; ?></b></td>
-            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_STATUS; ?></b></td>
-            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
+            <td align="center"><b><?php echo TABLE_HEADING_DATE_ADDED; ?></b></td>
+            <td align="center"><b><?php echo TABLE_HEADING_CUSTOMER_NOTIFIED; ?></b></td>
+            <td align="center"><b><?php echo TABLE_HEADING_STATUS; ?></b></td>
+            <td align="center"><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
           </tr>
 <?php
     $orders_history_query = tep_db_query("select orders_status_id, date_added, customer_notified, comments from " . TABLE_ORDERS_STATUS_HISTORY . " where orders_id = '" . tep_db_input($oID) . "' order by date_added");
     if (tep_db_num_rows($orders_history_query)) {
       while ($orders_history = tep_db_fetch_array($orders_history_query)) {
         echo '          <tr>' . "\n" .
-             '            <td class="smallText" align="center">' . tep_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
-             '            <td class="smallText" align="center">';
+             '            <td align="center">' . tep_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
+             '            <td align="center">';
         if ($orders_history['customer_notified'] == '1') {
           echo tep_image(DIR_WS_ICONS . 'tick.gif', ICON_TICK) . "</td>\n";
         } else {
           echo tep_image(DIR_WS_ICONS . 'cross.gif', ICON_CROSS) . "</td>\n";
         }
-        echo '            <td class="smallText">' . $orders_status_array[$orders_history['orders_status_id']] . '</td>' . "\n" .
-             '            <td class="smallText">' . nl2br(tep_db_output($orders_history['comments'])) . '&nbsp;</td>' . "\n" .
+        echo '            <td>' . $orders_status_array[$orders_history['orders_status_id']] . '</td>' . "\n" .
+             '            <td>' . nl2br(tep_db_output($orders_history['comments'])) . '&nbsp;</td>' . "\n" .
              '          </tr>' . "\n";
       }
     } else {
         echo '          <tr>' . "\n" .
-             '            <td class="smallText" colspan="5">' . TEXT_NO_ORDER_HISTORY . '</td>' . "\n" .
+             '            <td colspan="5">' . TEXT_NO_ORDER_HISTORY . '</td>' . "\n" .
              '          </tr>' . "\n";
     }
 ?>
         </table></td>
       </tr>
       <tr>
-        <td class="main"><br><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
+        <td><br><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
       </tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
       </tr>
       <tr><?php echo tep_draw_form('status', FILENAME_ORDERS, tep_get_all_get_params(array('action')) . 'action=update_order'); ?>
-        <td class="main"><?php echo tep_draw_textarea_field('comments', 'soft', '60', '5'); ?></td>
+        <td><?php echo tep_draw_textarea_field('comments', 'soft', '60', '5'); ?></td>
       </tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
       <!-- Package Tracking Plus BEGIN -->
 	  <tr>
-	    <td><table border="0" cellspacing="0" cellpadding="2">
+	    <td><table class="table table-bordered table-hover">
 		  <tr>
-            <td class="main"><b><?php echo TABLE_HEADING_USPS_TRACKING; ?></b></td>
-			<td class="main"><?php echo tep_draw_textbox_field('usps_track_num', '40', '40', '', $order->info['usps_track_num']); ?></td>
-			<td class="main"><a target="_blank" href="http://trkcnfrm1.smi.usps.com/PTSInternetWeb/InterLabelInquiry.do?origTrackNum=<?php echo $order->info['usps_track_num']; ?>"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td>
-			<td class="main"><?php echo tep_draw_textbox_field('usps_track_num2', '40', '40', '', $order->info['usps_track_num2']); ?></td>
-			<td class="main"><a target="_blank" href="http://trkcnfrm1.smi.usps.com/PTSInternetWeb/InterLabelInquiry.do?origTrackNum=<?php echo $order->info['usps_track_num2']; ?>"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td>
+            <td><b><?php echo TABLE_HEADING_USPS_TRACKING; ?></b></td>
+			<td><?php echo tep_draw_textbox_field('usps_track_num', '40', '40', '', $order->info['usps_track_num']); ?></td>
+			<td><a target="_blank" href="http://trkcnfrm1.smi.usps.com/PTSInternetWeb/InterLabelInquiry.do?origTrackNum=<?php echo $order->info['usps_track_num']; ?>"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td>
+			<td><?php echo tep_draw_textbox_field('usps_track_num2', '40', '40', '', $order->info['usps_track_num2']); ?></td>
+			<td><a target="_blank" href="http://trkcnfrm1.smi.usps.com/PTSInternetWeb/InterLabelInquiry.do?origTrackNum=<?php echo $order->info['usps_track_num2']; ?>"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td>
           </tr>
           <tr>
             <td colspan="5"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td class="main"><b><?php echo TABLE_HEADING_UPS_TRACKING; ?></b></td>
-			<td class="main"><?php echo tep_draw_textbox_field('ups_track_num', '40', '40', '', $order->info['ups_track_num']); ?></td>
+            <td><b><?php echo TABLE_HEADING_UPS_TRACKING; ?></b></td>
+			<td><?php echo tep_draw_textbox_field('ups_track_num', '40', '40', '', $order->info['ups_track_num']); ?></td>
 			<td><a target="_blank" href="http://wwwapps.ups.com/etracking/tracking.cgi?InquiryNumber1=<?php echo $order->info['ups_track_num']; ?>&InquiryNumber2=&InquiryNumber3=&InquiryNumber4=&InquiryNumber5=&TypeOfInquiryNumber=T&UPS_HTML_Version=3.0&IATA=us&Lang=en&submit=Track+Package"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td>
-			<td class="main"><?php echo tep_draw_textbox_field('ups_track_num2', '40', '40', '', $order->info['ups_track_num2']); ?></td>
+			<td><?php echo tep_draw_textbox_field('ups_track_num2', '40', '40', '', $order->info['ups_track_num2']); ?></td>
 			<td><a target="_blank" href="http://wwwapps.ups.com/etracking/tracking.cgi?InquiryNumber1=<?php echo $order->info['ups_track_num2']; ?>&InquiryNumber2=&InquiryNumber3=&InquiryNumber4=&InquiryNumber5=&TypeOfInquiryNumber=T&UPS_HTML_Version=3.0&IATA=us&Lang=en&submit=Track+Package"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td>
           </tr>
           <tr>
             <td colspan="5"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td class="main"><b><?php echo TABLE_HEADING_FEDEX_TRACKING; ?></b></td>
-			<td class="main"><?php echo tep_draw_textbox_field('fedex_track_num', '40', '40', '', $order->info['fedex_track_num']); ?></td>
-			<td class="main"><a target="_blank" href="http://www.fedex.com/Tracking?tracknumbers=<?php echo $order->info['fedex_track_num']; ?>&action=track&language=english&cntry_code=us"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td>
-			<td class="main"><?php echo tep_draw_textbox_field('fedex_track_num2', '40', '40', '', $order->info['fedex_track_num2']); ?></td>
-			<td class="main"><a target="_blank" href="http://www.fedex.com/Tracking?tracknumbers=<?php echo $order->info['fedex_track_num2']; ?>&action=track&language=english&cntry_code=us"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td>
+            <td><b><?php echo TABLE_HEADING_FEDEX_TRACKING; ?></b></td>
+			<td><?php echo tep_draw_textbox_field('fedex_track_num', '40', '40', '', $order->info['fedex_track_num']); ?></td>
+			<td><a target="_blank" href="http://www.fedex.com/Tracking?tracknumbers=<?php echo $order->info['fedex_track_num']; ?>&action=track&language=english&cntry_code=us"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td>
+			<td><?php echo tep_draw_textbox_field('fedex_track_num2', '40', '40', '', $order->info['fedex_track_num2']); ?></td>
+			<td><a target="_blank" href="http://www.fedex.com/Tracking?tracknumbers=<?php echo $order->info['fedex_track_num2']; ?>&action=track&language=english&cntry_code=us"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td>
           </tr>
           <tr>
             <td colspan="5"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td class="main"><b><?php echo TABLE_HEADING_DHL_TRACKING; ?></b></td>
-			<td class="main"><?php echo tep_draw_textbox_field('dhl_track_num', '40', '40', '', $order->info['dhl_track_num']); ?></td>
-			<td class="main"><a target="_blank" href="http://track.dhl-usa.com/atrknav.asp?ShipmentNumber=<?php echo $order->info['dhl_track_num']; ?>&action=track&language=english&cntry_code=us"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td>
-			<td class="main"><?php echo tep_draw_textbox_field('dhl_track_num2', '40', '40', '', $order->info['dhl_track_num2']); ?></td>
-			<td class="main"><a target="_blank" href="http://track.dhl-usa.com/atrknav.asp?ShipmentNumber=<?php echo $order->info['dhl_track_num2']; ?>&action=track&language=english&cntry_code=us"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td>
+            <td><b><?php echo TABLE_HEADING_DHL_TRACKING; ?></b></td>
+			<td><?php echo tep_draw_textbox_field('dhl_track_num', '40', '40', '', $order->info['dhl_track_num']); ?></td>
+			<td><a target="_blank" href="http://track.dhl-usa.com/atrknav.asp?ShipmentNumber=<?php echo $order->info['dhl_track_num']; ?>&action=track&language=english&cntry_code=us"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td>
+			<td><?php echo tep_draw_textbox_field('dhl_track_num2', '40', '40', '', $order->info['dhl_track_num2']); ?></td>
+			<td><a target="_blank" href="http://track.dhl-usa.com/atrknav.asp?ShipmentNumber=<?php echo $order->info['dhl_track_num2']; ?>&action=track&language=english&cntry_code=us"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td>
           </tr>
           <tr>
             <td colspan="5"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
@@ -672,18 +683,18 @@ function validate_shipment_export_selection(formRef){
 <!-- Package Tracking Plus END -->
 
       <tr>
-        <td><table border="0" cellspacing="0" cellpadding="2">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td><table border="0" cellspacing="0" cellpadding="2">
+            <td><table class="table table-bordered table-hover">
               <tr>
-                <td class="main"><b><?php echo ENTRY_STATUS; ?></b> <?php echo tep_draw_pull_down_menu('status', $orders_statuses, $order->info['orders_status']); ?></td>
+                <td><b><?php echo ENTRY_STATUS; ?></b> <?php echo tep_draw_pull_down_menu('status', $orders_statuses, $order->info['orders_status']); ?></td>
               </tr>
               <tr>
-                <td class="main"><b><?php echo ENTRY_NOTIFY_CUSTOMER; ?></b> <?php echo tep_draw_checkbox_field('notify', '', true); ?></td>
-                <td class="main"><b><?php echo ENTRY_NOTIFY_COMMENTS; ?></b> <?php echo tep_draw_checkbox_field('notify_comments', '', true); ?></td>
+                <td><b><?php echo ENTRY_NOTIFY_CUSTOMER; ?></b> <?php echo tep_draw_checkbox_field('notify', '', true); ?></td>
+                <td><b><?php echo ENTRY_NOTIFY_COMMENTS; ?></b> <?php echo tep_draw_checkbox_field('notify_comments', '', true); ?></td>
               </tr>
             </table></td>
-            <td valign="top"><?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE); ?></td>
+            <td><?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE); ?></td>
             <?php
     if ((USE_POINTS_SYSTEM == 'true') && !tep_not_null(POINTS_AUTO_ON)) {
 	    $p_status_query = tep_db_query("select points_status from " . TABLE_CUSTOMERS_POINTS_PENDING . " where points_status = 1 and points_type = 'SP' and orders_id = '" . (int)$oID . "' limit 1");
@@ -702,32 +713,32 @@ function validate_shipment_export_selection(formRef){
   } else {
 ?>
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
             <?php /*<td class="pageHeading"><?php echo HEADING_TITLE. '<a href="' . tep_href_link(FILENAME_CREATE_ORDER) . '">'. tep_image_button('button_create_order.gif', IMAGE_CREATE_ORDER) . '</a>';  ?></td> */ ?>
-			<td class="pageHeading"><?php echo HEADING_TITLE. '<a href="' . tep_href_link('create_order_process_POS.php') . '">'. tep_image_button('button_create_order.gif', IMAGE_CREATE_ORDER) . '</a>';  ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
-            <td align="right"><table border="0" width="100%" cellspacing="2" cellpadding="0">
+			<td><?php echo '<a href="' . tep_href_link('create_order_process_POS.php') . '">'. tep_image_button('button_create_order.gif', IMAGE_CREATE_ORDER) . '</a>';  ?></td>
+            <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+            <td align="right"><table class="table table-bordered table-hover">
               <tr><?php echo tep_draw_form('orders', FILENAME_ORDERS, '', 'get'); ?>
-                <td class="smallText" align="right"><?php echo 'Customer Name: ' .  tep_draw_input_field('cname') . tep_draw_separator('pixel_trans.gif', 10, 1) .  HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('oID', '', 'size="12"') . tep_draw_hidden_field('action', 'edit') . tep_draw_separator('pixel_trans.gif', 10, 1) .tep_image_submit('button_search.gif', 'Search'); ?></td>
+                <td align="right"><?php echo 'Customer Name: ' .  tep_draw_input_field('cname') . tep_draw_separator('pixel_trans.gif', 10, 1) .  HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('oID', '', 'size="12"') . tep_draw_hidden_field('action', 'edit') . tep_draw_separator('pixel_trans.gif', 10, 1) .tep_image_submit('button_search.gif', 'Search'); ?></td>
               </form></tr>
               <tr><?php echo tep_draw_form('status', FILENAME_ORDERS, '', 'get'); ?>
-                <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . tep_draw_pull_down_menu('status', array_merge(array(array('id' => '', 'text' => TEXT_ALL_ORDERS)), $orders_statuses), '', 'onChange="this.form.submit();"'); ?></td>
+                <td align="right"><?php echo HEADING_TITLE_STATUS . ' ' . tep_draw_pull_down_menu('status', array_merge(array(array('id' => '', 'text' => TEXT_ALL_ORDERS)), $orders_statuses), '', 'onChange="this.form.submit();"'); ?></td>
               </form></tr>
             </table></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+            <td><table class="table table-bordered table-hover">
+              <tr>
+                <td><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
+                <td align="right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></td>
+                <td align="center"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
+                <td align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
+                <td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
     if (isset($HTTP_GET_VARS['cID'])) {
@@ -752,25 +763,25 @@ function validate_shipment_export_selection(formRef){
       }
 
       if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id)) {
-        echo '              <tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '\'">' . "\n";
+        echo '              <tr id="defaultSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '\'">' . "\n";
       } else {
-        echo '              <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '\'">' . "\n";
+        echo '              <tr onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID', 'action')) . 'oID=' . $orders['orders_id'] . '&action=edit') . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $orders['customers_name']; ?></td>
-                <td class="dataTableContent" align="right"><?php echo strip_tags($orders['order_total']); ?></td>
-                <td class="dataTableContent" align="center"><?php echo tep_datetime_short($orders['date_purchased']); ?></td>
-                <td class="dataTableContent" align="right"><?php echo $orders['orders_status_name']; ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id)) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID', 'action')) . 'oID=' . $orders['orders_id'] . '&action=edit') . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $orders['customers_name']; ?></td>
+                <td align="right"><?php echo strip_tags($orders['order_total']); ?></td>
+                <td align="center"><?php echo tep_datetime_short($orders['date_purchased']); ?></td>
+                <td align="right"><?php echo $orders['orders_status_name']; ?></td>
+                <td align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id)) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     }
 ?>
               <tr>
-                <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="5"><table class="table table-bordered table-hover">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $orders_split->display_count($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
-                    <td class="smallText" align="right"><?php echo $orders_split->display_links($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'oID', 'action'))); ?></td>
+                    <td><?php echo $orders_split->display_count($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
+                    <td align="right"><?php echo $orders_split->display_links($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'oID', 'action'))); ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -824,12 +835,11 @@ function validate_shipment_export_selection(formRef){
 <!-- body_text_eof //-->
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 
-</body>
-</html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

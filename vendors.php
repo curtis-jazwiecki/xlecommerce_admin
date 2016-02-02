@@ -249,58 +249,46 @@
     }
   }
 ?>
-
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-
-<html <?php echo HTML_PARAMS; ?>>
-
-<head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-
-<title><?php echo TITLE; ?></title>
-
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-
-<script language="javascript" src="includes/general.js"></script>
-
-</head>
-
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
 
 <!-- header //-->
-
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-
 <!-- header_eof //-->
-
-
 
 <!-- body //-->
 
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2" bgcolor="#030c2c">
-
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
-
 <!-- body_text //-->
-
-    <td width="100%" valign="top" align="center"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-
+    <td><table class="table table-bordered table-hover">
 <?php
-
-
-
   if ($action == 'edit' || $action == 'update' || $action == 'new' || $action == 'insert' || $action == 'setflag') {
 
 ?>
-
       <tr>
-
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-
+        <td><table class="table table-bordered table-hover">
           <tr>
-
-            <td class="pageHeading">
+            <td>
 
 <?php
 
@@ -319,26 +307,16 @@
 ?>
 
             </td>
-
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
 
           </tr>
-
         </table></td>
-
       </tr>
-
       <tr>
-
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-
       </tr>
-
        <tr>
-
 <?php
-
-
 
     $form_action = (isset ($HTTP_GET_VARS['vendors_id'])) ? 'update' : 'insert';
 
@@ -354,13 +332,13 @@
 
       <tr>
 
-        <td class="formArea"><table border="1" cellspacing="2" cellpadding="2">
+        <td class="formArea"><table class="table table-bordered table-hover">
 
         <tr>
 
-            <td class="main"><?php echo TEXT_VENDORS_ID; ?></td>
+            <td><?php echo TEXT_VENDORS_ID; ?></td>
 
-            <td class="main">
+            <td>
 
 <?php
 
@@ -376,9 +354,9 @@
 
           <tr>
 
-            <td class="main"><?php echo TEXT_VENDORS_NAME; ?></td>
+            <td><?php echo TEXT_VENDORS_NAME; ?></td>
 
-            <td class="main"><?php echo tep_draw_input_field ('vendors_name', $vInfo->vendors_name, 'maxlength="64"'); ?></td>
+            <td><?php echo tep_draw_input_field ('vendors_name', $vInfo->vendors_name, 'maxlength="64"'); ?></td>
 
          </tr>
 
@@ -410,16 +388,16 @@
 
          <tr>
 
-           <td class="main"><?php echo TEXT_VENDORS_STATUS_EMAIL; ?></td>
+           <td><?php echo TEXT_VENDORS_STATUS_EMAIL; ?></td>
 
-           <td class="main"> <?php echo tep_draw_separator('pixel_trans.gif', '1', '15') . tep_draw_pull_down_menu('vendors_status_send', $orders_statuses, $vInfo->vendors_status_send); ?></td>
+           <td> <?php echo tep_draw_separator('pixel_trans.gif', '1', '15') . tep_draw_pull_down_menu('vendors_status_send', $orders_statuses, $vInfo->vendors_status_send); ?></td>
 
          </tr>
          <tr>
 
-           <td class="main"><?php echo TEXT_VENDORS_SEND_EMAIL; ?></td>
+           <td><?php echo TEXT_VENDORS_SEND_EMAIL; ?></td>
 
-           <td class="main">
+           <td>
 
 <?php
 
@@ -449,159 +427,159 @@
 
          <tr>
 
-           <td class="main"><?php echo TEXT_VENDORS_CONTACT; ?></td>
+           <td><?php echo TEXT_VENDORS_CONTACT; ?></td>
 
-           <td class="main"><?php echo tep_draw_input_field('vendors_contact', $vInfo->vendors_contact, 'maxlength="64"'); ?></td>
-
-         </tr>
-
-         <tr>
-
-           <td class="main"><?php echo TEXT_VENDORS_PHONE1; ?></td>
-
-           <td class="main"><?php echo tep_draw_input_field('vendors_phone1', $vInfo->vendors_phone1, 'maxlength="64"'); ?></td>
+           <td><?php echo tep_draw_input_field('vendors_contact', $vInfo->vendors_contact, 'maxlength="64"'); ?></td>
 
          </tr>
 
          <tr>
 
-           <td class="main"><?php echo TEXT_VENDORS_PHONE2; ?></td>
+           <td><?php echo TEXT_VENDORS_PHONE1; ?></td>
 
-           <td class="main"><?php echo tep_draw_input_field('vendors_phone2', $vInfo->vendors_phone2, 'maxlength="64"');?></td>
+           <td><?php echo tep_draw_input_field('vendors_phone1', $vInfo->vendors_phone1, 'maxlength="64"'); ?></td>
 
          </tr>
 
          <tr>
 
-           <td class="main"><?php echo TEXT_VENDORS_EMAIL; ?></td>
+           <td><?php echo TEXT_VENDORS_PHONE2; ?></td>
 
-           <td class="main"><?php echo tep_draw_input_field('vendors_email', $vInfo->vendors_email, 'maxlength="64"');?></td>
+           <td><?php echo tep_draw_input_field('vendors_phone2', $vInfo->vendors_phone2, 'maxlength="64"');?></td>
+
+         </tr>
 
          <tr>
 
-           <td class="main"><?php echo TEXT_VENDOR_STREET; ?></td>
+           <td><?php echo TEXT_VENDORS_EMAIL; ?></td>
 
-           <td class="main"><?php echo tep_draw_input_field('vendor_street', $vInfo->vendor_street, 'maxlength="64"'); ?></td>
+           <td><?php echo tep_draw_input_field('vendors_email', $vInfo->vendors_email, 'maxlength="64"');?></td>
 
-          </tr>
+         <tr>
 
-          <tr>
+           <td><?php echo TEXT_VENDOR_STREET; ?></td>
 
-            <td class="main"><?php echo TEXT_VENDOR_ADDRESS_2; ?></td>
-
-            <td class="main"><?php echo tep_draw_input_field('vendor_add2', $vInfo->vendor_add2, 'maxlength="64"'); ?></td>
+           <td><?php echo tep_draw_input_field('vendor_street', $vInfo->vendor_street, 'maxlength="64"'); ?></td>
 
           </tr>
 
           <tr>
 
-            <td class="main"><?php echo TEXT_VENDOR_CITY; ?></td>
+            <td><?php echo TEXT_VENDOR_ADDRESS_2; ?></td>
 
-            <td class="main"><?php echo tep_draw_input_field('vendor_city', $vInfo->vendor_city, 'maxlength="64"'); ?></td>
-
-          </tr>
-
-          <tr>
-
-            <td class="main"><?php echo TEXT_VENDOR_STATE; ?></td>
-
-            <td class="main"><?php echo tep_draw_input_field('vendor_state', $vInfo->vendor_state, 'maxlength="32"'); ?></td>
+            <td><?php echo tep_draw_input_field('vendor_add2', $vInfo->vendor_add2, 'maxlength="64"'); ?></td>
 
           </tr>
 
           <tr>
 
-            <td class="main"><?php echo TEXT_VENDORS_ZIPCODE; ?></td>
+            <td><?php echo TEXT_VENDOR_CITY; ?></td>
 
-            <td class="main"><?php echo tep_draw_input_field('vendors_zipcode', $vInfo->vendors_zipcode, 'maxlength="32"'); ?></td>
-
-          </tr>
-
-          <tr>
-
-            <td class="main"><?php echo TEXT_VENDOR_COUNTRY; ?></td>
-
-            <td class="main"><?php echo tep_get_country_list('vendor_country', $vInfo->vendor_country); ?></td>
+            <td><?php echo tep_draw_input_field('vendor_city', $vInfo->vendor_city, 'maxlength="64"'); ?></td>
 
           </tr>
 
           <tr>
 
-            <td class="main"><?php echo TEXT_VENDORS_URL; ?></td>
+            <td><?php echo TEXT_VENDOR_STATE; ?></td>
 
-            <td class="main"><?php echo tep_draw_input_field('vendors_url', $vInfo->vendors_url, 'maxlength="96"'); ?></td>
-
-          </tr>
-
-          <tr>
-
-            <td class="main"><?php echo TEXT_ACCOUNT_NUMBER; ?></td>
-
-            <td class="main"><?php echo tep_draw_input_field('account_number', $vInfo->account_number, 'maxlength="64"'); ?></td>
+            <td><?php echo tep_draw_input_field('vendor_state', $vInfo->vendor_state, 'maxlength="32"'); ?></td>
 
           </tr>
 
           <tr>
 
-            <td class="main"><?php echo TEXT_VENDOR_ADD_INFO; ?></td>
+            <td><?php echo TEXT_VENDORS_ZIPCODE; ?></td>
 
-            <td class="main"><?php echo tep_draw_textarea_field('vendor_add_info', 'soft', '60', '3', (isset ($vendor_add_info) ? $vendor_add_info : $vInfo->vendor_add_info)); ?></td>
-
-          </tr>
-
-          <tr>
-
-            <td class="main"><?php echo TEXT_HANDLING; ?></td>
-
-            <td class="main"><?php echo tep_draw_input_field('handling_charge', $vInfo->handling_charge, 'maxlength="32"'); ?></td>
+            <td><?php echo tep_draw_input_field('vendors_zipcode', $vInfo->vendors_zipcode, 'maxlength="32"'); ?></td>
 
           </tr>
 
           <tr>
 
-            <td class="main"><?php echo TEXT_HANDLING_PER_BOX; ?></td>
+            <td><?php echo TEXT_VENDOR_COUNTRY; ?></td>
 
-            <td class="main"><?php echo tep_draw_input_field('handling_per_box', $vInfo->handling_per_box, 'maxlength="32"'); ?></td>
-
-          </tr>
-
-          <tr>
-
-            <td class="main"><?php echo TEXT_TARE_WEIGHT; ?></td>
-
-            <td class="main"><?php echo tep_draw_input_field('tare_weight', $vInfo->tare_weight, 'maxlength="32"'); ?></td>
+            <td><?php echo tep_get_country_list('vendor_country', $vInfo->vendor_country); ?></td>
 
           </tr>
 
           <tr>
 
-            <td class="main"><?php echo TEXT_PERCENT_TARE_WEIGHT; ?></td>
+            <td><?php echo TEXT_VENDORS_URL; ?></td>
 
-            <td class="main"><?php echo tep_draw_input_field('percent_tare_weight', $vInfo->percent_tare_weight, 'maxlength="32"'); ?></td>
-
-          </tr>
-
-          <tr>
-
-            <td class="main"><?php echo TEXT_MAX_BOX_WEIGHT; ?></td>
-
-            <td class="main"><?php echo tep_draw_input_field('max_box_weight', $vInfo->max_box_weight, 'maxlength="32"');?></td>
+            <td><?php echo tep_draw_input_field('vendors_url', $vInfo->vendors_url, 'maxlength="96"'); ?></td>
 
           </tr>
 
           <tr>
 
-            <td class="main"><?php echo TEXT_ZONES; ?></td>
+            <td><?php echo TEXT_ACCOUNT_NUMBER; ?></td>
 
-            <td class="main"><?php echo tep_draw_input_field ('zones', $vInfo->zones, 'maxlength="32"') . '&nbsp;&nbsp;&nbsp;' . TEXT_ZONES_EXPLAIN; ?></td>
+            <td><?php echo tep_draw_input_field('account_number', $vInfo->account_number, 'maxlength="64"'); ?></td>
 
           </tr>
 
           <tr>
 
-            <td class="main" align="top"><?php echo TEXT_VENDORS_IMAGE; ?>
+            <td><?php echo TEXT_VENDOR_ADD_INFO; ?></td>
 
-            <td class="main">
+            <td><?php echo tep_draw_textarea_field('vendor_add_info', 'soft', '60', '3', (isset ($vendor_add_info) ? $vendor_add_info : $vInfo->vendor_add_info)); ?></td>
+
+          </tr>
+
+          <tr>
+
+            <td><?php echo TEXT_HANDLING; ?></td>
+
+            <td><?php echo tep_draw_input_field('handling_charge', $vInfo->handling_charge, 'maxlength="32"'); ?></td>
+
+          </tr>
+
+          <tr>
+
+            <td><?php echo TEXT_HANDLING_PER_BOX; ?></td>
+
+            <td><?php echo tep_draw_input_field('handling_per_box', $vInfo->handling_per_box, 'maxlength="32"'); ?></td>
+
+          </tr>
+
+          <tr>
+
+            <td><?php echo TEXT_TARE_WEIGHT; ?></td>
+
+            <td><?php echo tep_draw_input_field('tare_weight', $vInfo->tare_weight, 'maxlength="32"'); ?></td>
+
+          </tr>
+
+          <tr>
+
+            <td><?php echo TEXT_PERCENT_TARE_WEIGHT; ?></td>
+
+            <td><?php echo tep_draw_input_field('percent_tare_weight', $vInfo->percent_tare_weight, 'maxlength="32"'); ?></td>
+
+          </tr>
+
+          <tr>
+
+            <td><?php echo TEXT_MAX_BOX_WEIGHT; ?></td>
+
+            <td><?php echo tep_draw_input_field('max_box_weight', $vInfo->max_box_weight, 'maxlength="32"');?></td>
+
+          </tr>
+
+          <tr>
+
+            <td><?php echo TEXT_ZONES; ?></td>
+
+            <td><?php echo tep_draw_input_field ('zones', $vInfo->zones, 'maxlength="32"') . '&nbsp;&nbsp;&nbsp;' . TEXT_ZONES_EXPLAIN; ?></td>
+
+          </tr>
+
+          <tr>
+
+            <td><?php echo TEXT_VENDORS_IMAGE; ?>
+
+            <td>
 
 <?php 
 
@@ -634,7 +612,7 @@
 
       <tr>
 
-        <td align="right" class="main">
+        <td align="right">
 
 <?php
     if ($action == 'new') {
@@ -651,22 +629,22 @@
 ?>
 
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+            <td><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_VENDORS; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CONTACT; ?></td>
+            <td><table class="table table-bordered table-hover">
+              <tr>
+                <td><?php echo TABLE_HEADING_VENDORS; ?></td>
+                <td><?php echo TABLE_HEADING_CONTACT; ?></td>
                 <?php /*<td class="dataTableHeadingContent" align="center"><?php echo TABLE_SEND_EMAIL; ?></td> */ ?>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                <td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
     $search = '';
@@ -693,19 +671,19 @@
 
       if (isset ($vInfo) && is_object($vInfo) && ($vendor_data['vendors_id'] == $vInfo->vendors_id)) {
 
-        echo '          <tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params(array ('vendors_id', 'action')) . 'vendors_id=' . $vInfo->vendors_id . '&action=edit') . '\'">' . "\n";
+        echo '          <tr id="defaultSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params(array ('vendors_id', 'action')) . 'vendors_id=' . $vInfo->vendors_id . '&action=edit') . '\'">' . "\n";
 
       } else {
 
-        echo '          <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params(array ('vendors_id')) . 'vendors_id=' . $vendor_data['vendors_id']) . '\'">' . "\n";
+        echo '          <tr onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params(array ('vendors_id')) . 'vendors_id=' . $vendor_data['vendors_id']) . '\'">' . "\n";
 
       }
 
 ?>
 
-                <td class="dataTableContent"><?php echo $vendor_data['vendors_name']; ?></td>
+                <td><?php echo $vendor_data['vendors_name']; ?></td>
 
-                <td class="dataTableContent"><?php echo $vendor_data['vendors_contact']; ?></td>
+                <td><?php echo $vendor_data['vendors_contact']; ?></td>
 
                 <?php /*<td class="dataTableContent" align="center">
 
@@ -727,7 +705,7 @@
 
                 </td> */ ?>
 
-                <td class="dataTableContent" align="right"><?php if (isset($vInfo) && is_object($vInfo) && ($vendor_data['vendors_id'] == $vInfo->vendors_id)) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params(array('vendors_id')) . 'vendors_id=' . $vendor_data['vendors_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td align="right"><?php if (isset($vInfo) && is_object($vInfo) && ($vendor_data['vendors_id'] == $vInfo->vendors_id)) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params(array('vendors_id')) . 'vendors_id=' . $vendor_data['vendors_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
 
               </tr>
 
@@ -741,13 +719,13 @@
 
               <tr>
 
-                <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="3"><table class="table table-bordered table-hover">
 
                   <tr>
 
-                    <td class="smallText2" valign="top"><?php echo $vendors_content_split->display_count($vendors_content_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_VENDORS); ?></td>
+                    <td><?php echo $vendors_content_split->display_count($vendors_content_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_VENDORS); ?></td>
 
-                    <td class="smallText2" align="right"><?php echo $vendors_content_split->display_links($vendors_content_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y', 'vendors_id'))); ?></td>
+                    <td align="right"><?php echo $vendors_content_split->display_links($vendors_content_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y', 'vendors_id'))); ?></td>
 
                   </tr>
 
@@ -853,7 +831,7 @@
 
             'align' => 'center',
 
-            'text' => '<a href="' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params (array ('vendors_id', 'action')) . 'vendors_id=' . $vInfo->vendors_id . '&action=edit') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a>' . ($vInfo->vendors_id>1 ? '<a href="' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params(array ('vendors_id', 'action')) . 'vendors_id=' . $vInfo->vendors_id . '&action=confirm') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a>' : '') . '<br><a href="' . tep_href_link(FILENAME_VENDOR_MODULES, 'set=shipping&vendors_id=' . $vInfo->vendors_id) . '">' . tep_image_button('button_manage.gif', IMAGE_MANAGE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params(array ('vendors_id', 'action')) . 'action=new') . '">' . tep_image_button('button_new_vendor.gif', IMAGE_INSERT) . '</a><br><a href="' . tep_href_link(FILENAME_ORDERS_VENDORS, 'vendors_id=' . $vInfo->vendors_id) . '">' . tep_image_button('button_orders.gif', IMAGE_ORDERS) . '</a><br><br>There are <b>' . $num_orders . '</b> orders for this Vendor.<br>This Vendor has <b>' . $num_products . '</b> products.<br>Click <a href="' . tep_href_link(FILENAME_PRODS_VENDORS, '&vendors_id=' . $vInfo->vendors_id) . '"><b>here </b></a>for Products Report<br>'
+            'text' => '<a href="' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params (array ('vendors_id', 'action')) . 'vendors_id=' . $vInfo->vendors_id . '&action=edit') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a><p style="margin-bottom:-15px;"></p>' . ($vInfo->vendors_id>1 ? '<a href="' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params(array ('vendors_id', 'action')) . 'vendors_id=' . $vInfo->vendors_id . '&action=confirm') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a>' : '') . '<br><a href="' . tep_href_link(FILENAME_VENDOR_MODULES, 'set=shipping&vendors_id=' . $vInfo->vendors_id) . '">' . tep_image_button('button_manage.gif', IMAGE_MANAGE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params(array ('vendors_id', 'action')) . 'action=new') . '">' . tep_image_button('button_new_vendor.gif', IMAGE_INSERT) . '</a><br><br>There are <b>' . $num_orders . '</b> orders for this Vendor.<br>This Vendor has <b>' . $num_products . '</b> products.<br>Click <a href="' . tep_href_link(FILENAME_PRODS_VENDORS, '&vendors_id=' . $vInfo->vendors_id) . '"><b>here </b></a>for Products Report<br>'
 
             );
 
@@ -904,21 +882,11 @@
   </tr>
 
 </table>
-
+               <!-- END your table-->
 <!-- body_eof //-->
 
-
-
 <!-- footer //-->
-
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-
 <!-- footer_eof //-->
-
-<br>
-
-</body>
-
-</html>
 
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

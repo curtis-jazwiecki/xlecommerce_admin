@@ -50,49 +50,56 @@ $currentVal = tep_db_query("SELECT `configuration_value` FROM `".TABLE_CONFIGURA
 $currentValue = tep_db_fetch_array($currentVal);	
 
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Mobile Site
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">Mobile Site
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td><table class="table table-bordered table-hover">
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading">Mobile Site</td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table class="table table-bordered table-hover">
 
           <tr><form action="<?php echo HTTP_SERVER.$_SERVER['PHP_SELF'];?>" method="post">
-            <td><table border="0" cellpadding="0" cellspacing="2">
+            <td><table class="table table-bordered table-hover">
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
-                <td class="main" style="color:#FFFFFF">Mobile Site Status</td>
-                <td style="color:#fff;"><input type="radio" value="t" name="mstat" <?php if($currentValue['configuration_value']=='True') echo'checked="checked"';?>> ON <input type="radio" value="f" name="mstat" <?php if($currentValue['configuration_value']=='False') echo'checked="checked"';?>> OFF </td>
+                <td>Mobile Site Status</td>
+                <td><input type="radio" value="t" name="mstat" <?php if($currentValue['configuration_value']=='True') echo'checked="checked"';?>> ON <input type="radio" value="f" name="mstat" <?php if($currentValue['configuration_value']=='False') echo'checked="checked"';?>> OFF </td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
                <tr>
-                <td class="main" style="color:#FFFFFF">Mobile Site Template</td>
-                <td style="color:#fff;">
+                <td>Mobile Site Template</td>
+                <td>
                 <?php
                 $templates_folder = DIR_FS_CATALOG . DIR_WS_INCLUDES . 'sts_templates/full/';
                 $default_dir = array('_notes', 'boxes', 'images', 'content');
@@ -122,16 +129,16 @@ $currentValue = tep_db_fetch_array($currentVal);
         </table></td>
       </tr>
 	   <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table class="table table-bordered table-hover">
 
           <tr><form action="<?php echo HTTP_SERVER.$_SERVER['PHP_SELF'];?>" method="post"  enctype="multipart/form-data">
-            <td><table border="0" cellpadding="0" cellspacing="2">
+            <td><table class="table table-bordered table-hover">
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
-                <td class="main" style="color:#FFFFFF">Mobile Site Banner</td>
-                <td style="color:#fff;"><input type="file" name="mbanner">&nbsp;<?php echo tep_image_submit('button_upload.gif'); ?></td>
+                <td>Mobile Site Banner</td>
+                <td><input type="file" name="mbanner">&nbsp;<?php echo tep_image_submit('button_upload.gif'); ?></td>
               </tr>
             </table></td>
           </form></tr>
@@ -142,12 +149,11 @@ $currentValue = tep_db_fetch_array($currentVal);
     </table></td> 
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

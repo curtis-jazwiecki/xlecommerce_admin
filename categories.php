@@ -5454,6 +5454,8 @@ if (tep_not_null($action))
 
 
 
+
+
                             // EOF Separate Pricing Per Customer originally 2006-04-26 by Infobroker
 
 
@@ -6644,100 +6646,7 @@ if (is_dir(DIR_FS_CATALOG_IMAGES))
 
 ?>
 
-
-
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-
-
-
-<html <?php
-
-
-
-
-
-
-
-echo HTML_PARAMS;
-
-
-
-
-
-
-
-?>><head>
-
-
-
-<meta http-equiv="Content-Type" content="text/html; charset=<?php
-
-
-
-
-
-
-
-echo CHARSET;
-
-
-
-
-
-
-
-?>">
-
-
-
-<title><?php
-
-
-
-
-
-
-
-echo TITLE;
-
-
-
-
-
-
-
-?></title>
-
-
-
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css" />
-
-
-
-<?php
-
-
-
-
-
-
-
-//BOF:range_manager
-
-
-
-
-
-
-
-?>
-
-
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-
-
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
 <script>
 
 
@@ -7158,6 +7067,7 @@ if (isset($_GET['pID']))
 
 
 
+
         }
 
 
@@ -7431,58 +7341,36 @@ require_once ('attributeManager/includes/attributeManagerHeader.inc.php');
 
 
 <!-- AJAX Attribute Manager  end -->
-
-
-
-</head>
-
-
-
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="goOnLoad();">
-
-
-
-<div id="spiffycalendar" class="text"></div>
-
-
-
+<?php require('includes/account_check.js.php'); ?>
+<div id="spiffycalendar" class="text"></div>         
 <!-- header //-->
-
-
-
-<?php
-
-
-
-
-
-
-
-require (DIR_WS_INCLUDES . 'header.php');
-
-
-
-
-
-
-
-?>
-
-
-
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
-
-
-
-
-
-
 
 <!-- body //-->
 
-
-
-<table border="0" width="780px" cellspacing="2" cellpadding="2" align="center" style="margin: 0px auto;">
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+               
+ <table class="table table-bordered table-hover">
 
 
 
@@ -7494,7 +7382,7 @@ require (DIR_WS_INCLUDES . 'header.php');
 
 
 
-    <td width="100%" valign="top">
+    <td>
 
 
 
@@ -10040,7 +9928,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <table class="table table-bordered table-hover">
 
 
 
@@ -10048,7 +9936,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
 
 
 
@@ -10056,7 +9944,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="pageHeading"><?php
+            <td><?php
 
 
 
@@ -10076,7 +9964,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="pageHeading" align="right"><?php
+            <td><?php
 
 
 
@@ -10110,58 +9998,11 @@ jQuery( "#tabs" ).tabs();
 
       </tr>
 
-
-
       <tr>
 
 
 
-        <td><?php
-
-
-
-
-
-
-
-    echo tep_draw_separator('pixel_trans.gif', '1', '10');
-
-
-
-
-
-
-
-?></td>
-
-
-
-      </tr>
-
-
-
-      
-
-
-
-      <tr>
-
-
-
-        <td><table border="0" cellspacing="0" cellpadding="2" bgcolor="#FFFFFF" width="780px">
-
-
-
-		<tr class="dataTableHeadingRow">
-
-
-
-    	    <td class="dataTableHeading" colspan="2">&nbsp;</td>
-
-
-
-	      </tr>
-
+        <td><table class="table table-bordered table-hover">
 
 
 		<!-- BOF 10 JAN 2014 RANGE MANAGER////////////////////////////////////////////////////-->
@@ -10192,7 +10033,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-          <td colspan="2">
+          <td>
 
 
 
@@ -10252,7 +10093,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-        <table width="100%" cellspacing="0" cellpadding="0">
+        <table class="table table-bordered table-hover">
 
 
 
@@ -10260,7 +10101,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
 
 
 
@@ -10272,11 +10113,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                <td class="main">Is Lane Item: </td>
+                <td>Is Lane Item: </td>
 
 
 
-                <td class="main">
+                <td>
 
 
 
@@ -10316,7 +10157,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -10344,11 +10185,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                <td class="main">Shooting Range(s): </td>
+                <td>Shooting Range(s): </td>
 
 
 
-                <td class="main">
+                <td>
 
 
 
@@ -10392,7 +10233,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -10420,11 +10261,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                <td class="main">Lane No: </td>
+                <td>Lane No: </td>
 
 
 
-                <td class="main">
+                <td>
 
 
 
@@ -10468,7 +10309,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -10536,11 +10377,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                <td class="main">Is Flat Rate: </td>
+                <td>Is Flat Rate: </td>
 
 
 
-                <td class="main">
+                <td>
 
 
 
@@ -10584,7 +10425,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -10640,7 +10481,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -10660,7 +10501,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -10704,7 +10545,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -10736,7 +10577,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -10756,7 +10597,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -10796,7 +10637,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -10828,7 +10669,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -10852,7 +10693,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -10900,7 +10741,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -10936,7 +10777,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main" valign="top"><?php
+            <td><?php
 
 
 
@@ -10956,7 +10797,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main">
+            <td>
 
 
 
@@ -10968,7 +10809,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            			<td rowspan="13"><?php
+            			<td><?php
 
 
 
@@ -10988,7 +10829,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            			<td class="main"><?php
+            			<td><?php
 
 
 
@@ -11008,7 +10849,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            			<td class="main"><?php
+            			<td><?php
 
 
 
@@ -11028,7 +10869,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            			<td class="main"><?php
+            			<td><?php
 
 
 
@@ -11064,7 +10905,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            			<td class="main"><?php
+            			<td><?php
 
 
 
@@ -11084,7 +10925,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            			<td class="main"><?php
+            			<td><?php
 
 
 
@@ -11104,7 +10945,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            			<td class="main"><?php
+            			<td><?php
 
 
 
@@ -11140,7 +10981,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            			<td class="main"><?php
+            			<td><?php
 
 
 
@@ -11160,7 +11001,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            			<td class="main"><?php
+            			<td><?php
 
 
 
@@ -11180,7 +11021,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            			<td class="main"><?php
+            			<td><?php
 
 
 
@@ -11236,7 +11077,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11256,7 +11097,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11276,7 +11117,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11312,7 +11153,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11332,7 +11173,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11352,7 +11193,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11388,7 +11229,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11408,7 +11249,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11428,7 +11269,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11464,7 +11305,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11484,7 +11325,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11504,7 +11345,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11540,7 +11381,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11560,7 +11401,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11580,7 +11421,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11632,7 +11473,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-						<tr><td colspan="3"><hr/></td></tr>
+						<tr><td><hr/></td></tr>
 
 
 
@@ -11640,7 +11481,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11660,7 +11501,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11680,7 +11521,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11716,7 +11557,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11736,7 +11577,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11756,7 +11597,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11792,7 +11633,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11812,7 +11653,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11832,7 +11673,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11868,7 +11709,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11888,7 +11729,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11908,7 +11749,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-	            			<td class="main"><?php
+	            			<td><?php
 
 
 
@@ -11960,7 +11801,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -11980,7 +11821,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -12024,7 +11865,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-        <table width="100%" cellspacing="0" cellpadding="0">
+        <table class="table table-bordered table-hover">
 
 
 
@@ -12032,7 +11873,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -12060,7 +11901,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -12080,7 +11921,8 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+
+            <td><?php
 
 
 
@@ -12112,7 +11954,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -12176,7 +12018,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -12196,7 +12038,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -12232,7 +12074,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -12284,7 +12126,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -12308,7 +12150,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -12420,7 +12262,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main" valign="top" colspan="2"><?php
+            <td><?php
 
 
 
@@ -12444,7 +12286,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-              <table border="0" cellspacing="0" cellpadding="0">
+              <table class="table table-bordered table-hover">
 
 
 
@@ -12452,7 +12294,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                  <td class="main" valign="top"><?php
+                  <td><?php
 
 
 
@@ -12476,7 +12318,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                  <td class="main"><?php
+                  <td><?php
 
 
 
@@ -12740,7 +12582,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2" class="main"><hr><?php
+            <td><hr><?php
 
 
 
@@ -12768,7 +12610,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -12820,7 +12662,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -12848,7 +12690,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main" valign="top"><?php
+            <td><?php
 
 
 
@@ -12872,7 +12714,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td><table border="0" cellspacing="0" cellpadding="0">
+            <td><table class="table table-bordered table-hover">
 
 
 
@@ -12880,7 +12722,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                <td class="main" valign="top"><?php
+                <td><?php
 
 
 
@@ -12904,7 +12746,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                <td class="main"><?php
+                <td><?php
 
 
 
@@ -12976,7 +12818,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main" valign="top"><?php
+            <td><?php
 
 
 
@@ -13000,7 +12842,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td><table border="0" cellspacing="0" cellpadding="0">
+            <td><table class="table table-bordered table-hover">
 
 
 
@@ -13008,7 +12850,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                <td class="main" valign="top"><?php
+                <td><?php
 
 
 
@@ -13032,7 +12874,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                <td class="main"><?php
+                <td><?php
 
 
 
@@ -13108,7 +12950,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -13136,7 +12978,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main" valign="top"><?php
+            <td><?php
 
 
 
@@ -13160,7 +13002,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td><table border="0" cellspacing="0" cellpadding="0">
+            <td><table class="table table-bordered table-hover">
 
 
 
@@ -13168,7 +13010,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                <td class="main" valign="top"><?php
+                <td><?php
 
 
 
@@ -13192,7 +13034,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                <td class="main"><?php
+                <td><?php
 
 
 
@@ -13268,7 +13110,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -13296,7 +13138,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main" valign="top"><?php
+            <td><?php
 
 
 
@@ -13320,7 +13162,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td><table border="0" cellspacing="0" cellpadding="0">
+            <td><table class="table table-bordered table-hover">
 
 
 
@@ -13328,7 +13170,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                <td class="main" valign="top"><?php
+                <td><?php
 
 
 
@@ -13352,7 +13194,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                <td class="main"><?php
+                <td><?php
 
 
 
@@ -13420,7 +13262,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -13441,19 +13283,6 @@ jQuery( "#tabs" ).tabs();
 
 
           </tr>
-
-
-
-          <tr>
-
-
-
-            <td colspan="2" class="main"><hr></td>
-
-
-
-          </tr>
-
 
 
           <?php /*  //MVS start ?>
@@ -13484,7 +13313,8 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+
+            <td><?php
 
 
 
@@ -13516,7 +13346,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -13536,7 +13366,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -13568,7 +13398,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -13600,11 +13430,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main">UPC Number</td>
+            <td>UPC Number</td>
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -13636,7 +13466,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -13664,11 +13494,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main">Manufacturer Part Num</td>
+            <td>Manufacturer Part Num</td>
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -13700,7 +13530,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -13772,7 +13602,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main">
+            <td>
 
 
 
@@ -13804,7 +13634,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main">
+            <td>
 
 
 
@@ -13880,7 +13710,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -13908,7 +13738,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -13928,7 +13758,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -13960,7 +13790,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -13980,7 +13810,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -14012,7 +13842,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -14032,7 +13862,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -14064,7 +13894,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -14084,7 +13914,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -14128,7 +13958,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-        <table width="100%" cellspacing="0" cellpadding="0">
+        <table class="table table-bordered table-hover">
 
 
 
@@ -14136,7 +13966,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -14164,7 +13994,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -14184,7 +14014,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -14224,7 +14054,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -14244,7 +14074,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -14284,7 +14114,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -14304,7 +14134,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -14344,7 +14174,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -14380,7 +14210,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class='main'><b>Optional extra product images</b></td>
+            <td><b>Optional extra product images</b></td>
 
 
 
@@ -14392,7 +14222,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-              <td class="main"><?php
+              <td><?php
 
 
 
@@ -14412,7 +14242,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-              <td class="main"><?php
+              <td><?php
 
 
 
@@ -14452,7 +14282,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-              <td class="main"><?php
+              <td><?php
 
 
 
@@ -14472,7 +14302,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-              <td class="main"><?php
+              <td><?php
 
 
 
@@ -14512,7 +14342,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-              <td class="main"><?php
+              <td><?php
 
 
 
@@ -14532,7 +14362,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-              <td class="main"><?php
+              <td><?php
 
 
 
@@ -14568,7 +14398,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-              <td class="main"><?php
+              <td><?php
 
 
 
@@ -14588,7 +14418,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-              <td class="main"><?php
+              <td><?php
 
 
 
@@ -14624,7 +14454,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-              <td class="main"><?php
+              <td><?php
 
 
 
@@ -14644,7 +14474,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-              <td class="main"><?php
+              <td><?php
 
 
 
@@ -14692,7 +14522,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-        <table width="100%" cellspacing="0" cellpadding="0">
+        <table class="table table-bordered table-hover">
 
 
 
@@ -14704,7 +14534,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main">
+            <td>
 
 
 
@@ -14736,7 +14566,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -14768,7 +14598,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -14796,11 +14626,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main">Store Quantity</td>
+            <td>Store Quantity</td>
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -14844,7 +14674,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-        <table width="100%" cellspacing="0" cellpadding="0">
+        <table class="table table-bordered table-hover">
 
 
 
@@ -14948,11 +14778,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-    <tr bgcolor="#ebebff">
+    <tr>
 
 
 
-    <td class="main" colspan="2" style="font-style: italic"><?php
+    <td style="font-style: italic"><?php
 
 
 
@@ -15008,11 +14838,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-        <tr bgcolor="#ebebff">
+        <tr>
 
 
 
-       <td class="main"><?php
+       <td><?php
 
 
 
@@ -15080,7 +14910,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-       <td class="main"><?php
+       <td><?php
 
 
 
@@ -15200,7 +15030,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -15236,7 +15066,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -15260,11 +15090,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-          <tr bgcolor="#ebebff">
+          <tr>
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -15284,7 +15114,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -15316,11 +15146,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-          <tr bgcolor="#ebebff">
+          <tr>
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -15340,7 +15170,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -15372,11 +15202,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-          <tr bgcolor="#ebebff">
+          <tr>
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -15396,7 +15226,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -15436,11 +15266,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-           <tr bgcolor="#ebebff">
+           <tr>
 
 
 
-            <td class="main">
+            <td>
 
 
 
@@ -15472,7 +15302,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -15524,11 +15354,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-        <tr bgcolor="#ebebff">
+        <tr>
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -15548,7 +15378,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main"><?php
+            <td><?php
 
 
 
@@ -15588,7 +15418,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-        <table width="100%" cellspacing="0" cellpadding="0">
+        <table class="table table-bordered table-hover">
 
 
 
@@ -15596,7 +15426,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-          <tr bgcolor="#EEEEEE">
+          <tr>
 
 
 
@@ -15604,7 +15434,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main" valign="top">
+            <td>
 
 
 
@@ -15648,11 +15478,11 @@ jQuery( "#tabs" ).tabs();
 
 
 
-          <tr bgcolor="#EEEEEE">
+          <tr>
 
 
 
-            <td class="main" valign="top">
+            <td>
 
 
 
@@ -15680,7 +15510,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-            <td class="main" valign="top">
+            <td>
 
 
 
@@ -15692,7 +15522,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                  <td class="main" valign="top">
+                  <td>
 
 
 
@@ -15736,7 +15566,7 @@ jQuery( "#tabs" ).tabs();
 
 
 
-                  <td class="main" valign="top">
+                  <td>
 
 
 
@@ -15948,6 +15778,7 @@ function addSubproduct(){
 
 
 
+
   var myLink = document.createElement('a');
 
 
@@ -16148,7 +15979,7 @@ function get_products(cid){
 
 
 
-                  <td colspan=2 class="main">
+                  <td>
 
 
 
@@ -16196,7 +16027,7 @@ function get_products(cid){
 
 
 
-                  <td colspan=2 class="main" id="productsection">
+                  <td id="productsection">
 
 
 
@@ -16312,7 +16143,7 @@ function get_products(cid){
 
 
 
-        <table width="100%" cellspacing="0" cellpadding="0">
+        <table class="table table-bordered table-hover">
 
 
 
@@ -16336,7 +16167,7 @@ function get_products(cid){
 
 
 
-        <td colspan="2">
+        <td>
 
 
 
@@ -16356,11 +16187,11 @@ function get_products(cid){
 
 
 
-        <td colspan="2">
+        <td>
 
 
 
-            <table width="100%">
+            <table class="table table-bordered table-hover">
 
 
 
@@ -16472,7 +16303,7 @@ function get_products(cid){
 
 
 
-                <td colspan="3" class="main">Associated Specifications:</td>
+                <td>Associated Specifications:</td>
 
 
 
@@ -16488,7 +16319,7 @@ function get_products(cid){
 
 
 
-        		<td colspan="3"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+        		<td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
 
 
 
@@ -16504,15 +16335,15 @@ function get_products(cid){
 
 
 
-                <th valign="top" class="main" style="text-align:left;">Specification Name</th>
+                <th>Specification Name</th>
 
 
 
-                <th valign="top" class="main" style="text-align:left;">Specification value</th>
+                <th>Specification value</th>
 
 
 
-                <th valign="top" class="main">Action</th>
+                <th>Action</th>
 
 
 
@@ -16530,15 +16361,15 @@ function get_products(cid){
 
 
 
-                <td valign="top" class="main"><?php echo $specification['name']; ?></td>
+                <td><?php echo $specification['name']; ?></td>
 
 
 
-                <td valign="top" class="main" id="editspecvalue<?php echo $x; ?>"><?php echo $specification['value']; ?></td>
+                <td id="editspecvalue<?php echo $x; ?>"><?php echo $specification['value']; ?></td>
 
 
 
-                <td valign="top" class="main" align="center">
+                <td>
 
                 <img style="cursor:pointer;" width="15" src="attributeManager/images/edit_icon.png" alt="Edit" title="Edit" onClick="editSpec('<?php echo $specification['id']; ?>','<?php echo $pInfo->products_id; ?>','<?php echo $specification['specification_id']; ?>','<?php echo $x; ?>');" id="<?php echo $specification['specification_id']; ?>" class="edit_button_row<?php echo $x; ?>">
 
@@ -16566,11 +16397,11 @@ function get_products(cid){
 
 
 
-                <td colspan="2" valign="top" class="main" style="text-align:left;">Associate New Specification(s): </th>
+                <td>Associate New Specification(s): </th>
 
 
 
-                <th valign="top" class="main"><img src="attributeManager/images/icon_add_new.png" alt="click to associate new specification" align="absmiddle" title="click to associate new specification" onClick="addSpec();" style="cursor:pointer;"></th>
+                <th><img src="attributeManager/images/icon_add_new.png" alt="click to associate new specification" align="absmiddle" title="click to associate new specification" onClick="addSpec();" style="cursor:pointer;"></th>
 
 
 
@@ -16584,7 +16415,7 @@ function get_products(cid){
 
 
 
-            <td colspan="3" class="main"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
 
 
 
@@ -17062,7 +16893,7 @@ function get_products(cid){
 
 
 
-        <td colspan="2">
+        <td>
 
 
 
@@ -17074,7 +16905,7 @@ function get_products(cid){
 
 
 
-            <td colspan="3" class="main"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
 
 
 
@@ -17097,7 +16928,7 @@ function get_products(cid){
 
 
 
-            <td colspan="3" class="main"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
 
 
 
@@ -17119,7 +16950,7 @@ function get_products(cid){
 
 
 
-        <td colspan="3">
+        <td>
 
 
 
@@ -17138,7 +16969,7 @@ function get_products(cid){
 
 
 
-        <td colspan="3" align="right">
+        <td>
 
 
 
@@ -17160,7 +16991,7 @@ function get_products(cid){
 
 
 
-        <td colspan="3">
+        <td>
 
 
 
@@ -17202,7 +17033,7 @@ function get_products(cid){
 
 
 
-        <td colspan="2">
+        <td>
 
 
     </div>
@@ -17368,7 +17199,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
     echo tep_draw_separator('pixel_trans.gif', '1', '10');
 
@@ -17393,7 +17224,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-        <table width="100%" cellspacing="0" cellpadding="0">
+        <table class="table table-bordered table-hover">
 
 
 
@@ -17437,25 +17268,25 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-          <tr bgcolor="#DBEAF9">
+          <tr>
 
 
 
-            <td class="main"><?php echo 'Parent Product:'; ?></td>
+            <td><?php echo 'Parent Product:'; ?></td>
 
 
 
-            <td class="main" id="prModelText">
+            <td id="prModelText">
             <?php echo $pInfo->parent_products_model . '<br>' . $get_parent_name['products_name']; ?></td>
           </tr>
 
 
 
-          <tr bgcolor="#DBEAF9">
+          <tr>
 
 
 
-            <td class="main"> Edit Parent Products: </td><td class="main"><?php
+            <td> Edit Parent Products: </td><td><?php
 
 
         echo '<input onclick="popupWindow(\'' . tep_href_link('add_edit_parent_products.php',
@@ -17486,11 +17317,11 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-          <tr bgcolor="#DBEAF9">
+          <tr>
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -17648,11 +17479,11 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                $childProductStr .= '<tr class="dataTableRow">
+                $childProductStr .= '<tr>
 
 
 
-                     <td class="dataTableContent">' . $child_products_array[$key]['name'] .
+                     <td>' . $child_products_array[$key]['name'] .
 
 
 
@@ -17673,6 +17504,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
         $keystr = '<input id="child_ids" type="hidden" value="' . rtrim($keystr, ',') .'" name="child_ids">'; ?>
+
 
 		<script type="text/javascript">
 
@@ -17700,11 +17532,11 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-          <tr bgcolor="#DBEAF9">
+          <tr>
 
 
 
-            <td class="main"> Add Edit Child Products: </td><td class="main"><?php
+            <td> Add Edit Child Products: </td><td><?php
 
 
 
@@ -17736,11 +17568,11 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-          <tr bgcolor="#DBEAF9">
+          <tr>
 
 
 
-            <td colspan="2" class="main"><div id="childprod">
+            <td><div id="childprod">
             
             <?php echo $childProductStr; ?></div>
 
@@ -17756,11 +17588,11 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-          <tr bgcolor="#DBEAF9">
+          <tr>
 
 
 
-            <td colspan="2"><?php
+            <td><?php
 
 
 
@@ -17812,7 +17644,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-        <table width="100%" cellspacing="0" cellpadding="0">
+        <table class="table table-bordered table-hover">
 
 
 
@@ -17828,7 +17660,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-        <td colspan="2">
+        <td>
 
 
 
@@ -17964,7 +17796,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-        <td class="main" align="right">
+        <td align="right">
 
 
 
@@ -18080,7 +17912,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-          <table border="0" width="95%" cellspacing="1" cellpadding="2" class="columnLeft">
+          <table class="table table-bordered table-hover">
 
 
 
@@ -18092,7 +17924,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <table class="table table-bordered table-hover">
 
 
 
@@ -18100,7 +17932,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                    <td class="main" colspan="5"><b>
+                    <td colspan="5"><b>
 
 
 
@@ -18272,7 +18104,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-            echo "<tr><td class=main valign=top>";
+            echo "<tr><td>";
 
 
 
@@ -18680,7 +18512,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <table class="table table-bordered table-hover">
 
 
 
@@ -18720,7 +18552,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-          <table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <table class="table table-bordered table-hover">
 
 
 
@@ -18728,7 +18560,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-              <td class="pageHeading"><?php
+              <td><?php
 
 
 
@@ -18776,7 +18608,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-            <td class="pageHeading" align="right">
+            <td>
 
 
 
@@ -18852,11 +18684,11 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-      <tr class="dataTableHeadingRow">
+      <tr>
 
 
 
-        <td class="dataTableHeadingContent">&nbsp;</td>
+        <td>&nbsp;</td>
 
 
 
@@ -18864,7 +18696,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-      <tr bgcolor="#FFFFFF">
+      <tr>
 
 
 
@@ -18892,11 +18724,11 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-      <tr bgcolor="#FFFFFF">
+      <tr>
 
 
 
-        <td class="main">
+        <td>
 
 
 
@@ -18952,7 +18784,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-        <td class="main">
+        <td>
 
 
 
@@ -19008,7 +18840,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-        <td class="main">
+        <td>
 
 
 
@@ -19116,7 +18948,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-      <tr bgcolor="#FFFFFF">
+      <tr>
 
 
 
@@ -19144,6 +18976,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
+
 <?php
 
 
@@ -19168,7 +19001,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-      <tr bgcolor="#FFFFFF">
+      <tr>
 
 
 
@@ -19196,11 +19029,11 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-      <tr bgcolor="#FFFFFF">
+      <tr>
 
 
 
-        <td class="main"><?php
+        <td><?php
 
 
 
@@ -19244,7 +19077,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-      <tr bgcolor="#FFFFFF">
+      <tr>
 
 
 
@@ -19296,11 +19129,11 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-      <tr bgcolor="#FFFFFF">
+      <tr>
 
 
 
-        <td align="center" class="smallText"><?php
+        <td><?php
 
 
 
@@ -19352,11 +19185,11 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-      <tr bgcolor="#FFFFFF">
+      <tr>
 
 
 
-        <td align="center" class="smallText"><?php
+        <td><?php
 
 
 
@@ -19400,7 +19233,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-      <tr bgcolor="#FFFFFF">
+      <tr>
 
 
 
@@ -19528,11 +19361,11 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-      <tr bgcolor="#FFFFFF">
+      <tr>
 
 
 
-        <td align="right"><?php
+        <td><?php
 
 
 
@@ -19584,11 +19417,11 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-      <tr bgcolor="#FFFFFF">
+      <tr>
 
 
 
-        <td align="right" class="smallText">
+        <td>
 
 
 
@@ -19936,7 +19769,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <table class="table table-bordered table-hover">
 
 
 
@@ -19944,7 +19777,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
 
 
 
@@ -19952,7 +19785,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-            <td class="pageHeading"><?php
+            <td><?php
 
 
 
@@ -19972,7 +19805,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-            <td class="pageHeading" align="right"><?php
+            <td><?php
 
 
 
@@ -19992,7 +19825,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-            <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td><table class="table table-bordered table-hover">
 
 
 
@@ -20000,7 +19833,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="smallText" align="right">
+                <td>
 
 
 
@@ -20016,7 +19849,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-    echo '<span class="smallText2">' . HEADING_TITLE_SEARCH . ' ' .
+    echo '<span>' . HEADING_TITLE_SEARCH . ' ' .
 
 
 
@@ -20048,7 +19881,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="smallText" align="right">
+                <td>
 
 
 
@@ -20064,7 +19897,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-    echo '<span class="smallText2">' . HEADING_TITLE_GOTO . ' ' .
+    echo '<span>' . HEADING_TITLE_GOTO . ' ' .
 
 
 
@@ -20116,7 +19949,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
 
 
 
@@ -20160,15 +19993,15 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-			<table border="0" width="100%" cellspacing="0" cellpadding="2">
+			<table class="table table-bordered table-hover">
 
 
 
-              <tr class="dataTableHeadingRow">
+              <tr>
 
 
 
-                <td class="dataTableHeadingContent" width="300px"><?php
+                <td width="300px"><?php
 
 
 
@@ -20208,7 +20041,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="dataTableHeadingContent"><?php
+                <td><?php
 
 
 
@@ -20248,7 +20081,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="dataTableHeadingContent" align="center"><?php
+                <td><?php
 
 
 
@@ -20288,7 +20121,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="dataTableHeadingContent" align="center"><?php
+                <td><?php
 
 
 
@@ -20350,7 +20183,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="dataTableHeadingContent" align="center"><?php
+                <td><?php
 
 
 
@@ -20394,7 +20227,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="dataTableHeadingContent" align="right"><input type="checkbox" onClick="bulk_selection(this);" />&nbsp;</td>
+                <td><input type="checkbox" onClick="bulk_selection(this);" />&nbsp;</td>
 
 
 
@@ -20402,7 +20235,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="dataTableHeadingContent" align="right"><?php
+                <td><?php
 
 
 
@@ -20451,6 +20284,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
         $search = tep_db_prepare_input($HTTP_GET_VARS['search']);
+
 
 
 
@@ -20858,7 +20692,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="dataTableContent" valign="top"><?php
+                <td><?php
 
 
 
@@ -20906,7 +20740,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="dataTableContent" valign="top"><?php
+                <td><?php
 
 
 
@@ -20946,7 +20780,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="dataTableContent" valign="top" align="center"><?php
+                <td><?php
 
 
 
@@ -21054,7 +20888,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-        <td class="dataTableContent" valign="top" align="center">
+        <td>
 
 
 
@@ -21178,7 +21012,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-        <td class="dataTableContent" valign="top" align="center">
+        <td>
 
 
 
@@ -21286,7 +21120,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-  <td valign="top" align="right">
+  <td>
 
 
 
@@ -21366,7 +21200,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="dataTableContent" valign="top" align="right"><?php
+                <td><?php
 
 
 
@@ -21730,7 +21564,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="dataTableContent"><?php
+                <td><?php
 
 
 
@@ -21782,7 +21616,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="dataTableContent"><?php
+                <td><?php
 
 
 
@@ -21822,7 +21656,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="dataTableContent" align="center">
+                <td>
 
 
 
@@ -21922,7 +21756,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-            <td class="dataTableContent" align="center">
+            <td>
 
 
 
@@ -22046,7 +21880,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-            <td class="dataTableContent" align="center">
+            <td>
 
 
 
@@ -22154,7 +21988,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-	<td align="right">
+	<td>
 
 
 
@@ -22234,7 +22068,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td class="dataTableContent" align="right"><?php
+                <td><?php
 
 
 
@@ -22303,6 +22137,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
     }
+
 
 
 
@@ -22390,7 +22225,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-		<td colspan="6" align="right" class="main" style="padding:10px 0px 10px 0px;">
+		<td colspan="6" align="right">
 
 
 
@@ -22402,7 +22237,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-    echo '<span style="color:#FFF">Lock Category: </span> ' .
+    echo '<span>Lock Category: </span> ' .
 
 
 
@@ -22418,7 +22253,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-		 	<span style="color:#FFF">Move selected products/categories to:</span> <?php
+		 	<span>Move selected products/categories to:</span> <?php
 
 
 
@@ -22462,7 +22297,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                <td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="6"><table class="table table-bordered table-hover">
 
 
 
@@ -22470,7 +22305,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                    <td class="smallText2"><?php
+                    <td><?php
 
 
 
@@ -22494,7 +22329,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-                    <td align="right" class="smallText"><?php
+                    <td><?php
 
 
 
@@ -22543,6 +22378,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 ?>&nbsp;</td>
+
 
 
 
@@ -22879,6 +22715,7 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
             {
+
 
 
 
@@ -24218,50 +24055,14 @@ jQuery('input[name=\'specification_name_new\']').autocomplete({
 
 
 
-</table>
-
-
-
+</table> 
+               
+               
+               <!-- END your table-->
 <!-- body_eof //-->
 
-
-
-
-
-
-
 <!-- footer //-->
-
-
-
-<?php
-
-
-
-
-
-
-
-require (DIR_WS_INCLUDES . 'footer.php');
-
-
-
-
-
-
-
-?>
-
-
-
-<!-- footer_eof //-->
-
-
-
-<br>
-
-
-
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <script type="text/javascript">
 
 function refreshParentpage(url){
@@ -24877,17 +24678,5 @@ if( (isset($_GET['update_options'])) && ($_GET['update_options'] == '1') ){?>
 
 
 </script>
-
-
-
-</body>
-
-
-
-</html>
-
-<?php
-
-require (DIR_WS_INCLUDES . 'application_bottom.php');
-
-?>
+<!-- footer_eof //-->
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

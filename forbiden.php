@@ -15,43 +15,41 @@
   $current_boxes = DIR_FS_ADMIN . DIR_WS_BOXES;
   
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onload="SetFocus();">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->    
-    <td width="100%" valign="top">
-      <table border="0" width="100%" cellspacing="0" cellpadding="2">     
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
+    <td>
+      <table class="table table-bordered table-hover">     
       <tr>
         <td>
-            <table border="0" width="100%" cellspacing="0" cellpadding="2" align="center">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo NAVBAR_TITLE; ?></td>
+            <table class="table table-bordered table-hover">
+              <tr>
+                <td><?php echo NAVBAR_TITLE; ?></td>
               </tr>
-              <tr class="dataTableRow">
-                <td align="left" class="dataTableContent"><?php echo TEXT_MAIN; ?></td>
+              <tr>
+                <td align="left"><?php echo TEXT_MAIN; ?></td>
               </tr>
-              <tr class="dataTableRow">
+              <tr>
                 <td align="left"><?php echo '&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>&nbsp;'; ?></td>
               </tr>              
             </table>
@@ -60,13 +58,12 @@
     </table></td>  
 <!-- body_text_eof //-->
   </tr>
-</table>
+</table>  
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

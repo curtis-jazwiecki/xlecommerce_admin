@@ -555,53 +555,51 @@ elseif (isset($_GET['action']) && $_GET['action'] == 'update')
 	  }
  
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-<link rel="StyleSheet" href="dtree.css" type="text/css" />
-	<script type="text/javascript" src="dtree.js"></script>
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+         
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
-  <tr>
-<!-- body_text //-->
-    <td width="100%" valign="top">
-      <table border="0" width="100%" cellspacing="0" cellpadding="0" bgcolor="#EEEEEE">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+        <table class="table table-bordered table-hover">
         <tr>
           <td>
-            <table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td class="pageHeading" bgcolor="#030c2c">Product Price Updater</td>
-                <td class="pageHeading" align="right" bgcolor="#030c2c"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-        <tr>
-          <td>
-              <table border=0 width=100% cellspacing=0 cellpadding=5>
-                <tr class="dataTableHeadingRow">
-                  <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_UPDATES; ?>&nbsp;</td>
+              <table class="table table-bordered table-hover">
+                <tr>
+                  <td>&nbsp;<?php echo TABLE_HEADING_UPDATES; ?>&nbsp;</td>
                 </tr>
-                <tr class="dataTableRow">
-                  <td class="dataTableContent">
+                <tr>
+                  <td>
 					<?php
                        if (isset($count) && $count != 0)
 					     { echo $update_string; }
                     ?>
                   </td>
                 </tr>
-                <tr class="dataTableRow">
-                  <td class="dataTableContent">
+                <tr>
+                  <td>
                     <?php
 					if($_GET['action'] == 'update_sucess' && isset($_GET['qid']))
 					  {	echo $update_string; }
@@ -627,33 +625,33 @@ elseif (isset($_GET['action']) && $_GET['action'] == 'update')
           <tr>
             <td>
             <form action="price_updater.php?action=update" method=post>
-              <table border=0 width=100% cellspacing=0 cellpadding=2>
+              <table class="table table-bordered table-hover">
                 <tr>
                   <td colspan="6"><?php echo tep_black_line(); ?></td>
                 </tr>
-                <tr class="dataTableHeadingRow">
-                  <td colspan="3" class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_MANUFACTURER; ?>&nbsp;</td>
-                  <td colspan="3" class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_CATEGORY; ?>&nbsp;</td>
+                <tr>
+                  <td colspan="3">&nbsp;<?php echo TABLE_HEADING_MANUFACTURER; ?>&nbsp;</td>
+                  <td colspan="3">&nbsp;<?php echo TABLE_HEADING_CATEGORY; ?>&nbsp;</td>
                 </tr>
                 <tr>
                   <td colspan=8><?php echo tep_black_line(); ?></td>
                 </tr>
                 <tr colspan="3" class=attributes-odd>
-                  <td class="smallText">
+                  <td>
                     &nbsp;<?php echo tep_draw_pull_down_menu('manufacturers_id', tep_get_manufacturers(array(array('id' => '0', 'text' => 'All Manufacturers ')))); ?>&nbsp;
                   </td>
-                  <td colspan="3" class="smallText">
+                  <td colspan="3">
                     &nbsp;<?php echo tep_draw_pull_down_menu('categories_id', tep_get_category_tree(), $current_category_id); ?>&nbsp;
                   </td>
                 </tr>
-                <tr class="dataTableHeadingRow">
-                  <td class="dataTableHeadingContent">&nbsp; Range &nbsp;</td>
-                  <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PLUS_MINUS; ?>&nbsp;</td>
-                  <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_FIXED; ?>&nbsp;</td>
-                  <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_VALUE; ?>&nbsp;</td>
+                <tr>
+                  <td>&nbsp; Range &nbsp;</td>
+                  <td>&nbsp;<?php echo TABLE_HEADING_PLUS_MINUS; ?>&nbsp;</td>
+                  <td>&nbsp;<?php echo TABLE_HEADING_FIXED; ?>&nbsp;</td>
+                  <td>&nbsp;<?php echo TABLE_HEADING_VALUE; ?>&nbsp;</td>
                 </tr>
                 <tr>
-	              <td class="smallText">
+	              <td>
                     <?php echo tep_draw_pull_down_menu('above_below', array(array('id' => '0', 'text' => 'none'), array('id' => '1', 'text' => 'less than'), array('id' => '2', 'text' => 'greater than'))); ?>&nbsp;
 					&nbsp;<?php echo tep_draw_input_field('above_below_value', '0'); ?>&nbsp;
                     <br />
@@ -661,10 +659,10 @@ elseif (isset($_GET['action']) && $_GET['action'] == 'update')
 					&nbsp;<?php echo tep_draw_input_field('above_below_value_2', '0'); ?>&nbsp;
                     <br />(leave second field source blank if<br />you only want to apply one range filter)
                   </td>
-                  <td class="smallText">
+                  <td>
                     &nbsp;<?php echo tep_draw_pull_down_menu('add', array(array('id' => '1', 'text' => '+'), array('id' => '0', 'text' => '-'))); ?>&nbsp;
                   </td>
-                  <td class="smallText">
+                  <td>
 
 
 
@@ -687,7 +685,7 @@ elseif (isset($_GET['action']) && $_GET['action'] == 'update')
 					//EOF:mod 20130424
 					?>&nbsp;
                   </td>
-                  <td class="smallText">
+                  <td>
 					&nbsp;
 						<?php echo tep_draw_input_field('value', '0'); ?>
 						<br />
@@ -713,26 +711,26 @@ elseif (isset($_GET['action']) && $_GET['action'] == 'update')
                   <td colspan="6"><?php echo tep_black_line(); ?></td>
                 </tr>
 				<tr>
-                  <td class="smallText" colspan="3" align="right">
+                  <td colspan="3" align="right">
                     <input type="checkbox" name="save_price_update" value="true" />
                     <font color="#FF0000">Save Price Update (It will be applied to the price updates)</font>
                   </td>
-                  <td class="smallText" colspan="1" align="right">
+                  <td colspan="1" align="right">
                     &nbsp;<?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE); ?>&nbsp;
                   </td>
                 </tr>
                 <tr>
                   <td colspan="6"><?php echo tep_black_line(); ?></td>
                 </tr>
-                <tr class="dataTableHeadingRow">
-                  <td colspan="6" class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_MODEL; ?>&nbsp;</td>
+                <tr>
+                  <td colspan="6">&nbsp;<?php echo TABLE_HEADING_MODEL; ?>&nbsp;</td>
                 </tr>
                 <tr>
                   <td colspan="6"><?php echo tep_black_line(); ?></td>
                 </tr>
                 <tr class=attributes-odd>
-                  <td colspan="1" class="smallText" align="right">&nbsp;Like:&nbsp;</td>
-                  <td colspan="5" class="smallText" align="left">&nbsp;<?php echo tep_draw_input_field('like', ""); ?>&nbsp;&nbsp;&nbsp;<?php echo TEXT_NOTES ?>&nbsp;</td>
+                  <td colspan="1" align="right">&nbsp;Like:&nbsp;</td>
+                  <td colspan="5" align="left">&nbsp;<?php echo tep_draw_input_field('like', ""); ?>&nbsp;&nbsp;&nbsp;<?php echo TEXT_NOTES ?>&nbsp;</td>
                 </tr>
                 <tr>
                   <td colspan="6"><?php echo tep_black_line(); ?></td>
@@ -743,28 +741,28 @@ elseif (isset($_GET['action']) && $_GET['action'] == 'update')
           </tr>
           <tr>
             <td>
-              <table width="100%" cellspacing="0" cellpadding="2" border="1px" bordercolor="#333333">
-                <tr class="dataTableHeadingRow">
-                  <td class="dataTableHeadingContent">Repeating Price Updates</td>
+              <table class="table table-bordered table-hover">
+                <tr>
+                  <td>Repeating Price Updates</td>
                 </tr>
                 <tr>
                   <td></td>
                 </tr>
                 <tr>
                   <td>
-                    <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                      <tr class="dataTableHeadingRow">
-						<td class="dataTableHeadingContent">Customer Group</td>
-                        <td class="dataTableHeadingContent">Category</td>
-                        <td class="dataTableHeadingContent">Manufacturer</td>
-                        <td class="dataTableHeadingContent">Price Range</td>
-                        <td class="dataTableHeadingContent">+/-</td>
-                        <td class="dataTableHeadingContent">Fixed/%</td>
-                        <td class="dataTableHeadingContent">Markup</td>
-                        <td class="dataTableHeadingContent">Round Off</td>
-                        <td class="dataTableHeadingContent">Update Now</td>
-                        <td class="dataTableHeadingContent">Delete</td>
-                        <td class="dataTableHeadingContent">Sort Order</td>
+                    <table class="table table-bordered table-hover">
+                      <tr>
+						<td>Customer Group</td>
+                        <td>Category</td>
+                        <td>Manufacturer</td>
+                        <td>Price Range</td>
+                        <td>+/-</td>
+                        <td>Fixed/%</td>
+                        <td>Markup</td>
+                        <td>Round Off</td>
+                        <td>Update Now</td>
+                        <td>Delete</td>
+                        <td>Sort Order</td>
                       </tr>
                   <?php
 				  	$count=0;
@@ -786,7 +784,7 @@ elseif (isset($_GET['action']) && $_GET['action'] == 'update')
 						else
 							echo '<tr>';
 						//BOF:mod
-						echo '<td class="smallText">';
+						echo '<td>';
 						if (!is_null($row['customer_group_id'])){
 							$customer_group_query = tep_db_query("select customers_group_name from customers_groups
 							where customers_group_id='" . (int)$row['customer_group_id'] . "'");
@@ -801,7 +799,7 @@ elseif (isset($_GET['action']) && $_GET['action'] == 'update')
 						}
 						echo '</td>';
 						//EOF:mod
-                        echo '<td class="smallText">';
+                        echo '<td>';
 						if($row['price_update_category'] == 0)
 							echo 'all';
 						else
@@ -811,7 +809,7 @@ elseif (isset($_GET['action']) && $_GET['action'] == 'update')
 							echo $check_categories_name['categories_name'];
 						  }
 						echo '</td>';
-                        echo '<td class="smallText">';
+                        echo '<td>';
 						if($row['price_update_manufacturer'] == 0)
 							echo 'all';
 						else
@@ -822,7 +820,7 @@ elseif (isset($_GET['action']) && $_GET['action'] == 'update')
 						  }
 						echo '</td>';
 
-                        echo '<td class="smallText">';
+                        echo '<td>';
 						if ($row['above_below'] == 0 && $row['above_below_2'] == 0)
 							echo 'all';
 						elseif($row['above_below'] != 0 && $row['above_below_2'] != 0)
@@ -850,13 +848,14 @@ elseif (isset($_GET['action']) && $_GET['action'] == 'update')
 
 						echo '</td>';
  
-                        echo '<td class="smallText">';
+                        echo '<td>';
 						if($row['price_update_add'] == 1) echo '+';
 						else echo '-';
 						echo '</td>';
-                        echo '<td class="smallText">';
+                        echo '<td>';
 						//BOF:mod 20130424
 						/*
+
 						//EOF:mod 20130424
 						if($row['price_update_fixed'] == 1) echo '%';
 						else echo 'Fixed';
@@ -869,18 +868,18 @@ elseif (isset($_GET['action']) && $_GET['action'] == 'update')
 						elseif($row['price_update_fixed'] == 2) echo 'Margin';
 						else echo 'Fixed';
 						echo '</td>';
-                        echo '<td class="smallText">'.stripslashes($row['price_update_value']).'</td>';
+                        echo '<td>'.stripslashes($row['price_update_value']).'</td>';
 
 
-                        echo '<td class="smallText">';
+                        echo '<td>';
 						if($row['price_update_roundoff'] == 1) echo 'Yes';
 						else echo 'No';
 						echo '</td>';
-						echo '<td class="smallText"><a href="price_updater_price_fix.php?action=update_price&qid='.$row['price_updates_id'].'" style="color: #333"><u>Update</u></a></td>';
-						echo '<td class="smallText"><a href="price_updater.php?action=delete_update&qid='.$row['price_updates_id'].'" style="color: #333"><u>Delete</u></a></td>';
+						echo '<td><a href="price_updater_price_fix.php?action=update_price&qid='.$row['price_updates_id'].'" style="color: #333"><u>Update</u></a></td>';
+						echo '<td><a href="price_updater.php?action=delete_update&qid='.$row['price_updates_id'].'" style="color: #333"><u>Delete</u></a></td>';
 						echo '<input type="hidden" name="sort_item_' . $row['price_updates_id'] . '" value="'.$row['price_updates_id'].'" /></td>';
 
-						echo '<td class="smallText"><input type="text" name="sort_' . $row['price_updates_id'] . '" value="'.$row['price_update_sort_order'].'" size="5" /></td>';
+						echo '<td><input type="text" name="sort_' . $row['price_updates_id'] . '" value="'.$row['price_update_sort_order'].'" size="5" /></td>';
 						echo '</tr>';
 						if($highest_updates_id < $row['price_updates_id'])
 						  $highest_updates_id = $row['price_updates_id'];
@@ -976,12 +975,13 @@ document.write(d);
       </td>
     </tr>
   </table>
+               <!-- END your table-->
+<!-- body_eof //-->
+
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 <script type="text/javascript">
 <?php echo ($HTTP_GET_VARS['action']=='new' ? 'displaySelection(\'div_listing\', \'C0\', \'F\');' : ''); ?>
 </script>
-</body>
-</html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

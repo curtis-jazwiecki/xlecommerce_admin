@@ -272,11 +272,11 @@
 		  */
 
 		//$orders_products_query = tep_db_query("select a.orders_products_id, a.products_name, a.products_model, a.products_price, a.products_tax, a.products_quantity,a.final_price, a.vendors_id, b.xml_feed_id, c.internal_id, c.orders_products_status, a.is_ok_for_shipping, d.vendors_name from " . TABLE_ORDERS_PRODUCTS . " a left join products_extended b on a.products_id=b.osc_products_id left join feeds_orders_products_retailer_to_obn c on a.orders_products_id=c.orders_products_id inner join vendors d on a.vendors_id=d.vendors_id where a.orders_id = '" . (int)$order_id . "' and a.vendors_id='" . (int) $vendor_order['vendors_id'] . "' group by orders_products_id");
-        
-        // modified on 19-01-2016 #start
+		
+		// modified on 19-01-2016 #start
         // removed line [and a.vendors_id='" . (int) $vendor_order['vendors_id'] . "'] 
         $orders_products_query = tep_db_query("select a.orders_products_id, a.products_name, a.products_model, a.products_price, a.products_tax, a.products_quantity,a.final_price, a.vendors_id, b.xml_feed_id, c.internal_id, c.orders_products_status, a.is_ok_for_shipping, d.vendors_name from " . TABLE_ORDERS_PRODUCTS . " a left join products_extended b on a.products_id=b.osc_products_id left join feeds_orders_products_retailer_to_obn c on a.orders_products_id=c.orders_products_id inner join vendors d on a.vendors_id=d.vendors_id where a.orders_id = '" . (int)$order_id . "' group by orders_products_id");
-        // modified on 19-01-2016 #neds
+        // modified on 19-01-2016 #ends
 
 		//EOF:mvs_internal_mod
         $index = 0;

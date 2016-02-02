@@ -30,12 +30,12 @@
     }
 
     function infoBox($heading, $contents) {
-      $this->table_row_parameters = 'class="infoBoxHeading"';
-      $this->table_data_parameters = 'class="infoBoxHeading"';
+      $this->table_row_parameters = 'class="panel panel-primary"';
+      $this->table_data_parameters = 'class="panel-heading"';
       $this->heading = $this->tableBlock($heading);
 
       $this->table_row_parameters = '';
-      $this->table_data_parameters = 'class="infoBoxContent"';
+      $this->table_data_parameters = 'class="table"';
       $this->contents = $this->tableBlock($contents);
 
       return $this->heading . $this->contents;

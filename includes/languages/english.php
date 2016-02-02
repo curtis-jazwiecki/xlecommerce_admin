@@ -22,11 +22,6 @@ define('PHP_DATE_TIME_FORMAT', 'm/d/Y H:i:s'); // this is used for date()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 define('BOX_REPORTS_SALES_REPORT', 'Sales Report');
 
-////
-// Return date in raw format
-// $date should be in format mm/dd/yyyy
-// raw date is in format YYYYMMDD, or DDMMYYYY
-
 // Global entries for the <html> tag
 define('HTML_PARAMS','dir="ltr" lang="en"');
 

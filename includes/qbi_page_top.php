@@ -31,35 +31,45 @@ Released under the GNU General Public License
 require_once(DIR_WS_FUNCTIONS . 'qbi_functions.php');
 require_once(DIR_WS_CLASSES . 'qbi_classes.php');
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<link rel="stylesheet" type="text/css" href="includes/qbi_styles.css">
-</head>
 <body>
+<link rel="stylesheet" type="text/css" href="includes/qbi_styles.css">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="780px" cellspacing="2" cellpadding="2" align="center" style="margin: 0px auto;">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<!-- body //-->
+<table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td width="100%" valign="top">
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td>
+	<table class="table table-bordered table-hover">
       <tr>
-        <td width="100%">
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td>
+		<table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
 	</table>
 <?php
 $pageurl=$PHP_SELF;
-?>
+?>               <!-- END your table-->
+<!-- body_eof //-->
+

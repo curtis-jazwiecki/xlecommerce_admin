@@ -40,29 +40,24 @@ if (isset($_POST['action']) && $_POST['action']=='save'){
 }
 
 function getItems($id){
-	$resp = '<table>';
+	$resp = '<table class="table">';
 	$sql = tep_db_query("select products_model, stock_level from inventory_import_02 where inventory_import_id='" . $id . "' order by sort_order");
 	while ($entry = tep_db_fetch_array($sql)){
 		$resp .= '<tr>
-					<td class="smallText" style="width:80px;">' . $entry['products_model'] . '</td>
-					<td class="smallText">' . $entry['stock_level'] . '</td>
+					<td>' . $entry['products_model'] . '</td>
+					<td>' . $entry['stock_level'] . '</td>
 				 </tr>';
 	}
 	$resp .='</table>';
 	return $resp;
 }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-		<title><?php echo TITLE; ?></title>
-		<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-		<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/jquery-ui.css">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/jquery-ui.css">
 		<script language="javascript" src="includes/general.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
-		<script type="text/javascript">
+<script type="text/javascript">
 			var loader = new Image();
 			loader.src = '<?php echo DIR_WS_IMAGES ?>ajax-loader.gif';
 			$(document).ready(function(){
@@ -215,36 +210,46 @@ function getItems($id){
 			}
             
 		</script>
-	</head>
-	<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
-		<!-- header //-->
-		<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-		<!-- header_eof //-->
-		<!-- body //-->
-		<table border="0" width="100%" cellspacing="2" cellpadding="2">
+<!-- header //-->
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+<!-- header_eof //-->
+
+<!-- body //-->
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo 'Inventory Import'; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo 'Inventory Import'; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
 			<tr>
-				<td width="<?php echo BOX_WIDTH; ?>" valign="top">
-					<table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft_">
+				<td>
+					<table class="table table-bordered table-hover">
 					<!-- left_navigation //-->
 					<?php //require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 					<!-- left_navigation_eof //-->
 					</table>
 				</td>
 				<!-- body_text //-->
-				<td width="100%" valign="top">
-					<table border="0" width="100%" cellspacing="0" cellpadding="2" style="background-color:#ffffff;">
+				<td>
+					<table class="table table-bordered table-hover">
 						<tr>
 							<td>
-								<table border="0" width="100%" cellspacing="0" cellpadding="0">
-									<tr>
-										<td class="pageHeading"><?php echo 'Inventory Import'; ?></td>
-										<td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td class="main">
 								<?php /*<form name="scanner">
                                     <input name="scanner_value" id="scanner_value" />
                                 </form> */?>
@@ -253,18 +258,18 @@ function getItems($id){
 										<legend><b>Update Stock level(s)</b></legend>
 										<table>
 											<tr>
-												<td class="main" align="right">Invoice#&nbsp;</td>
-												<td class="main">
+												<td align="right">Invoice#&nbsp;</td>
+												<td>
 													<input type="text" name="comment" id="comment" />
 												</td>
 											</tr>
 											<tr>
-												<td class="main" align="right" valign="top">Items&nbsp;</td>
-												<td class="main">
+												<td align="right">Items&nbsp;</td>
+												<td>
 													<table id="tab_entry">
 														<tr>
-															<td class="smallText" style="width:200px;">Product Model</td>
-															<td class="smalltext">Stock Level</td>
+															<td>Product Model</td>
+															<td>Stock Level</td>
 														</tr>
 														<tr>
 															<td><input type="text" name="model_0" id="model_0" /></td>
@@ -294,20 +299,20 @@ function getItems($id){
 						</tr>
 						<tr>
 							<td>
-								<table border="0" width="100%" cellspacing="0" cellpadding="0">
+								<table class="table table-bordered table-hover">
 									<tr>
-										<td align="right" class="main" style="padding:15px;">
+										<td align="right">
 											Search by Invoice#: <input type="text" name="invoice_no" id="invoice_no" value="<?php echo (isset($_GET['invoice']) ? $_GET['invoice'] : ''); ?>" />
 										</td>
 									</tr>
 									<tr>
-										<td valign="top">
-											<table border="0" width="100%" cellspacing="0" cellpadding="2">
-												<tr class="dataTableHeadingRow">
-													<td class="dataTableHeadingContent">Sno.</td>
-													<td class="dataTableHeadingContent">Items/Inventory</td>
-													<td class="dataTableHeadingContent">Invoice#</td>
-													<td class="dataTableHeadingContent">Imported</td>
+										<td>
+											<table class="table table-bordered table-hover">
+												<tr>
+													<td>Sno.</td>
+													<td>Items/Inventory</td>
+													<td>Invoice#</td>
+													<td>Imported</td>
 												</tr>
 												<?php
 												$query_raw = "select id, date_added, comment from inventory_import_01 " . (isset($_GET['invoice']) && !empty($_GET['invoice']) ? " where comment='" . tep_db_input($_GET['invoice']) . "'" : "") . " order by id desc";
@@ -319,23 +324,23 @@ function getItems($id){
 														$eInfo = new objectInfo($entry);
 													}
                                                     ?>
-												<tr class="dataTableRow" onMouseOver="rowOverEffect(this)" onMouseOut="rowOutEffect(this)">
-													<td class="dataTableContent" valign="top"><?php echo ++$sno; ?></td>
-													<td class="dataTableContent" valign="top"><?php echo getItems($entry['id']); ?></td>
-													<td class="dataTableContent" valign="top"><?php echo $entry['comment']; ?></td>
-													<td class="dataTableContent" valign="top"><?php echo $entry['date_added']; ?></td>
+												<tr onMouseOver="rowOverEffect(this)" onMouseOut="rowOutEffect(this)">
+													<td><?php echo ++$sno; ?></td>
+													<td><?php echo getItems($entry['id']); ?></td>
+													<td><?php echo $entry['comment']; ?></td>
+													<td><?php echo $entry['date_added']; ?></td>
 												</tr>
 												<?php
 												}
 												?>
 												<tr>
 													<td colspan="4">
-														<table border="0" width="100%" cellspacing="0" cellpadding="2">
+														<table class="table table-bordered table-hover">
 															<tr>
-																<td class="smallText" valign="top">
+																<td>
 																<?php echo $query_split->display_count($query_numrows, 5, $HTTP_GET_VARS['page'], 'Displaying %d to %d (of %d entries)'); ?>
 																</td>
-																<td class="smallText" align="right">
+																<td align="right">
 																<?php echo $query_split->display_links($query_numrows, 5, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>
 																</td>
 															</tr>
@@ -367,11 +372,11 @@ function getItems($id){
 				<!-- body_text_eof //-->
 			</tr>
 		</table>
-		<!-- body_eof //-->
-		<!-- footer //-->
-		<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-		<!-- footer_eof //-->
-		<br>
-	</body>
-</html>
+               <!-- END your table-->
+<!-- body_eof //-->
+
+<!-- footer //-->
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+<!-- footer_eof //-->
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

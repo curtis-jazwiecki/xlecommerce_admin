@@ -12,27 +12,42 @@
   require('includes/application_top.php');
 
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
+
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
 <script language="JavaScript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
 <script language="javascript">
   var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",scBTNMODE_CUSTOMBLUE);
 </script>
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
-<div id="spiffycalendar" class="text"></div>
+<?php require('includes/account_check.js.php'); ?>
+<div id="spiffycalendar" class="text"></div>        
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+               <table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
 <?php 
@@ -45,31 +60,19 @@ if(isset($_GET['userid']) && $_GET['userid'] != ''){
 }
  
 ?>
-      <td width="100%" valign="top">         
-        <table border="0" width="100%" cellspacing="0" cellpadding="2">
-            <tr>
+      <td>         
+        <table class="table table-bordered table-hover">
+           <tr>
                 <td>
-                    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-                        <tr>
-                          <td class="pageHeading"><?php echo HEADING_TITLE . $title ; ?></td>
-                          <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td width="75%" valign="top">
-                    <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                        
-                        
+                    <table class="table table-bordered table-hover">
                         <tr>
                           <td>
-                              <table border="0" width="100%" cellspacing="0" cellpadding="2" >
-                                <tr class="dataTableHeadingRow">
-                                    <td class="dataTableHeadingContent" width="30%">Admin</td>
-                                    <td class="dataTableHeadingContent" width="25%">Ip Address</td>
-                                    <td class="dataTableHeadingContent" width="20%">Success</td>
-                                    <td class="dataTableHeadingContent" width="25%">Time</td>
+                              <table class="table table-bordered table-hover"> 
+                                <tr>
+                                    <td>Admin</td>
+                                    <td>Ip Address</td>
+                                    <td>Success</td>
+                                    <td>Time</td>
                                 </tr>
                                 
                                 <?php 
@@ -78,16 +81,19 @@ if(isset($_GET['userid']) && $_GET['userid'] != ''){
                                 $count = 0;
                                 if(isset($_GET['userid']) && $_GET['userid'] != ''){
                                     $get_records_query = tep_db_query("SELECT `user_name`, `identifier`, `success`, `date_added`, `user_id` FROM `action_recorder` WHERE `module` = 'ar_admin_login' and  `user_id` = '".$_GET['userid']."' order by date_added desc");
+                                    
+                                    //die("SELECT `user_name`, `identifier`, `success`, `date_added`, `user_id` FROM `action_recorder` WHERE `module` = 'ar_admin_login' and  `user_id` = '".$_GET['userid']."' order by date_added desc");
+                                    
                                 }else{
                                     $get_records_query = tep_db_query("SELECT `user_name`, `identifier`, `success`, `date_added`, `user_id` FROM `action_recorder` WHERE `module` = 'ar_admin_login' order by date_added desc");
                                 }
                                 while($get_records_array = tep_db_fetch_array($get_records_query)){
                                     ?>
-                                  <tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" >
-                                    <td class="dataTableContent"><?php echo $get_records_array['user_name']; ?></td>
-                                    <td class="dataTableContent"><?php echo $get_records_array['identifier'];?></td>
-                                    <td class="dataTableContent"><?php echo ($get_records_array['success'] == '1'?'<img src="images/tick.gif" width="16" height="16">':'<img src="images/cross.gif" width="16" height="16">')?></td>
-                                    <td class="dataTableContent"><?php echo $get_records_array['date_added'];  ?></td>
+                                  <tr id="defaultSelected" class="dataTableRowSelected" onMouseOver="rowOverEffect(this)" onMouseOut="rowOutEffect(this)" >
+                                    <td><?php echo $get_records_array['user_name']; ?></td>
+                                    <td><?php echo $get_records_array['identifier'];?></td>
+                                    <td><?php echo ($get_records_array['success'] == '1'?'<img src="images/tick.gif" width="16" height="16">':'<img src="images/cross.gif" width="16" height="16">')?></td>
+                                    <td><?php echo $get_records_array['date_added'];  ?></td>
                                   </tr>
                   <?php
                                 }
@@ -98,7 +104,6 @@ if(isset($_GET['userid']) && $_GET['userid'] != ''){
                         </tr>
                     </table>
                 </td>
-
 <?php
   
     $heading = array();
@@ -123,8 +128,8 @@ if(isset($_GET['userid']) && $_GET['userid'] != ''){
       $contents[] = array('text'=>'Admin:' . '<br><select>'.$admin_str.'</select>');
     
          
-?>                       
-    <td width="25%" valign="top">
+?> 
+    <td valign="top">
 <?php
       $box = new box;
       echo $box->infoBox($heading, $contents);
@@ -138,12 +143,13 @@ if(isset($_GET['userid']) && $_GET['userid'] != ''){
   
     ?>
 <!-- body_text_eof //-->
+  </td>
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
+
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-</body>
-</html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

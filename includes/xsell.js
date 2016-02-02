@@ -172,26 +172,26 @@ function appendRow(table, key, value){
 			tr = document.createElement('tr');
 			
 			td = document.createElement('td');
-			td.setAttribute('class', 'smallText');
-			td.setAttribute('className', 'smallText');
+			td.setAttribute('class', '');
+			td.setAttribute('className', '');
 			td.innerHTML = '&nbsp;<b>Sort Order</b>&nbsp;';
 			tr.appendChild(td);
 			
 			td = document.createElement('td');
-			td.setAttribute('class', 'smallText');
-			td.setAttribute('className', 'smallText');
+			td.setAttribute('class', '');
+			td.setAttribute('className', '');
 			td.innerHTML = '&nbsp;<b>Product Name</b>&nbsp;';
 			tr.appendChild(td);
 			
 			td = document.createElement('td');
-			td.setAttribute('class', 'smallText');
-			td.setAttribute('className', 'smallText');
+			td.setAttribute('class', '');
+			td.setAttribute('className', '');
 			td.innerHTML = '&nbsp;<b>Product ID</b>&nbsp;';
 			tr.appendChild(td);
 			
 			td = document.createElement('td');
-			td.setAttribute('class', 'smallText');
-			td.setAttribute('className', 'smallText');
+			td.setAttribute('class', '');
+			td.setAttribute('className', '');
 			td.innerHTML = '&nbsp;<b>Action</b>&nbsp;';
 			tr.appendChild(td);
 			
@@ -203,26 +203,26 @@ function appendRow(table, key, value){
 		tr = document.createElement('tr');
 			
 		td = document.createElement('td');
-		td.setAttribute('class', 'smallText');
-		td.setAttribute('className', 'smallText');
+		td.setAttribute('class', '');
+		td.setAttribute('className', '');
 		td.innerHTML = row_num;
 		tr.appendChild(td);
 			
 		td = document.createElement('td');
-		td.setAttribute('class', 'smallText');
-		td.setAttribute('className', 'smallText');
+		td.setAttribute('class', '');
+		td.setAttribute('className', '');
 		td.innerHTML = key;
 		tr.appendChild(td);
 			
 		td = document.createElement('td');
-		td.setAttribute('class', 'smallText');
-		td.setAttribute('className', 'smallText');
+		td.setAttribute('class', '');
+		td.setAttribute('className', '');
 		td.innerHTML = value;
 		tr.appendChild(td);
 		
 		td = document.createElement('td');
-		td.setAttribute('class', 'smallText');
-		td.setAttribute('className', 'smallText');
+		td.setAttribute('class', '');
+		td.setAttribute('className', '');
 		td.setAttribute('align', 'right');
 	
 		input = document.createElement('input');

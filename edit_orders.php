@@ -633,139 +633,39 @@ echo FRAUD_PREVENTION_NOTIFICATION;
   		}
 
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-<html <?php echo HTML_PARAMS; ?>>
-<head> 
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<!--bof javascript validation 12_JAN_2014-->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script  type="text/javascript">
-    var notice_win;
-	$(document).ready(function(){ 
-    <?php
-    $like_string = '';
-    $is_not_fraud = fraud_prevention_is_negative($_GET['oID']);
-    if (!$is_not_fraud){
-    ?>
-    notice_win = window.open('edit_orders.php?w=n',"notice","toolbar=no, menubar=no,resizable=no,location=no,directories=no,status=no,width=500,height=500");
-    notice_win.focus();
-    
-    <?php
-    }
-    ?>
-	}).click(function(){
-	    if(notice_win && !notice_win.closed) 
-            notice_win.focus();
-	});
-</script>
-<!--Eof javascript validation 12_JAN_2014-->
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-  
-  <?php include('order_editor/css.php');  
-      //because if you haven't got your css, what have you got?
-      ?>
-
-<script language="javascript" src="includes/general.js"></script>
-
-  <?php include('order_editor/javascript.php');  
-      //because if you haven't got your javascript, what have you got?
-      ?>
- 
-</head>
-<body>
-<div id="dhtmltooltip"></div>
-
-<script type="text/javascript">
-
-/***********************************************
-* Cool DHTML tooltip script- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
-* This notice MUST stay intact for legal use
-* Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
-***********************************************/
-
-/***********************************************
-* For Order Editor
-* This has to stay here for the tooltips to work correctly
-* I tried sticking it with the rest of the javascript, but it has to be inside the <body> tag
-*
-***********************************************/
-
-var offsetxpoint=-60 //Customize x offset of tooltip
-var offsetypoint=20 //Customize y offset of tooltip
-var ie=document.all
-var ns6=document.getElementById && !document.all
-var enabletip=false
-if (ie||ns6)
-var tipobj=document.all? document.all["dhtmltooltip"] : document.getElementById? document.getElementById("dhtmltooltip") : ""
-
-function ietruebody(){
-return (document.compatMode && document.compatMode!="BackCompat")? document.documentElement : document.body
-}
-
-function ddrivetip(thetext, thecolor, thewidth){
-if (ns6||ie){
-if (typeof thewidth!="undefined") tipobj.style.width=thewidth+"px"
-if (typeof thecolor!="undefined" && thecolor!="") tipobj.style.backgroundColor=thecolor
-tipobj.innerHTML=thetext
-enabletip=true
-return false
-}
-}
-
-function positiontip(e){
-if (enabletip){
-var curX=(ns6)?e.pageX : event.clientX+ietruebody().scrollLeft;
-var curY=(ns6)?e.pageY : event.clientY+ietruebody().scrollTop;
-//Find out how close the mouse is to the corner of the window
-var rightedge=ie&&!window.opera? ietruebody().clientWidth-event.clientX-offsetxpoint : window.innerWidth-e.clientX-offsetxpoint-20
-var bottomedge=ie&&!window.opera? ietruebody().clientHeight-event.clientY-offsetypoint : window.innerHeight-e.clientY-offsetypoint-20
-
-var leftedge=(offsetxpoint<0)? offsetxpoint*(-1) : -1000
-
-//if the horizontal distance isn't enough to accomodate the width of the context menu
-if (rightedge<tipobj.offsetWidth)
-//move the horizontal position of the menu to the left by it's width
-tipobj.style.left=ie? ietruebody().scrollLeft+event.clientX-tipobj.offsetWidth+"px" : window.pageXOffset+e.clientX-tipobj.offsetWidth+"px"
-else if (curX<leftedge)
-tipobj.style.left="5px"
-else
-//position the horizontal position of the menu where the mouse is positioned
-tipobj.style.left=curX+offsetxpoint+"px"
-
-//same concept with the vertical position
-if (bottomedge<tipobj.offsetHeight)
-tipobj.style.top=ie? ietruebody().scrollTop+event.clientY-tipobj.offsetHeight-offsetypoint+"px" : window.pageYOffset+e.clientY-tipobj.offsetHeight-offsetypoint+"px"
-else
-tipobj.style.top=curY+offsetypoint+"px"
-tipobj.style.visibility="visible"
-}
-}
-
-function hideddrivetip(){
-if (ns6||ie){
-enabletip=false
-tipobj.style.visibility="hidden"
-tipobj.style.left="-1000px"
-tipobj.style.backgroundColor='white'
-tipobj.style.width='200'
-}
-}
-
-document.onmousemove=positiontip
-
-</script>
-
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+      
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo sprintf(HEADING_TITLE, $oID, tep_datetime_short($order->info['date_purchased'])); ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo sprintf(HEADING_TITLE, $oID, tep_datetime_short($order->info['date_purchased'])); ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+               <table class="table table-condensed table-striped">
+               <table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td width="100%" valign="top">
+    <td>
 
  <?php
    
@@ -776,10 +676,7 @@ document.onmousemove=positiontip
  ?>
   
       <div id="header">
-	  
-		  <p id="headerTitle" class="pageHeading"><?php echo sprintf(HEADING_TITLE, $oID, tep_datetime_short($order->info['date_purchased'])); ?><br>
-
-			  
+		  <p id="headerTitle"> 
 			 <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>
 			  <script language="JavaScript" type="text/javascript"><!--
 			  //this button only works with javascript and is therefore only displayed on browsers with javascript enabled
@@ -807,7 +704,7 @@ document.onmousemove=positiontip
               <div class="update2">&nbsp;</div>
               <div class="update3">&nbsp;</div>
               <div class="update4" align="center"><?php echo ENTRY_SEND_NEW_ORDER_CONFIRMATION; ?>&nbsp;<?php echo tep_draw_checkbox_field('nC1', '', false); ?></div>
-              <div class="update5" align="center"><?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE); ?></div>
+              <div class="update5"><?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE); ?></div>
           </div>
 	
 	  <br>
@@ -818,72 +715,72 @@ document.onmousemove=positiontip
 
     <!-- customer_info bof //-->
             
-        <table border="0" cellspacing="0" cellpadding="2" bgcolor="#EEEEEE" width="100%">
+        <table class="table table-bordered table-hover">
           <tr>
-            <td valign="top">
+            <td>
             <!-- customer_info bof //-->
-            <table width="100%" border="0" cellspacing="0" cellpadding="2" style="border: 1px solid #C9C9C9;">
-              <tr class="dataTableHeadingRow"> 
-                <td colspan="4" class="dataTableHeadingContent" valign="top"><?php echo ENTRY_CUSTOMER; ?></td>
+            <table class="table table-bordered table-hover">
+              <tr> 
+                <td colspan="4"><?php echo ENTRY_CUSTOMER; ?></td>
               </tr>
-              <tr class="dataTableRow"> 
-                <td class="dataTableContent" valign="middle" align="right" nowrap><?php echo ENTRY_NAME; ?></td>
-                <td colspan="3" valign="top" class="dataTableContent"><input name="update_customer_name" size="37" value="<?php echo stripslashes($order->customer['name']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_name', encodeURIComponent(this.value))"<?php } ?>></td>
+              <tr> 
+                <td valign="middle" align="right"><?php echo ENTRY_NAME; ?></td>
+                <td colspan="3"><input name="update_customer_name" size="37" value="<?php echo stripslashes($order->customer['name']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_name', encodeURIComponent(this.value))"<?php } ?>></td>
               </tr>
-              <tr class="dataTableRow"> 
-                <td class="dataTableContent" valign="middle" align="right" nowrap><?php echo ENTRY_COMPANY; ?></td>
-                <td colspan="3" valign="top" class="dataTableContent"><input name="update_customer_company" size="37" value="<?php echo stripslashes($order->customer['company']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_company', encodeURIComponent(this.value))"<?php } ?>></td>
+              <tr> 
+                <td valign="middle" align="right" nowrap><?php echo ENTRY_COMPANY; ?></td>
+                <td colspan="3"><input name="update_customer_company" size="37" value="<?php echo stripslashes($order->customer['company']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_company', encodeURIComponent(this.value))"<?php } ?>></td>
               </tr>
-              <tr class="dataTableRow"> 
-                <td class="dataTableContent" valign="middle" align="right" nowrap><?php echo ENTRY_STREET_ADDRESS; ?></td>
-                <td colspan="3" valign="top" class="dataTableContent" nowrap><input name="update_customer_street_address" size="37" value="<?php echo stripslashes($order->customer['street_address']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_street_address', encodeURIComponent(this.value))"<?php } ?>></td>
+              <tr> 
+                <td valign="middle" align="right"><?php echo ENTRY_STREET_ADDRESS; ?></td>
+                <td colspan="3"><input name="update_customer_street_address" size="37" value="<?php echo stripslashes($order->customer['street_address']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_street_address', encodeURIComponent(this.value))"<?php } ?>></td>
               </tr>
-              <tr class="dataTableRow"> 
-                <td class="dataTableContent" valign="middle" align="right"><?php echo ENTRY_SUBURB; ?></td>
-                <td colspan="3" valign="top" class="dataTableContent" nowrap><input name="update_customer_suburb" size="37" value="<?php echo stripslashes($order->customer['suburb']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_suburb', encodeURIComponent(this.value))"<?php } ?>></td>
+              <tr> 
+                <td valign="middle" align="right"><?php echo ENTRY_SUBURB; ?></td>
+                <td colspan="3"><input name="update_customer_suburb" size="37" value="<?php echo stripslashes($order->customer['suburb']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_suburb', encodeURIComponent(this.value))"<?php } ?>></td>
               </tr>
-              <tr class="dataTableRow"> 
-                <td class="dataTableContent" valign="middle" align="right" nowrap><?php echo ENTRY_CITY_STATE; ?></td>
-                <td colspan="2" valign="top" class="dataTableContent" nowrap><input name="update_customer_city" size="15" value="<?php echo stripslashes($order->customer['city']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_city', encodeURIComponent(this.value))"<?php } ?>>,</td>
-                <td valign="top" class="dataTableContent"><span id="customerStateMenu">
+              <tr> 
+                <td valign="middle" align="right"><?php echo ENTRY_CITY_STATE; ?></td>
+                <td colspan="2"><input name="update_customer_city" size="15" value="<?php echo stripslashes($order->customer['city']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_city', encodeURIComponent(this.value))"<?php } ?>>,</td>
+                <td><span id="customerStateMenu">
 				<?php if (ORDER_EDITOR_USE_AJAX == 'true') {
 				echo tep_draw_pull_down_menu('update_customer_zone_id', tep_get_country_zones($order->customer['country_id']), $order->customer['zone_id'], 'style="width: 200px;" onChange="updateOrdersField(\'customers_state\', this.options[this.selectedIndex].text);"'); 
 				} else {
 				echo tep_draw_pull_down_menu('update_customer_zone_id', tep_get_country_zones($order->customer['country_id']), $order->customer['zone_id'], 'style="width: 200px;"');
 				}?></span><span id="customerStateInput"><input name="update_customer_state" size="15" value="<?php echo stripslashes($order->customer['state']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_state', encodeURIComponent(this.value))"<?php } ?>></span></td>
               </tr>
-              <tr class="dataTableRow"> 
-                <td class="dataTableContent" valign="middle" align="right" nowrap><?php echo ENTRY_POST_CODE; ?></td>
-                <td class="dataTableContent" valign="top"><input name="update_customer_postcode" size="5" value="<?php echo $order->customer['postcode']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_postcode', encodeURIComponent(this.value))"<?php } ?>></td>
-                <td class="dataTableContent" valign="middle" align="right" nowrap><?php echo ENTRY_COUNTRY; ?></td>
-                <td class="dataTableContent" valign="top">
+              <tr> 
+                <td valign="middle" align="right"><?php echo ENTRY_POST_CODE; ?></td>
+                <td><input name="update_customer_postcode" size="5" value="<?php echo $order->customer['postcode']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_postcode', encodeURIComponent(this.value))"<?php } ?>></td>
+                <td valign="middle" align="right" nowrap><?php echo ENTRY_COUNTRY; ?></td>
+                <td>
 				<?php if (ORDER_EDITOR_USE_AJAX == 'true') {
 				echo tep_draw_pull_down_menu('update_customer_country_id', tep_get_countries(), $order->customer['country_id'], 'style="width: 200px;" onChange="update_zone(\'update_customer_country_id\', \'update_customer_zone_id\', \'customerStateInput\', \'customerStateMenu\'); updateOrdersField(\'customers_country\', this.options[this.selectedIndex].text);"'); 
 				} else {
 				echo tep_draw_pull_down_menu('update_customer_country_id', tep_get_countries(), $order->customer['country_id'], 'style="width: 200px;" onChange="update_zone(\'update_customer_country_id\', \'update_customer_zone_id\', \'customerStateInput\', \'customerStateMenu\');"'); 
 				} ?></td>
               </tr>
-              <tr class="dataTableRow"> 
-                <td colspan="4" style="border-top: 1px solid #C9C9C9;"><?php echo tep_draw_separator('pixel_trans.gif', '1', '1'); ?></td>
+              <tr> 
+                <td colspan="4"><?php echo tep_draw_separator('pixel_trans.gif', '1', '1'); ?></td>
               </tr>
-              <tr class="dataTableRow"> 
-                <td class="dataTableContent" valign="middle" align="right"><?php echo ENTRY_TELEPHONE_NUMBER; ?></td>
-                <td colspan="3" valign="top" class="dataTableContent"><input name="update_customer_telephone" size="15" value="<?php echo $order->customer['telephone']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_telephone', encodeURIComponent(this.value))"<?php } ?>></td>
+              <tr> 
+                <td valign="middle" align="right"><?php echo ENTRY_TELEPHONE_NUMBER; ?></td>
+                <td colspan="3"><input name="update_customer_telephone" size="15" value="<?php echo $order->customer['telephone']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_telephone', encodeURIComponent(this.value))"<?php } ?>></td>
               </tr>
-              <tr class="dataTableRow"> 
-                <td class="dataTableContent" valign="middle" align="right"><?php echo ENTRY_EMAIL_ADDRESS; ?></td>
-                <td colspan="3" valign="top" class="dataTableContent"><input name="update_customer_email_address" size="35" value="<?php echo $order->customer['email_address']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_email_address', encodeURIComponent(this.value))"<?php } ?>></td>
+              <tr> 
+                <td valign="middle" align="right"><?php echo ENTRY_EMAIL_ADDRESS; ?></td>
+                <td colspan="3"><input name="update_customer_email_address" size="35" value="<?php echo $order->customer['email_address']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('customers_email_address', encodeURIComponent(this.value))"<?php } ?>></td>
               </tr>
             </table>
 			
 			<!-- customer_info_eof //-->
             <!-- shipping_address bof -->
-            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border: 1px solid #C9C9C9;">
+            <table class="table table-bordered table-hover">
               <tr>
-                <td class="dataTableContent">
-                <table width="100%" cellspacing="0" cellpadding="2">
-                  <tr class="dataTableHeadingRow"> 
-				   <td class="dataTableHeadingContent" valign="top" onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_SHIPPING_ADDRESS); ?>')"; onMouseout="hideddrivetip()"><?php echo ENTRY_SHIPPING_ADDRESS; ?> 
+                <td>
+                <table class="table table-bordered table-hover">
+                  <tr> 
+				   <td onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_SHIPPING_ADDRESS); ?>')"; onMouseout="hideddrivetip()"><?php echo ENTRY_SHIPPING_ADDRESS; ?> 
 				   	<script language="JavaScript" type="text/javascript">
                    <!--
                     document.write("<img src=\"images/icon_info.gif\" border= \"0\" width=\"13\" height=\"13\">");
@@ -894,8 +791,8 @@ document.onmousemove=positiontip
                   </tr>
 				  
                   <?php if (ORDER_EDITOR_USE_AJAX != 'true') { ?>
-				  <tr class="dataTableRow"> 
-                    <td valign="middle" class="dataTableContent"><input type="checkbox" name="shipping_same_as_billing"> <?php echo TEXT_SHIPPING_SAME_AS_BILLING; ?></td>
+				  <tr> 
+                    <td valign="middle"><input type="checkbox" name="shipping_same_as_billing"> <?php echo TEXT_SHIPPING_SAME_AS_BILLING; ?></td>
                   </tr>
 				  <?php } ?>
 				  
@@ -903,31 +800,31 @@ document.onmousemove=positiontip
                 </td>
               </tr>
               <tr id="shippingAddressEntry">
-                <td class="dataTableContent">
-                <table width="100%" cellspacing="0" cellpadding="2">
-                  <tr class="dataTableRow"> 
-                    <td colspan="4" style="border-top: 1px solid #C9C9C9;"><?php echo tep_draw_separator('pixel_trans.gif', '1', '1'); ?></td>
+                <td>
+                <table class="table table-bordered table-hover">
+                  <tr> 
+                    <td colspan="4"><?php echo tep_draw_separator('pixel_trans.gif', '1', '1'); ?></td>
                   </tr>
-                  <tr class="dataTableRow"> 
-                    <td class="dataTableContent" valign="middle" align="right"><?php echo ENTRY_NAME; ?></td>
-                    <td colspan="3" valign="top" class="dataTableContent"><input name="update_delivery_name" size="37" value="<?php echo stripslashes($order->delivery['name']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('delivery_name', encodeURIComponent(this.value))"<?php } ?>></td>
+                  <tr> 
+                    <td valign="middle" align="right"><?php echo ENTRY_NAME; ?></td>
+                    <td colspan="3"><input name="update_delivery_name" size="37" value="<?php echo stripslashes($order->delivery['name']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('delivery_name', encodeURIComponent(this.value))"<?php } ?>></td>
                   </tr>
-                  <tr class="dataTableRow"> 
-                    <td class="dataTableContent" valign="middle" align="right"><?php echo ENTRY_COMPANY; ?></td>
-                    <td colspan="3" valign="top" class="dataTableContent"><input name="update_delivery_company" size="37" value="<?php echo stripslashes($order->delivery['company']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('delivery_company', encodeURIComponent(this.value))"<?php } ?>></td>
+                  <tr> 
+                    <td valign="middle" align="right"><?php echo ENTRY_COMPANY; ?></td>
+                    <td colspan="3"><input name="update_delivery_company" size="37" value="<?php echo stripslashes($order->delivery['company']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('delivery_company', encodeURIComponent(this.value))"<?php } ?>></td>
                   </tr>
-                  <tr class="dataTableRow"> 
-                    <td class="dataTableContent" valign="middle" align="right"><?php echo ENTRY_STREET_ADDRESS; ?></td>
-                    <td colspan="3" valign="top" class="dataTableContent"><input name="update_delivery_street_address" size="37" value="<?php echo stripslashes($order->delivery['street_address']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('delivery_street_address', encodeURIComponent(this.value))"<?php } ?>></td>
+                  <tr> 
+                    <td valign="middle" align="right"><?php echo ENTRY_STREET_ADDRESS; ?></td>
+                    <td colspan="3"><input name="update_delivery_street_address" size="37" value="<?php echo stripslashes($order->delivery['street_address']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('delivery_street_address', encodeURIComponent(this.value))"<?php } ?>></td>
                   </tr>
-                  <tr class="dataTableRow"> 
-                    <td class="dataTableContent" valign="middle" align="right"><?php echo ENTRY_SUBURB; ?></td>
-                    <td colspan="3" valign="top" class="dataTableContent"><input name="update_delivery_suburb" size="37" value="<?php echo stripslashes($order->delivery['suburb']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('delivery_suburb', encodeURIComponent(this.value))"<?php } ?>></td>
+                  <tr> 
+                    <td valign="middle" align="right"><?php echo ENTRY_SUBURB; ?></td>
+                    <td colspan="3"><input name="update_delivery_suburb" size="37" value="<?php echo stripslashes($order->delivery['suburb']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('delivery_suburb', encodeURIComponent(this.value))"<?php } ?>></td>
                   </tr>
-                  <tr class="dataTableRow">
-                    <td class="dataTableContent" valign="middle" align="right" nowrap><?php echo ENTRY_CITY_STATE; ?></td>
-                    <td colspan="2" valign="top" class="dataTableContent" nowrap><input name="update_delivery_city" size="15" value="<?php echo stripslashes($order->delivery['city']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('delivery_city', encodeURIComponent(this.value))"<?php } ?>>,</td>
-                    <td valign="top" class="dataTableContent"><span id="deliveryStateMenu">
+                  <tr>
+                    <td valign="middle" align="right"><?php echo ENTRY_CITY_STATE; ?></td>
+                    <td colspan="2"><input name="update_delivery_city" size="15" value="<?php echo stripslashes($order->delivery['city']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('delivery_city', encodeURIComponent(this.value))"<?php } ?>>,</td>
+                    <td><span id="deliveryStateMenu">
 					<?php if (ORDER_EDITOR_USE_AJAX == 'true') { 
 				echo tep_draw_pull_down_menu('update_delivery_zone_id', tep_get_country_zones($order->delivery['country_id']), $order->delivery['zone_id'], 'style="width: 200px;" onChange="updateShippingZone(\'delivery_state\', this.options[this.selectedIndex].text);"'); 
 					} else {
@@ -935,11 +832,11 @@ document.onmousemove=positiontip
 					} ?>
 					</span><span id="deliveryStateInput"><input name="update_delivery_state" size="15" value="<?php echo stripslashes($order->delivery['state']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateShippingZone('delivery_state', encodeURIComponent(this.value))"<?php } ?>></span></td>
                   </tr>
-                  <tr class="dataTableRow"> 
-                    <td class="dataTableContent" valign="middle" align="right"><?php echo ENTRY_POST_CODE; ?></td>
-                    <td class="dataTableContent" valign="top"><input name="update_delivery_postcode" size="5" value="<?php echo $order->delivery['postcode']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateShippingZone('delivery_postcode', encodeURIComponent(this.value))"<?php } ?>></td>
-                    <td class="dataTableContent" valign="middle" align="right"><?php echo ENTRY_COUNTRY; ?></td>
-                    <td class="dataTableContent" valign="top">
+                  <tr> 
+                    <td valign="middle" align="right"><?php echo ENTRY_POST_CODE; ?></td>
+                    <td valign="top"><input name="update_delivery_postcode" size="5" value="<?php echo $order->delivery['postcode']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateShippingZone('delivery_postcode', encodeURIComponent(this.value))"<?php } ?>></td>
+                    <td valign="middle" align="right"><?php echo ENTRY_COUNTRY; ?></td>
+                    <td>
 					<?php if (ORDER_EDITOR_USE_AJAX == 'true') {
 					echo tep_draw_pull_down_menu('update_delivery_country_id', tep_get_countries(), $order->delivery['country_id'], 'style="width: 200px;" onchange="update_zone(\'update_delivery_country_id\', \'update_delivery_zone_id\', \'deliveryStateInput\', \'deliveryStateMenu\'); updateShippingZone(\'delivery_country\', this.options[this.selectedIndex].text);"'); 
 					} else {
@@ -953,20 +850,19 @@ document.onmousemove=positiontip
             </table>
             <!-- shipping_address_eof //-->
             </td>
-            <td valign="top" width="10">&nbsp;</td>
-            <td valign="top">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border: 1px solid #C9C9C9;">
+            <td>
+            <table class="table table-bordered table-hover">
               <!-- billing_address bof //-->
               <tr>
-                <td class="dataTableContent">
-                <table width="100%" cellspacing="0" cellpadding="2">
-                  <tr class="dataTableHeadingRow"> 
-                    <td colspan="4" class="dataTableHeadingContent" valign="top"><?php echo ENTRY_BILLING_ADDRESS; ?></td>
+                <td>
+                <table class="table table-bordered table-hover">
+                  <tr> 
+                    <td colspan="4"><?php echo ENTRY_BILLING_ADDRESS; ?></td>
                   </tr>
 				  
 				  <?php if (ORDER_EDITOR_USE_AJAX != 'true') { ?>
-                  <tr class="dataTableRow"> 
-                    <td colspan="4" valign="middle" class="dataTableContent"><input type="checkbox" name="billing_same_as_customer"> <?php echo TEXT_BILLING_SAME_AS_CUSTOMER; ?></td>
+                  <tr> 
+                    <td colspan="4" valign="middle"><input type="checkbox" name="billing_same_as_customer"> <?php echo TEXT_BILLING_SAME_AS_CUSTOMER; ?></td>
                   </tr>
 				  <?php } ?>
 				  
@@ -974,31 +870,28 @@ document.onmousemove=positiontip
                 </td>
               </tr>
               <tr id="billingAddressEntry">
-                <td class="dataTableContent">
-                <table width="100%" cellspacing="0" cellpadding="2">               
-                  <tr class="dataTableRow">
-                    <td colspan="4" style="border-top: 1px solid #C9C9C9;"><?php echo tep_draw_separator('pixel_trans.gif', '1', '1'); ?></td>
+                <td>
+                <table class="table table-bordered table-hover">               
+                  <tr> 
+                    <td valign="middle" align="right"><?php echo ENTRY_NAME; ?></td>
+                    <td colspan="3"><input name="update_billing_name" size="37" value="<?php echo stripslashes($order->billing['name']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('billing_name', encodeURIComponent(this.value))"<?php } ?>></td>
                   </tr>
-                  <tr class="dataTableRow"> 
-                    <td class="dataTableContent" valign="middle" align="right" nowrap><?php echo ENTRY_NAME; ?></td>
-                    <td colspan="3" valign="top" class="dataTableContent"><input name="update_billing_name" size="37" value="<?php echo stripslashes($order->billing['name']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('billing_name', encodeURIComponent(this.value))"<?php } ?>></td>
+                  <tr> 
+                    <td valign="middle" align="right"><?php echo ENTRY_COMPANY; ?></td>
+                    <td colspan="3"><input name="update_billing_company" size="37" value="<?php echo stripslashes($order->billing['company']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('billing_company', encodeURIComponent(this.value))"<?php } ?>></td>
                   </tr>
-                  <tr class="dataTableRow"> 
-                    <td class="dataTableContent" valign="middle" align="right" nowrap><?php echo ENTRY_COMPANY; ?></td>
-                    <td colspan="3" valign="top" class="dataTableContent"><input name="update_billing_company" size="37" value="<?php echo stripslashes($order->billing['company']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('billing_company', encodeURIComponent(this.value))"<?php } ?>></td>
+                  <tr> 
+                    <td valign="middle" align="right"><?php echo ENTRY_STREET_ADDRESS; ?></td>
+                    <td colspan="3"><input name="update_billing_street_address" size="37" value="<?php echo stripslashes($order->billing['street_address']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('billing_street_address', encodeURIComponent(this.value))"<?php } ?>></td>
                   </tr>
-                  <tr class="dataTableRow"> 
-                    <td class="dataTableContent" valign="middle" align="right" nowrap><?php echo ENTRY_STREET_ADDRESS; ?></td>
-                    <td colspan="3" valign="top" class="dataTableContent"><input name="update_billing_street_address" size="37" value="<?php echo stripslashes($order->billing['street_address']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('billing_street_address', encodeURIComponent(this.value))"<?php } ?>></td>
+                  <tr> 
+                    <td valign="middle" align="right"><?php echo ENTRY_SUBURB; ?></td>
+                    <td colspan="3"><input name="update_billing_suburb" size="37" value="<?php echo stripslashes($order->billing['suburb']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('billing_suburb', encodeURIComponent(this.value))"<?php } ?>></td>
                   </tr>
-                  <tr class="dataTableRow"> 
-                    <td class="dataTableContent" valign="middle" align="right" nowrap><?php echo ENTRY_SUBURB; ?></td>
-                    <td colspan="3" valign="top" class="dataTableContent"><input name="update_billing_suburb" size="37" value="<?php echo stripslashes($order->billing['suburb']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('billing_suburb', encodeURIComponent(this.value))"<?php } ?>></td>
-                  </tr>
-                  <tr class="dataTableRow"> 
-                    <td class="dataTableContent" valign="middle" align="right" nowrap><?php echo ENTRY_CITY_STATE; ?></td>
-                    <td colspan="2" valign="top" class="dataTableContent" nowrap><input name="update_billing_city" size="15" value="<?php echo stripslashes($order->billing['city']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('billing_city', encodeURIComponent(this.value))"<?php } ?>>,</td>
-                    <td valign="top" class="dataTableContent"><span id="billingStateMenu">
+                  <tr> 
+                    <td valign="middle" align="right"><?php echo ENTRY_CITY_STATE; ?></td>
+                    <td colspan="2"><input name="update_billing_city" size="15" value="<?php echo stripslashes($order->billing['city']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('billing_city', encodeURIComponent(this.value))"<?php } ?>>,</td>
+                    <td><span id="billingStateMenu">
 					<?php if (ORDER_EDITOR_USE_AJAX == 'true') {
 					echo tep_draw_pull_down_menu('update_billing_zone_id', tep_get_country_zones($order->billing['country_id']), $order->billing['zone_id'], 'style="width: 200px;" onChange="updateOrdersField(\'billing_state\', this.options[this.selectedIndex].text);"'); 
 					} else {
@@ -1006,11 +899,11 @@ document.onmousemove=positiontip
 					} ?>
 					</span><span id="billingStateInput"><input name="update_billing_state" size="15" value="<?php echo stripslashes($order->billing['state']); ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('billing_state', encodeURIComponent(this.value))"<?php } ?>></span></td>
                   </tr>
-                  <tr class="dataTableRow"> 
-                    <td class="dataTableContent" valign="middle" align="right" nowrap><?php echo ENTRY_POST_CODE; ?></td>
-                    <td class="dataTableContent" valign="top"><input name="update_billing_postcode" size="5" value="<?php echo $order->billing['postcode']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('billing_postcode', encodeURIComponent(this.value))"<?php } ?>></td>
-                    <td class="dataTableContent" valign="middle" align="right" nowrap><?php echo ENTRY_COUNTRY; ?></td>
-                    <td class="dataTableContent" valign="top">
+                  <tr> 
+                    <td valign="middle" align="right" nowrap><?php echo ENTRY_POST_CODE; ?></td>
+                    <td><input name="update_billing_postcode" size="5" value="<?php echo $order->billing['postcode']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('billing_postcode', encodeURIComponent(this.value))"<?php } ?>></td>
+                    <td valign="middle" align="right"><?php echo ENTRY_COUNTRY; ?></td>
+                    <td>
 					<?php if (ORDER_EDITOR_USE_AJAX == 'true') {
 					echo tep_draw_pull_down_menu('update_billing_country_id', tep_get_countries(), $order->billing['country_id'], 'style="width: 200px;" onchange="update_zone(\'update_billing_country_id\', \'update_billing_zone_id\', \'billingStateInput\', \'billingStateMenu\'); updateOrdersField(\'billing_country\', this.options[this.selectedIndex].text);"'); 
 					} else {
@@ -1023,11 +916,11 @@ document.onmousemove=positiontip
               <!-- billing_address_eof //-->
               <!-- payment_method bof //-->
               <tr>
-                <td class="dataTableContent">
+                <td>
              
-      <table cellspacing="0" cellpadding="2" width="100%">
-        <tr class="dataTableHeadingRow"> 
-          <td colspan="2" class="dataTableHeadingContent" valign="bottom" onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_UPDATE_TO_CC); ?>')" onMouseout="hideddrivetip()"><?php echo ENTRY_PAYMENT_METHOD; ?>
+      <table class="table table-bordered table-hover">
+        <tr> 
+          <td colspan="2" valign="bottom" onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_UPDATE_TO_CC); ?>')" onMouseout="hideddrivetip()"><?php echo ENTRY_PAYMENT_METHOD; ?>
 		  		
 				  <script language="JavaScript" type="text/javascript">
                    <!--
@@ -1037,8 +930,7 @@ document.onmousemove=positiontip
 			
 			</td>
 	      
-		     <td></td>
-	         <td class="dataTableHeadingContent" valign="bottom" onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_UPDATE_CURRENCY); ?>')" onMouseout="hideddrivetip()"><?php echo ENTRY_CURRENCY_TYPE; ?> 
+	         <td valign="bottom" onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_UPDATE_CURRENCY); ?>')" onMouseout="hideddrivetip()"><?php echo ENTRY_CURRENCY_TYPE; ?> 
 		  
 		  		  <script language="JavaScript" type="text/javascript">
                    <!--
@@ -1047,12 +939,11 @@ document.onmousemove=positiontip
                   </script>
 				  
              </td>
-	         <td></td>
-	         <td class="dataTableHeadingContent"><?php echo ENTRY_CURRENCY_VALUE; ?></td>
+	         <td><?php echo ENTRY_CURRENCY_VALUE; ?></td>
          </tr>
                   
-	     <tr class="dataTableRow"> 
-	       <td colspan="2" class="main">
+	     <tr> 
+	       <td colspan="2">
 	       <?php 
 	        //START for payment dropdown menu use this by quick_fixer
   		      if (ORDER_EDITOR_PAYMENT_DROPDOWN == 'true') { 
@@ -1131,16 +1022,13 @@ document.onmousemove=positiontip
 ?>
           </td>
 
-         <td width="10">
-         </td>
-
 	     <td>
 		  <input name="update_info_payment_currency_value" size="15" readonly id="update_info_payment_currency_value" value="<?php echo $order->info['currency_value']; ?>">
 		 </td>
       </tr>
 
                   <!-- credit_card bof //-->
-    <tr class="dataTableRow"> 
+    <tr> 
       <td colspan="6">
 	  
 	  <table id="optional"><!--  -->
@@ -1148,20 +1036,20 @@ document.onmousemove=positiontip
 	    <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
 	  </tr>
 	  <tr>
-	    <td class="main"><?php echo ENTRY_CREDIT_CARD_TYPE; ?></td>
+	    <td><?php echo ENTRY_CREDIT_CARD_TYPE; ?></td>
 	<td class="main"><input name="update_info_cc_type" size="32" value="<?php echo $order->info['cc_type']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('cc_type', encodeURIComponent(this.value))"<?php } ?>></td>
 	  </tr>
 	  <tr>
-	    <td class="main"><?php echo ENTRY_CREDIT_CARD_OWNER; ?></td>
-	    <td class="main"><input name="update_info_cc_owner" size="32" value="<?php echo $order->info['cc_owner']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('cc_owner', encodeURIComponent(this.value))<?php } ?>"></td>
+	    <td><?php echo ENTRY_CREDIT_CARD_OWNER; ?></td>
+	    <td><input name="update_info_cc_owner" size="32" value="<?php echo $order->info['cc_owner']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('cc_owner', encodeURIComponent(this.value))<?php } ?>"></td>
 	  </tr>
 	  <tr>
-	    <td class="main"><?php echo ENTRY_CREDIT_CARD_NUMBER; ?></td>
-	    <td class="main"><input name="update_info_cc_number" size="32" value="<?php echo $order->info['cc_number']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('cc_number', encodeURIComponent(this.value))"<?php } ?>></td>
+	    <td><?php echo ENTRY_CREDIT_CARD_NUMBER; ?></td>
+	    <td><input name="update_info_cc_number" size="32" value="<?php echo $order->info['cc_number']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('cc_number', encodeURIComponent(this.value))"<?php } ?>></td>
 	  </tr>
 	  <tr>
-	    <td class="main"><?php echo ENTRY_CREDIT_CARD_EXPIRES; ?></td>
-	    <td class="main"><input name="update_info_cc_expires" size="4" value="<?php echo $order->info['cc_expires']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('cc_expires', encodeURIComponent(this.value))"<?php } ?>></td>
+	    <td><?php echo ENTRY_CREDIT_CARD_EXPIRES; ?></td>
+	    <td><input name="update_info_cc_expires" size="4" value="<?php echo $order->info['cc_expires']; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateOrdersField('cc_expires', encodeURIComponent(this.value))"<?php } ?>></td>
 	  </tr>
 	</table>
 	  
@@ -1180,38 +1068,37 @@ document.onmousemove=positiontip
     </div>
 
 	
-	<div width="100%" style="border: 1px solid #C9C9C9;"> 
+	<div> 
 	  <a name="products"></a>
 		<!-- product_listing bof //-->
-         
-            <table border="0" width="100%" cellspacing="0" cellpadding="2" id="productsTable">
-			   <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><div align="center"><?php echo TABLE_HEADING_DELETE; ?></div></td>
-			    <td class="dataTableHeadingContent"><div align="center"><?php echo TABLE_HEADING_QUANTITY; ?></div></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_TAX; ?></td>
-	  <td class="dataTableHeadingContent" onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_BASE_PRICE); ?>')"; onMouseout="hideddrivetip()"><?php  echo TABLE_HEADING_BASE_PRICE; ?> <script language="JavaScript" type="text/javascript">
+         <table class="table table-bordered table-hover" id="productsTable">
+			   <tr>
+                <td><div align="center"><?php echo TABLE_HEADING_DELETE; ?></div></td>
+			    <td><div align="center"><?php echo TABLE_HEADING_QUANTITY; ?></div></td>
+                <td><?php echo TABLE_HEADING_PRODUCTS; ?></td>
+                <td><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
+                <td><?php echo TABLE_HEADING_TAX; ?></td>
+	  <td onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_BASE_PRICE); ?>')"; onMouseout="hideddrivetip()"><?php  echo TABLE_HEADING_BASE_PRICE; ?> <script language="JavaScript" type="text/javascript">
                    <!--
                     document.write("<img src=\"images/icon_info.gif\" border= \"0\" width=\"13\" height=\"13\">");
 	               //-->
                   </script></td>
-	  <td class="dataTableHeadingContent" onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_PRICE_EXCL); ?>')"; onMouseout="hideddrivetip()"><?php  echo TABLE_HEADING_UNIT_PRICE; ?> <script language="JavaScript" type="text/javascript">
+	  <td onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_PRICE_EXCL); ?>')"; onMouseout="hideddrivetip()"><?php  echo TABLE_HEADING_UNIT_PRICE; ?> <script language="JavaScript" type="text/javascript">
                    <!--
                     document.write("<img src=\"images/icon_info.gif\" border= \"0\" width=\"13\" height=\"13\">");
 	               //-->
                   </script></td>
-	  <td class="dataTableHeadingContent" onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_PRICE_INCL); ?>')"; onMouseout="hideddrivetip()"><?php  echo TABLE_HEADING_UNIT_PRICE_TAXED; ?> <script language="JavaScript" type="text/javascript">
+	  <td onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_PRICE_INCL); ?>')"; onMouseout="hideddrivetip()"><?php  echo TABLE_HEADING_UNIT_PRICE_TAXED; ?> <script language="JavaScript" type="text/javascript">
                    <!--
                     document.write("<img src=\"images/icon_info.gif\" border= \"0\" width=\"13\" height=\"13\">");
 	               //-->
                   </script></td>
-	  <td class="dataTableHeadingContent" onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_TOTAL_EXCL); ?>')"; onMouseout="hideddrivetip()"><?php  echo TABLE_HEADING_TOTAL_PRICE; ?> <script language="JavaScript" type="text/javascript">
+	  <td onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_TOTAL_EXCL); ?>')"; onMouseout="hideddrivetip()"><?php  echo TABLE_HEADING_TOTAL_PRICE; ?> <script language="JavaScript" type="text/javascript">
                    <!--
                     document.write("<img src=\"images/icon_info.gif\" border= \"0\" width=\"13\" height=\"13\">");
 	               //-->
                   </script></td>
-      <td class="dataTableHeadingContent" onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_TOTAL_INCL); ?>')"; onMouseout="hideddrivetip()"><?php  echo TABLE_HEADING_TOTAL_PRICE_TAXED; ?> <script language="JavaScript" type="text/javascript">
+      <td onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_TOTAL_INCL); ?>')"; onMouseout="hideddrivetip()"><?php  echo TABLE_HEADING_TOTAL_PRICE_TAXED; ?> <script language="JavaScript" type="text/javascript">
                    <!--
                     document.write("<img src=\"images/icon_info.gif\" border= \"0\" width=\"13\" height=\"13\">");
 	               //-->
@@ -1222,13 +1109,13 @@ document.onmousemove=positiontip
     for ($i=0; $i<sizeof($order->products); $i++) {
       $orders_products_id = $order->products[$i]['orders_products_id'];  ?>
 			   
-			   <tr class="dataTableRow">
+			   <tr>
                 
-				<td class="dataTableContent" valign="top"><div align="center"><input type="checkbox" name="<?php echo "update_products[" . $orders_products_id . "][delete]"; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onClick="updateProductsField('delete', '<?php echo $orders_products_id; ?>', 'delete', this.checked, this)"<?php } ?>></div></td>
+				<td><div align="center"><input type="checkbox" name="<?php echo "update_products[" . $orders_products_id . "][delete]"; ?>" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onClick="updateProductsField('delete', '<?php echo $orders_products_id; ?>', 'delete', this.checked, this)"<?php } ?>></div></td>
                 
-				<td class="dataTableContent" valign="top"><div align="center"><input name="<?php echo "update_products[" . $orders_products_id . "][qty]"; ?>" size="2" onKeyUp="updatePrices('qty', '<?php echo $orders_products_id; ?>')" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('reload1', '<?php echo $orders_products_id; ?>', 'products_quantity', encodeURIComponent(this.value))"<?php } ?> value="<?php echo $order->products[$i]['qty']; ?>" id="<?php echo "update_products[" . $orders_products_id . "][qty]"; ?>"></div></td>
+				<td><div align="center"><input name="<?php echo "update_products[" . $orders_products_id . "][qty]"; ?>" size="2" onKeyUp="updatePrices('qty', '<?php echo $orders_products_id; ?>')" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('reload1', '<?php echo $orders_products_id; ?>', 'products_quantity', encodeURIComponent(this.value))"<?php } ?> value="<?php echo $order->products[$i]['qty']; ?>" id="<?php echo "update_products[" . $orders_products_id . "][qty]"; ?>"></div></td>
                 
-				<td class="dataTableContent" valign="top"><input name="<?php echo "update_products[" . $orders_products_id . "][name]"; ?>" size="50" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('update', '<?php echo $orders_products_id; ?>', 'products_name', encodeURIComponent(this.value))"<?php } ?> value='<?php echo oe_html_quotes($order->products[$i]['name']); ?>'>
+				<td><input name="<?php echo "update_products[" . $orders_products_id . "][name]"; ?>" size="50" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('update', '<?php echo $orders_products_id; ?>', 'products_name', encodeURIComponent(this.value))"<?php } ?> value='<?php echo oe_html_quotes($order->products[$i]['name']); ?>'>
     
 	<?php
       // Has Attributes?
@@ -1305,19 +1192,19 @@ document.onmousemove=positiontip
 ?>
                 </td>
             
-			<td class="dataTableContent" valign="top"><input name="<?php echo "update_products[" . $orders_products_id . "][model]"; ?>" size="12" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('update', '<?php echo $orders_products_id; ?>', 'products_model', encodeURIComponent(this.value))"<?php } ?> value="<?php echo $order->products[$i]['model']; ?>"></td>
+			<td><input name="<?php echo "update_products[" . $orders_products_id . "][model]"; ?>" size="12" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('update', '<?php echo $orders_products_id; ?>', 'products_model', encodeURIComponent(this.value))"<?php } ?> value="<?php echo $order->products[$i]['model']; ?>"></td>
             
-			<td class="dataTableContent" valign="top"><input name="<?php echo "update_products[" . $orders_products_id . "][tax]"; ?>" size="5" onKeyUp="updatePrices('tax', '<?php echo $orders_products_id; ?>')" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('reload1', '<?php echo $orders_products_id; ?>', 'products_tax', encodeURIComponent(this.value))"<?php } ?> value="<?php echo tep_display_tax_value($order->products[$i]['tax']); ?>" id="<?php echo "update_products[" . $orders_products_id . "][tax]"; ?>">%</td>
+			<td><input name="<?php echo "update_products[" . $orders_products_id . "][tax]"; ?>" size="5" onKeyUp="updatePrices('tax', '<?php echo $orders_products_id; ?>')" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('reload1', '<?php echo $orders_products_id; ?>', 'products_tax', encodeURIComponent(this.value))"<?php } ?> value="<?php echo tep_display_tax_value($order->products[$i]['tax']); ?>" id="<?php echo "update_products[" . $orders_products_id . "][tax]"; ?>">%</td>
 		
-		    <td class="dataTableContent" valign="top"><input name="<?php echo "update_products[" . $orders_products_id . "][price]"; ?>" size="5" onKeyUp="updatePrices('price', '<?php echo $orders_products_id; ?>')" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('reload2', '<?php echo $orders_products_id; ?>')"<?php } ?> value="<?php echo number_format((float)$order->products[$i]['price'], 4, '.', ''); ?>" id="<?php echo "update_products[" . $orders_products_id . "][price]"; ?>"></td>
+		    <td><input name="<?php echo "update_products[" . $orders_products_id . "][price]"; ?>" size="5" onKeyUp="updatePrices('price', '<?php echo $orders_products_id; ?>')" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('reload2', '<?php echo $orders_products_id; ?>')"<?php } ?> value="<?php echo number_format((float)$order->products[$i]['price'], 4, '.', ''); ?>" id="<?php echo "update_products[" . $orders_products_id . "][price]"; ?>"></td>
             
-			<td class="dataTableContent" valign="top"><input name="<?php echo "update_products[" . $orders_products_id . "][final_price]"; ?>" size="5" onKeyUp="updatePrices('final_price', '<?php echo $orders_products_id; ?>')" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('reload2', '<?php echo $orders_products_id; ?>')"<?php } ?> value="<?php echo number_format((float)$order->products[$i]['final_price'], 4, '.', ''); ?>" id="<?php echo "update_products[" . $orders_products_id . "][final_price]"; ?>"></td>
+			<td><input name="<?php echo "update_products[" . $orders_products_id . "][final_price]"; ?>" size="5" onKeyUp="updatePrices('final_price', '<?php echo $orders_products_id; ?>')" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('reload2', '<?php echo $orders_products_id; ?>')"<?php } ?> value="<?php echo number_format((float)$order->products[$i]['final_price'], 4, '.', ''); ?>" id="<?php echo "update_products[" . $orders_products_id . "][final_price]"; ?>"></td>
                 
-			<td class="dataTableContent" valign="top"><input name="<?php echo "update_products[" . $orders_products_id . "][price_incl]"; ?>" size="5" value="<?php echo number_format((float)($order->products[$i]['final_price'] * (($order->products[$i]['tax']/100) + 1)), 4, '.', ''); ?>" onKeyUp="updatePrices('price_incl', '<?php echo $orders_products_id; ?>')" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('reload2', '<?php echo $orders_products_id; ?>')"<?php } ?> id="<?php echo "update_products[" . $orders_products_id . "][price_incl]"; ?>"></td>
+			<td><input name="<?php echo "update_products[" . $orders_products_id . "][price_incl]"; ?>" size="5" value="<?php echo number_format((float)($order->products[$i]['final_price'] * (($order->products[$i]['tax']/100) + 1)), 4, '.', ''); ?>" onKeyUp="updatePrices('price_incl', '<?php echo $orders_products_id; ?>')" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('reload2', '<?php echo $orders_products_id; ?>')"<?php } ?> id="<?php echo "update_products[" . $orders_products_id . "][price_incl]"; ?>"></td>
 				
-			<td class="dataTableContent" valign="top"><input name="<?php echo "update_products[" . $orders_products_id . "][total_excl]"; ?>" size="5" value="<?php echo number_format((float)$order->products[$i]['final_price'] * $order->products[$i]['qty'], 4, '.', ''); ?>" onKeyUp="updatePrices('total_excl', '<?php echo $orders_products_id; ?>')" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('reload2', '<?php echo $orders_products_id; ?>')"<?php } ?> id="<?php echo "update_products[" . $orders_products_id . "][total_excl]"; ?>"></td>
+			<td><input name="<?php echo "update_products[" . $orders_products_id . "][total_excl]"; ?>" size="5" value="<?php echo number_format((float)$order->products[$i]['final_price'] * $order->products[$i]['qty'], 4, '.', ''); ?>" onKeyUp="updatePrices('total_excl', '<?php echo $orders_products_id; ?>')" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('reload2', '<?php echo $orders_products_id; ?>')"<?php } ?> id="<?php echo "update_products[" . $orders_products_id . "][total_excl]"; ?>"></td>
 				
-			<td class="dataTableContent" valign="top"><input name="<?php echo "update_products[" . $orders_products_id . "][total_incl]"; ?>" size="5" value="<?php echo number_format((float)(($order->products[$i]['final_price'] * (($order->products[$i]['tax']/100) + 1))) * $order->products[$i]['qty'], 4, '.', ''); ?>" onKeyUp="updatePrices('total_incl', '<?php echo $orders_products_id; ?>')" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('reload2', '<?php echo $orders_products_id; ?>')"<?php } ?> id="<?php echo "update_products[" . $orders_products_id . "][total_incl]"; ?>"></td>
+			<td><input name="<?php echo "update_products[" . $orders_products_id . "][total_incl]"; ?>" size="5" value="<?php echo number_format((float)(($order->products[$i]['final_price'] * (($order->products[$i]['tax']/100) + 1))) * $order->products[$i]['qty'], 4, '.', ''); ?>" onKeyUp="updatePrices('total_incl', '<?php echo $orders_products_id; ?>')" <?php if (ORDER_EDITOR_USE_AJAX == 'true') { ?>onChange="updateProductsField('reload2', '<?php echo $orders_products_id; ?>')"<?php } ?> id="<?php echo "update_products[" . $orders_products_id . "][total_incl]"; ?>"></td>
 				
               </tr>
              			  
@@ -1326,11 +1213,11 @@ document.onmousemove=positiontip
   } else {
     //the order has no products
 ?>
-              <tr class="dataTableRow">
-                <td colspan="10" class="dataTableContent" valign="middle" align="center" style="padding: 20px 0 20px 0;"><?php echo TEXT_NO_ORDER_PRODUCTS; ?></td>
+              <tr>
+                <td colspan="10" valign="middle"><?php echo TEXT_NO_ORDER_PRODUCTS; ?></td>
               </tr>
-              <tr class="dataTableRow"> 
-                <td colspan="10" style="border-bottom: 1px solid #C9C9C9;"><?php echo tep_draw_separator('pixel_trans.gif', '1', '1'); ?></td>
+              <tr> 
+                <td colspan="10"><?php echo tep_draw_separator('pixel_trans.gif', '1', '1'); ?></td>
               </tr>
 <?php
   }
@@ -1338,12 +1225,12 @@ document.onmousemove=positiontip
             </table><!-- product_listing_eof //-->
 			
 		<div id="totalsBlock">
-		<table width="100%" bgcolor="#EEEEEE">
+		<table class="table table-bordered table-hover">
 		  <tr><td>
 			 
-            <table border="0" width="100%" cellspacing="0" cellpadding="0" bgcolor="#EEEEEE">
+            <table class="table table-bordered table-hover">
               <tr>
-                <td valign="top" width="100%">
+                <td>
 				  <br>
 				    <div>
 					  <a href="<?php echo tep_href_link(FILENAME_ORDERS_EDIT_ADD_PRODUCT, 'oID=' . $_GET['oID'] . '&step=1'); ?>" target="addProducts" onClick="openWindow('<?php echo tep_href_link(FILENAME_ORDERS_EDIT_ADD_PRODUCT, 'oID=' . $_GET['oID'] . '&step=1'); ?>','addProducts');return false"><?php echo tep_image_button('button_add_article_g.gif', TEXT_ADD_NEW_PRODUCT); ?></a><input type="hidden" name="subaction" value="">
@@ -1352,16 +1239,16 @@ document.onmousemove=positiontip
 			    </td>
              
 			  <!-- order_totals bof //-->
-                <td align="right" rowspan="2" valign="top" nowrap class="dataTableRow" style="border: 1px solid #C9C9C9;">
-                  <table border="0" cellspacing="0" cellpadding="2">
-                    <tr class="dataTableHeadingRow">
+                <td align="right" rowspan="2">
+                  <table class="table table-bordered table-hover">
+                    <tr>
                       <td class="dataTableHeadingContent" width="15" nowrap onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_TOTALS); ?>')"; onMouseout="hideddrivetip()"> <script language="JavaScript" type="text/javascript">
                    <!--
                     document.write("<img src=\"images/icon_info.gif\" border= \"0\" width=\"13\" height=\"13\">");
 	               //-->
                   </script></td>
-                      <td class="dataTableHeadingContent" nowrap><?php echo TABLE_HEADING_OT_TOTALS; ?></td>
-                      <td class="dataTableHeadingContent" colspan="2" nowrap><?php echo TABLE_HEADING_OT_VALUES; ?></td>
+                      <td><?php echo TABLE_HEADING_OT_TOTALS; ?></td>
+                      <td colspan="2"><?php echo TABLE_HEADING_OT_VALUES; ?></td>
                     </tr>
 <?php
   for ($i=0; $i<sizeof($order->totals); $i++) {
@@ -1383,20 +1270,20 @@ document.onmousemove=positiontip
     if ( ($order->totals[$i]['class'] == 'ot_total') || ($order->totals[$i]['class'] == 'ot_subtotal') || ($order->totals[$i]['class'] == 'ot_tax') || ($order->totals[$i]['class'] == 'ot_loworderfee') ) {
       echo '                  <tr class="' . $rowStyle . '">' . "\n";
       if ($order->totals[$i]['class'] != 'ot_total') {
-        echo '                    <td class="dataTableContent" valign="middle" height="15">
+        echo '                    <td valign="middle" height="15">
 		<script language="JavaScript" type="text/javascript">
 		<!--
 		document.write("<span id=\"update_totals['.$i.']\"><a href=\"javascript:setCustomOTVisibility(\'update_totals['.($i+1).']\', \'visible\', \'update_totals['.$i.']\');\"><img src=\"order_editor/images/plus.gif\" border=\"0\" alt=\"' . IMAGE_ADD_NEW_OT . '\" title=\"' . IMAGE_ADD_NEW_OT . '\"></a></span>");
 		//-->
         </script></td>' . "\n";
       } else {
-        echo '                    <td class="dataTableContent" valign="middle">&nbsp;</td>' . "\n";
+        echo '                    <td valign="middle">&nbsp;</td>' . "\n";
       }
       
-      echo '                    <td align="right" class="dataTableContent"><input name="update_totals['.$i.'][title]" value=\'' . trim($order->totals[$i]['title']) . '\' readonly="readonly"></td>' . "\n";
+      echo '                    <td align="right"><input name="update_totals['.$i.'][title]" value=\'' . trim($order->totals[$i]['title']) . '\' readonly="readonly"></td>' . "\n";
 	  
-      if ($order->info['currency'] != DEFAULT_CURRENCY) echo '                    <td class="dataTableContent">&nbsp;</td>' . "\n";
-      echo '                    <td align="right" class="dataTableContent" nowrap>' . $order->totals[$i]['text'] . '<input name="update_totals['.$i.'][value]" type="hidden" value="' . number_format((float)$order->totals[$i]['value'], 2, '.', '') . '"><input name="update_totals['.$i.'][class]" type="hidden" value="' . $order->totals[$i]['class'] . '"></td>' . "\n" .
+      if ($order->info['currency'] != DEFAULT_CURRENCY) echo '                    <td>&nbsp;</td>' . "\n";
+      echo '                    <td align="right">' . $order->totals[$i]['text'] . '<input name="update_totals['.$i.'][value]" type="hidden" value="' . number_format((float)$order->totals[$i]['value'], 2, '.', '') . '"><input name="update_totals['.$i.'][class]" type="hidden" value="' . $order->totals[$i]['class'] . '"></td>' . "\n" .
            '                  </tr>' . "\n";
     } else {
       if ($i % 2) {
@@ -1407,10 +1294,10 @@ document.onmousemove=positiontip
         </script>
 			 
 			 <noscript><tr class="' . $rowStyle . '" id="update_totals['.$i.']" >' . "\n" .
-             '                    <td class="dataTableContent" valign="middle" height="15"></td></noscript>' . "\n";
+             '                    <td valign="middle"></td></noscript>' . "\n";
       } else {
         echo '                  <tr class="' . $rowStyle . '">' . "\n" .
-             '                    <td class="dataTableContent" valign="middle" height="15">
+             '                    <td valign="middle">
 	    <script language="JavaScript" type="text/javascript">
 		<!--
 		document.write("<span id=\"update_totals['.$i.']\"><a href=\"javascript:setCustomOTVisibility(\'update_totals['.($i+1).']\', \'visible\', \'update_totals['.$i.']\');\"><img src=\"order_editor/images/plus.gif\" border=\"0\" alt=\"' . IMAGE_ADD_NEW_OT . '\" title=\"' . IMAGE_ADD_NEW_OT . '\"></a></span>");
@@ -1419,14 +1306,14 @@ document.onmousemove=positiontip
       }
 
        if (ORDER_EDITOR_USE_AJAX == 'true') {
-	  echo '                    <td align="right" class="dataTableContent"><input name="update_totals['.$i.'][title]" id="'.$id.'[title]" value="' . trim($order->totals[$i]['title']) . '" onChange="obtainTotals()"></td>' . "\n" .
-           '                    <td align="right" class="dataTableContent"><input name="update_totals['.$i.'][value]" id="'.$id.'[value]" value="' . number_format((float)$order->totals[$i]['value'], 2, '.', '') . '" size="6" onChange="obtainTotals()"><input name="update_totals['.$i.'][class]" type="hidden" value="' . $order->totals[$i]['class'] . '"><input name="update_totals['.$i.'][id]" type="hidden" value="' . $shipping_module_id . '" id="' . $id . '[id]"></td>' . "\n";
+	  echo '                    <td align="right"><input name="update_totals['.$i.'][title]" id="'.$id.'[title]" value="' . trim($order->totals[$i]['title']) . '" onChange="obtainTotals()"></td>' . "\n" .
+           '                    <td align="right"><input name="update_totals['.$i.'][value]" id="'.$id.'[value]" value="' . number_format((float)$order->totals[$i]['value'], 2, '.', '') . '" size="6" onChange="obtainTotals()"><input name="update_totals['.$i.'][class]" type="hidden" value="' . $order->totals[$i]['class'] . '"><input name="update_totals['.$i.'][id]" type="hidden" value="' . $shipping_module_id . '" id="' . $id . '[id]"></td>' . "\n";
 		   } else {
-	  echo '                    <td align="right" class="dataTableContent"><input name="update_totals['.$i.'][title]" id="'.$id.'[title]" value="' . trim($order->totals[$i]['title']) . '"></td>' . "\n" .
-           '                    <td align="right" class="dataTableContent"><input name="update_totals['.$i.'][value]" id="'.$id.'[value]" value="' . number_format((float)$order->totals[$i]['value'], 2, '.', '') . '" size="6"><input name="update_totals['.$i.'][class]" type="hidden" value="' . $order->totals[$i]['class'] . '"><input name="update_totals['.$i.'][id]" type="hidden" value="' . $shipping_module_id . '" id="' . $id . '[id]"></td>' . "\n";
+	  echo '                    <td align="right"><input name="update_totals['.$i.'][title]" id="'.$id.'[title]" value="' . trim($order->totals[$i]['title']) . '"></td>' . "\n" .
+           '                    <td align="right"><input name="update_totals['.$i.'][value]" id="'.$id.'[value]" value="' . number_format((float)$order->totals[$i]['value'], 2, '.', '') . '" size="6"><input name="update_totals['.$i.'][class]" type="hidden" value="' . $order->totals[$i]['class'] . '"><input name="update_totals['.$i.'][id]" type="hidden" value="' . $shipping_module_id . '" id="' . $id . '[id]"></td>' . "\n";
 		   }
 		   
-      if ($order->info['currency'] != DEFAULT_CURRENCY) echo '                    <td align="right" class="dataTableContent" nowrap>' . $order->totals[$i]['text'] . '</td>' . "\n";
+      if ($order->info['currency'] != DEFAULT_CURRENCY) echo '                    <td align="right">' . $order->totals[$i]['text'] . '</td>' . "\n";
       echo '                  </tr>' . "\n";
     }
   }
@@ -1442,9 +1329,9 @@ document.onmousemove=positiontip
   if (sizeof($shipping_quotes) > 0) {
 ?>
                 <!-- shipping_quote bof //-->
-                <table width="550" cellspacing="0" cellpadding="2" style="border: 1px solid #C9C9C9;">
-                  <tr class="dataTableHeadingRow">
-                    <td class="dataTableHeadingContent" colspan="3"><?php echo TABLE_HEADING_SHIPPING_QUOTES; ?></td>
+                <table class="table table-bordered table-hover">
+                  <tr>
+                    <td colspan="3"><?php echo TABLE_HEADING_SHIPPING_QUOTES; ?></td>
                   </tr>
 				  
 				  				  
@@ -1456,7 +1343,7 @@ document.onmousemove=positiontip
 		if (!isset($shipping_quotes[$i]['tax'])) $shipping_quotes[$i]['tax'] = 0;
         $rowClass = ((($r/2) == (floor($r/2))) ? 'dataTableRowOver' : 'dataTableRow');
         echo '                  <tr class="' . $rowClass . '" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this, \'' . $rowClass . '\')" onClick="selectRowEffect(this, ' . $r . '); setShipping(' . $r . ');">' .
-             '                    <td class="dataTableContent" valign="top" align="left">
+             '                    <td valign="top" align="left">
 			 <script language="JavaScript" type="text/javascript">
                    <!--
                     document.write("<input type=\"radio\" name=\"shipping\" id=\"shipping_radio_' . $r . '\" value=\"' . $shipping_quotes[$i]['id'] . '_' . $shipping_quotes[$i]['methods'][$j]['id'].'\">");
@@ -1465,14 +1352,14 @@ document.onmousemove=positiontip
 			 <input type="hidden" id="update_shipping[' . $r . '][title]" name="update_shipping[' . $r . '][title]" value=\''.$shipping_quotes[$i]['module'] . ' (' . $shipping_quotes[$i]['methods'][$j]['title'].'):\'>' . "\n" .
 			 '      <input type="hidden" id="update_shipping[' . $r . '][value]" name="update_shipping[' . $r . '][value]" value="'.tep_add_tax($shipping_quotes[$i]['methods'][$j]['cost'], $shipping_quotes[$i]['tax']).'">' . "\n" .
 			 '      <input type="hidden" id="update_shipping[' . $r . '][id]" name="update_shipping[' . $r . '][id]" value="' . $shipping_quotes[$i]['id'] . '_' . $shipping_quotes[$i]['methods'][$j]['id'] . '">' . "\n" .
-             '      <td class="dataTableContent" valign="top">' . $shipping_quotes[$i]['module'] . ' (' . $shipping_quotes[$i]['methods'][$j]['title'] . '):</td>' . "\n" . 
-             '      <td class="dataTableContent" align="right">' . $currencies->format(tep_add_tax($shipping_quotes[$i]['methods'][$j]['cost'], $shipping_quotes[$i]['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n" . 
+             '      <td>' . $shipping_quotes[$i]['module'] . ' (' . $shipping_quotes[$i]['methods'][$j]['title'] . '):</td>' . "\n" . 
+             '      <td align="right">' . $currencies->format(tep_add_tax($shipping_quotes[$i]['methods'][$j]['cost'], $shipping_quotes[$i]['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n" . 
              '                  </tr>';
       }
     }
 ?>
-                  <tr class="dataTableHeadingRow">
-                    <td class="dataTableHeadingContent" colspan="3"><?php echo sprintf(TEXT_PACKAGE_WEIGHT_COUNT, $shipping_num_boxes . ' x ' . $shipping_weight, $total_count); ?></td>
+                  <tr>
+                    <td colspan="3"><?php echo sprintf(TEXT_PACKAGE_WEIGHT_COUNT, $shipping_num_boxes . ' x ' . $shipping_weight, $total_count); ?></td>
                   </tr>
                 </table>
                 <!-- shipping_quote_eof //-->
@@ -1512,17 +1399,17 @@ document.onmousemove=positiontip
 	  </div>
 
     <div id="commentsBlock">
-	<table style="border: 1px solid #C9C9C9;" cellspacing="0" cellpadding="2" class="dataTableRow" id="commentsTable" width="100%">
-     <tr class="dataTableHeadingRow">
-      <td class="dataTableHeadingContent" align="left"><?php echo TABLE_HEADING_DELETE; ?></td>
-      <td class="dataTableHeadingContent" align="left" width="10">&nbsp;</td>
-      <td class="dataTableHeadingContent" align="left"><?php echo TABLE_HEADING_DATE_ADDED; ?></td>
-      <td class="dataTableHeadingContent" align="left" width="10">&nbsp;</td>
-      <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_CUSTOMER_NOTIFIED; ?></td>
-      <td class="dataTableHeadingContent" align="left" width="10">&nbsp;</td>
-      <td class="dataTableHeadingContent" align="left"><?php echo TABLE_HEADING_STATUS; ?></td>
-      <td class="dataTableHeadingContent" align="left" width="10">&nbsp;</td>
-      <td class="dataTableHeadingContent" align="left"><?php echo TABLE_HEADING_COMMENTS; ?></td>
+    <table class="table table-bordered table-hover" id="commentsTable">
+     <tr>
+      <td align="left"><?php echo TABLE_HEADING_DELETE; ?></td>
+      <td align="left" width="10">&nbsp;</td>
+      <td align="left"><?php echo TABLE_HEADING_DATE_ADDED; ?></td>
+      <td align="left">&nbsp;</td>
+      <td align="center"><?php echo TABLE_HEADING_CUSTOMER_NOTIFIED; ?></td>
+      <td align="left" width="10">&nbsp;</td>
+      <td align="left"><?php echo TABLE_HEADING_STATUS; ?></td>
+      <td align="left" width="10">&nbsp;</td>
+      <td align="left"><?php echo TABLE_HEADING_COMMENTS; ?></td>
     </tr>
     <?php
       $orders_history_query = tep_db_query("SELECT orders_status_history_id, orders_status_id, date_added, customer_notified, comments 
@@ -1537,18 +1424,18 @@ document.onmousemove=positiontip
         
 	      if (ORDER_EDITOR_USE_AJAX == 'true') { 
 		   echo '  <tr class="' . $rowClass . '" id="commentRow' . $orders_history['orders_status_history_id'] . '" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this, \'' . $rowClass . '\')">' . "\n" .
-         '	  <td class="smallText" align="center"><div id="do_not_delete"><input name="update_comments[' . $orders_history['orders_status_history_id'] . '][delete]" type="checkbox" onClick="updateCommentsField(\'delete\', \'' . $orders_history['orders_status_history_id'] . '\', this.checked, \'\', this)"></div></td>' . "\n" . 
-		 '    <td class="dataTableHeadingContent" align="left" width="10"> </td>' . "\n" .
-         '    <td class="smallText" align="center">' . tep_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
-         '    <td class="dataTableHeadingContent" align="left" width="10"> </td>' . "\n" .
-         '    <td class="smallText" align="center">';
+         '	  <td><div id="do_not_delete"><input name="update_comments[' . $orders_history['orders_status_history_id'] . '][delete]" type="checkbox" onClick="updateCommentsField(\'delete\', \'' . $orders_history['orders_status_history_id'] . '\', this.checked, \'\', this)"></div></td>' . "\n" . 
+		 '    <td align="left"> </td>' . "\n" .
+         '    <td>' . tep_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
+         '    <td align="left"> </td>' . "\n" .
+         '    <td align="center">';
 		 } else {
 		 echo '  <tr class="' . $rowClass . '" id="commentRow' . $orders_history['orders_status_history_id'] . '" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this, \'' . $rowClass . '\')">' . "\n" .
-         '	  <td class="smallText" align="center"><div id="do_not_delete"><input name="update_comments[' . $orders_history['orders_status_history_id'] . '][delete]" type="checkbox"></div></td>' . "\n" . 
-		 '    <td class="dataTableHeadingContent" align="left" width="10"> </td>' . "\n" .
-         '    <td class="smallText" align="center">' . tep_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
-         '    <td class="dataTableHeadingContent" align="left" width="10"> </td>' . "\n" .
-         '    <td class="smallText" align="center">';
+         '	  <td align="center"><div id="do_not_delete"><input name="update_comments[' . $orders_history['orders_status_history_id'] . '][delete]" type="checkbox"></div></td>' . "\n" . 
+		 '    <td align="left"> </td>' . "\n" .
+         '    <td align="center">' . tep_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
+         '    <td align="left" width="10"> </td>' . "\n" .
+         '    <td align="center">';
 		 }
       
 	   if ($orders_history['customer_notified'] == '1') {
@@ -1557,10 +1444,10 @@ document.onmousemove=positiontip
         echo tep_image(DIR_WS_ICONS . 'cross.gif', ICON_CROSS) . "</td>\n";
          }
        
-	    echo '    <td class="dataTableHeadingContent" align="left" width="10">&nbsp;</td>' . "\n" .
-             '    <td class="smallText" align="left">' . $orders_status_array[$orders_history['orders_status_id']] . '</td>' . "\n";
-        echo '    <td class="dataTableHeadingContent" align="left" width="10">&nbsp;</td>' . "\n" .
-             '    <td class="smallText" align="left">';
+	    echo '    <td align="left">&nbsp;</td>' . "\n" .
+             '    <td align="left">' . $orders_status_array[$orders_history['orders_status_id']] . '</td>' . "\n";
+        echo '    <td align="left">&nbsp;</td>' . "\n" .
+             '    <td align="left">';
   
         if (ORDER_EDITOR_USE_AJAX == 'true') { 
 		echo tep_draw_textarea_field("update_comments[" . $orders_history['orders_status_history_id'] . "][comments]", "soft", "40", "5", 
@@ -1577,7 +1464,7 @@ document.onmousemove=positiontip
         }
        } else {
        echo '  <tr>' . "\n" .
-            '    <td class="smallText" colspan="5">' . TEXT_NO_ORDER_HISTORY . '</td>' . "\n" .
+            '    <td colspan="5">' . TEXT_NO_ORDER_HISTORY . '</td>' . "\n" .
             '  </tr>' . "\n";
        }
 
@@ -1589,32 +1476,32 @@ document.onmousemove=positiontip
 	  <?php //echo tep_draw_separator('pixel_trans.gif', '1', '1'); ?>
 	  </div>
 	
-<table style="border: 1px solid #C9C9C9;" cellspacing="0" cellpadding="2" class="dataTableRow" width="100%">
-  <tr class="dataTableHeadingRow">
-    <td class="dataTableHeadingContent" align="left"><?php echo TABLE_HEADING_NEW_STATUS; ?></td>
-    <td class="main" width="10">&nbsp;</td>
-    <td class="dataTableHeadingContent" align="left"><?php echo TABLE_HEADING_COMMENTS; ?></td>
+<table class="table table-bordered table-hover">
+  <tr>
+    <td align="left"><?php echo TABLE_HEADING_NEW_STATUS; ?></td>
+    <td>&nbsp;</td>
+    <td align="left"><?php echo TABLE_HEADING_COMMENTS; ?></td>
   </tr>
 	<tr>
 	  <td>
-		  <table border="0" cellspacing="0" cellpadding="2">
+		  <table class="table table-bordered table-hover">
 		  
         <tr>
-          <td class="main"><b><?php echo ENTRY_STATUS; ?></b></td>
-          <td class="main" align="right"><?php echo tep_draw_pull_down_menu('status', $orders_statuses, $order->info['orders_status'], 'id="status"'); ?></td>
+          <td><b><?php echo ENTRY_STATUS; ?></b></td>
+          <td align="right"><?php echo tep_draw_pull_down_menu('status', $orders_statuses, $order->info['orders_status'], 'id="status"'); ?></td>
         </tr>
         <tr>
-          <td class="main"><b><?php echo ENTRY_NOTIFY_CUSTOMER; ?></b></td>
-          <td class="main" align="right"><?php echo oe_draw_checkbox_field('notify', '', false, '', 'id="notify"'); ?></td>
+          <td><b><?php echo ENTRY_NOTIFY_CUSTOMER; ?></b></td>
+          <td align="right"><?php echo oe_draw_checkbox_field('notify', '', false, '', 'id="notify"'); ?></td>
         </tr>
         <tr>
-          <td class="main"><b><?php echo ENTRY_NOTIFY_COMMENTS; ?></b></td>
-          <td class="main" align="right"><?php echo oe_draw_checkbox_field('notify_comments', '', false, '', 'id="notify_comments"'); ?></td>
+          <td><b><?php echo ENTRY_NOTIFY_COMMENTS; ?></b></td>
+          <td align="right"><?php echo oe_draw_checkbox_field('notify_comments', '', false, '', 'id="notify_comments"'); ?></td>
         </tr>
      </table>
 	  </td>
-    <td class="main" width="10">&nbsp;</td>
-    <td class="main">
+    <td>&nbsp;</td>
+    <td>
     <?php echo tep_draw_textarea_field('comments', 'soft', '40', '5', '', 'id="comments"'); ?>
     </td>
   </tr>
@@ -1659,14 +1546,119 @@ document.onmousemove=positiontip
     ?>
   <!-- body_text_eof //-->
       </td>
+
     </tr>
   </table>
-  <!-- body_eof //-->
+  </table>
+<!-- END your table-->
+<!-- body_eof //-->
 
-  <!-- footer //-->
-  <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-  <!-- footer_eof //-->
-  <br>
-  </body>
-  </html>
-  <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+<!-- footer //-->
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+<!-- footer_eof //-->
+<script  type="text/javascript">
+    var notice_win;
+	$(document).ready(function(){ 
+    <?php
+    $like_string = '';
+    $is_not_fraud = fraud_prevention_is_negative($_GET['oID']);
+    if (!$is_not_fraud){
+    ?>
+    notice_win = window.open('edit_orders.php?w=n',"notice","toolbar=no, menubar=no,resizable=no,location=no,directories=no,status=no,width=500,height=500");
+    notice_win.focus();
+    
+    <?php
+    }
+    ?>
+	}).click(function(){
+	    if(notice_win && !notice_win.closed) 
+            notice_win.focus();
+	});
+</script>
+  <?php include('order_editor/css.php');  
+      //because if you haven't got your css, what have you got?
+      ?>
+
+  <?php include('order_editor/javascript.php');  
+      //because if you haven't got your javascript, what have you got?
+      ?>
+<script type="text/javascript">
+
+/***********************************************
+* Cool DHTML tooltip script- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+***********************************************/
+
+/***********************************************
+* For Order Editor
+* This has to stay here for the tooltips to work correctly
+* I tried sticking it with the rest of the javascript, but it has to be inside the <body> tag
+*
+***********************************************/
+
+var offsetxpoint=-60 //Customize x offset of tooltip
+var offsetypoint=20 //Customize y offset of tooltip
+var ie=document.all
+var ns6=document.getElementById && !document.all
+var enabletip=false
+if (ie||ns6)
+var tipobj=document.all? document.all["dhtmltooltip"] : document.getElementById? document.getElementById("dhtmltooltip") : ""
+
+function ietruebody(){
+return (document.compatMode && document.compatMode!="BackCompat")? document.documentElement : document.body
+}
+
+function ddrivetip(thetext, thecolor, thewidth){
+if (ns6||ie){
+if (typeof thewidth!="undefined") tipobj.style.width=thewidth+"px"
+if (typeof thecolor!="undefined" && thecolor!="") tipobj.style.backgroundColor=thecolor
+tipobj.innerHTML=thetext
+enabletip=true
+return false
+}
+}
+
+function positiontip(e){
+if (enabletip){
+var curX=(ns6)?e.pageX : event.clientX+ietruebody().scrollLeft;
+var curY=(ns6)?e.pageY : event.clientY+ietruebody().scrollTop;
+//Find out how close the mouse is to the corner of the window
+var rightedge=ie&&!window.opera? ietruebody().clientWidth-event.clientX-offsetxpoint : window.innerWidth-e.clientX-offsetxpoint-20
+var bottomedge=ie&&!window.opera? ietruebody().clientHeight-event.clientY-offsetypoint : window.innerHeight-e.clientY-offsetypoint-20
+
+var leftedge=(offsetxpoint<0)? offsetxpoint*(-1) : -1000
+
+//if the horizontal distance isn't enough to accomodate the width of the context menu
+if (rightedge<tipobj.offsetWidth)
+//move the horizontal position of the menu to the left by it's width
+tipobj.style.left=ie? ietruebody().scrollLeft+event.clientX-tipobj.offsetWidth+"px" : window.pageXOffset+e.clientX-tipobj.offsetWidth+"px"
+else if (curX<leftedge)
+tipobj.style.left="5px"
+else
+//position the horizontal position of the menu where the mouse is positioned
+tipobj.style.left=curX+offsetxpoint+"px"
+
+//same concept with the vertical position
+if (bottomedge<tipobj.offsetHeight)
+tipobj.style.top=ie? ietruebody().scrollTop+event.clientY-tipobj.offsetHeight-offsetypoint+"px" : window.pageYOffset+e.clientY-tipobj.offsetHeight-offsetypoint+"px"
+else
+tipobj.style.top=curY+offsetypoint+"px"
+tipobj.style.visibility="visible"
+}
+}
+
+function hideddrivetip(){
+if (ns6||ie){
+enabletip=false
+tipobj.style.visibility="hidden"
+tipobj.style.left="-1000px"
+tipobj.style.backgroundColor='white'
+tipobj.style.width='200'
+}
+}
+
+document.onmousemove=positiontip
+
+</script>      
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

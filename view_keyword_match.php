@@ -17,60 +17,64 @@ while($entry = tep_db_fetch_array($matches_query)){
 		$query_string = substr($entry['file'], $pos+1);
 	}
 	
-	$matches[$parent][] = '<a href="' . tep_href_link($file_name, $query_string) . '" style="font-size:12px;color:black;">' . $entry['name'] . '</a>';
+	$matches[$parent][] = '<a href="' . tep_href_link($file_name, $query_string) . '" style="color:black;">' . $entry['name'] . '</a>';
 }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-		<title><?php echo TITLE; ?></title>
-		<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-		<script language="javascript" src="includes/general.js"></script>
-	</head>
-	<body style="margin:0">
-	<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-		<table border="0" width="100%" cellspacing="2" cellpadding="2">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+
+<!-- header //-->
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+<!-- header_eof //-->
+
+<!-- body //-->
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Matches for "<?php echo $keyword; ?>"
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">Matches for "<?php echo $keyword; ?>"
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
 			<tr>
-				<td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft_"></table></td>
-				<td width="100%" valign="top">
-					<table border="0" width="100%" cellspacing="0" cellpadding="2">
+				<td>
+					<table class="table table-bordered table-hover">
 						<tr>
 							<td>
-								<table border="0" width="100%" cellspacing="0" cellpadding="0">
-									<tr>
-										<td class="pageHeading">Matches for "<?php echo $keyword; ?>"</td>
-										<td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-						</tr>
-						<tr>
-							<td  style="background-color:white;">
 							<?php if (empty($matches)) { ?>
-								<div class="main" style="text-align:center;margin:50px 0 50px 0;color:red;"><b>No Match Located for: "<?php echo $keyword; ?>"</b></div>
+								<div style="text-align:center;margin:50px 0 50px 0;color:red;"><b>No Match Located for: "<?php echo $keyword; ?>"</b></div>
 							<?php } else { ?>
 							<?php foreach($matches as $parent => $entries){ ?>
-								<div class="main" style="margin:30px 0 10px 0"><b><?php echo $parent; ?></b></div>
+								<div style="margin:30px 0 10px 0"><b><?php echo $parent; ?></b></div>
 								<?php foreach($entries as $entry) { ?>
-								<div class="main" style="margin:5px 0 0 25px;;"><?php echo $entry; ?></div>
+								<div style="margin:5px 0 0 25px;;"><?php echo $entry; ?></div>
 								<?php } ?>
 							<?php } ?>
 							<?php } ?>
 							</td>
 						</tr>
-						<tr>
-							<td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-						</tr>
 					</table>
 				</td>
 			</tr>
 		</table>
-		<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-		<br>
-	</body>
-</html>
+               <!-- END your table-->
+<!-- body_eof //-->
+
+<!-- footer //-->
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+<!-- footer_eof //-->
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

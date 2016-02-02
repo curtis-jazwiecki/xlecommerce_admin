@@ -1,0 +1,104 @@
+<?php
+
+$path = DIR_FS_DOCUMENT_ROOT;
+$path = substr($path,0,-12);
+$path .= "tmp/awstats/";
+if(date('d') == 1) {
+   $lastmonth = date('m') - 1;
+   if(strlen($lastmonth) == 1)
+      $name_of_file = "awstats0" . $lastmonth . date('Y') . "." . STATS_SITE_NAME . ".txt";
+    else
+      $name_of_file = "awstats" . $lastmonth . date('Y') . "." . STATS_SITE_NAME . ".txt";
+} else {
+    $name_of_file = "awstats" . date('mY') . "." . STATS_SITE_NAME . ".txt";
+ }
+
+for ($i=0;$i<6;$i++) {
+ $months[] = array('text' => date("My", strtotime("-$i months")),
+                   'filename' => "awstats" . date('mY',strtotime("-$i months")) . "." . STATS_SITE_NAME . ".txt");   
+}
+
+print_r($months);
+exit;
+$handle = @fopen($path . $name_of_file, "r"); // Open file form read.
+if ($handle) {
+  while (!feof($handle)) // Loop til end of file.
+  {
+   $line = fgets($handle, 4096); // Read a line.
+   $pattern = "/BEGIN_DAY/";
+   if(preg_match($pattern,$line)) {
+      $begin_day_pos = $count;
+      fgets($handle);
+     }
+ $count++;
+   }
+  fclose($handle); // Close the file.
+}
+
+$data=array(
+
+  array(
+
+     'label' => 'Recurrent',
+
+     'color' => '#745fa4',
+
+     'data' => 
+
+    array(
+
+      array('Mar', 125),
+
+      array('Apr', 148),
+
+      array('May', 42),
+
+      array('Jun', 115),
+
+      array('Jul', 45),
+
+      array('Aug', 77),
+
+      array('Sep', 59)
+
+    )
+
+  ),
+
+  array(
+
+     'label' => 'Uniques',
+
+     'color' => '#58a7e2',
+
+     'data' => 
+
+    array(
+
+      array('Mar', 60),
+
+      array('Apr', 20),
+
+      array('May', 79),
+
+      array('Jun', 30),
+
+      array('Jul', 55),
+
+      array('Aug', 124),
+
+      array('Sep', 29)
+
+    )
+
+  )
+
+);
+
+  
+
+  echo json_encode($data);
+
+  exit;
+
+?>

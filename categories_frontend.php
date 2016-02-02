@@ -118,6 +118,8 @@ if (tep_not_null($action)) {
 
           		if ($action == 'insert_category') {
 
+
+
             		$insert_sql_data = array('categories_id' => $categories_id,
 
                     		                 'language_id' => $languages[$i]['id']);
@@ -340,63 +342,63 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
 
 ?>
 
-<!DOCTYPE html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-
-<html <?php echo HTML_PARAMS; ?>>
-
-<head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-
-<title><?php echo TITLE; ?></title>
-
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-
-<script language="javascript" src="includes/general.js"></script>
-
-</head>
-
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
-
-<div id="spiffycalendar" class="text"></div>
-
+<div id="spiffycalendar" class="text"></div>        
 <!-- header //-->
-
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-
 <!-- header_eof //-->
 
 <!-- body //-->
 
-<table border="0" width="780px" cellspacing="2" cellpadding="2" align="center" style="margin: 0px auto;">
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+               <table class="table table-bordered table-hover">
 
   <tr>
 
 <!-- body_text //-->
 
-    <td width="100%" valign="top">
+    <td>
 
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
+	<table class="table table-bordered table-hover">
 
 		<tr>
 
 			<td>
 
-				<table border="0" width="100%" cellspacing="0" cellpadding="0">
+				<table class="table table-bordered table-hover">
 
           			<tr>
 
-            			<td class="pageHeading"><?php echo 'Frontend Categories w Associated Products'; ?></td>
+            			<td><?php echo 'Frontend Categories w Associated Products'; ?></td>
 
-            			<td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+            			<td><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
 
-            			<td align="right">
+            			<td>
 
-							<table border="0" width="100%" cellspacing="0" cellpadding="0">
+							<table class="table table-bordered table-hover">
 
               					<tr>
 
-                					<td class="smallText2" align="right">
+                					<td>
 
 									<?php
 
@@ -414,7 +416,7 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
 
               					<tr>
 
-                					<td class="smallText2" align="right">
+                					<td>
 
 									<?php
 
@@ -438,19 +440,19 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
 
                     <tr height="15px">
 
-                      <td colspan="3" width="100%"></td>
+                      <td></td>
 
                     </tr>
 
-                    <tr valign="top">
+                    <tr>
 
-					  <td class="smallText" align="left">
+					  <td>
 
 					    <?php echo '<a href="'.tep_href_link('frontendcategories_products.php').'"><b>Move Products To Frontend Categories</b></a><br>'; ?>
 
                       </td>
 
-                      <td class="smallText2" colspan="2" align="right">
+                      <td>
 
                 <?php
 
@@ -512,21 +514,21 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
 
         	<td>
 
-				<table border="0" width="100%" cellspacing="0" cellpadding="0">
+				<table class="table table-bordered table-hover">
 
           			<tr>
 
-            			<td valign="top">
+            			<td>
 
-							<table border="0" width="100%" cellspacing="0" cellpadding="2">
+							<table class="table table-bordered table-hover">
 
-              					<tr class="dataTableHeadingRow">
+              					<tr>
 
-                					<td class="dataTableHeadingContent"><?php echo 'Frontend Categories / Associated Products'; ?></td>
+                					<td><?php echo 'Frontend Categories / Associated Products'; ?></td>
 
-                					<td class="dataTableHeadingContent" align="center"><?php echo 'Status'; ?></td>
+                					<td><?php echo 'Status'; ?></td>
 
-                					<td class="dataTableHeadingContent" align="right"><?php echo 'Action'; ?>&nbsp;</td>
+                					<td><?php echo 'Action'; ?>&nbsp;</td>
 
               					</tr>
 
@@ -590,7 +592,7 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
 
 								?>
 
-                					<td class="dataTableContent">
+                					<td>
 
 										<?php 
 
@@ -600,7 +602,7 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
 
 									</td>
 
-                					<td class="dataTableContent" align="center">
+                					<td>
 
 									<?php
 
@@ -618,7 +620,7 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
 
 									</td>
 
-                					<td class="dataTableContent" align="right">
+                					<td>
 
 									<?php 
 
@@ -653,6 +655,7 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
       								$products_query = tep_db_query("select p.products_id, pd.products_name, p.products_quantity, p.products_image, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, frontend_products_to_categories p2c where p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . (int)$current_category_id . "' order by pd.products_name");
 
     							}
+
 
     							while ($products = tep_db_fetch_array($products_query)) {
 
@@ -694,7 +697,7 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
 
 									?>
 
-                				<td class="dataTableContent">
+                				<td>
 
 								<?php 
 
@@ -704,7 +707,7 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
 
 								</td>
 
-                				<td class="dataTableContent" align="center">
+                				<td>
 
 								<?php
 
@@ -722,7 +725,7 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
 
 								</td>
 
-                				<td class="dataTableContent" align="right">
+                				<td>
 
 								<?php 
 
@@ -772,13 +775,13 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
 
               				<tr>
 
-                				<td colspan="3">
+                				<td>
 
-									<table border="0" width="100%" cellspacing="0" cellpadding="2">
+									<table class="table table-bordered table-hover">
 
                   						<tr>
 
-                    						<td class="smallText2">
+                    						<td>
 
 											<?php 
 
@@ -788,7 +791,7 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
 
 											</td>
 
-                    						<td align="right" class="smallText">
+                    						<td>
 
 											<?php 
 
@@ -833,6 +836,7 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
         						$contents = array('form' => tep_draw_form('newcategory', 'categories_frontend.php', 'action=insert_category&cPath=' . $cPath, 'post', 'enctype="multipart/form-data"'));
 
         						$contents[] = array('text' => TEXT_NEW_CATEGORY_INTRO);
+
 
         						$category_inputs_string = '';
 
@@ -1037,7 +1041,7 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
 
 			//. '<a href="' . tep_href_link('categories_frontend.php', 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a>' . 
 
-			. '<a href="' . tep_href_link('categories_frontend.php', 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=move_product') . '">' . tep_image_button('button_move.gif', IMAGE_MOVE) . '</a>'  
+			. '<a href="' . tep_href_link('categories_frontend.php', 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=move_product') . '" style="margin-right:5px;">' . tep_image_button('button_move.gif', IMAGE_MOVE) . '</a>'  
 
 			//. '<a href="' . tep_href_link('categories_frontend.php', 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=copy_to') . '">' . tep_image_button('button_copy_to.gif', IMAGE_COPY_TO) . '</a>'
 
@@ -1112,22 +1116,10 @@ elseif($_POST['action'] == "update_frontend_categories" && $_POST['value'] == "f
   </tr>
 
 </table>
-
+               <!-- END your table-->
 <!-- body_eof //-->
 
-
-
 <!-- footer //-->
-
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-
 <!-- footer_eof //-->
-
-<br>
-
-</body>
-
-</html>
-
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
-

@@ -40,8 +40,7 @@ if (isset($stage) AND $stage=="produpdate") {
   echo MATCH_SUCCESS;
 }
 ?>
-
-<table class="lists" width="100%" bgcolor="#FFFFFF" id="other_option">
+<table class="table table-bordered table-hover">
 <form action="<?php echo $_SERVER[PHP_SELF]?>" method="post" name="qbi_products" id="qbi_products">
 <input name="stage" id="stage" type="hidden" value="produpdate" />
 <input name="search_page" id="search_page" type="hidden" value="<?php echo $search_page?>" />

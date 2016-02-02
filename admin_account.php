@@ -64,81 +64,88 @@
   }
 
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-<?php require('includes/account_check.js.php'); ?>
-</head>
+
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+         
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+               
+  <table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->    
-    <td width="100%" valign="top">
+    <td>
       <?php if ($HTTP_GET_VARS['action'] == 'edit_process') { echo tep_draw_form('account', FILENAME_ADMIN_ACCOUNT, 'action=save_account', 'post', 'enctype="multipart/form-data"'); } elseif ($HTTP_GET_VARS['action'] == 'check_account') { echo tep_draw_form('account', FILENAME_ADMIN_ACCOUNT, 'action=check_password', 'post', 'enctype="multipart/form-data"'); } else { echo tep_draw_form('account', FILENAME_ADMIN_ACCOUNT, 'action=check_account', 'post', 'enctype="multipart/form-data"'); } ?>
-      <table border="0" width="100%" cellspacing="0" cellpadding="2">     
+      <table class="table table-bordered table-hover">     
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0" align="center">
-          <tr>
-            <td valign="top">
+            <td>
 <?php
   $my_account_query = tep_db_query ("select a.admin_id, a.admin_firstname, a.admin_lastname, a.admin_email_address, a.admin_created, a.admin_modified, a.admin_logdate, a.admin_lognum, g.admin_groups_name, a.admin_email_username, a.admin_email_password from " . TABLE_ADMIN . " a, " . TABLE_ADMIN_GROUPS . " g where a.admin_id= " . $login_id . " and g.admin_groups_id= " . $login_groups_id . "");
   $myAccount = tep_db_fetch_array($my_account_query);
 ?>
-            <table border="0" width="100%" cellspacing="0" cellpadding="2" align="center">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_ACCOUNT; ?>
+            <table class="table table-bordered table-hover">
+              <tr>
+                <td><?php echo TABLE_HEADING_ACCOUNT; ?>
                 </td>
               </tr>
-              <tr class="dataTableRow">
+              <tr>
                 <td>
-                  <table border="0" cellspacing="0" cellpadding="3">
+                  <table class="table table-bordered table-hover">
 <?php
     if ( ($HTTP_GET_VARS['action'] == 'edit_process') && (tep_session_is_registered('confirm_account')) ) {
 ?>
-                    <tr valign="top">
-                      <td class="dataTableContent"><nobr><?php echo TEXT_INFO_FIRSTNAME; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
-                      <td class="dataTableContent"><?php echo tep_draw_input_field('admin_firstname', $myAccount['admin_firstname']); ?></td>
+                    <tr>
+                      <td><nobr><?php echo TEXT_INFO_FIRSTNAME; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
+                      <td><?php echo tep_draw_input_field('admin_firstname', $myAccount['admin_firstname']); ?></td>
                     </tr>
-                    <tr valign="top">
-                      <td class="dataTableContent"><nobr><?php echo TEXT_INFO_LASTNAME; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
-                      <td class="dataTableContent"><?php echo tep_draw_input_field('admin_lastname', $myAccount['admin_lastname']); ?></td>
+                    <tr>
+                      <td><nobr><?php echo TEXT_INFO_LASTNAME; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
+                      <td><?php echo tep_draw_input_field('admin_lastname', $myAccount['admin_lastname']); ?></td>
                     </tr>
-                    <tr valign="top">
-                      <td class="dataTableContent"><nobr><?php echo TEXT_INFO_EMAIL; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
-                      <td class="dataTableContent"><?php if ($HTTP_GET_VARS['error']) { echo tep_draw_input_field('admin_email_address', $myAccount['admin_email_address']) . ' <nobr>' . TEXT_INFO_ERROR . '</nobr>'; } else { echo tep_draw_input_field('admin_email_address', $myAccount['admin_email_address']); } ?></td>
+                    <tr>
+                      <td><nobr><?php echo TEXT_INFO_EMAIL; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
+                      <td><?php if ($HTTP_GET_VARS['error']) { echo tep_draw_input_field('admin_email_address', $myAccount['admin_email_address']) . ' <nobr>' . TEXT_INFO_ERROR . '</nobr>'; } else { echo tep_draw_input_field('admin_email_address', $myAccount['admin_email_address']); } ?></td>
                     </tr>
-                    <tr valign="top">
-                      <td class="dataTableContent"><nobr><?php echo TEXT_INFO_PASSWORD; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
-                      <td class="dataTableContent"><?php echo tep_draw_password_field('admin_password'); ?></td>
+                    <tr>
+                      <td><nobr><?php echo TEXT_INFO_PASSWORD; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
+                      <td><?php echo tep_draw_password_field('admin_password'); ?></td>
                     </tr>
-                    <tr valign="top">
-                      <td class="dataTableContent"><nobr><?php echo TEXT_INFO_PASSWORD_CONFIRM; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
-                      <td class="dataTableContent"><?php echo tep_draw_password_field('admin_password_confirm'); ?></td>
+                    <tr>
+                      <td><nobr><?php echo TEXT_INFO_PASSWORD_CONFIRM; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
+                      <td><?php echo tep_draw_password_field('admin_password_confirm'); ?></td>
                     </tr>
-                    <tr valign="top">
-                      <td class="dataTableContent"><nobr><b>OBN Email Address:&nbsp;&nbsp;&nbsp;</b></nobr><br /><span style="font-size: 10px">*not needed</span></td>
-                      <td class="dataTableContent"><?php echo tep_draw_input_field('admin_email_username', $myAccount['admin_email_username']); ?></td>
+                    <tr>
+                      <td><nobr><b>OBN Email Address:&nbsp;&nbsp;&nbsp;</b></nobr><br /><span style="font-size: 10px">*not needed</span></td>
+                      <td><?php echo tep_draw_input_field('admin_email_username', $myAccount['admin_email_username']); ?></td>
                     </tr>
-                    <tr valign="top">
-                      <td class="dataTableContent"><nobr><b>OBN Email Password:&nbsp;&nbsp;&nbsp;</b></nobr><br /><span style="font-size: 10px">*not needed</span></td>
-                      <td class="dataTableContent"><?php echo tep_draw_password_field('admin_email_password', $myAccount['admin_email_password']); ?></td>
+                    <tr>
+                      <td><nobr><b>OBN Email Password:&nbsp;&nbsp;&nbsp;</b></nobr><br /><span style="font-size: 10px">*not needed</span></td>
+                      <td><?php echo tep_draw_password_field('admin_email_password', $myAccount['admin_email_password']); ?></td>
                     </tr>
 <?php
     } else {
@@ -146,37 +153,37 @@
       tep_session_unregister('confirm_account');
     }
 ?>                        
-                    <tr valign="top">
-                      <td class="dataTableContent"><nobr><?php echo TEXT_INFO_FULLNAME; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
-                      <td class="dataTableContent"><?php echo $myAccount['admin_firstname'] . ' ' . $myAccount['admin_lastname']; ?></td>
+                    <tr>
+                      <td><nobr><?php echo TEXT_INFO_FULLNAME; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
+                      <td><?php echo $myAccount['admin_firstname'] . ' ' . $myAccount['admin_lastname']; ?></td>
                     </tr>
-                    <tr valign="top">
-                      <td class="dataTableContent"><nobr><?php echo TEXT_INFO_EMAIL; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
-                      <td class="dataTableContent"><?php echo $myAccount['admin_email_address']; ?></td>
+                    <tr>
+                      <td><nobr><?php echo TEXT_INFO_EMAIL; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
+                      <td><?php echo $myAccount['admin_email_address']; ?></td>
                     </tr>
-                    <tr valign="top">
-                      <td class="dataTableContent"><nobr><?php echo TEXT_INFO_PASSWORD; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
-                      <td class="dataTableContent"><?php echo TEXT_INFO_PASSWORD_HIDDEN; ?></td>
+                    <tr>
+                      <td><nobr><?php echo TEXT_INFO_PASSWORD; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
+                      <td><?php echo TEXT_INFO_PASSWORD_HIDDEN; ?></td>
                     </tr>
-                    <tr valign="top" class="dataTableRowSelected">
-                      <td class="dataTableContent"><nobr><?php echo TEXT_INFO_GROUP; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
-                      <td class="dataTableContent"><?php echo $myAccount['admin_groups_name']; ?></td>
+                    <tr>
+                      <td><nobr><?php echo TEXT_INFO_GROUP; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
+                      <td><?php echo $myAccount['admin_groups_name']; ?></td>
                     </tr>
-                    <tr valign="top">
-                      <td class="dataTableContent"><nobr><?php echo TEXT_INFO_CREATED; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
-                      <td class="dataTableContent"><?php echo $myAccount['admin_created']; ?></td>
+                    <tr>
+                      <td><nobr><?php echo TEXT_INFO_CREATED; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
+                      <td><?php echo $myAccount['admin_created']; ?></td>
                     </tr>
-                    <tr valign="top">
-                      <td class="dataTableContent"><nobr><?php echo TEXT_INFO_LOGNUM; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
-                      <td class="dataTableContent"><?php echo $myAccount['admin_lognum']; ?></td>
+                    <tr>
+                      <td><nobr><?php echo TEXT_INFO_LOGNUM; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
+                      <td><?php echo $myAccount['admin_lognum']; ?></td>
                     </tr>
-                    <tr valign="top">
-                      <td class="dataTableContent"><nobr><?php echo TEXT_INFO_LOGDATE; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
-                      <td class="dataTableContent"><?php echo $myAccount['admin_logdate']; ?></td>
+                    <tr>
+                      <td><nobr><?php echo TEXT_INFO_LOGDATE; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
+                      <td><?php echo $myAccount['admin_logdate']; ?></td>
                     </tr>
-                    <tr valign="top">
-                      <td class="dataTableContent"><nobr><b>OBN Email Address:&nbsp;&nbsp;&nbsp;</b></nobr><br /><span style="font-size: 10px">*not needed</span></nobr></td>
-                      <td class="dataTableContent"><?php echo $myAccount['admin_email_username']; ?></td>
+                    <tr>
+                      <td><nobr><b>OBN Email Address:&nbsp;&nbsp;&nbsp;</b></nobr><br /><span>*not needed</span></nobr></td>
+                      <td><?php echo $myAccount['admin_email_username']; ?></td>
                     </tr>
 <?php
   }
@@ -185,7 +192,7 @@
                 </td>
               </tr>
               <tr>
-                <td><table width="100%" border="0" cellspacing="0" cellpadding="3"><tr><td class="smallText" valign="top"><?php echo TEXT_INFO_MODIFIED . $myAccount['admin_modified']; ?></td><td align="right"><?php if ($HTTP_GET_VARS['action'] == 'edit_process') { echo '<a href="' . tep_href_link(FILENAME_ADMIN_ACCOUNT) . '">' . tep_image_button('button_back_b.gif', IMAGE_BACK) . '</a> '; if (tep_session_is_registered('confirm_account')) { echo tep_image_submit('button_save_b.gif', IMAGE_SAVE, 'onClick="validateForm();return document.returnValue"'); } } elseif ($HTTP_GET_VARS['action'] == 'check_account') { echo '&nbsp;'; } else { echo tep_image_submit('button_edit_b.gif', IMAGE_EDIT); } ?></td><tr></table></td>
+                <td><table class="table table-bordered table-hover"><tr><td><?php echo TEXT_INFO_MODIFIED . $myAccount['admin_modified']; ?></td><td><?php if ($HTTP_GET_VARS['action'] == 'edit_process') { echo '<a href="' . tep_href_link(FILENAME_ADMIN_ACCOUNT) . '">' . tep_image_button('button_back_b.gif', IMAGE_BACK) . '</a> '; if (tep_session_is_registered('confirm_account')) { echo tep_image_submit('button_save_b.gif', IMAGE_SAVE, 'onClick="validateForm();return document.returnValue"'); } } elseif ($HTTP_GET_VARS['action'] == 'check_account') { echo '&nbsp;'; } else { echo '<button type="submit" value="Edit" class="btn btn-primary btn-sm">Edit</button>'; } ?></td><tr></table></td>
               </tr>              
             </table>
    
@@ -209,7 +216,8 @@
         $contents[] = array('text' => '&nbsp;' . TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR);
       }
       $contents[] = array('align' => 'center', 'text' => tep_draw_password_field('password_confirmation'));
-      $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_ADMIN_ACCOUNT) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a> ' . tep_image_submit('button_confirm.gif', IMAGE_CONFIRM) . '<br>&nbsp');
+      $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_ADMIN_ACCOUNT) . '">' . '
+<button type="button" value="Back" class="btn btn-primary btn-sm">Back</button>' . '</a> ' . '<button type="submit" value="Confirm" class="btn btn-primary btn-sm">Confirm</button>' . '<br>&nbsp');
       break; 
     default:
       $heading[] = array('text' => '<b>&nbsp;' . TEXT_INFO_HEADING_DEFAULT . '</b>');
@@ -240,12 +248,11 @@
 <!-- body_text_eof //-->
   </tr>
 </table>
+               
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

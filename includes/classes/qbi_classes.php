@@ -40,7 +40,7 @@ class iif_form {
 	}
 	
 	function form_make($engine,$id_field,$date_field,$i) {
-		$html='<table style="background-color: #fff;" width="100%"><tr><td><div class="createhead">'.constant("CREATE_".strtoupper($engine)."_".$i).'</div>';
+		$html='<table class="table table-bordered table-hover"><tr><td><div class="createhead">'.constant("CREATE_".strtoupper($engine)."_".$i).'</div>';
 		($engine!="customers") ? $dateclause=", MIN(UNIX_TIMESTAMP($date_field)) as date_min, MAX(UNIX_TIMESTAMP($date_field)) as date_max" : $dateclause="";
 		$sql="SELECT COUNT(*), MIN($id_field), MAX($id_field)".$dateclause." FROM ".constant("TABLE_".strtoupper($engine)).$this->where;
 		$result=tep_db_query($sql);

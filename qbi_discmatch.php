@@ -42,7 +42,7 @@ if (isset($stage) AND $stage=="discupdate") {
 // Find and update osC payment methods
 disc_methods();
 ?>
-<table class="lists" bgcolor="#FFFFFF" width="100%">
+<table class="table table-bordered table-hover">
 <form action="<?php echo $_SERVER[PHP_SELF]?>" method="post" name="qbi_disc" id="qbi_disc">
 <input name="stage" id="stage" type="hidden" value="discupdate" />
 <input name="search_page" id="search_page" type="hidden" value="<?php echo $search_page?>" />
@@ -59,7 +59,7 @@ if($count > 0){
   $pstring = $page->make_page_string(); //add the other variables to pass to next page in a similar fashion 
   echo "<tr><th colspan='2' class='counter'>$hstring</th></tr>\r\n"; 
   echo "<tr><td colspan='2'>&nbsp;</td></tr>\r\n"; 
-  echo "<tr><th class='colhead'>".MATCH_OSC."</th><th class='colhead'>".MATCH_QB."</th></tr>\r\n"; 
+  echo "<tr><th>".MATCH_OSC."</th><th>".MATCH_QB."</th></tr>\r\n"; 
   while ($myrowqbc = tep_db_fetch_array($resultqbc)) {
     echo "<tr><td class='oscmodel'>".$myrowqbc["qbi_ot_text"]."</td>";
     disc_dropdown($myrowqbc["qbi_ot_mod"]);

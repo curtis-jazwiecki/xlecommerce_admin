@@ -73,50 +73,64 @@
 	}
 
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+         
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+  <table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td width="100%" valign="top">
-      <table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td>
+      <table class="table table-bordered table-hover">
         <tr>
-          <td width="100%">
-            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <td>
+            <table class="table table-bordered table-hover">
               <tr>
-                <td class="pageHeading">New Products Added within last 30 days</td>
-                <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+                <td>New Products Added within last 30 days</td>
+                <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
               </tr>
             </table>
           </td>
         </tr>
         <tr>
           <td>
-            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <table class="table table-bordered table-hover">
               <tr>
-                <td valign="top">
-                  <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                    <tr class="dataTableHeadingRow">
-                      <td class="dataTableHeadingContent" align="center" width="250px">Products</td>
-                      <td class="dataTableHeadingContent" align="center" width="100px">Date Added</td>
-                      <td class="dataTableHeadingContent" align="center" width="70px">Status</td>
-					  <td class="dataTableHeadingContent" align="center" width="110px">Category</td>
-                      <td class="dataTableHeadingContent" align="center" width="85px">Base Price</td>
-                      <td class="dataTableHeadingContent" align="center" width="85px">Markup</td>
-                      <td class="dataTableHeadingContent" align="center" width="85px">Fixed/%</td>
-                      <td class="dataTableHeadingContent" align="center" width="85px">Price</td>
+                <td>
+                  <table class="table table-bordered table-hover">
+                    <tr>
+                      <td align="center" width="250px">Products</td>
+                      <td align="center" width="100px">Date Added</td>
+                      <td align="center" width="70px">Status</td>
+					  <td align="center" width="110px">Category</td>
+                      <td align="center" width="85px">Base Price</td>
+                      <td align="center" width="85px">Markup</td>
+                      <td align="center" width="85px">Fixed/%</td>
+                      <td align="center" width="85px">Price</td>
                     </tr>
                     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <input type="hidden" name="action" value="update_markup" />
@@ -137,10 +151,10 @@
 ?>
 					<input type="hidden" name="product_id_<?php echo $x ?>" value="<?php echo $products['products_id'] ?>" />
                     <input type="hidden" name="product_base_price_<?php echo $x ?>" value="<?php echo $products['base_price'] ?>" />
-					  <tr class="dataTableRow">
-                        <td class="dataTableContent"><a style="color: #222" href="categories.php?pID=<?php echo $products['products_id'] ?>&action=new_product"><?php echo $products['products_name']; ?></a></td>
-                        <td class="dataTableContent" align="center"><?php echo tep_date_short($products['products_date_added']); ?></td>
-                        <td class="dataTableContent" align="center">
+					  <tr>
+                        <td><a  href="categories.php?pID=<?php echo $products['products_id'] ?>&action=new_product"><?php echo $products['products_name']; ?></a></td>
+                        <td align="center"><?php echo tep_date_short($products['products_date_added']); ?></td>
+                        <td align="center">
 
 <?php			if ($products['products_status'] == '1')
                   {
@@ -152,9 +166,9 @@
                   }
 ?>
 					    </td>
-                        <td class="dataTableContent" align="left"><?php echo $products['categories_name'];?></td>
-					    <td class="dataTableContent" align="right"><?php echo $products['base_price'];?></td>
-                        <td class="dataTableContent" align="center">*
+                        <td align="left"><?php echo $products['categories_name'];?></td>
+					    <td align="right"><?php echo $products['base_price'];?></td>
+                        <td align="center">*
 <?php
 				$subject = $products['markup'];
 				$pattern = '/%/';
@@ -180,7 +194,7 @@
 ?>
 						</span>
                         </td>
-					    <td class="dataTableContent" align="right"><?php echo $products['products_price'];?></td>
+					    <td align="right"><?php echo $products['products_price'];?></td>
                       </tr>
 
 <?php
@@ -189,9 +203,9 @@
 ?>
 					<tr>
 					  <td colspan="5">
-                        <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                        <table class="table table-bordered table-hover">
                           <tr>
-                            <td class="smallText2" valign="top" align="right">
+                            <td align="right">
 		                      <input border="0" type="image" title="Update" alt="Update" src="includes/languages/english/images/buttons/button_update_b.gif" />
                             </td>
                           </tr>
@@ -201,26 +215,26 @@
                     </form>
                     <tr>
                       <td colspan="3">
-                        <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                        <table class="table table-bordered table-hover">
                           <tr>
-                            <td class="smallText2" valign="top"><?php echo $products_split->display_count($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED); ?></td>
-                            <td class="smallText2" align="right"><?php echo $products_split->display_links($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?></td>
+                            <td><?php echo $products_split->display_count($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED); ?></td>
+                            <td align="right"><?php echo $products_split->display_links($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?></td>
                           </tr>
                         </table>
                       </td>
 					  <td colspan="5">
-                        <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                        <table class="table table-bordered table-hover">
                           <tr>
-                            <td class="smallText2" valign="top" align="right">
+                            <td align="right">
                             </td>
                           </tr>
                         </table>
                       </td>
                     </tr>
                   </table>
-                  <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                  <table class="table table-bordered table-hover">
                     <tr>
-                      <td class="smallText2" align="left">* (Only numbers, don't include '$' or '%')</td>
+                      <td align="left">* (Only numbers, don't include '$' or '%')</td>
                     </tr>
                   </table>
                 </td>
@@ -233,12 +247,10 @@
 <!-- body_text_eof //-->
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

@@ -73,13 +73,7 @@ function error_message($error) {
 }
 
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <?PHP
 // Tiny MCE WYISIWYG detection and include
 if (file_exists("tiny_mce/tiny_mce.js")) { $tiny_mce = "tiny_mce/tiny_mce.js"; }
@@ -112,19 +106,30 @@ flash_external_list_url : "example_data/example_flash_list.js"
 </script>';
 }
 ?>
-
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Ranges Manager /
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
     <!-- body_text //-->
-    <td width="100%" valign="top">
-<table border=0 width="100%">
+    <td>
+<table class="table table-bordered table-hover">
 <tr><td align=right><?php //echo $languages_id; ?></td></tr>
 <?
 switch($_REQUEST['range_action']) {
@@ -257,9 +262,9 @@ case "Delete":
 		$delete = tep_get_information_entry($ranges_id);
 		$data = tep_get_information_list();
 		$title = DELETE_CONFIRMATION_ID_INFORMATION . " $ranges_id".'<br >Deleting this range will also delete all related lanes.';
-		echo '<tr class=pageHeading><td>' . $title . '</td></tr>';
-		echo '<tr class=dataTableHeadingRow><td align=left class=dataTableHeadingContent>' . ENTRY_TITLE . '</td></tr>';
-		echo '<tr><td class="dataTableContent" bgcolor="#DEE4E8" style="line-height: 18px;">' . $delete['ranges_name'] . '</td></tr>';
+		echo '<tr><td>' . $title . '</td></tr>';
+		echo '<tr><td align=left>' . ENTRY_TITLE . '</td></tr>';
+		echo '<tr><td>' . $delete['ranges_name'] . '</td></tr>';
 		echo '<tr><td></td></tr><tr><td align=right>';
 		echo tep_draw_form('',FILENAME_RANGES_MANAGER, "range_action=DelSure&ranges_id=" . $delete['ranges_id']);
 		echo tep_draw_hidden_field('ranges_id', $ranges_id);
@@ -317,13 +322,12 @@ if ($error) {
 
 <!-- body_text_eof //-->
   </tr>
-</table>
+</table>  
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html> 
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

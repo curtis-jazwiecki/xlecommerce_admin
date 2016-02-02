@@ -30,23 +30,23 @@ Released under the GNU General Public License
 table.lists th.counter {
 font-weight:bold;
 text-align:left;
-color:#c00;
-background-color:#FFF;
-font-size:smaller;
+color:#3498db;
+/*background-color:#FFF;*/
+/*font-size:smaller;*/
 }
 
 table.lists th.colhead {
 font-weight:bold;
 text-align:left;
-color:#c00;
-background-color:#FFF;
+color:#3498db;
+/*background-color:#FFF;*/
 }
 
 table.lists td.pagelist {
 font-weight:bold;
 text-align:left;
-color:#c00;
-background-color:#FFF;
+color:#3498db;
+/*background-color:#FFF;*/
 }
 
 table.lists td.oscmodel {
@@ -63,28 +63,28 @@ background-color:#FFF;
 
 table.lists td.qbname {
 text-align:left;
-color:#000;
-background-color:#FFF;
+/*color:#000;
+background-color:#FFF;*/
 }
 
 table.lists td.dropqblist select {
 text-align:left;
-color:#900;
-background-color:#FFF;
+color:#3498db;
+/*background-color:#FFF;*/
 }
 
 td.configsec {
 font-weight:bold;
 text-align:left;
-color:#c00;
-background-color:#FFF;
+color:#3498db;
+/*background-color:#FFF;*/
 }
 
 .createhead {
 font-weight:bold;
 text-align:left;
-color:#c00;
-background-color:#FFF;
+color:#3498db;
+/*background-color:#FFF;*/
 margin-top:0.25em;
 margin-bottom:0.1em;
 }
@@ -93,7 +93,7 @@ margin-bottom:0.1em;
 font-weight:bold;
 text-align:left;
 color:#000;
-background-color:#FFF;
+/*background-color:#FFF;*/
 }
 
 /* Menus */

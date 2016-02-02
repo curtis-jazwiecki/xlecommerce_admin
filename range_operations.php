@@ -59,17 +59,7 @@ if ($_POST['action']=='get_lanes'){
     exit();
 }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-
-<!--<link rel="stylesheet" type="text/css" href="includes/stylesheet.css" />-->
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"/>
-<link href="//netdna.bootstrapcdn.com/bootswatch/3.0.3/cerulean/bootstrap.min.css" rel="stylesheet"/>
+<body>
 <link rel="stylesheet" type="text/css" href="includes/css/clock.css" />
 <link rel="stylesheet" type="text/css" href="includes/css/jquery.mCustomScrollbar.css" />
 
@@ -617,13 +607,28 @@ function formatTime(time) {
     return (hrs > 0 ? pad(hrs, 2) : "00") + ":" + (min > 0 ? pad(min, 2) : "00") + ":" + (sec > 0 ? pad(sec, 2) : "00");
 }
 </script>
-</head>
-<body>
+<!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-<div>
-    <table style="width:95%;" align="center">
+<!-- header_eof //-->
+
+<!-- body //-->
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Ranges POS
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
         <tr>
-            <td style="padding: 10px 0 20px 0;">
+            <td>
                 <div id="clock" class="pull-left"></div>
                 <div class="pull-right">
                 <?php echo tep_draw_pull_down_menu('range', get_shooting_ranges(), '', 'class="form-control"'); ?>
@@ -649,7 +654,12 @@ function formatTime(time) {
                 </form>
             </td>
         </tr>
-    </table>
-</div>
-</body>
-</html>
+    </table>  
+               <!-- END your table-->
+<!-- body_eof //-->
+
+<!-- footer //-->
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+<!-- footer_eof //-->
+
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

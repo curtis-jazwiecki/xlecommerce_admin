@@ -102,43 +102,48 @@ if($login_groups_id == 1)
   }
   
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title>User File Access</title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="760px" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>User File Access
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">User File Access
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td width="100%" valign="top">
-      <table border="0" width="100%" cellspacing="0" cellpadding="2">
-        <tr>
-          <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-            <tr>
-              <td class="pageHeading">User File Access</td>
-              <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-            </tr>
-          </table>
-        </td>
-      </tr>
+    <td>
+      <table class="table table-bordered table-hover">
       <tr>
         <td>
-          <table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <table class="table table-bordered table-hover">
             <tr>
-              <td valign="top">
+              <td>
 <?php
 	if($login_groups_id == 1)
 	  {
-	    echo '<table border="0" width="100%" cellspacing="0" cellpadding="2"><tr><td>';
+	    echo '<table class="table table-bordered table-hover"><tr><td>';
 		echo '	<form method="post" action="admin_file_access.php" name="Gold Access">';
 		echo '		<input type="hidden" name="action_action" value="go_gold" />';
 		echo '		<input type="submit" name=" Go Gold " alt=" Go Gold " title=" Go Gold " value=" Go Gold" />';
@@ -150,9 +155,9 @@ if($login_groups_id == 1)
 		echo '	</form>';
 		echo '</td></tr></table>';
 		if($_POST['action_action'] == "go_gold")
-		  { echo '<span style="color: #ffffff">Gold Level Added</span><br />'; }
+		  { echo '<span>Gold Level Added</span><br />'; }
 		elseif($_POST['action_action'] == "go_ultimate")
-		  { echo '<span style="color: #ffffff">Ultimate Level Added</span><br />'; }
+		  { echo '<span>Ultimate Level Added</span><br />'; }
 		else
 		  { echo '<br />'; }
 	  }
@@ -168,19 +173,19 @@ $count = 0;
 		$count++;
 	  }
 ?>
-                <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <table class="table table-bordered table-hover">
 				  <form method="post" action="admin_file_access.php" name="admin_files_access">
 				  <input type="hidden" name="update_admin_files_access" value="update_admin_files_access" />
-                  <tr class="dataTableHeadingRow">
-                    <td class="dataTableHeadingContent">File Name</td>
+                  <tr>
+                    <td>File Name</td>
                     <?php
 					if($login_groups_id == 1)
-	                    echo '<td class="dataTableHeadingContent" align="right">Store Owner Access</td>';
+	                    echo '<td align="right">Store Owner Access</td>';
 					?>
-                    <td class="dataTableHeadingContent" align="right">Manager Access</td>
-                    <td class="dataTableHeadingContent" align="right">Sales Access</td>
-                    <td class="dataTableHeadingContent" align="right">Developer Access</td>
-                    <td class="dataTableHeadingContent" align="right">Staff Access</td>
+                    <td align="right">Manager Access</td>
+                    <td align="right">Sales Access</td>
+                    <td align="right">Developer Access</td>
+                    <td align="right">Staff Access</td>
                   </tr>
 <?php
 //BOF:mod 10jan2014
@@ -200,12 +205,12 @@ $count = 0;
   while ($files = tep_db_fetch_array($current_box_query))
     {
 ?>
-				<tr bgcolor="#DDDDDD">
-                  <td class="dataTableContent">
+				<tr>
+                  <td>
 				  <?php
 				  if($files['admin_files_is_boxes'] == 1) echo '<b>';
                 //BOF:mod 10jan2014
-                if($files['is_functionality'] == 1) echo '<b><span  style="color:green;">';
+                if($files['is_functionality'] == 1) echo '<b><span  style="color:#3498db;">';
                 //EOF:mod 10jan2014
 				  echo $files['admin_files_name'];
                 //BOF:mod 10jan2014
@@ -216,21 +221,21 @@ $count = 0;
                   </td>
 			<?php
 				if($login_groups_id == 1) { ?>
-                  <td class="dataTableHeadingContent" align="right"><input type="checkbox" name="<?php echo $files['admin_files_id'].'-2'?>" value="true" <?php if(preg_match("/2/" ,$files['admin_groups_id'])) echo 'checked'; ?> /></td>
+                  <td align="right"><input type="checkbox" name="<?php echo $files['admin_files_id'].'-2'?>" value="true" <?php if(preg_match("/2/" ,$files['admin_groups_id'])) echo 'checked'; ?> /></td>
             <?php } ?>
-                  <td class="dataTableHeadingContent" align="right"><input type="checkbox" name="<?php echo $files['admin_files_id'].'-3'?>" value="true" <?php if(preg_match("/3/" ,$files['admin_groups_id'])) echo 'checked'; ?> /></td>
-                  <td class="dataTableHeadingContent" align="right"><input type="checkbox" name="<?php echo $files['admin_files_id'].'-4' ?>" value="true" <?php if(preg_match("/4/" ,$files['admin_groups_id'])) echo 'checked'; ?> /></td>
-                  <td class="dataTableHeadingContent" align="right"><input type="checkbox" name="<?php echo $files['admin_files_id'].'-5' ?>" value="true" <?php if(preg_match("/5/" ,$files['admin_groups_id'])) echo 'checked'; ?> /></td>
-                  <td class="dataTableHeadingContent" align="right"><input type="checkbox" name="<?php echo $files['admin_files_id'].'-6' ?>" value="true" <?php if(preg_match("/6/" ,$files['admin_groups_id'])) echo 'checked'; ?> /></td>
+                  <td align="right"><input type="checkbox" name="<?php echo $files['admin_files_id'].'-3'?>" value="true" <?php if(preg_match("/3/" ,$files['admin_groups_id'])) echo 'checked'; ?> /></td>
+                  <td align="right"><input type="checkbox" name="<?php echo $files['admin_files_id'].'-4' ?>" value="true" <?php if(preg_match("/4/" ,$files['admin_groups_id'])) echo 'checked'; ?> /></td>
+                  <td align="right"><input type="checkbox" name="<?php echo $files['admin_files_id'].'-5' ?>" value="true" <?php if(preg_match("/5/" ,$files['admin_groups_id'])) echo 'checked'; ?> /></td>
+                  <td align="right"><input type="checkbox" name="<?php echo $files['admin_files_id'].'-6' ?>" value="true" <?php if(preg_match("/6/" ,$files['admin_groups_id'])) echo 'checked'; ?> /></td>
                 </tr>
 <?php
     } 
 ?>
                 <tr>
                   <td colspan="6">
-                    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                    <table class="table table-bordered table-hover">
                       <tr>
-                        <td class="smallText" valign="top" align="right">
+                        <td align="right">
 						  <input border="0" type="image" title=" Update " alt="Update" src="includes/languages/english/images/buttons/button_update_b.gif">
                         </td>
                       </tr>
@@ -247,12 +252,11 @@ $count = 0;
 <!-- body_text_eof //-->
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

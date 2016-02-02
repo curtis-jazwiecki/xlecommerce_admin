@@ -403,12 +403,7 @@
     $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST, 'error');
   }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="goOnLoad();">
 <script language="javascript" type="text/javascript" src="tiny_mce/tiny_mce.js"></script>
 <script language="javascript" type="text/javascript">
 tinyMCE.init({
@@ -499,20 +494,30 @@ function toggle_selection(chkToggleRef){
 }
 //EOF: bulk_category_movement
 </script>
-<script language="javascript" src="includes/general.js"></script>
-
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="goOnLoad();">
-<div id="spiffycalendar" class="text"></div>
+<div id="spiffycalendar" class="text" style="z-index:9999; position:absolute;"></div>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="780px" cellspacing="2" cellpadding="2" align="center" style="margin: 0px auto;">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td width="100%" valign="top">
+    <td>
 <?php
 // If Updated_without_prieview was chosen, then  - OBN
   if (isset($HTTP_GET_VARS['Update_without_preview']))
@@ -854,12 +859,12 @@ function apply_roundoff(price_value){
 	// Old form button, this negates the need for the preview. - OBN
      echo tep_draw_form('new_product', FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . (isset($HTTP_GET_VARS['pID']) ? '&pID=' . $HTTP_GET_VARS['pID'] : '') . '&action=new_product_preview', 'post', 'enctype="multipart/form-data"');
     //echo tep_draw_form('new_product', FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . (isset($HTTP_GET_VARS['pID']) ? '&pID=' . $HTTP_GET_VARS['pID'] : '') . '&action=update_product', 'post', 'enctype="multipart/form-data"'); ?>
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <table class="table table-bordered table-hover">
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo sprintf(TEXT_NEW_PRODUCT, tep_output_generated_category_path($current_category_id)); ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td><?php echo sprintf(TEXT_NEW_PRODUCT, tep_output_generated_category_path($current_category_id)); ?></td>
+            <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -867,10 +872,10 @@ function apply_roundoff(price_value){
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
       <tr>
-        <td><table border="0" cellspacing="0" cellpadding="2" bgcolor="#FFFFFF">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_STATUS; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_radio_field('products_status', '1', $in_status) . '&nbsp;' . TEXT_PRODUCT_AVAILABLE . '&nbsp;' . tep_draw_radio_field('products_status', '0', $out_status) . '&nbsp;' . TEXT_PRODUCT_NOT_AVAILABLE; ?></td>
+            <td><?php echo TEXT_PRODUCTS_STATUS; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_radio_field('products_status', '1', $in_status) . '&nbsp;' . TEXT_PRODUCT_AVAILABLE . '&nbsp;' . tep_draw_radio_field('products_status', '0', $out_status) . '&nbsp;' . TEXT_PRODUCT_NOT_AVAILABLE; ?></td>
           </tr>
           
           <tr>
@@ -878,8 +883,8 @@ function apply_roundoff(price_value){
           </tr>
 
            <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_SIZE;?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_radio_field('products_size', '0', $in_size) . '&nbsp;Standard&nbsp;' . tep_draw_radio_field('products_size', '1', $out_size) . '&nbsp;Oversized'; ?></td>
+            <td><?php echo TEXT_PRODUCTS_SIZE;?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_radio_field('products_size', '0', $in_size) . '&nbsp;Standard&nbsp;' . tep_draw_radio_field('products_size', '1', $out_size) . '&nbsp;Oversized'; ?></td>
           </tr>
           
           <tr>
@@ -887,59 +892,59 @@ function apply_roundoff(price_value){
           </tr>
         
 		  <tr>
-            <td class="main"><?php echo TEXT_DISCLAIMER_NEEDED;?></td>
+            <td><?php echo TEXT_DISCLAIMER_NEEDED;?></td>
 			
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_radio_field('disclaimer_needed', '0', $disclaimer_no) . '&nbsp;No&nbsp;' . tep_draw_radio_field('disclaimer_needed', '1', $disclaimer_yes) . '&nbsp;Yes'; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_radio_field('disclaimer_needed', '0', $disclaimer_no) . '&nbsp;No&nbsp;' . tep_draw_radio_field('disclaimer_needed', '1', $disclaimer_yes) . '&nbsp;Yes'; ?></td>
 			
           </tr>		  
 		<tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>  
 		  <tr>
-            <td class="main" valign="top"><?php echo 'Flags Status';?></td>			
-            <td class="main">
+            <td><?php echo 'Flags Status';?></td>			
+            <td>
             	<table>
             		<tr>
             			<td rowspan="8"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;'; ?></td>
-            			<td class="main"><?php echo 'Is free shipping';?></td>
-            			<td class="main"><?php echo '&nbsp;:&nbsp;';?></td>
-            			<td class="main"><?php echo tep_draw_radio_field('free_shipping', '1', $free_shipping_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('free_shipping', '0', $free_shipping_no) . '&nbsp;No'; ?></td>
+            			<td><?php echo 'Is free shipping';?></td>
+            			<td><?php echo '&nbsp;:&nbsp;';?></td>
+            			<td><?php echo tep_draw_radio_field('free_shipping', '1', $free_shipping_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('free_shipping', '0', $free_shipping_no) . '&nbsp;No'; ?></td>
 					</tr>
             		<tr>
-            			<td class="main"><?php echo 'Is in-store pickup';?></td>
-            			<td class="main"><?php echo '&nbsp;:&nbsp;';?></td>
-            			<td class="main"><?php echo tep_draw_radio_field('in_store_pickup', '1', $in_store_pickup_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('in_store_pickup', '0', $in_store_pickup_no) . '&nbsp;No'; ?></td>
+            			<td><?php echo 'Is in-store pickup';?></td>
+            			<td><?php echo '&nbsp;:&nbsp;';?></td>
+            			<td><?php echo tep_draw_radio_field('in_store_pickup', '1', $in_store_pickup_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('in_store_pickup', '0', $in_store_pickup_no) . '&nbsp;No'; ?></td>
 					</tr>
             		<tr>
-            			<td class="main"><?php echo 'Lock Price';?></td>
-            			<td class="main"><?php echo '&nbsp;:&nbsp;';?></td>
-            			<td class="main"><?php echo tep_draw_radio_field('lock_price', '1', $lock_price_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('lock_price', '0', $lock_price_no) . '&nbsp;No'; ?></td>
+            			<td><?php echo 'Lock Price';?></td>
+            			<td><?php echo '&nbsp;:&nbsp;';?></td>
+            			<td><?php echo tep_draw_radio_field('lock_price', '1', $lock_price_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('lock_price', '0', $lock_price_no) . '&nbsp;No'; ?></td>
 					</tr>
 					<?php //if ($show_xml_feed_flags) { ?>
 	            		<tr>
-	            			<td class="main"><?php echo 'XML feed -> Update product inventory';?></td>
-	            			<td class="main"><?php echo '&nbsp;:&nbsp;';?></td>
-	            			<td class="main"><?php echo tep_draw_radio_field('prod_inventory_flag', '1', $update_prod_inventory_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('prod_inventory_flag', '0', $update_prod_inventory_no) . '&nbsp;No'; ?></td>
+	            			<td><?php echo 'XML feed -> Update product inventory';?></td>
+	            			<td><?php echo '&nbsp;:&nbsp;';?></td>
+	            			<td><?php echo tep_draw_radio_field('prod_inventory_flag', '1', $update_prod_inventory_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('prod_inventory_flag', '0', $update_prod_inventory_no) . '&nbsp;No'; ?></td>
 						</tr>
 	            		<tr>
-	            			<td class="main"><?php echo 'XML feed -> Update product price';?></td>
-	            			<td class="main"><?php echo '&nbsp;:&nbsp;';?></td>
-	            			<td class="main"><?php echo tep_draw_radio_field('prod_price_flag', '1', $update_prod_price_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('prod_price_flag', '0', $update_prod_price_no) . '&nbsp;No'; ?></td>
+	            			<td><?php echo 'XML feed -> Update product price';?></td>
+	            			<td><?php echo '&nbsp;:&nbsp;';?></td>
+	            			<td><?php echo tep_draw_radio_field('prod_price_flag', '1', $update_prod_price_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('prod_price_flag', '0', $update_prod_price_no) . '&nbsp;No'; ?></td>
 						</tr>
 	            		<tr>
-	            			<td class="main"><?php echo 'XML feed -> Update category';?></td>
-	            			<td class="main"><?php echo '&nbsp;:&nbsp;';?></td>
-	            			<td class="main"><?php echo tep_draw_radio_field('prod_category_flag', '1', $update_prod_category_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('prod_category_flag', '0', $update_prod_category_no) . '&nbsp;No'; ?></td>
+	            			<td><?php echo 'XML feed -> Update category';?></td>
+	            			<td><?php echo '&nbsp;:&nbsp;';?></td>
+	            			<td><?php echo tep_draw_radio_field('prod_category_flag', '1', $update_prod_category_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('prod_category_flag', '0', $update_prod_category_no) . '&nbsp;No'; ?></td>
 						</tr>
 	            		<tr>
-	            			<td class="main"><?php echo 'XML feed -> Update product description';?></td>
-	            			<td class="main"><?php echo '&nbsp;:&nbsp;';?></td>
-	            			<td class="main"><?php echo tep_draw_radio_field('prod_desc_flag', '1', $update_prod_desc_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('prod_desc_flag', '0', $update_prod_desc_no) . '&nbsp;No'; ?></td>
+	            			<td><?php echo 'XML feed -> Update product description';?></td>
+	            			<td><?php echo '&nbsp;:&nbsp;';?></td>
+	            			<td><?php echo tep_draw_radio_field('prod_desc_flag', '1', $update_prod_desc_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('prod_desc_flag', '0', $update_prod_desc_no) . '&nbsp;No'; ?></td>
 						</tr>
 	            		<tr>
-	            			<td class="main"><?php echo 'XML feed -> Update product image';?></td>
-	            			<td class="main"><?php echo '&nbsp;:&nbsp;';?></td>
-	            			<td class="main"><?php echo tep_draw_radio_field('prod_image_flag', '1', $update_prod_image_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('prod_image_flag', '0', $update_prod_image_no) . '&nbsp;No'; ?></td>
+	            			<td><?php echo 'XML feed -> Update product image';?></td>
+	            			<td><?php echo '&nbsp;:&nbsp;';?></td>
+	            			<td><?php echo tep_draw_radio_field('prod_image_flag', '1', $update_prod_image_yes) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('prod_image_flag', '0', $update_prod_image_no) . '&nbsp;No'; ?></td>
 						</tr>
 					<?php //} ?>
 				</table>
@@ -950,16 +955,16 @@ function apply_roundoff(price_value){
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>		  
           <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br><small>(YYYY-MM-DD)</small></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;'; ?>
+            <td><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br><small>(YYYY-MM-DD)</small></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;'; ?>
 			<script language="javascript">dateAvailable.writeControl(); dateAvailable.dateFormat="yyyy-MM-dd";</script></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_MANUFACTURER; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $pInfo->manufacturers_id); ?></td>
+            <td><?php echo TEXT_PRODUCTS_MANUFACTURER; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $pInfo->manufacturers_id); ?></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
@@ -968,8 +973,8 @@ function apply_roundoff(price_value){
     for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
 ?>
           <tr>
-            <td class="main"><?php if ($i == 0) echo TEXT_PRODUCTS_NAME; ?></td>
-            <td class="main"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('products_name[' . $languages[$i]['id'] . ']', (isset($products_name[$languages[$i]['id']]) ? stripslashes($products_name[$languages[$i]['id']]) : tep_get_products_name($pInfo->products_id, $languages[$i]['id']))); ?></td>
+            <td><?php if ($i == 0) echo TEXT_PRODUCTS_NAME; ?></td>
+            <td><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('products_name[' . $languages[$i]['id'] . ']', (isset($products_name[$languages[$i]['id']]) ? stripslashes($products_name[$languages[$i]['id']]) : tep_get_products_name($pInfo->products_id, $languages[$i]['id']))); ?></td>
           </tr>
 <?php
     }
@@ -977,21 +982,21 @@ function apply_roundoff(price_value){
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
-          <tr bgcolor="#ebebff">
-            <td class="main"><?php echo TEXT_PRODUCTS_TAX_CLASS; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_pull_down_menu('products_tax_class_id', $tax_class_array, $pInfo->products_tax_class_id); ?></td>
+          <tr>
+            <td><?php echo TEXT_PRODUCTS_TAX_CLASS; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_pull_down_menu('products_tax_class_id', $tax_class_array, $pInfo->products_tax_class_id); ?></td>
           </tr>
-          <tr bgcolor="#ebebff">
-            <td class="main"><?php echo 'Product Cost:'; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('base_price', ((int)$pInfo->base_price<=0 ? '' : $pInfo->base_price), 'onKeyUp="updateGross()"'); ?></td>
+          <tr>
+            <td><?php echo 'Product Cost:'; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('base_price', ((int)$pInfo->base_price<=0 ? '' : $pInfo->base_price), 'onKeyUp="updateGross()"'); ?></td>
           </tr>
-          <tr bgcolor="#ebebff">
-            <td class="main"><?php echo 'QPU Price: '; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;'; ?><input type="text" name="qpu_price" value="<?php echo (int)$pInfo->base_price<=0 ? '' : $pInfo->qpu_price; ?>" readonly></td>
+          <tr>
+            <td><?php echo 'QPU Price: '; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;'; ?><input type="text" name="qpu_price" value="<?php echo (int)$pInfo->base_price<=0 ? '' : $pInfo->qpu_price; ?>" readonly></td>
           </tr>
-           <tr bgcolor="#ebebff">
-            <td class="main"><?php echo 'Manual Price: '; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('manual_price',$pInfo->manual_price); ?></td>
+           <tr>
+            <td><?php echo 'Manual Price: '; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('manual_price',$pInfo->manual_price); ?></td>
           </tr>
   <!-- AJAX Attribute Manager  -->
           <tr>
@@ -1007,11 +1012,11 @@ function apply_roundoff(price_value){
     for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
 ?>
          <tr>
-            <td class="main" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_DESCRIPTION; ?></td>
-            <td><table border="0" cellspacing="0" cellpadding="0">
+            <td><?php if ($i == 0) echo TEXT_PRODUCTS_DESCRIPTION; ?></td>
+            <td><table class="table table-bordered table-hover">
               <tr>
-                <td class="main" valign="top"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;</td>
-                <td class="main"><?php echo tep_draw_textarea_field('products_description[' . $languages[$i]['id'] . ']', 'soft', '70', '15',(isset($products_description[$languages[$i]['id']]) ? stripslashes($products_description[$languages[$i]['id']]) : tep_get_products_description($pInfo->products_id, $languages[$i]['id'])),'class="mceEditor"'); ?></td>
+                <td><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;</td>
+                <td><?php echo tep_draw_textarea_field('products_description[' . $languages[$i]['id'] . ']', 'soft', '70', '15',(isset($products_description[$languages[$i]['id']]) ? stripslashes($products_description[$languages[$i]['id']]) : tep_get_products_description($pInfo->products_id, $languages[$i]['id'])),'class="mceEditor"'); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -1019,7 +1024,7 @@ function apply_roundoff(price_value){
     }
 ?>
           <tr>
-            <td colspan="2" class="main"><hr><?php echo TEXT_PRODUCT_METTA_INFO; ?></td>
+            <td colspan="2"><hr><?php echo TEXT_PRODUCT_METTA_INFO; ?></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
@@ -1028,11 +1033,11 @@ function apply_roundoff(price_value){
     for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
 ?>
           <tr>
-            <td class="main" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_PAGE_TITLE; ?></td>
-            <td><table border="0" cellspacing="0" cellpadding="0">
+            <td><?php if ($i == 0) echo TEXT_PRODUCTS_PAGE_TITLE; ?></td>
+            <td><table class="table table-bordered table-hover">
               <tr>
-                <td class="main" valign="top"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;</td>
-                <td class="main"><?php echo tep_draw_textarea_field('products_head_title_tag[' . $languages[$i]['id'] . ']', 'soft', '70', '5', (isset($products_head_title_tag[$languages[$i]['id']]) ? stripslashes($products_head_title_tag[$languages[$i]['id']]) : tep_get_products_head_title_tag($pInfo->products_id, $languages[$i]['id']))); ?></td>
+                <td><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;</td>
+                <td><?php echo tep_draw_textarea_field('products_head_title_tag[' . $languages[$i]['id'] . ']', 'soft', '70', '5', (isset($products_head_title_tag[$languages[$i]['id']]) ? stripslashes($products_head_title_tag[$languages[$i]['id']]) : tep_get_products_head_title_tag($pInfo->products_id, $languages[$i]['id']))); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -1044,11 +1049,11 @@ function apply_roundoff(price_value){
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>          
            <tr>
-            <td class="main" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_HEADER_DESCRIPTION; ?></td>
-            <td><table border="0" cellspacing="0" cellpadding="0">
+            <td><?php if ($i == 0) echo TEXT_PRODUCTS_HEADER_DESCRIPTION; ?></td>
+            <td><table class="table table-bordered table-hover">
               <tr>
-                <td class="main" valign="top"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;</td>
-                <td class="main"><?php echo tep_draw_textarea_field('products_head_desc_tag[' . $languages[$i]['id'] . ']', 'soft', '70', '5', (isset($products_head_desc_tag[$languages[$i]['id']]) ? stripslashes($products_head_desc_tag[$languages[$i]['id']]) : tep_get_products_head_desc_tag($pInfo->products_id, $languages[$i]['id']))); ?></td>
+                <td><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;</td>
+                <td><?php echo tep_draw_textarea_field('products_head_desc_tag[' . $languages[$i]['id'] . ']', 'soft', '70', '5', (isset($products_head_desc_tag[$languages[$i]['id']]) ? stripslashes($products_head_desc_tag[$languages[$i]['id']]) : tep_get_products_head_desc_tag($pInfo->products_id, $languages[$i]['id']))); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -1060,11 +1065,11 @@ function apply_roundoff(price_value){
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>          
            <tr>
-            <td class="main" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_KEYWORDS; ?></td>
-            <td><table border="0" cellspacing="0" cellpadding="0">
+            <td><?php if ($i == 0) echo TEXT_PRODUCTS_KEYWORDS; ?></td>
+            <td><table class="table table-bordered table-hover">
               <tr>
-                <td class="main" valign="top"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;</td>
-                <td class="main"><?php echo tep_draw_textarea_field('products_head_keywords_tag[' . $languages[$i]['id'] . ']', 'soft', '70', '5', (isset($products_head_keywords_tag[$languages[$i]['id']]) ? stripslashes($products_head_keywords_tag[$languages[$i]['id']]) : tep_get_products_head_keywords_tag($pInfo->products_id, $languages[$i]['id']))); ?></td>
+                <td><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?>&nbsp;</td>
+                <td><?php echo tep_draw_textarea_field('products_head_keywords_tag[' . $languages[$i]['id'] . ']', 'soft', '70', '5', (isset($products_head_keywords_tag[$languages[$i]['id']]) ? stripslashes($products_head_keywords_tag[$languages[$i]['id']]) : tep_get_products_head_keywords_tag($pInfo->products_id, $languages[$i]['id']))); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -1075,34 +1080,34 @@ function apply_roundoff(price_value){
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td colspan="2" class="main"><hr></td>
+            <td colspan="2"><hr></td>
           </tr>
 <!-- HTC EOC //-->
           <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_quantity', $pInfo->products_quantity); ?></td>
+            <td><?php echo TEXT_PRODUCTS_QUANTITY; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_quantity', $pInfo->products_quantity); ?></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_MODEL; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_model', $pInfo->products_model); ?></td>
+            <td><?php echo TEXT_PRODUCTS_MODEL; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_model', $pInfo->products_model); ?></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_IMAGE; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_file_field('products_image') . '<br>' . tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . $pInfo->products_image . tep_draw_hidden_field('products_previous_image', $pInfo->products_image); ?></td>
+            <td><?php echo TEXT_PRODUCTS_IMAGE; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_file_field('products_image') . '<br>' . tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . $pInfo->products_image . tep_draw_hidden_field('products_previous_image', $pInfo->products_image); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo 'Medium Image: '; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_file_field('products_mediumimage') . '<br>' . tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . $pInfo->products_mediumimage . tep_draw_hidden_field('products_previous_mediumimage', $pInfo->products_mediumimage); ?></td>
+            <td><?php echo 'Medium Image: '; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_file_field('products_mediumimage') . '<br>' . tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . $pInfo->products_mediumimage . tep_draw_hidden_field('products_previous_mediumimage', $pInfo->products_mediumimage); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo 'Large Image: '; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_file_field('products_largeimage') . '<br>' . tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . $pInfo->products_largeimage . tep_draw_hidden_field('products_previous_largeimage', $pInfo->products_largeimage); ?></td>
+            <td><?php echo 'Large Image: '; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_file_field('products_largeimage') . '<br>' . tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . $pInfo->products_largeimage . tep_draw_hidden_field('products_previous_largeimage', $pInfo->products_largeimage); ?></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
@@ -1111,8 +1116,8 @@ function apply_roundoff(price_value){
     for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
 ?>
           <tr>
-            <td class="main"><?php if ($i == 0) echo TEXT_PRODUCTS_URL . '<br><small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?></td>
-            <td class="main"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('products_url[' . $languages[$i]['id'] . ']', (isset($products_url[$languages[$i]['id']]) ? stripslashes($products_url[$languages[$i]['id']]) : tep_get_products_url($pInfo->products_id, $languages[$i]['id']))); ?></td>
+            <td><?php if ($i == 0) echo TEXT_PRODUCTS_URL . '<br><small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?></td>
+            <td><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('products_url[' . $languages[$i]['id'] . ']', (isset($products_url[$languages[$i]['id']]) ? stripslashes($products_url[$languages[$i]['id']]) : tep_get_products_url($pInfo->products_id, $languages[$i]['id']))); ?></td>
           </tr>
 <?php
     }
@@ -1121,24 +1126,24 @@ function apply_roundoff(price_value){
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_WEIGHT; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_weight', $pInfo->products_weight); ?></td>
+            <td><?php echo TEXT_PRODUCTS_WEIGHT; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_weight', $pInfo->products_weight); ?></td>
           </tr>
            <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_LENGTH; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_length', $pInfo->products_length); ?></td>
+            <td><?php echo TEXT_PRODUCTS_LENGTH; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_length', $pInfo->products_length); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_WIDTH; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_width', $pInfo->products_width); ?></td>
+            <td><?php echo TEXT_PRODUCTS_WIDTH; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_width', $pInfo->products_width); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_HEIGHT; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_height', $pInfo->products_height); ?></td>
+            <td><?php echo TEXT_PRODUCTS_HEIGHT; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_height', $pInfo->products_height); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_READY_TO_SHIP; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_checkbox_field('products_ready_to_ship', '1', (($product['products_ready_to_ship'] == '1') ? true : false)); ?></td>
+            <td><?php echo TEXT_PRODUCTS_READY_TO_SHIP; ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_checkbox_field('products_ready_to_ship', '1', (($product['products_ready_to_ship'] == '1') ? true : false)); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -1146,7 +1151,7 @@ function apply_roundoff(price_value){
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
       <tr>
-        <td class="main" align="right">
+        <td align="right">
 		  <?php // have two different submit buttons - OBN
 		  echo '<input border="0" type="image" title=" Quick Update " value="Update_without_preview" alt="Quick Update" src="includes/languages/english/images/buttons/button_quick_update.gif" name="Update_without_preview" />';
 		  echo '&nbsp;&nbsp';
@@ -1199,12 +1204,12 @@ function apply_roundoff(price_value){
         $pInfo->products_url = tep_db_prepare_input($products_url[$languages[$i]['id']]);
       }
 ?>
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <table class="table table-bordered table-hover">
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . $pInfo->products_name; ?></td>
-            <td class="pageHeading" align="right">
+            <td><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . $pInfo->products_name; ?></td>
+            <td align="right">
 <?php
 // Old Price - OBN
 //		echo $currencies->format($pInfo->products_price);
@@ -1221,7 +1226,7 @@ function apply_roundoff(price_value){
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
       <tr>
-        <td class="main">
+        <td>
 		<?php
 		echo '<img src="'.$products_image_name.'" align="right" hspace="5" vspace="5" title="'.$pInfo->products_name.' alt="'.$pInfo->products_name.'">'. $pInfo->products_description;
 		// Old display image - OBN
@@ -1235,7 +1240,7 @@ function apply_roundoff(price_value){
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
       <tr>
-        <td class="main"><?php echo sprintf(TEXT_PRODUCT_MORE_INFORMATION, $pInfo->products_url); ?></td>
+        <td><?php echo sprintf(TEXT_PRODUCT_MORE_INFORMATION, $pInfo->products_url); ?></td>
       </tr>
 <?php
       }
@@ -1247,13 +1252,13 @@ function apply_roundoff(price_value){
       if ($pInfo->products_date_available > date('Y-m-d')) {
 ?>
       <tr>
-        <td align="center" class="smallText"><?php echo sprintf(TEXT_PRODUCT_DATE_AVAILABLE, tep_date_long($pInfo->products_date_available)); ?></td>
+        <td align="center"><?php echo sprintf(TEXT_PRODUCT_DATE_AVAILABLE, tep_date_long($pInfo->products_date_available)); ?></td>
       </tr>
 <?php
       } else {
 ?>
       <tr>
-        <td align="center" class="smallText"><?php echo sprintf(TEXT_PRODUCT_DATE_ADDED, tep_date_long($pInfo->products_date_added)); ?></td>
+        <td align="center"><?php echo sprintf(TEXT_PRODUCT_DATE_ADDED, tep_date_long($pInfo->products_date_added)); ?></td>
       </tr>
 <?php
       }
@@ -1286,7 +1291,7 @@ function apply_roundoff(price_value){
     } else {
 ?>
       <tr>
-        <td align="right" class="smallText">
+        <td align="right">
 <?php
 /* Re-Post all POST'ed variables */
       reset($HTTP_POST_VARS);
@@ -1331,15 +1336,15 @@ function apply_roundoff(price_value){
     }
   } else {
 ?>
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <table class="table table-bordered table-hover">
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
-            <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+            <td align="right"><table class="table table-bordered table-hover">
               <tr>
-                <td class="smallText" align="right">
+                <td align="right">
 <?php
     echo tep_draw_form('search', FILENAME_FRONTENDCATEGORIES_PRODUCTS, '', 'get');
     echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('search');
@@ -1348,7 +1353,7 @@ function apply_roundoff(price_value){
                 </td>
               </tr>
               <tr>
-                <td class="smallText" align="right">
+                <td align="right">
 <?php
     echo tep_draw_form('goto', FILENAME_FRONTENDCATEGORIES_PRODUCTS, '', 'get');
     echo HEADING_TITLE_GOTO . ' ' . tep_draw_pull_down_menu('cPath', tep_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"');
@@ -1361,20 +1366,20 @@ function apply_roundoff(price_value){
         </table></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td valign="top">
-			<table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent" width="300px"><?php echo TABLE_HEADING_CATEGORIES_PRODUCTS; ?></td>
+            <td>
+			<table class="table table-bordered table-hover">
+              <tr>
+                <td><?php echo TABLE_HEADING_CATEGORIES_PRODUCTS; ?></td>
                 <?php //BOF:category_group ?>
-                <td class="dataTableHeadingContent"><?php echo 'Is Cat Grp'; ?></td>
+                <td><?php echo 'Is Cat Grp'; ?></td>
                 <?php //BOF:category_group ?>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
+                <td align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
                 <!-- BOF: bulk_category_movement -->
-                <td class="dataTableHeadingContent" align="right"><?php echo 'Frontend Category<br>[ ' . tep_draw_selection_field('chk_set_frontend_cat_all', 'checkbox', '', false, '', 'onclick="javascript:toggle_selection(this);"') . ' ]'; ?></td>
+                <td align="right"><?php echo 'Frontend Category<br>[ ' . tep_draw_selection_field('chk_set_frontend_cat_all', 'checkbox', '', false, '', 'onclick="javascript:toggle_selection(this);"') . ' ]'; ?></td>
                 <!-- EOF: bulk_category_movement -->
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                <td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
     $categories_count = 0;
@@ -1440,16 +1445,16 @@ function apply_roundoff(price_value){
 		  }
 		if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) )
 		  {
-        	echo '              <tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, tep_get_path($categories['categories_id'])) . '\'">' . "\n";
+        	echo '              <tr id="defaultSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, tep_get_path($categories['categories_id'])) . '\'">' . "\n";
 		  }
 		else
 		  {
-	        echo '              <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '\'">' . "\n";
+	        echo '              <tr onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '\'">' . "\n";
 		  }
 ?>
-                <td class="dataTableContent" valign="top"><?php echo '<a href="' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, tep_get_path($categories['categories_id'])) . '">' . tep_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER) . '</a>&nbsp;<b>' . $categories['categories_name'] . '</b>'; ?></td>
+                <td><?php echo '<a href="' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, tep_get_path($categories['categories_id'])) . '">' . tep_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER) . '</a>&nbsp;<b>' . $categories['categories_name'] . '</b>'; ?></td>
                 <?php //BOF:category_group ?>
-                <td class="dataTableContent" valign="top"><?php echo ($categories['is_category_group'] ? 'Y' : 'N'); ?></td>
+                <td><?php echo ($categories['is_category_group'] ? 'Y' : 'N'); ?></td>
                 <?php //EOF:category_group ?>
                 <td class="dataTableContent" valign="top" align="center"><?php
                 //Categroies Status MOD BEGIN by FIW
@@ -1464,7 +1469,7 @@ function apply_roundoff(price_value){
   //Categroies Status MOD END by FIW
   ?></td>
   <!-- BOF: bulk_category_movement -->
-  <td valign="top" align="right" class="dataTableContent">
+  <td align="right">
 	<?php 
 			echo tep_draw_selection_field('chk_set_frontend_cat', 'checkbox', 'C' . $categories['categories_id'], false, '', 'id="' . 'C' . $categories['categories_id'] . '"');
 			echo '<script type="text/javascript">' .
@@ -1475,7 +1480,7 @@ function apply_roundoff(price_value){
 	?> 	
   </td>
   <!-- EOF: bulk_category_movement -->
-                <td class="dataTableContent" valign="top" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
 	  }
@@ -1504,16 +1509,16 @@ function apply_roundoff(price_value){
       }
 
       if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id) ) {
-        echo '              <tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product_preview&read=only') . '\'">' . "\n";
+        echo '              <tr id="defaultSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product_preview&read=only') . '\'">' . "\n";
       } else {
-        echo '              <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . '&pID=' . $products['products_id']) . '\'">' . "\n";
+        echo '              <tr onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . '&pID=' . $products['products_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo '<a href="' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product_preview&read=only') . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $products['products_name']; ?></td>
+                <td><?php echo '<a href="' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product_preview&read=only') . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $products['products_name']; ?></td>
                 <?php //BOF:category_group ?>
-                <td class="dataTableContent"><?php echo '--'; ?></td>
+                <td><?php echo '--'; ?></td>
                 <?php //EOF:category_group ?>
-                <td class="dataTableContent" align="center">
+                <td align="center">
 <?php
       if ($products['products_status'] == '1') {
         echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'action=setflag&flag=0&pID=' . $products['products_id'] . '&cPath=' . $cPath) . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -1539,7 +1544,7 @@ function apply_roundoff(price_value){
 ?>
 	</td>
   <!-- EOF: bulk_category_movement -->
-                <td class="dataTableContent" align="right"><?php if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id)) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . '&pID=' . $products['products_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td align="right"><?php if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id)) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . '&pID=' . $products['products_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     }
@@ -1559,7 +1564,7 @@ function apply_roundoff(price_value){
 ?>
 <!-- BOF: bulk_category_movement -->
 	<tr>
-		<td colspan="5" align="right" class="main" style="padding:10px 0px 10px 0px;">
+		<td colspan="5" align="right">
 						<?php
 							$form_params = 'cPath=' . $HTTP_GET_VARS['cPath'];
 							if (isset($HTTP_GET_VARS['cID'])){
@@ -1571,21 +1576,21 @@ function apply_roundoff(price_value){
 							$form_params .= '&' . 'action=set_frontend_cat';
 						    echo tep_draw_form('frontend', FILENAME_FRONTENDCATEGORIES_PRODUCTS, $form_params);
 						    echo tep_draw_hidden_field('hdn_ids', '', 'id="hdn_ids"');
-						    echo '<span class="smallText2">Lock Category: </span> ' . tep_draw_checkbox_field('category_flag','0',true) . '<br>';
+						    echo '<span>Lock Category: </span> ' . tep_draw_checkbox_field('category_flag','0',true) . '<br>';
 						    //echo 'Select Forntend Category: ' . ' ' . tep_draw_pull_down_menu('drp_cat_frontend', array_merge(get_frontend_category_tree(), array(array('id' => 'UNSET', 'text'=> 'UNSET FRONTEND CATEGORY'))), '', 'onchange="javascript:if (drp_cat_frontend_onchange(this)) { this.form.submit(); };"');
 						    $frontend_cat_tree = get_frontend_category_tree();
 						    $frontend_cat_tree[0]['text'] = '-- Select  --';
-							echo '<span class="smallText2">Select Frontend Category:</span> ' . ' ' . tep_draw_pull_down_menu('drp_cat_frontend', array_merge($frontend_cat_tree, array(array('id' => 'UNSET', 'text'=> 'UNSET FRONTEND CATEGORY'))), '', 'onchange="javascript:if (drp_cat_frontend_onchange(this)) { this.form.submit(); };"');
+							echo '<span>Select Frontend Category:</span> ' . ' ' . tep_draw_pull_down_menu('drp_cat_frontend', array_merge($frontend_cat_tree, array(array('id' => 'UNSET', 'text'=> 'UNSET FRONTEND CATEGORY'))), '', 'onchange="javascript:if (drp_cat_frontend_onchange(this)) { this.form.submit(); };"');
 						    echo '</form>';
 						?>
 		</td>
 	</tr>
 <!-- EOF: bulk_category_movement -->
               <tr>
-                <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="5"><table class="table table-bordered table-hover">
                   <tr>
-                    <td class="smallText2"><?php echo TEXT_CATEGORIES . '&nbsp;' . $categories_count . '<br>' . TEXT_PRODUCTS . '&nbsp;' . $products_count; ?></td>
-                    <td align="right" class="smallText"><?php if (sizeof($cPath_array) > 0) echo '<a href="' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, $cPath_back . 'cID=' . $current_category_id) . '">' . tep_image_button('button_back_b.gif', IMAGE_BACK) . '</a>&nbsp;'; ?></td>
+                    <td><?php echo TEXT_CATEGORIES . '&nbsp;' . $categories_count . '<br>' . TEXT_PRODUCTS . '&nbsp;' . $products_count; ?></td>
+                    <td align="right"><?php if (sizeof($cPath_array) > 0) echo '<a href="' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, $cPath_back . 'cID=' . $current_category_id) . '">' . tep_image_button('button_back_b.gif', IMAGE_BACK) . '</a>&nbsp;'; ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -1694,13 +1699,12 @@ function apply_roundoff(price_value){
     </td>
 <!-- body_text_eof //-->
   </tr>
-</table>
+</table>  
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

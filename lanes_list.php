@@ -11,7 +11,7 @@
   Released under the GNU General Public License
   */
 ?>
-<tr class=pageHeading><td><?php echo $title ?></td></tr>
+<tr><td><?php echo $title ?></td></tr>
 <script type="text/javascript">
     function range(rangeid)
     {
@@ -38,14 +38,14 @@
     </td>
 </tr>
 <tr><td>
-<table border="0" width=100%  cellpadding=2 cellspacing=1 bgcolor="#ffffff">
-<tr class="dataTableHeadingRow">
-	<td align=center class="dataTableHeadingContent"><?php echo ID_INFORMATION;?></td>
-	<td align=center class="dataTableHeadingContent"><?php echo ENTRY_TITLE;?></td>
-	<td align=center class="dataTableHeadingContent"><?php echo ENTRY_PARENT_PAGE;?></td>
-	<td align=center class="dataTableHeadingContent"><?php echo PUBLIC_INFORMATION;?></td>
-	<td align=center class="dataTableHeadingContent"><?php echo ENTRY_SORT_ORDER; ?></td>
-	<td align=center class="dataTableHeadingContent" colspan=2><?php echo ACTION_INFORMATION;?></td>
+<table class="table table-bordered table-hover">
+<tr>
+	<td align=center><?php echo ID_INFORMATION;?></td>
+	<td align=center><?php echo ENTRY_TITLE;?></td>
+	<td align=center><?php echo ENTRY_PARENT_PAGE;?></td>
+	<td align=center><?php echo PUBLIC_INFORMATION;?></td>
+	<td align=center><?php echo ENTRY_SORT_ORDER; ?></td>
+	<td align=center colspan=2><?php echo ACTION_INFORMATION;?></td>
 </tr>
 
 <?php
@@ -57,10 +57,10 @@ if (sizeof($data) > 0) {
 		$no % 2 ? $bgcolor="#DEE4E8" : $bgcolor="#F0F1F1";
 ?>
   <tr bgcolor="<?php echo $bgcolor?>">
-	<td align="center" class="dataTableContent"><?php echo $i++;?></td>
-    <td width="40%" class="dataTableContent"><?php echo $val['lanes_name'];?></td>
-    <td align=center class="dataTableContent"><?php echo $val['ranges_name'];?></td>
-    <td nowrap  align="center" class="dataTableContent">
+	<td align="center"><?php echo $i++;?></td>
+    <td><?php echo $val['lanes_name'];?></td>
+    <td align=center><?php echo $val['ranges_name'];?></td>
+    <td align="center">
 <?php
 		if ($val['status'] == 1) {
 			echo tep_image(DIR_WS_ICONS . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '&nbsp;';
@@ -75,8 +75,8 @@ if (sizeof($data) > 0) {
 			echo '&nbsp;' . tep_image(DIR_WS_ICONS . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10);
 		}
 ?></td>
-	<td width="10%" align="center" class="dataTableContent"><?php echo $val['sort_order'];?></td>
-    <td align=center class="dataTableContent">
+	<td align="center"><?php echo $val['sort_order'];?></td>
+    <td align=center>
 		<?php echo '<a href="' . tep_href_link(FILENAME_LANES_MANAGER, "lane_action=Edit&lanes_id=$val[lanes_id]", 'NONSSL') . '">' . tep_image(DIR_WS_ICONS . 'edit.gif', EDIT_ID_INFORMATION) . '</a>'; ?></td>
 		<?php echo ( empty($info_group['locked']) ? '<td align=center class="dataTableContent"><a href="' . tep_href_link(FILENAME_LANES_MANAGER, "lane_action=Delete&lanes_id=$val[lanes_id]", 'NONSSL') . '">' . tep_image(DIR_WS_ICONS . 'delete.gif', DELETE_ID_INFORMATION) . '</a></td>' : null); ?>
    </tr>
@@ -92,15 +92,15 @@ if (sizeof($data) > 0) {
     for($i=0;$i<$pagecount;$i++)
     {
         $j = $i+1;
-        $paggination .= '<li><a style="color:#000;" href="'.$_SERVER['REQUEST_URI'].'&page='.$i.'">'.$j.'</li>';    
+        $paggination .= '<li><a href="'.$_SERVER['REQUEST_URI'].'&page='.$i.'">'.$j.'</li>';    
     }
     $paggination .= '</ul>';
-    echo'<tr bgcolor="#DEE4E8"><td align="center" colspan="7" class="dataTableContent" style="text-align:center;font-weight:bold;">'. $paggination.'</td></tr>';
+    echo'<tr><td align="center" colspan="7" style="text-align:center;font-weight:bold;">'. $paggination.'</td></tr>';
 }
 else {
 ?>
-   <tr bgcolor="#DEE4E8">
-    <td colspan=7 class="dataTableContent"><?php echo ALERT_INFORMATION;?></td>
+   <tr>
+    <td colspan=7><?php echo ALERT_INFORMATION;?></td>
    </tr>
 <?php
 }

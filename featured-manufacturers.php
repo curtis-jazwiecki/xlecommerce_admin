@@ -60,53 +60,39 @@
       break;
   }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-<?php /*<script language="javascript" src="includes/featured.js"></script>
-<?php
-  if ( ($HTTP_GET_VARS['action'] == 'new') || ($HTTP_GET_VARS['action'] == 'edit') ) {
-?>
-<link rel="stylesheet" type="text/css" href="includes/javascript/calendar.css">
-<script language="JavaScript" src="includes/javascript/calendarcode.js"></script>
-<?php
-  }
-  */
-?> 
-<script>
-    function removeManu(mid)
-    {
-        if(confirm('Do you want to delete this manufacturers from list'))
-        {
-            location.href='<?php echo $PHP_SELF?>?action=remove&m='+mid;
-        }
-    }
-</script>
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onload="SetFocus();">
-<div id="popupcalendar" class="text"></div>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+<div id="popupcalendar" class="text" style="position:absolute; z-index:99999;"></div>         
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
+
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Featured Manufacturers
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">Featured Manufacturers
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+ <table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading">
-                Featured Manufacturers 
-            </td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
+    <td><table class="table table-bordered table-hover">
+      
 <?php
   if ( ($HTTP_GET_VARS['action'] == 'new') || ($HTTP_GET_VARS['action'] == 'edit') ) {
     $form_action = 'insert';
@@ -132,12 +118,12 @@
     }
 ?>
       <tr><form name="new_feature" <?php echo 'action="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action, 'NONSSL') . '"'; ?> method="post"><?php if ($form_action == 'update') echo tep_draw_hidden_field('featured_id', $HTTP_GET_VARS['sID']); ?>
-        <td><br><table border="0" cellspacing="0" cellpadding="2">
+        <td><br><table class="table table-bordered table-hover">
           <tr>
-            <td class="main" valign="top" style="color:#FFFFFF">
+            <td>
 				Manufacturers &nbsp;
 			</td>
-            <td class="main" style="color:#FFFFFF"> 
+            <td> 
                 <select name="manufacturers">
                     <option value="0">Manufacturers</option>
                     <?php
@@ -162,9 +148,9 @@
         </table></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="main" align="right" valign="top"><br><?php echo (($form_action == 'insert') ? tep_image_submit('button_insert_b.gif', IMAGE_INSERT) : tep_image_submit('button_update_b.gif', IMAGE_UPDATE)). '&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(basename($PHP_SELF), 'page=' . $HTTP_GET_VARS['page'] . '&sID=' . $HTTP_GET_VARS['sID']) . '">' . tep_image_button('button_cancel_b.gif', IMAGE_CANCEL) . '</a>'; ?></td>
+            <td align="right"><br><?php echo (($form_action == 'insert') ? tep_image_submit('button_insert_b.gif', IMAGE_INSERT) : tep_image_submit('button_update_b.gif', IMAGE_UPDATE)). '&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(basename($PHP_SELF), 'page=' . $HTTP_GET_VARS['page'] . '&sID=' . $HTTP_GET_VARS['sID']) . '">' . tep_image_button('button_cancel_b.gif', IMAGE_CANCEL) . '</a>'; ?></td>
           </tr>
         </table></td>
       </form></tr>
@@ -172,12 +158,12 @@
   } else {
 ?>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent">Manufacturers</td>
-                 <td class="dataTableHeadingContent">&nbsp;</td>
+            <td><table class="table table-bordered table-hover">
+              <tr>
+                <td>Manufacturers</td>
+                 <td>&nbsp;</td>
               </tr>
 <?php
 ///////////////////////////////////////
@@ -205,8 +191,8 @@
         echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" >' . "\n";
      // }
 ?>
-                <td  class="dataTableContent"><?php echo $featured['manufacturers_name']; ?></td>
-                <td  class="dataTableContent"><input type="button" value="Remove" style="cursor: pointer;" onclick="removeManu('<?php echo $featured['manufacturers_id']; ?>')"></td>
+                <td><?php echo $featured['manufacturers_name']; ?></td>
+                <td><input type="button" value="Remove" style="cursor: pointer;" onClick="removeManu('<?php echo $featured['manufacturers_id']; ?>')"></td>
                 
                
       </tr>
@@ -215,7 +201,7 @@
     }
 ?>
               <tr>
-                <td colspan="4"><table border="0" width="100%" cellpadding="0"cellspacing="2">
+                <td colspan="4"><table class="table table-bordered table-hover">
                   <?php /*<tr>
                     <td class="smallText2" valign="top"><?php echo $featured_split->display_count($featured_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_FEATURED); ?></td>
                     <td class="smallText2" align="right"><?php echo $featured_split->display_links($featured_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?></td>
@@ -227,6 +213,7 @@
 
                 </table></td>
               </tr>
+
             </table></td>
 <?php
   $heading = array();
@@ -271,14 +258,22 @@
 <!-- body_text_eof //-->
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
+<script>
+    function removeManu(mid)
+    {
+        if(confirm('Do you want to delete this manufacturers from list'))
+        {
+            location.href='<?php echo $PHP_SELF?>?action=remove&m='+mid;
+        }
+    }
+</script>
 <script type="text/javascript">
 <?php echo ($HTTP_GET_VARS['action']=='new' ? 'displaySelection(\'div_listing\', \'C0\', \'F\');' : ''); ?>
 </script>
-</body>
-</html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

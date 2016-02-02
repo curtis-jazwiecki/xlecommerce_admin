@@ -40,47 +40,42 @@ setlocale(LC_MONETARY, 'en_US');
 
 //get path of directory containing this script
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<!-- Code related to index.php only -->
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <link type="text/css" rel="StyleSheet" href="includes/index.css" />
 <link type="text/css" rel="StyleSheet" href="includes/helptip.css" />
 <script type="text/javascript" src="includes/javascript/helptip.js"></script>
-<!-- code related to index.php EOF -->
-</head>
-<body>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
-<table width="800px"  border="0px" align="center" cellpadding="0px" cellspacing="0px">
-  <tr>
-    <td valign="top">
-      <table width="100%"  border="0" cellspacing="0" cellpadding="0" summary="Table holding Store Information">
-        <tr valign="top">
+<!-- body //-->
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Sales Report Export
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">Sales Report Export
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
+<tr>
+    <td>
+      <table class="table table-bordered table-hover" summary="Table holding Store Information">
+        <tr>
           <td>
-            <table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td class="pageHeading">Sales Report Export</td>
-                <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-             </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-      <table width="100%"  border="0" cellspacing="0" cellpadding="0" summary="Table holding Store Information" bgcolor="#DDDDDD">
-        <tr valign="top">
-          <td colspan=2>
-            <?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?>
-          </td>
-        </tr>
-        <tr valign="top">
-          <td width="100%">
 			<div style="width: 100%; margin: 0 0 0 10px">
 <?php	// Prime Variables
 			$l = 0;
@@ -122,16 +117,16 @@ setlocale(LC_MONETARY, 'en_US');
 				Enter in a date to check
     	        <br />
 				<form action='sales_report_export.php' method='post'>
-					<input name='submit_date' value=''/> <input type='submit' value='submit' name='submit' />
-					<span style='font-size:14px; font-family: trebuchet;'> ex.(mm/dd/yyyy)</span>
+					<input name='submit_date' value=''/> <input type='submit' value='submit' name='submit' /><br>
+					<span> ex.(mm/dd/yyyy)</span>
 				</form><br />
 			  </div>
 			  <div style="width: 30%; float: left;">
 				Enter in a month to check
     	        <br />
 				<form action='sales_report_export.php' method='post'>
-					<input name='submit_month' value=''/> <input type='submit' value='submit' name='submit' />
-					<span style='font-size:14px; font-family: trebuchet;'> ex.(mm/yyyy)</span>
+					<input name='submit_month' value=''/> <input type='submit' value='submit' name='submit' /><br>
+					<span> ex.(mm/yyyy)</span>
 				</form><br />
 			  </div>
 			  <div style="width: 30%; float: left;">
@@ -143,8 +138,8 @@ setlocale(LC_MONETARY, 'en_US');
 			  </div>
 			</div>
 
-			<table border='1px' cellpadding='2px' cellspacing='0' width='100%' border-color='#808080'  style='color:#606060; font-family:Verdana,Arial,sans-serif; font-size:12px; font-weight:normal; text-decoration:none; margin: 20px 0 0 0;'>
-			  <tr bgcolor='#DDDDDD'>
+			<table class="table table-bordered table-hover">
+			  <tr>
 			    <th>Order ID</th>
 				<th>Customer Name</th>
 				<th>Street Address</th>
@@ -296,8 +291,8 @@ setlocale(LC_MONETARY, 'en_US');
 
 			<div style="width: 100%; margin-top: 10px;">
               <div style="width: 48%; float: left">
-				<table width="100%" cellpadding="1px" cellspacing="0" border="1px" style='color:#616060; font-family:Verdana,Arial,sans-serif; font-size:12px; font-weight:normal; text-decoration:none;'>
-                  <tr bgcolor="#DDDDDD">
+				<table class="table table-bordered table-hover">
+                  <tr>
                 	<th align="left" width="33%"><b>Sales By</b></th>
                 	<th align="left" width="33%"></th>
                 	<th align="left" width="*"></th>
@@ -314,11 +309,11 @@ setlocale(LC_MONETARY, 'en_US');
 				</table>
               </div>
               <div style="width: 48%; float: right">
-				<table width="100%" cellpadding="1px" cellspacing="0" border="1px" style='color:#616060; font-family:Verdana,Arial,sans-serif; font-size:12px; font-weight:normal; text-decoration:none;'>
-                  <tr bgcolor="#DDDDDD">
-                	<th align="left" width="33%"><b>Store-Walk In</b></th>
-                	<th align="right" width="33%"></th>
-                	<th align="right" width="*"><?php echo ($cc_authorize_net_total + $paypal_total + $cash_on_delivery_total + $payment_on_local_pickup_total + $check_total); ?></th>
+				<table class="table table-bordered table-hover">
+                  <tr>
+                	<th align="left"><b>Store-Walk In</b></th>
+                	<th align="right"></th>
+                	<th align="right"><?php echo ($cc_authorize_net_total + $paypal_total + $cash_on_delivery_total + $payment_on_local_pickup_total + $check_total); ?></th>
                   </tr>
                   <tr>
                 	<td align="right">Credit</td>
@@ -352,11 +347,11 @@ setlocale(LC_MONETARY, 'en_US');
                   </tr>
 				</table>
                 <br />
-				<table width="100%" cellpadding="1px" cellspacing="0" border="1px" style='color:#616060; font-family:Verdana,Arial,sans-serif; font-size:12px; font-weight:normal; text-decoration:none;'>
-                  <tr bgcolor="#DDDDDD">
-                	<th align="left" width="33%"><b>Web Orders</b></th>
-                	<th align="right" width="33%"></th>
-                	<th align="right" width="*"><?php echo ($cc_authorize_net_web_total + $paypal_web_total + $cash_on_delivery_web_total + $payment_on_local_pickup_web_total + $check_web_total); ?></th>
+				<table class="table table-bordered table-hover">
+                  <tr>
+                	<th align="left"><b>Web Orders</b></th>
+                	<th align="right"></th>
+                	<th align="right"><?php echo ($cc_authorize_net_web_total + $paypal_web_total + $cash_on_delivery_web_total + $payment_on_local_pickup_web_total + $check_web_total); ?></th>
                   </tr>
                   <tr>
                 	<td align="right">Credit</td>
@@ -390,11 +385,11 @@ setlocale(LC_MONETARY, 'en_US');
                   </tr>
 				</table>
                 <br />
-				<table width="100%" cellpadding="1px" cellspacing="0" border="1px" style='color:#616060; font-family:Verdana,Arial,sans-serif; font-size:12px; font-weight:normal; text-decoration:none;'>
-                  <tr bgcolor="#DDDDDD">
-                	<th align="left" width="33%"><b>Phone</b></th>
-                	<th align="left" width="33%"></th>
-                	<th align="right" width="*"><?php echo ($cc_authorize_net_phone_total + $paypal_phone_total + $cash_on_delivery_phone_total + $payment_on_local_pickup_phone_total + $check_phone_total); ?></th>
+				<table class="table table-bordered table-hover">
+                  <tr>
+                	<th align="left"><b>Phone</b></th>
+                	<th align="left"></th>
+                	<th align="right"><?php echo ($cc_authorize_net_phone_total + $paypal_phone_total + $cash_on_delivery_phone_total + $payment_on_local_pickup_phone_total + $check_phone_total); ?></th>
                   </tr>
                   <tr>
                 	<td align="right">Credit</td>
@@ -428,11 +423,11 @@ setlocale(LC_MONETARY, 'en_US');
                   </tr>
 				</table>
                 <br />
-				<table width="100%" cellpadding="1px" cellspacing="0" border="1px" style='color:#616060; font-family:Verdana,Arial,sans-serif; font-size:12px; font-weight:normal; text-decoration:none;'>
-                  <tr bgcolor="#DDDDDD">
-                	<th align="left" width="33%"><b>Other</b></th>
-                	<th align="left" width="33%"></th>
-                	<th align="right" width="*"><?php echo $other_total_total; ?></th>
+				<table class="table table-bordered table-hover">
+                  <tr>
+                	<th align="left"><b>Other</b></th>
+                	<th align="left"></th>
+                	<th align="right"><?php echo $other_total_total; ?></th>
                   </tr>
                   <tr>
                 	<td align="right">Credit</td>
@@ -471,46 +466,46 @@ setlocale(LC_MONETARY, 'en_US');
                   </tr>
 				</table>
                 <br />
-				<table width="100%" cellpadding="1px" cellspacing="0" border="1px" style='color:#616060; font-family:Verdana,Arial,sans-serif; font-size:12px; font-weight:normal; text-decoration:none;'>
-                  <tr bgcolor="#DDDDDD">
-                	<th align="right" width="33%"><b>Total Credit Card</b></th>
-                	<th align="right" width="33%"><?php echo money_format("%(#10n", ($cc_total_total)); ?></th>
-                	<th align="right" width="*"></th>
+				<table class="table table-bordered table-hover">
+                  <tr>
+                	<th align="right"><b>Total Credit Card</b></th>
+                	<th align="right"><?php echo money_format("%(#10n", ($cc_total_total)); ?></th>
+                	<th align="right"></th>
                   </tr>
-                  <tr bgcolor="#DDDDDD">
+                  <tr>
                 	<th align="right"><b>Total Deposit</b></th>
                 	<th align="right"><?php echo money_format("%(#10n", ($cash_total_total)); ?></th>
                 	<th align="right"></th>
                   </tr>
-                  <tr bgcolor="#DDDDDD">
+                  <tr>
                 	<th align="right"><b>Total Paypal</b></th>
                 	<th align="right"><?php echo money_format("%(#10n", ($paypal_total_total)); ?></th>
                 	<th align="right"></th>
                   </tr>
-                  <tr bgcolor="#DDDDDD">
+                  <tr>
                 	<th align="right"><b>Total A/R</b></th>
                 	<th align="right"><?php echo money_format("%(#10n", ($payment_total_total)); ?></th>
                 	<th align="right"></th>
                   </tr>
-                  <tr bgcolor="#DDDDDD">
+                  <tr>
                 	<th align="right"><b>Total Check</b></th>
                 	<th align="right"><?php echo money_format("%(#10n", ($check_total_total)); ?></th>
                 	<th align="right"></th>
                   </tr>
-                  <tr bgcolor="#DDDDDD">
+                  <tr>
                 	<th align="right"><b>Total</b></th>
                 	<th align="right"></th>
                 	<th align="right"><?php echo $total_total; ?></th>
                   </tr>
-                  <tr bgcolor="#DDDDDD">
+                  <tr>
                 	<th align="right"><b>Total Tax</b></th>
                 	<th align="right"></th>
                 	<th align="right"><?php echo money_format("%(#10n", ($total_tax)); ?></th>
                   </tr>
 				</table>
                 <br />
-				<table width="100%" cellpadding="1px" cellspacing="0" border="1px" style='color:#616060; font-family:Verdana,Arial,sans-serif; font-size:12px; font-weight:normal; text-decoration:none;'>
-                  <tr bgcolor="#DDDDDD">
+				<table class="table table-bordered table-hover">
+                  <tr>
                 	<th align="left" width="33%"><b>Over/Short</b></th>
                 	<th align="right" width="33%"></th>
                 	<th align="right" width="*"></th>
@@ -520,32 +515,16 @@ setlocale(LC_MONETARY, 'en_US');
             </div>
         </td>
     </tr>
-    <tr valign="top">
-    <td colspan=2>
-    <?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?>
-    </td>
-    </tr>
     </table>
     
     <!--BLOCK CODE ENDS -->
    
      
-      <?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?>
-      <table width="100%"  border="0" cellspacing="0" cellpadding="0" summary="Footer Banner Table">
-        <tr>
-          <td align="center">
-      </td>
-        </tr>
-      </table></td>
-    <td width="150" valign="top">
-<table width="100%"  border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td valign="top"></td>
-  </tr>
-</table></td>
+    </td>
   </tr>
 </table>
-
+<!-- END your table-->
+<!-- body_eof //-->
 <?php
 // Generate an XML file for this day/month
 
@@ -620,7 +599,5 @@ $list_array[40] = "Sales By Employees,,";
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
