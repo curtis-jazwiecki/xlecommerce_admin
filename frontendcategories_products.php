@@ -1377,7 +1377,7 @@ function apply_roundoff(price_value){
                 <?php //BOF:category_group ?>
                 <td align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
                 <!-- BOF: bulk_category_movement -->
-                <td align="right"><?php echo 'Frontend Category<br>[ ' . tep_draw_selection_field('chk_set_frontend_cat_all', 'checkbox', '', false, '', 'onclick="javascript:toggle_selection(this);"') . ' ]'; ?></td>
+                <td align="center"><?php echo 'Frontend Category<br>[ ' . tep_draw_selection_field('chk_set_frontend_cat_all', 'checkbox', '', false, '', 'onclick="javascript:toggle_selection(this);"') . ' ]'; ?></td>
                 <!-- EOF: bulk_category_movement -->
                 <td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
@@ -1469,15 +1469,19 @@ function apply_roundoff(price_value){
   //Categroies Status MOD END by FIW
   ?></td>
   <!-- BOF: bulk_category_movement -->
-  <td align="right">
+  <td align="center" id="td<?php echo $categories['categories_id']; ?>">
 	<?php 
 			echo tep_draw_selection_field('chk_set_frontend_cat', 'checkbox', 'C' . $categories['categories_id'], false, '', 'id="' . 'C' . $categories['categories_id'] . '"');
-			echo '<script type="text/javascript">' .
-					'var elem = document.getElementById("' . 'C' . $categories['categories_id'] . '");' .
-					//'elem.addEventListener("click", function(e) { stop_propogation(e); }, true);' .
-					'elem.onclick = function(e) { stop_propogation(e); }' .
-				 '</script>';	
-	?> 	
+			?>
+            <script type="text/javascript">
+                var elem = document.getElementById("C<?php echo $categories['categories_id']; ?>");
+                elem.onclick = function(e) { stop_propogation(e); }
+                                    
+                var elem2 = document.getElementById("td<?php echo $categories['categories_id']; ?>");
+                
+                elem2.onclick = function(e) { stop_propogation(e); }
+            </script>	
+	 	
   </td>
   <!-- EOF: bulk_category_movement -->
                 <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
@@ -1527,21 +1531,21 @@ function apply_roundoff(price_value){
       }
 ?></td>
   <!-- BOF: bulk_category_movement -->
-	<td align="right" class="dataTableContent">
+	<td align="center" class="dataTableContent" id="ptd<?php echo $products['products_id']; ?>">
 <?php
 	$frontend_cat_name = get_frontend_category_name_by_product_id($products['products_id']);
 	//if (empty($frontend_cat_name)){
 		echo tep_draw_selection_field('chk_set_frontend_cat', 'checkbox', 'P' . $products['products_id'], false, '', 'id="' . 'P' . $products['products_id'] . '"');
 		echo (empty($frontend_cat_name) ? '' : '&nbsp;' . $frontend_cat_name);
-		echo '<script type="text/javascript">' .
-			'var elem = document.getElementById("' . 'P' . $products['products_id'] . '");' .
-			//'elem.addEventListener("click", function(e) { stop_propogation(e); }, true);' .
-			'elem.onclick = function(e) { stop_propogation(e); }' .
-		 '</script>';
-	//} else {
-	//	echo $frontend_cat_name;
-	//}
-?>
+        ?>
+		<script type="text/javascript">
+            var elem = document.getElementById("P<?php echo $products['products_id']; ?>");
+            elem.onclick = function(e) { stop_propogation(e); }
+            
+            var elem2 = document.getElementById("ptd<?php echo $products['products_id']; ?>");
+            elem2.onclick = function(e) { stop_propogation(e); }
+        </script>
+
 	</td>
   <!-- EOF: bulk_category_movement -->
                 <td align="right"><?php if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id)) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_FRONTENDCATEGORIES_PRODUCTS, 'cPath=' . $cPath . '&pID=' . $products['products_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
