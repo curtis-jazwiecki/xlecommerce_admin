@@ -71,6 +71,15 @@ class global_feed_to_osc{
 
 	public function inventory_feed_to_osc(){
 		//echo 'START: ' . strtoupper(date('dMy H:i:s', time())) . "\n";
+        
+        // check if temporary table exists or not #start
+            tep_db_query("CREATE TABLE IF NOT EXISTS `tmp_inventory_data` (`products_model` varchar(64) DEFAULT NULL,`products_quantity` int(4) NOT NULL,
+  `products_last_modified` datetime DEFAULT NULL,  KEY `products_model` (`products_model`)) ENGINE=MyISAM DEFAULT CHARSET=latin1");
+            
+            tep_db_query("truncate tmp_inventory_data");
+  
+        // check if temporary table exists or not #ends
+        
 		$dir = DIR_FS_OBN_FEED . OBN_RETAILER_TOKEN . '/';
 		$feeds = array();
 		if (is_dir($dir)){
@@ -149,29 +158,29 @@ class global_feed_to_osc{
 								'url_image_medium' => '',
 								'url_image_large' => '',
 								'date_added' => 'now()');
-		tep_db_perform('xml_feed', $sql_data_array);
+		
+        tep_db_perform('xml_feed', $sql_data_array);
+        
 		$this->xml_feed_osc_id = tep_db_insert_id();
 
 		foreach($this->xml->{NODE_PRODUCTS}->children() as $product){
-			$temp_prod_model = htmlspecialchars_decode((string)$product->{NODE_PRODUCT_MODEL});
-			$temp_prod_qty = (string)$product->{NODE_PRODUCT_QUANTITY};
-			$sql = tep_db_query("select a.products_id, b.flags from products a inner join products_xml_feed_flags b on a.products_id=b.products_id where a.products_model='" . tep_db_input($temp_prod_model) . "'");
-			if (tep_db_num_rows($sql)){
-				$prod_exists = 1;
-				$sql_info = tep_db_fetch_array($sql);
-				$temp_prod_osc_id = $sql_info['products_id'];
-				$temp_flags = $sql_info['flags'];
-				$flag_prod_qty = substr($temp_flags, 0, 1);
-			}
-
-			if ($prod_exists && $flag_prod_qty){
-				$sql_data_array = array('products_quantity' => (int)$temp_prod_qty,
-										'products_last_modified' => 'now()');
-				tep_db_perform('products', $sql_data_array, 'update', "products_id = '" . $temp_prod_osc_id . "'");
-			}
+			
+            $temp_prod_model = htmlspecialchars_decode((string)$product->{NODE_PRODUCT_MODEL});
+			
+            $temp_prod_qty = (string)$product->{NODE_PRODUCT_QUANTITY};
+            
+			if ( (!empty($temp_prod_model)) && (!empty($temp_prod_qty)) ){
+				$sql_array = array('products_model' => $temp_prod_model,
+                                    'products_quantity'=>(int)$temp_prod_qty,
+                                    'products_last_modified'=> 'now()');
+                tep_db_perform('tmp_inventory_data', $sql_array);
+ 			}
 		}
 		//echo "handled.....";
 		if (!empty($feed)){
+		      
+             tep_db_query("update products p right join tmp_inventory_data tid on p.products_model=tid.products_model set p.products_quantity=tid.products_quantity, p.products_last_modified=tid.products_last_modified");        
+        
 			if (@unlink($feed)){
 				//echo "file deleted\n";
 			} else {
@@ -180,6 +189,8 @@ class global_feed_to_osc{
 		} else {
 			//echo "delete not applicable as dynamic\n";
 		}
+        
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	}
 
 	private function get_category_markup($category_id){
