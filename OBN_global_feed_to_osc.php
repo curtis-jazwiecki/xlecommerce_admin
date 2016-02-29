@@ -67,7 +67,263 @@ class global_feed_to_osc{
 	public function __construct(){
 		$this->options = array();
         $this->manufacturers = array();
+        $this->initializePriceFlags();
 	}
+    
+      private function initializePriceFlags() {
+
+        // added on 15-02-2016 #start
+        // added one extra column 'like_clause' to database table price_updates to save like clause if any
+
+        $check_column_exists = tep_db_num_rows(tep_db_query("SHOW COLUMNS FROM `price_updates` LIKE 'like_clause'"));
+
+        if ($check_column_exists == 0) {
+
+            tep_db_query("ALTER TABLE `price_updates` ADD `like_clause` VARCHAR( 255 ) NOT NULL COMMENT 'contains like clause for product model' AFTER `price_update_manufacturer`");
+        }
+
+        // added on 15-02-2016 #ends
+
+        tep_db_query("CREATE TABLE IF NOT EXISTS `temp_markup_price` (
+  `products_id` int(11) NOT NULL AUTO_INCREMENT,
+  `markup` varchar(10) NOT NULL,
+  `roundoff` tinyint(3) NOT NULL,
+  `price_update_add` int(1) NOT NULL,
+  `price_update_fixed` int(1) NOT NULL,
+  `price_update_value` int(9) NOT NULL,
+  PRIMARY KEY (`products_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+");
+		
+		
+		tep_db_query("TRUNCATE TABLE `temp_markup_price`");
+
+        $price_update_query = tep_db_query("select price_updates_id, price_update_sort_order, above_below, above_below_value, above_below_2, above_below_value_2, price_update_add, price_update_fixed, price_update_value, price_update_category, price_update_manufacturer, price_update_select_query, price_update_query, price_update_roundoff,like_clause FROM price_updates ORDER BY price_update_sort_order");
+
+        while ($row = tep_db_fetch_array($price_update_query)) {
+
+            $above_below = stripslashes($row['above_below']);
+
+            $above_below_value = stripslashes($row['above_below_value']);
+
+            $above_below_2 = stripslashes($row['above_below_2']);
+
+            $above_below_value_2 = stripslashes($row['above_below_value_2']);
+
+            $add = stripslashes($row['price_update_add']);
+
+            $fixed = stripslashes($row['price_update_fixed']);
+
+            $value = stripslashes($row['price_update_value']);
+
+            $cat = stripslashes($row['price_update_category']);
+
+            $mfr = stripslashes($row['price_update_manufacturer']);
+
+            $roundoff = stripslashes($row['price_update_roundoff']);
+
+            $like = stripslashes($row['like_clause']);
+
+            $where_string = '';
+
+            if ($mfr == 0) {
+
+                if ($cat != 0) {
+
+                    $cat_array = $this->tep_get_child_categories($cat, $category_tree_array = '');
+
+                    $cat_string = implode(",", $cat_array);
+
+                    $where_string = ' AND pcat.categories_id in (' . $cat_string . ')';
+                }
+            } else {
+
+                $where_string = ' AND manufacturers_id=' . $mfr;
+
+                if ($cat != 0) {
+
+                    $cat_array = $this->tep_get_child_categories($cat, $category_tree_array = '');
+
+                    $cat_string = implode(",", $cat_array);
+
+                    $where_string .= ' AND pcat.categories_id in (' . $cat_string . ')';
+                }
+            }
+
+            if ($like != '') {
+
+                $where_string .= " AND p.products_model LIKE '" . $like . "'";
+            }
+
+            if ($fixed == 0) { // Fixed price change
+                if ($add == 0) {  // Subtract
+                    $markup = (0 - $value);
+                } else { // Add
+                    $markup = $value;
+                }
+            } else { // Percent change
+                if ($add == 0) {// Subtract
+                    $markup = (0 - $value);
+
+                    $markup = $markup . '%';
+                } else {  // Add
+                    $markup = $value . '%';
+                }
+            }
+
+            // if greater than/less than value is set, add a modifier
+
+            if ($above_below == '0') {
+                
+            } elseif ($above_below == '1' && $above_below_2 == '2') {
+
+                $where_string .= " AND (p.base_price <= " . $above_below_value . " AND p.base_price > " . $above_below_value_2 . ")";
+            } elseif ($above_below == '2' && $above_below_2 == '1') {
+
+                $where_string .= " AND (p.base_price > " . $above_below_value . " AND p.base_price <= " . $above_below_value_2 . ")";
+            } elseif ($above_below == '1') {
+
+                $where_string .= " AND p.base_price <= '" . $above_below_value . "'";
+            } elseif ($above_below == '2') {
+
+                $where_string .= " AND p.base_price > '" . $above_below_value . "'";
+            }
+
+
+            $products_update_query = tep_db_query('SELECT p.products_id AS id, p.base_price AS price, p.lock_price, p.markup FROM products p, products_to_categories pcat WHERE p.products_id = pcat.products_id ' . $where_string);
+
+            while ($data = tep_db_fetch_array($products_update_query)) {
+
+                tep_db_query("insert into temp_markup_price set
+
+                    `products_id` = '" . $data['id'] . "',
+
+                    `markup` = '" . $markup . "',
+
+                    `price_update_add` = '" . $add . "',
+
+                    `price_update_fixed` = '" . $fixed . "',
+
+                    `price_update_value` = '" . $value . "',
+
+                    `roundoff` = '" . $roundoff . "' on duplicate key update markup='" . $markup . "',price_update_add='" . $add . "',price_update_fixed='" . $fixed . "',price_update_value='" . $value . "', roundoff='" . $roundoff . "'");
+            }
+        }
+        
+    }
+    
+    private function tep_get_child_categories($parent_id = '0', $category_tree_array = '') {
+
+        if (!is_array($category_tree_array)) {
+
+            $category_tree_array = array();
+
+
+
+            $category_tree_array[] = $parent_id;
+        }
+
+        $categories_query = tep_db_query("select categories_id, parent_id from " . TABLE_CATEGORIES . " c where parent_id = '" . (int) $parent_id . "' order by sort_order");
+
+        while ($categories = tep_db_fetch_array($categories_query)) {
+
+            $category_tree_array[] = $categories['categories_id'];
+
+            $category_tree_array = $this->tep_get_child_categories($categories['categories_id'], $category_tree_array);
+        }
+
+        return $category_tree_array;
+    }
+
+    private function updateMarkUpPrice($products_price, $roundoff, $add, $fixed, $value) {
+
+
+            //15.41,1,1,1,30
+        if ($fixed == 0) { // Fixed price change
+            if ($add == 0) {  // Subtract
+                $markup = (0 - $value);
+            } else { // Add
+                $markup = $value;
+            }
+        } else { // Percent change
+            if ($add == 0) {// Subtract
+                $markup = (0 - $value);
+
+                $markup = $markup . '%';
+            } else {  // Add
+                $markup = $value . '%';
+            }
+        }
+
+
+
+        if ($fixed == 0) {
+
+            // Fixed price change
+
+            if ($add == 0) {
+
+                // Subtract
+
+                $new_price = $products_price - $value;
+            } else {
+
+                // Add
+
+                $new_price = $products_price + $value;
+            }
+        } else {
+
+            $pos = stripos($products_price, 'margin');
+
+            if ($pos !== false) {
+
+                $markup = $markup . ' Margin';
+
+                // Margin change
+
+                if ($add == 0) {
+
+                    // subtract
+
+                    $new_price = $products_price * (1 / (1 - (-$value / 100) ) );
+                } else {
+
+                    // add
+
+                    $new_price = $products_price * (1 / (1 - ($value / 100) ) );
+                }
+            } else {
+
+                // Percent change		  
+
+                if ($add == 0) {
+
+                    // Subtract
+
+                    $new_price = $products_price * (1 - ($value / 100));
+                } else {
+
+                    // Add
+
+                    $new_price = $products_price * (1 + ($value / 100));
+                }
+            }
+        }
+
+
+
+        if ($roundoff == '1') {
+
+            $new_price_arr = explode(".", $new_price);
+
+            $new_price = $new_price_arr[0] . ".99";
+        }
+
+
+
+        return $new_price;
+    }
 
 	public function inventory_feed_to_osc(){
 		//echo 'START: ' . strtoupper(date('dMy H:i:s', time())) . "\n";
@@ -460,7 +716,39 @@ class global_feed_to_osc{
                   
 					//echo "2...";
                     $status_update_locked = false;
-					$sql = tep_db_query("select products_id, lock_status from products where products_model='" . str_replace("'", "''", $temp_prod_model) . "'");
+
+                    $sql = tep_db_query("select 
+
+                                            p.products_id, 
+
+                                            p.lock_status,
+
+                                            p.products_price,
+
+                                            p.base_price,
+
+                                            p.markup, 
+
+                                            p.lock_price, 
+
+                                            p.roundoff_flag,
+
+                                            tmp.products_id as mpt_products_id,
+
+                                            tmp.markup as mpt_markup,
+
+                                            tmp.roundoff as mpt_roundoff,
+
+                                            tmp.price_update_add,
+
+                                            tmp.price_update_fixed,
+
+                                            tmp.price_update_value
+
+                        
+
+                        from products as p left join temp_markup_price as tmp USING(products_id) where products_model='" . str_replace("'", "''", $temp_prod_model) . "'");
+
 					//echo "3...";
 					if (tep_db_num_rows($sql)){
 						$prod_exists = 1;
@@ -468,11 +756,19 @@ class global_feed_to_osc{
 						$temp_prod_osc_id = $sql_info['products_id'];
                         $status_update_locked = isset($sql_info['products_id']) && $sql_info['lock_status']=='1' ? true : false;
 						//looks up for product's xml feed flag status
-						$sql = tep_db_query("select flags from products_xml_feed_flags where products_id='" . $temp_prod_osc_id . "'");
+
+                        $sql_query_flag = tep_db_query("select flags from products_xml_feed_flags where products_id='" . $temp_prod_osc_id . "'");
+
+
+
 						//echo "4...";
-						if (tep_db_num_rows($sql)){
-								$sql_info = tep_db_fetch_array($sql);
-								$this->default_flag = $sql_info['flags'];// updates default flag status
+
+                        if (tep_db_num_rows($sql_query_flag)) {
+
+                            $sql_flag_info = tep_db_fetch_array($sql_query_flag);
+
+                            $this->default_flag = $sql_flag_info['flags']; // updates default flag status
+
 								$flag_prod_qty = substr($this->default_flag, 0, 1);
 								$flag_prod_price = substr($this->default_flag, 1, 1);
 								$flag_cat_id = substr($this->default_flag, 2, 1);
@@ -488,40 +784,101 @@ class global_feed_to_osc{
 					$products_price = 0;
 					$markup = '';
 					$lock_price = 0;
-					if ($prod_exists){
-						$sql = tep_db_query("select products_price, base_price, markup, lock_price, roundoff_flag
-								    from products where products_id='" .
-								    $temp_prod_osc_id . "'");
-						//echo "5...";
-						if (tep_db_num_rows($sql)){
-							$sql_info = tep_db_fetch_array($sql);
-							$markup = $sql_info['markup'];
-							$lock_price = (int)$sql_info['lock_price'];
-							$roundoff_flag = (int)$sql_info['roundoff_flag'];
-							if ($flag_prod_price){
-								if (!$lock_price){
-									$products_price = ($roundoff_flag ? $this->apply_roundoff($this->get_price_with_markup($temp_prod_price, $markup)) : $this->get_price_with_markup($temp_prod_price, $markup));
-									$base_price = $temp_prod_price;
-								} else {
-									$products_price = $sql_info['products_price'];
-									$base_price = $temp_prod_price;
-								}
-							} else {
-									$products_price = $sql_info['products_price'];
-									$base_price = $sql_info['base_price'];
-							}
-						} else {
-							$products_price = (ROUNDOFF_FLAG ? $this->apply_roundoff($this->get_price_with_markup($temp_prod_price, DEFAULT_MARKUP)) : $this->get_price_with_markup($temp_prod_price, DEFAULT_MARKUP));
-							$markup = DEFAULT_MARKUP;
-							$roundoff_flag = ROUNDOFF_FLAG;
-							$base_price = $temp_prod_price;
-						}
-					} else {
-							$products_price = (ROUNDOFF_FLAG ? $this->apply_roundoff($this->get_price_with_markup($temp_prod_price, DEFAULT_MARKUP)) : $this->get_price_with_markup($temp_prod_price, DEFAULT_MARKUP));
-							$markup = DEFAULT_MARKUP;
-							$roundoff_flag = ROUNDOFF_FLAG;
-							$base_price = $temp_prod_price;
-					}
+
+					if ($prod_exists) {
+
+
+
+                        //echo "5...";
+
+                        if (!empty($sql_info['mpt_products_id'])) {
+
+
+
+                            $markup = $sql_info['mpt_markup'];
+
+                            $roundoff_flag = (int) $sql_info['mpt_roundoff'];
+
+                            $lock_price = (int) $sql_info['lock_price'];
+
+                            $roundoff_flag = (int) $sql_info['roundoff_flag'];
+
+
+
+                            $add = stripslashes($sql_info['price_update_add']);
+
+                            $fixed = stripslashes($sql_info['price_update_fixed']);
+
+                            $puv = stripslashes($sql_info['price_update_value']);
+
+
+
+                            if ($flag_prod_price) {
+
+                                if (!$lock_price) {
+
+                                    
+                                    $products_price = $this->updateMarkUpPrice($temp_prod_price, $roundoff_flag, $add, $fixed, $puv);
+                                        
+                                    $base_price = $temp_prod_price;
+                                } else {
+
+                                    $products_price = $sql_info['products_price'];
+
+                                    $base_price = $temp_prod_price;
+                                }
+                            } else {
+
+                                $products_price = $sql_info['products_price'];
+
+                                $base_price = $sql_info['base_price'];
+                            }
+                        } else {
+
+
+
+                            $sql_info = tep_db_fetch_array($sql);
+
+                            $markup = $sql_info['markup'];
+
+                            $lock_price = (int) $sql_info['lock_price'];
+
+                            $roundoff_flag = (int) $sql_info['roundoff_flag'];
+
+
+
+                            if ($flag_prod_price) {
+
+                                if (!$lock_price) {
+
+                                    $products_price = ($roundoff_flag ? $this->apply_roundoff($this->get_price_with_markup($temp_prod_price, $markup)) : $this->get_price_with_markup($temp_prod_price, $markup));
+
+                                    $base_price = $temp_prod_price;
+                                } else {
+
+                                    $products_price = $sql_info['products_price'];
+
+                                    $base_price = $temp_prod_price;
+                                }
+                            } else {
+
+                                $products_price = $sql_info['products_price'];
+
+                                $base_price = $sql_info['base_price'];
+                            }
+                        }
+                    } else {
+
+                        $products_price = (ROUNDOFF_FLAG ? $this->apply_roundoff($this->get_price_with_markup($temp_prod_price, DEFAULT_MARKUP)) : $this->get_price_with_markup($temp_prod_price, DEFAULT_MARKUP));
+
+                        $markup = DEFAULT_MARKUP;
+
+                        $roundoff_flag = ROUNDOFF_FLAG;
+
+                        $base_price = $temp_prod_price;
+                    }
+
+                    
                     
                     //BOF:hash_task
                     /*if (!empty($temp_parent_prod_model)){
@@ -943,22 +1300,33 @@ class global_feed_to_osc{
 											'osc_parent_id' => $resp['parent_id']);
 	}
 
-	protected function get_price_with_markup($base_price, $markup){
-		if (empty($markup)){
+    protected function get_price_with_markup($base_price, $markup) {
+
+        if (empty($markup)) {
+
 			return $base_price;
-		}else{
-				$markup_figure = $markup;// holds markup figure
-				$markup_in_percent = 0;//a check if markup is in percentage
-				$markup_in_negative = 0;//a check if markup is negative
-				if (substr($markup_figure, -1)=='%'){ // if markup in percentage
-					$markup_in_percent = 1;//update percentage check
-					$markup_figure = substr($markup_figure, 0, -1);//modify markup figure by removing percentage
+        } else {
+
+            $markup_figure = $markup; // holds markup figure
+
+            $markup_in_percent = 0; //a check if markup is in percentage
+
+            $markup_in_negative = 0; //a check if markup is negative
+
+            if (substr($markup_figure, -1) == '%') { // if markup in percentage
+                $markup_in_percent = 1; //update percentage check
+
+                $markup_figure = substr($markup_figure, 0, -1); //modify markup figure by removing percentage
 				}
-				if (substr($markup_figure, 0, 1)=='-'){// if negative value exists
-					$markup_in_negative = 1;//update negetive check
-					$markup_figure = substr($markup_figure, 1);//modify markup figure by removing minus
+
+            if (substr($markup_figure, 0, 1) == '-') {// if negative value exists
+                $markup_in_negative = 1; //update negetive check
+
+                $markup_figure = substr($markup_figure, 1); //modify markup figure by removing minus
 				}
-				return ($markup_in_negative ? ($base_price - ($markup_in_percent ? (($base_price*$markup_figure)/100)  :  $markup_figure)) : ($base_price + ($markup_in_percent ? (($base_price*$markup_figure)/100)  :  $markup_figure)));
+
+            return ($markup_in_negative ? ($base_price - ($markup_in_percent ? (($base_price * $markup_figure) / 100) : $markup_figure)) : ($base_price + ($markup_in_percent ? (($base_price * $markup_figure) / 100) : $markup_figure)));
+            
 		}
 	}
 
