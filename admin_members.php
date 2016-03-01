@@ -191,37 +191,37 @@
   }
 
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-<?php require('includes/account_check.js.php'); ?>
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+         
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
-  <tr>
-<!-- body_text //-->    
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+
+        <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+                  <table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td valign="top">
+            <td>
 <?php
  if ($HTTP_GET_VARS['gPath']) {
    $group_name_query = tep_db_query("select admin_groups_name from " . TABLE_ADMIN_GROUPS . " where admin_groups_id = " . $HTTP_GET_VARS['gPath']);
@@ -234,9 +234,9 @@
      echo tep_draw_hidden_field('admin_groups_id', $HTTP_GET_VARS['gPath']); 
    }
 ?>
-            <table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td colspan=2 class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_GROUPS_DEFINE; ?></td>
+            <table class="table table-bordered table-hover">
+              <tr>
+                <td>&nbsp;<?php echo TABLE_HEADING_GROUPS_DEFINE; ?></td>
               </tr>
 <?php
   $db_boxes_query = tep_db_query("select admin_files_id as admin_boxes_id, admin_files_name as admin_boxes_name, admin_groups_id as boxes_group_id from " . TABLE_ADMIN_FILES . " where admin_files_is_boxes = '1' order by admin_files_name");
@@ -262,14 +262,14 @@
       $checked = false;
     }    
 ?>
-              <tr class="dataTableRowBoxes">
-                <td class="dataTableContent" width="23" bgcolor="#CCCCCC"><?php echo tep_draw_checkbox_field('groups_to_boxes[]', $group_boxes['admin_boxes_id'], $checked, '', 'id="groups_' . $group_boxes['admin_boxes_id'] . '" onClick="checkGroups(this)"'); ?></td>
-                <td class="dataTableContent" bgcolor="#CCCCCC"><b><?php echo ucwords(substr_replace ($group_boxes['admin_boxes_name'], '', -4)) . ' ' . tep_draw_hidden_field('checked_' . $group_boxes['admin_boxes_id'], $checkedBox) . tep_draw_hidden_field('unchecked_' . $group_boxes['admin_boxes_id'], $uncheckedBox); ?></b></td>
+              <tr>
+                <td><?php echo tep_draw_checkbox_field('groups_to_boxes[]', $group_boxes['admin_boxes_id'], $checked, '', 'id="groups_' . $group_boxes['admin_boxes_id'] . '" onClick="checkGroups(this)"'); ?></td>
+                <td><b><?php echo ucwords(substr_replace ($group_boxes['admin_boxes_name'], '', -4)) . ' ' . tep_draw_hidden_field('checked_' . $group_boxes['admin_boxes_id'], $checkedBox) . tep_draw_hidden_field('unchecked_' . $group_boxes['admin_boxes_id'], $uncheckedBox); ?></b></td>
               </tr>
-              <tr class="dataTableRow">
-                <td class="dataTableContent">&nbsp;</td>
-                <td class="dataTableContent">
-                  <table border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>&nbsp;</td>
+                <td>
+                  <table class="table table-bordered table-hover">
 <?php
      //$group_boxes_files_query = tep_db_query("select admin_files_id, admin_files_name, admin_groups_id from " . TABLE_ADMIN_FILES . " where admin_files_is_boxes = '0' and admin_files_to_boxes = '" . $group_boxes['admin_boxes_id'] . "' order by admin_files_name");
      while($group_boxes_files = tep_db_fetch_array($group_boxes_files_query)) {
@@ -294,8 +294,8 @@
 ?>
                                        
                     <tr>
-                      <td width="20"><?php echo tep_draw_checkbox_field('groups_to_boxes[]', $group_boxes_files['admin_files_id'], $checked, '', 'id="subgroups_' . $group_boxes['admin_boxes_id'] . '" onClick="checkSub(this)"'); ?></td>
-                      <td class="dataTableContent"><?php echo $group_boxes_files['admin_files_name'] . ' ' . tep_draw_hidden_field('checked_' . $group_boxes_files['admin_files_id'], $checkedBox) . tep_draw_hidden_field('unchecked_' . $group_boxes_files['admin_files_id'], $uncheckedBox);?></td>
+                      <td><?php echo tep_draw_checkbox_field('groups_to_boxes[]', $group_boxes_files['admin_files_id'], $checked, '', 'id="subgroups_' . $group_boxes['admin_boxes_id'] . '" onClick="checkSub(this)"'); ?></td>
+                      <td><?php echo $group_boxes_files['admin_files_name'] . ' ' . tep_draw_hidden_field('checked_' . $group_boxes_files['admin_files_id'], $checkedBox) . tep_draw_hidden_field('unchecked_' . $group_boxes_files['admin_files_id'], $uncheckedBox);?></td>
                     </tr>
 <?php       
      }
@@ -306,17 +306,18 @@
 <?php
   }
 ?>
-              <tr class="dataTableRowBoxes">
-                <td colspan=2 class="dataTableContent" valign="top" align="right"><?php if ($HTTP_GET_VARS['gPath'] != 1) { echo  '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $HTTP_GET_VARS['gPath']) . '">' . tep_image_button('button_cancel_b.gif', IMAGE_CANCEL) . '</a> ' . tep_image_submit('button_save_b.gif', IMAGE_INSERT); } else { echo tep_image_submit('button_back_b.gif', IMAGE_BACK); } ?>&nbsp;</td>
+              <tr>
+                <td><?php if ($HTTP_GET_VARS['gPath'] != 1) { echo  '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $HTTP_GET_VARS['gPath']) . '">' . '<button type="button" class="btn btn-primary btn-sm">Cancel</button>' . '</a> ' . '
+<button type="submit" class="btn btn-primary btn-sm">Save</button>'; } else { echo '<button type="submit" class="btn btn-primary btn-sm">Back</button>'; } ?>&nbsp;</td>
               </tr>
             </table></form>
 <?php
  } elseif ($HTTP_GET_VARS['gID']) {
 ?>
-            <table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_GROUPS_NAME; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+            <table class="table table-bordered table-hover">
+              <tr>
+                <td>&nbsp;<?php echo TABLE_HEADING_GROUPS_NAME; ?></td>
+                <td><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
   $db_groups_query = tep_db_query("select * from " . TABLE_ADMIN_GROUPS . " order by admin_groups_id");
@@ -331,32 +332,32 @@
     }
    
     if ( (is_object($gInfo)) && ($groups['admin_groups_id'] == $gInfo->admin_groups_id) ) {
-      echo '                <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $groups['admin_groups_id'] . '&action=edit_group') . '\'">' . "\n";
+      echo '                <tr onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $groups['admin_groups_id'] . '&action=edit_group') . '\'">' . "\n";
     } else {
       echo '                <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $groups['admin_groups_id']) . '\'">' . "\n";
       $del_groups_prepare .= ',\'' . $groups['admin_groups_id'] . '\'' ;
     }
 ?>
-                <td class="dataTableContent">&nbsp;<b><?php echo $groups['admin_groups_name']; ?></b></td>
-                <td class="dataTableContent" align="right"><?php if ( (is_object($gInfo)) && ($groups['admin_groups_id'] == $gInfo->admin_groups_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $groups['admin_groups_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td>&nbsp;<b><?php echo $groups['admin_groups_name']; ?></b></td>
+                <td><?php if ( (is_object($gInfo)) && ($groups['admin_groups_id'] == $gInfo->admin_groups_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $groups['admin_groups_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     $count_groups++;
   } 
 ?>
               <tr>
-                <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="2"><table class="table table-bordered table-hover">
                   <tr>
-                    <td class="smallText2" valign="top"><?php echo TEXT_COUNT_GROUPS . $count_groups; ?></td>
-                    <td class="smallText2" valign="top" align="right">
+                    <td><?php echo TEXT_COUNT_GROUPS . $count_groups; ?></td>
+                    <td>
                     <?php
                   		// OBN - Don't Allow the store owner to add a new groupU
 						if($login_groups_id != 1)
 						  {}
 						else
 						  {
-							echo '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS) . '">' . tep_image_button('button_back_b.gif', IMAGE_BACK) . '</a>&nbsp;';
-							echo '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id . '&action=new_group') . '">' . tep_image_button('button_admin_group.gif', IMAGE_NEW_GROUP) . '</a>';
+							echo '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS) . '">' . '<button type="button" class="btn btn-primary btn-sm">Back</button>' . '</a>&nbsp;';
+							echo '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id . '&action=new_group') . '">' . '<button type="button" class="btn btn-primary btn-sm">Group</button>' . '</a>';
 						  }
 					?>
                     </td>
@@ -367,13 +368,13 @@
 <?php
  } else {
 ?> 
-            <table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_NAME; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_EMAIL; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_GROUPS; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LOGNUM; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+            <table class="table table-bordered table-hover">
+              <tr>
+                <td><?php echo TABLE_HEADING_NAME; ?></td>
+                <td><?php echo TABLE_HEADING_EMAIL; ?></td>
+                <td><?php echo TABLE_HEADING_GROUPS; ?></td>
+                <td><?php echo TABLE_HEADING_LOGNUM; ?></td>
+                <td><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
   $db_admin_query_raw = "select * from " . TABLE_ADMIN . " order by admin_firstname";
@@ -393,45 +394,23 @@
    
     if ( (is_object($mInfo)) && ($admin['admin_id'] == $mInfo->admin_id) )
 	  {
-        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $admin['admin_id'] . '&action=edit_member') . '\'">' . "\n";
+        echo '                  <tr onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $admin['admin_id'] . '&action=edit_member') . '\'">' . "\n";
       }
 	else
 	  {
-        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $admin['admin_id']) . '\'">' . "\n";
+        echo '                  <tr onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $admin['admin_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent">&nbsp;<?php echo $admin['admin_firstname']; ?>&nbsp;<?php echo $admin['admin_lastname']; ?></td>
-                <td class="dataTableContent"><?php echo $admin['admin_email_address']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $admin_group['admin_groups_name']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $admin['admin_lognum']; ?></td>
-                <td class="dataTableContent" align="right"><?php if ( (is_object($mInfo)) && ($admin['admin_id'] == $mInfo->admin_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $admin['admin_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td>&nbsp;<?php echo $admin['admin_firstname']; ?>&nbsp;<?php echo $admin['admin_lastname']; ?></td>
+                <td><?php echo $admin['admin_email_address']; ?></td>
+                <td><?php echo $admin_group['admin_groups_name']; ?></td>
+                <td><?php echo $admin['admin_lognum']; ?></td>
+                <td><?php if ( (is_object($mInfo)) && ($admin['admin_id'] == $mInfo->admin_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $admin['admin_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
   } 
 ?>
-             
-              <tr>
-                <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td class="smallText2" valign="top"><?php echo $db_admin_split->display_count($db_admin_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_MEMBERS); ?><br><?php echo $db_admin_split->display_links($db_admin_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?></td>
-                    <td class="smallText2" valign="top" align="right">
-					<?php
-					// Restrict new groups to the admin only - OBN
-					  if($login_groups_id != 1)
-						{
-						  echo ' <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->admin_id . '&action=new_member') . '">' . tep_image_button('button_admin_member.gif', IMAGE_NEW_MEMBER) . '</a>';
-						}
-					  else
-						{
-						  echo '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=groups') . '">' . tep_image_button('button_admin_groups.gif', IMAGE_GROUPS) . '</a>'; 			
-						  echo ' <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->admin_id . '&action=new_member') . '">' . tep_image_button('button_admin_member.gif', IMAGE_NEW_MEMBER) . '</a>';
-						}
-					?>
-                    </td>
-                  </tr>
-                </table></td>
-              </tr>
-            </table>
+</table>
 <?php
  }
 ?>
@@ -465,7 +444,7 @@
       $contents[] = array('text' => '<br>&nbsp;OBN - Email Username<br>&nbsp;' . tep_draw_input_field('admin_email_username'));
       $contents[] = array('text' => '<br>&nbsp;OBN - Email Password<br>&nbsp;' . tep_draw_password_field('admin_email_password'));
       $contents[] = array('text' => '<br>&nbsp;' . TEXT_INFO_GROUP . '<br>&nbsp;' . tep_draw_pull_down_menu('admin_groups_id', $groups_array, '0')); 
-      $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_insert.gif', IMAGE_INSERT, 'onClick="validateForm();return document.returnValue"') . ' <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $HTTP_GET_VARS['mID']) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');    
+      $contents[] = array('align' => 'center', 'text' => '<br>' . '<button type="submit" class="btn btn-primary btn-sm" onClick="validateForm();return document.returnValue">Insert</button>' . ' <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $HTTP_GET_VARS['mID']) . '">' . '<button type="submit" class="btn btn-primary btn-sm">Cancel</button>' . '</a>');    
       break;
     case 'edit_member': 
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW . '</b>');
@@ -494,17 +473,17 @@
         $contents[] = array('text' => '<br>&nbsp;OBN - Email Password<br>&nbsp;' . tep_draw_password_field('admin_email_password', $mInfo->admin_email_password));
         $contents[] = array('text' => '<br>&nbsp;' . TEXT_INFO_GROUP . '<br>&nbsp;' . tep_draw_pull_down_menu('admin_groups_id', $groups_array, $mInfo->admin_groups_id));
       }
-      $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_insert.gif', IMAGE_INSERT, 'onClick="validateForm();return document.returnValue"') . ' <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $HTTP_GET_VARS['mID']) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');    
+      $contents[] = array('align' => 'center', 'text' => '<br>' . '<button type="submit" class="btn btn-primary btn-sm" onClick="validateForm();return document.returnValue">Insert</button>' . ' <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $HTTP_GET_VARS['mID']) . '">' . '<button type="button" class="btn btn-primary btn-sm">Cancel</button>' . '</a>');    
       break;
     case 'del_member': 
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE . '</b>');
       if ($mInfo->admin_id == 1 || $mInfo->admin_email_address == STORE_OWNER_EMAIL_ADDRESS) {
-      $contents[] = array('align' => 'center', 'text' => '<br><a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->admin_id) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a><br>&nbsp;');
+      $contents[] = array('align' => 'center', 'text' => '<br><a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->admin_id) . '">' . '<button type="button" class="btn btn-primary btn-sm">Back</button>' . '</a><br>&nbsp;');
       } else {
       $contents = array('form' => tep_draw_form('edit', FILENAME_ADMIN_MEMBERS, 'action=member_delete&page=' . $page . '&mID=' . $admin['admin_id'], 'post', 'enctype="multipart/form-data"')); 
       $contents[] = array('text' => tep_draw_hidden_field('admin_id', $mInfo->admin_id));
       $contents[] = array('align' => 'center', 'text' =>  sprintf(TEXT_INFO_DELETE_INTRO, $mInfo->admin_firstname . ' ' . $mInfo->admin_lastname));    
-      $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $HTTP_GET_VARS['mID']) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');    
+      $contents[] = array('align' => 'center', 'text' => '<br>' . '<button type="button" class="btn btn-primary btn-sm">Delete</button>' . ' <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $HTTP_GET_VARS['mID']) . '">' . '<button type="button" class="btn btn-primary btn-sm">Cancel</button>' . '</a>');    
       }
       break;
     case 'new_group':
@@ -519,7 +498,7 @@
       $contents[] = array('text' => tep_draw_hidden_field('set_groups_id', substr($add_groups_prepare, 4)) );
       $contents[] = array('text' => TEXT_INFO_GROUPS_NAME . '<br>');      
       $contents[] = array('align' => 'center', 'text' => tep_draw_input_field('admin_groups_name'));      
-      $contents[] = array('align' => 'center', 'text' => '<br><a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a> ' . tep_image_submit('button_next.gif', IMAGE_NEXT) );    
+      $contents[] = array('align' => 'center', 'text' => '<br><a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id) . '">' . '<button type="button" class="btn btn-primary btn-sm">Cancel</button>' . '</a> ' . '<button type="submit" class="btn btn-primary btn-sm">Next</button>' );    
       break;
     case 'edit_group': 
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_GROUP . '</b>');
@@ -531,7 +510,7 @@
         $contents[] = array('text' => TEXT_INFO_GROUPS_NAME_USED . '<br>&nbsp;');
       }      
       $contents[] = array('align' => 'center', 'text' => TEXT_INFO_EDIT_GROUP_INTRO . '<br>&nbsp;<br>' . tep_draw_input_field('admin_groups_name', $gInfo->admin_groups_name)); 
-      $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_save.gif', IMAGE_SAVE) . ' <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');    
+      $contents[] = array('align' => 'center', 'text' => '<br>' . '<button type="submit" class="btn btn-primary btn-sm">Save</button>' . ' <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id) . '">' . '<button type="button" class="btn btn-primary btn-sm">Cancel</button>' . '</a>');    
       break;
     case 'del_group': 
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_GROUPS . '</b>');
@@ -539,11 +518,11 @@
       $contents = array('form' => tep_draw_form('delete_group', FILENAME_ADMIN_MEMBERS, 'action=group_delete&gID=' . $gInfo->admin_groups_id, 'post', 'enctype="multipart/form-data"')); 
       if ($gInfo->admin_groups_id == 1) {
         $contents[] = array('align' => 'center', 'text' => sprintf(TEXT_INFO_DELETE_GROUPS_INTRO_NOT, $gInfo->admin_groups_name));
-        $contents[] = array('align' => 'center', 'text' => '<br><a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $HTTP_GET_VARS['gID']) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a><br>&nbsp;');
+        $contents[] = array('align' => 'center', 'text' => '<br><a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $HTTP_GET_VARS['gID']) . '">' . '<button type="button" class="btn btn-primary btn-sm">Back</button>' . '</a><br>&nbsp;');
       } else {
         $contents[] = array('text' => tep_draw_hidden_field('set_groups_id', substr($del_groups_prepare, 4)) );
         $contents[] = array('align' => 'center', 'text' => sprintf(TEXT_INFO_DELETE_GROUPS_INTRO, $gInfo->admin_groups_name));    
-        $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $HTTP_GET_VARS['gID']) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a><br>&nbsp;');    
+        $contents[] = array('align' => 'center', 'text' => '<br>' . '<button type="submit" class="btn btn-primary btn-sm">Delete</button>' . ' <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $HTTP_GET_VARS['gID']) . '">' . '<button type="button" class="btn btn-primary btn-sm">Cancel</button>' . '</a><br>&nbsp;');    
       }
       break;
     case 'define_group':      
@@ -551,7 +530,7 @@
       	
       $contents[] = array('text' => sprintf(TEXT_INFO_DEFINE_INTRO, $group_name['admin_groups_name']));
       if ($HTTP_GET_VARS['gPath'] == 1) {
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $HTTP_GET_VARS['gPath']) . '">' . tep_image_button('button_back.gif', IMAGE_CANCEL) . '</a><br>');      
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $HTTP_GET_VARS['gPath']) . '">' . '<button type="button" class="btn btn-primary btn-sm">Back</button>' . '</a><br>');      
       }
       break;
     case 'show_group': 
@@ -577,11 +556,11 @@
 		// OBN - Don't Allow the store owner to change the Admin Account
 		if($login_groups_id == 1)
 		  {
-	        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->admin_id . '&action=edit_member') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->admin_id . '&action=del_member') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a><br>&nbsp;');
+	        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->admin_id . '&action=edit_member') . '">' . '<button type="button" class="btn btn-primary btn-sm">Edit</button>' . '</a> <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->admin_id . '&action=del_member') . '">' . '<button type="button" class="btn btn-primary btn-sm">Delete</button>' . '</a><br>&nbsp;');
 		  }
 		elseif($login_groups_id != 1 && $mInfo->admin_groups_name != "Top Administrator")
 		  {
-  	        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->admin_id . '&action=edit_member') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->admin_id . '&action=del_member') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a><br>&nbsp;');
+  	        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->admin_id . '&action=edit_member') . '">' . '<button type="button" class="btn btn-primary btn-sm">Edit</button>' . '</a> <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->admin_id . '&action=del_member') . '">' . '<button type="button" class="btn btn-primary btn-sm">Delete</button>' . '</a><br>&nbsp;');
 		  }
 
         $contents[] = array('text' => '&nbsp;<b>' . TEXT_INFO_FULLNAME . '</b><br>&nbsp;' . $mInfo->admin_firstname . ' ' . $mInfo->admin_lastname);
@@ -602,7 +581,7 @@
 		  {}
 		else
 		  {
-            $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gPath=' . $gInfo->admin_groups_id . '&action=define_group') . '">' . tep_image_button('button_admin_permission.gif', IMAGE_FILE_PERMISSION) . '</a> <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id . '&action=edit_group') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id . '&action=del_group') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a>');
+            $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gPath=' . $gInfo->admin_groups_id . '&action=define_group') . '">' . '<button type="button" class="btn btn-primary btn-sm">New Permission</button>' . '</a> <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id . '&action=edit_group') . '">' . '<button type="button" class="btn btn-primary btn-sm">Edit</button>' . '</a> <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id . '&action=del_group') . '">' . '<button type="button" class="btn btn-primary btn-sm">Delete</button>' . '</a>');
         	$contents[] = array('text' => '<br>' . TEXT_INFO_DEFAULT_GROUPS_INTRO . '<br>&nbsp');
 		  }
       }
@@ -618,18 +597,35 @@
   }
 ?>
           </tr>
-        </table></td>
-      </tr>
-    </table></td>  
-<!-- body_text_eof //-->
-  </tr>
-</table>
+                     </tbody>
+                  </table>
+               </div>
+               <!-- END table-responsive-->
+               <div class="panel-footer">
+                  <div class="row">
+                     <div class="col-lg-6">
+                        <?php echo $db_admin_split->display_count($db_admin_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_MEMBERS); ?><br><?php echo $db_admin_split->display_links($db_admin_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>
+                     </div>
+                     <div class="col-lg-2"></div>
+                     <div class="col-lg-4 pull-right">
+					<?php
+					// Restrict new groups to the admin only - OBN
+					  if($login_groups_id != 1)
+						{
+						  echo ' <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->admin_id . '&action=new_member') . '">' . '<button type="button" class="btn btn-primary btn-sm">New Member</button>' . '</a>';
+						}
+					  else
+						{
+						  echo '<a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'gID=groups') . '">' . '<button type="button" class="btn btn-primary btn-sm">Groups</button>' . '</a>'; 			
+						  echo ' <a href="' . tep_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->admin_id . '&action=new_member') . '">' . '<button type="button" class="btn btn-primary btn-sm">New Member</button>' . '</a>';
+						}
+					?>
+                     </div>
+                  </div>
+               </div>
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

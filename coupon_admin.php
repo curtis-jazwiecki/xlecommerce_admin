@@ -191,27 +191,6 @@
     }
   }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-<link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
-<script language="JavaScript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
-<script language="javascript">
-  var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",scBTNMODE_CUSTOMBLUE);
-  
-function addCategories(category_string){
-	jQuery('input:text[name=coupon_categories]').val(category_string);
-}
-
-function addProducts(product_string){
-	jQuery('input:text[name=coupon_products]').val(product_string);
-}
-</script>
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <div id="spiffycalendar" class="text"></div>
 <!-- header //-->
@@ -219,32 +198,53 @@ function addProducts(product_string){
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+  <table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
 <?php 
   switch ($HTTP_GET_VARS['action']) {
   case 'voucherreport':
 ?>
-      <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <td><table class="table table-bordered table-hover">
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo CUSTOMER_ID; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo CUSTOMER_NAME; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo IP_ADDRESS; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo REDEEM_DATE; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+            <td><table class="table table-bordered table-hover">
+              <tr>
+                <td><?php echo CUSTOMER_ID; ?></td>
+                <td><?php echo CUSTOMER_NAME; ?></td>
+                <td><?php echo IP_ADDRESS; ?></td>
+                <td><?php echo REDEEM_DATE; ?></td>
+                <td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
     $cc_query_raw = "select * from " . TABLE_COUPON_REDEEM_TRACK . " where coupon_id = '" . (int)$coupon_id . "'";
@@ -267,11 +267,11 @@ $customer_query = tep_db_query("select customers_firstname, customers_lastname f
 $customer = tep_db_fetch_array($customer_query);
 
 ?>
-                <td class="dataTableContent"><?php echo $cc_list['customer_id']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $customer['customers_firstname'] . ' ' . $customer['customers_lastname']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $cc_list['redeem_ip']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo tep_date_short($cc_list['redeem_date']); ?></td>
-                <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($cc_list['unique_id'] == $cInfo->unique_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_COUPON_ADMIN, 'page=' . $HTTP_GET_VARS['page'] . '&cid=' . $cc_list['coupon_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td><?php echo $cc_list['customer_id']; ?></td>
+                <td><?php echo $customer['customers_firstname'] . ' ' . $customer['customers_lastname']; ?></td>
+                <td><?php echo $cc_list['redeem_ip']; ?></td>
+                <td><?php echo tep_date_short($cc_list['redeem_date']); ?></td>
+                <td align="right"><?php if ( (is_object($cInfo)) && ($cc_list['unique_id'] == $cInfo->unique_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_COUPON_ADMIN, 'page=' . $HTTP_GET_VARS['page'] . '&cid=' . $cc_list['coupon_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     }
@@ -318,47 +318,47 @@ $customer = tep_db_fetch_array($customer_query);
       break;
     }
 ?>
-      <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+      <td><table class="table table-bordered table-hover">
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
           <tr><?php echo tep_draw_form('mail', FILENAME_COUPON_ADMIN, 'action=send_email_to_user&cid=' . $HTTP_GET_VARS['cid']); ?>
-            <td><table border="0" width="100%" cellpadding="0" cellspacing="2">
+            <td><table class="table table-bordered table-hover">
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_CUSTOMER; ?></b><br><?php echo $mail_sent_to; ?></td>
-              </tr>
-              <tr>
-                <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-              </tr>
-              <tr>
-                <td class="smallText"><b><?php echo TEXT_COUPON; ?></b><br><?php echo $coupon_name['coupon_name']; ?></td>
+                <td><b><?php echo TEXT_CUSTOMER; ?></b><br><?php echo $mail_sent_to; ?></td>
               </tr>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_FROM; ?></b><br><?php echo htmlspecialchars(stripslashes($HTTP_POST_VARS['from'])); ?></td>
+                <td><b><?php echo TEXT_COUPON; ?></b><br><?php echo $coupon_name['coupon_name']; ?></td>
               </tr>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_SUBJECT; ?></b><br><?php echo htmlspecialchars(stripslashes($HTTP_POST_VARS['subject'])); ?></td>
+                <td><b><?php echo TEXT_FROM; ?></b><br><?php echo htmlspecialchars(stripslashes($HTTP_POST_VARS['from'])); ?></td>
               </tr>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_MESSAGE; ?></b><br><?php echo nl2br(htmlspecialchars(stripslashes($HTTP_POST_VARS['message']))); ?></td>
+                <td><b><?php echo TEXT_SUBJECT; ?></b><br><?php echo htmlspecialchars(stripslashes($HTTP_POST_VARS['subject'])); ?></td>
+              </tr>
+              <tr>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+              </tr>
+              <tr>
+                <td><b><?php echo TEXT_MESSAGE; ?></b><br><?php echo nl2br(htmlspecialchars(stripslashes($HTTP_POST_VARS['message']))); ?></td>
               </tr>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
@@ -374,7 +374,7 @@ $customer = tep_db_fetch_array($customer_query);
       }
     }
 ?>
-                <table border="0" width="100%" cellpadding="0" cellspacing="2">
+                <table class="table table-bordered table-hover">
                   <tr>
                     <td><?php ?>&nbsp;</td>
                     <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_COUPON_ADMIN) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a> ' . tep_image_submit('button_send_mail.gif', IMAGE_SEND_EMAIL); ?></td>
@@ -391,19 +391,19 @@ $customer = tep_db_fetch_array($customer_query);
     $coupon_name_query = tep_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . (int)$coupon_id . "' and language_id = '" . $languages_id . "'");
     $coupon_name = tep_db_fetch_array($coupon_name_query);
 ?>
-      <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+      <td><table class="table table-bordered table-hover">
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
 
           <tr><?php echo tep_draw_form('mail', FILENAME_COUPON_ADMIN, 'action=preview_email&cid='. $HTTP_GET_VARS['cid']); ?>
-            <td><table border="0" cellpadding="0" cellspacing="2">
+            <td><table class="table table-bordered table-hover">
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
@@ -422,21 +422,21 @@ $customer = tep_db_fetch_array($customer_query);
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
-                <td class="main" style="color:#FFFFFF"><?php echo TEXT_COUPON; ?>&nbsp;&nbsp;</td>
-                <td style="color:#FFFFFF"><?php echo $coupon_name['coupon_name']; ?></td>
+                <td><?php echo TEXT_COUPON; ?>&nbsp;&nbsp;</td>
+                <td><?php echo $coupon_name['coupon_name']; ?></td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
-                <td class="main" style="color:#FFFFFF"><?php echo TEXT_CUSTOMER; ?>&nbsp;&nbsp;</td>
+                <td><?php echo TEXT_CUSTOMER; ?>&nbsp;&nbsp;</td>
                 <td><?php echo tep_draw_pull_down_menu('customers_email_address', $customers, $HTTP_GET_VARS['customer']);?></td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
-                <td class="main" style="color:#FFFFFF"><?php echo TEXT_FROM; ?>&nbsp;&nbsp;</td>
+                <td><?php echo TEXT_FROM; ?>&nbsp;&nbsp;</td>
                 <td><?php echo tep_draw_input_field('from', EMAIL_FROM); ?></td>
               </tr>
               <tr>
@@ -454,14 +454,14 @@ $customer = tep_db_fetch_array($customer_query);
 */
 ?>
               <tr>
-                <td class="main" style="color:#FFFFFF"><?php echo TEXT_SUBJECT; ?>&nbsp;&nbsp;</td>
+                <td><?php echo TEXT_SUBJECT; ?>&nbsp;&nbsp;</td>
                 <td><?php echo tep_draw_input_field('subject'); ?></td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
-                <td valign="top" class="main" style="color:#FFFFFF"><?php echo TEXT_MESSAGE; ?>&nbsp;&nbsp;</td>
+                <td><?php echo TEXT_MESSAGE; ?>&nbsp;&nbsp;</td>
                 <td><?php echo tep_draw_textarea_field('message', 'soft', '60', '15'); ?></td>
               </tr>
               <tr>
@@ -482,22 +482,22 @@ $customer = tep_db_fetch_array($customer_query);
   $coupon_min_order = (($HTTP_POST_VARS['coupon_min_order'] == round($HTTP_POST_VARS['coupon_min_order'])) ? number_format((float)$HTTP_POST_VARS['coupon_min_order'], 2) : number_format((float)$HTTP_POST_VARS['coupon_min_order'], 2));
   $coupon_amount = (($HTTP_POST_VARS['coupon_amount'] == round($HTTP_POST_VARS['coupon_amount'])) ? number_format((float)$HTTP_POST_VARS['coupon_amount'], 2) : number_format((float)$HTTP_POST_VARS['coupon_amount'], 2));
 ?>
-      <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+      <td><table class="table table-bordered table-hover">
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
       <td>
 <?php echo tep_draw_form('coupon', 'coupon_admin.php', 'action=update_confirm&oldaction=' . $HTTP_GET_VARS['oldaction'] . '&cid=' . $HTTP_GET_VARS['cid']); ?>
-      <table border="0" width="100%" cellspacing="0" cellpadding="6">
+      <table class="table table-bordered table-hover">
       <tr>
-        <td align="left" style="color:#FFFFFF"><?php echo COUPON_STATUS; ?></td>
-        <td align="left" style="color:#FFFFFF"><?php echo (($HTTP_POST_VARS['coupon_status'] == 'Y') ? IMAGE_ICON_STATUS_GREEN : IMAGE_ICON_STATUS_RED); ?></td>
+        <td><?php echo COUPON_STATUS; ?></td>
+        <td><?php echo (($HTTP_POST_VARS['coupon_status'] == 'Y') ? IMAGE_ICON_STATUS_GREEN : IMAGE_ICON_STATUS_RED); ?></td>
       </tr>
 <?php
         $languages = tep_get_languages();
@@ -505,8 +505,8 @@ $customer = tep_db_fetch_array($customer_query);
             $language_id = $languages[$i]['id'];
 ?>
       <tr>
-        <td align="left" style="color:#FFFFFF"><?php echo COUPON_NAME; ?></td>
-        <td align="left" style="color:#FFFFFF"><?php echo $HTTP_POST_VARS['coupon_name'][$language_id]; ?></td>
+        <td><?php echo COUPON_NAME; ?></td>
+        <td><?php echo $HTTP_POST_VARS['coupon_name'][$language_id]; ?></td>
       </tr>
 <?php
 }
@@ -517,38 +517,38 @@ $customer = tep_db_fetch_array($customer_query);
             $language_id = $languages[$i]['id'];
 ?>
       <tr>
-        <td align="left" style="color:#FFFFFF"><?php echo COUPON_DESC; ?></td>
-        <td align="left" style="color:#FFFFFF"><?php echo $HTTP_POST_VARS['coupon_desc'][$language_id]; ?></td>
+        <td><?php echo COUPON_DESC; ?></td>
+        <td><?php echo $HTTP_POST_VARS['coupon_desc'][$language_id]; ?></td>
       </tr>
 <?php
 }
 ?>
       <tr>
-        <td align="left" style="color:#FFFFFF"><?php echo COUPON_AMOUNT; ?></td>
-        <td align="left" style="color:#FFFFFF"><?php if (!$HTTP_POST_VARS['coupon_free_ship']) echo $coupon_amount; ?></td>
+        <td><?php echo COUPON_AMOUNT; ?></td>
+        <td><?php if (!$HTTP_POST_VARS['coupon_free_ship']) echo $coupon_amount; ?></td>
       </tr>
  
       <tr>
-        <td align="left" style="color:#FFFFFF"><?php echo COUPON_MIN_ORDER; ?></td>
-        <td align="left" style="color:#FFFFFF"><?php echo $coupon_min_order; ?></td>
+        <td><?php echo COUPON_MIN_ORDER; ?></td>
+        <td><?php echo $coupon_min_order; ?></td>
       </tr>
 
       <tr>
-        <td align="left" style="color:#FFFFFF"><?php echo COUPON_FREE_SHIP; ?></td>
+        <td><?php echo COUPON_FREE_SHIP; ?></td>
 <?php
     if ($HTTP_POST_VARS['coupon_free_ship']) {
 ?>
-        <td align="left" style="color:#FFFFFF"><?php echo TEXT_FREE_SHIPPING; ?></td>
+        <td><?php echo TEXT_FREE_SHIPPING; ?></td>
 <?php
     } else { 
 ?>
-        <td align="left" style="color:#FFFFFF"><?php echo TEXT_NO_FREE_SHIPPING; ?></td>
+        <td><?php echo TEXT_NO_FREE_SHIPPING; ?></td>
 <?php
     }
 ?>
       </tr>
       <tr>
-        <td align="left" style="color:#FFFFFF"><?php echo COUPON_CODE; ?></td>
+        <td><?php echo COUPON_CODE; ?></td>
 <?php
     if ($HTTP_POST_VARS['coupon_code']) {
       $c_code = $HTTP_POST_VARS['coupon_code'];
@@ -556,44 +556,44 @@ $customer = tep_db_fetch_array($customer_query);
       $c_code = $coupon_code;
     }
 ?>
-        <td align="left" style="color:#FFFFFF"><?php echo $coupon_code; ?></td>
+        <td><?php echo $coupon_code; ?></td>
       </tr>
       
       <tr>
-        <td align="left" style="color:#FFFFFF"><?php echo COUPON_USES_COUPON; ?></td>
-        <td align="left" style="color:#FFFFFF"><?php echo $HTTP_POST_VARS['coupon_uses_coupon']; ?></td>
+        <td><?php echo COUPON_USES_COUPON; ?></td>
+        <td><?php echo $HTTP_POST_VARS['coupon_uses_coupon']; ?></td>
       </tr>
 
       <tr>
-        <td align="left" style="color:#FFFFFF"><?php echo COUPON_USES_USER; ?></td>
-        <td align="left" style="color:#FFFFFF"><?php echo $HTTP_POST_VARS['coupon_uses_user']; ?></td>
+        <td><?php echo COUPON_USES_USER; ?></td>
+        <td><?php echo $HTTP_POST_VARS['coupon_uses_user']; ?></td>
       </tr>
       
        <tr>
-        <td align="left" style="color:#FFFFFF"><?php echo COUPON_PRODUCTS; ?></td>
-        <td align="left" style="color:#FFFFFF"><?php echo $HTTP_POST_VARS['coupon_products']; ?></td>
+        <td><?php echo COUPON_PRODUCTS; ?></td>
+        <td><?php echo $HTTP_POST_VARS['coupon_products']; ?></td>
       </tr>
 
 
       <tr>
-        <td align="left" style="color:#FFFFFF"><?php echo COUPON_CATEGORIES; ?></td>
-        <td align="left" style="color:#FFFFFF"><?php echo $HTTP_POST_VARS['coupon_categories']; ?></td>
+        <td><?php echo COUPON_CATEGORIES; ?></td>
+        <td><?php echo $HTTP_POST_VARS['coupon_categories']; ?></td>
       </tr>
       <tr>
-        <td align="left" style="color:#FFFFFF"><?php echo COUPON_STARTDATE; ?></td>
+        <td><?php echo COUPON_STARTDATE; ?></td>
 <?php
     $start_date = date(DATE_FORMAT, mktime(0, 0, 0, $HTTP_POST_VARS['coupon_startdate_month'],$HTTP_POST_VARS['coupon_startdate_day'] ,$HTTP_POST_VARS['coupon_startdate_year'] ));
 ?>
-        <td align="left" style="color:#FFFFFF"><?php echo $start_date; ?></td>
+        <td><?php echo $start_date; ?></td>
       </tr>
       
       <tr>
-        <td align="left" style="color:#FFFFFF"><?php echo COUPON_FINISHDATE; ?></td>
+        <td><?php echo COUPON_FINISHDATE; ?></td>
 <?php
     $finish_date = date(DATE_FORMAT, mktime(0, 0, 0, $HTTP_POST_VARS['coupon_finishdate_month'],$HTTP_POST_VARS['coupon_finishdate_day'] ,$HTTP_POST_VARS['coupon_finishdate_year'] ));
     echo date('Y-m-d', mktime(0, 0, 0, $HTTP_POST_VARS['coupon_startdate_month'],$HTTP_POST_VARS['coupon_startdate_day'] ,$HTTP_POST_VARS['coupon_startdate_year'] ));
 ?>
-        <td align="left" style="color:#FFFFFF"><?php echo $finish_date; ?></td>
+        <td><?php echo $finish_date; ?></td>
       </tr>
 <?php
     echo tep_draw_hidden_field('coupon_status', $HTTP_POST_VARS['coupon_status']);
@@ -616,8 +616,8 @@ $customer = tep_db_fetch_array($customer_query);
     echo tep_draw_hidden_field('date_created', ((tep_not_null($HTTP_POST_VARS['date_created'])) ? date('Y-m-d', strtotime($HTTP_POST_VARS['date_created'])) : '0'));
 ?>
      <tr>
-        <td align="left"><?php echo tep_image_submit('button_confirm_b.gif',IMAGE_CONFIRM); ?></td>
-        <td align="left"><?php echo tep_image_submit('button_back_b.gif',IMAGE_BACK, 'name=back'); ?></td>
+        <td><?php echo tep_image_submit('button_confirm_b.gif',IMAGE_CONFIRM); ?></td>
+        <td><?php echo tep_image_submit('button_back_b.gif',IMAGE_BACK, 'name=back'); ?></td>
       </td>
       </tr>
       
@@ -672,12 +672,12 @@ $customer = tep_db_fetch_array($customer_query);
       default: $in_status = true; $out_status = false;
     }
 ?>
-      <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+      <td><table class="table table-bordered table-hover">
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -686,12 +686,12 @@ $customer = tep_db_fetch_array($customer_query);
 <?php 
     echo tep_draw_form('coupon', 'coupon_admin.php', 'action=update&oldaction='. (($HTTP_GET_VARS['oldaction'] == 'voucheredit') ? $HTTP_GET_VARS['oldaction'] : $HTTP_GET_VARS['action']) . '&cid=' . $HTTP_GET_VARS['cid']);
 ?>
-      <table border="0" width="100%" cellspacing="0" cellpadding="6">
+      <table class="table table-bordered table-hover">
 
       <tr>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_STATUS; ?></td>
-        <td align="left" style="color:#FFFFFF"><?php echo tep_draw_radio_field('coupon_status', 'Y', $in_status) . '&nbsp;' . IMAGE_ICON_STATUS_GREEN . '&nbsp;' . tep_draw_radio_field('coupon_status', 'N', $out_status) . '&nbsp;' . IMAGE_ICON_STATUS_RED; ?></td>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_STATUS_HELP; ?></td>
+        <td><?php echo COUPON_STATUS; ?></td>
+        <td><?php echo tep_draw_radio_field('coupon_status', 'Y', $in_status) . '&nbsp;' . IMAGE_ICON_STATUS_GREEN . '&nbsp;' . tep_draw_radio_field('coupon_status', 'N', $out_status) . '&nbsp;' . IMAGE_ICON_STATUS_RED; ?></td>
+        <td><?php echo COUPON_STATUS_HELP; ?></td>
       </tr>
 
 <?php
@@ -700,9 +700,9 @@ $customer = tep_db_fetch_array($customer_query);
         $language_id = $languages[$i]['id'];
 ?>
       <tr>
-        <td align="left" class="main" style="color:#FFFFFF"><?php if ($i==0) echo COUPON_NAME; ?></td>
-        <td align="left"><?php echo tep_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$language_id]) . '&nbsp;' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?></td>
-        <td align="left" class="main" width="40%" style="color:#FFFFFF"><?php if ($i==0) echo COUPON_NAME_HELP; ?></td>
+        <td><?php if ($i==0) echo COUPON_NAME; ?></td>
+        <td><?php echo tep_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$language_id]) . '&nbsp;' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?></td>
+        <td><?php if ($i==0) echo COUPON_NAME_HELP; ?></td>
       </tr>
 <?php
 }
@@ -714,52 +714,52 @@ $customer = tep_db_fetch_array($customer_query);
 ?>
 
       <tr>
-        <td align="left" valign="top" class="main" style="color:#FFFFFF"><?php if ($i==0) echo COUPON_DESC; ?></td>
-        <td align="left" valign="top"><?php echo tep_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']','physical','24','3', $coupon_desc[$language_id]) . '&nbsp;' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?></td>
-        <td align="left" valign="top" class="main" style="color:#FFFFFF"><?php if ($i==0) echo COUPON_DESC_HELP; ?></td>
+        <td align="left"><?php if ($i==0) echo COUPON_DESC; ?></td>
+        <td align="left"><?php echo tep_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']','physical','24','3', $coupon_desc[$language_id]) . '&nbsp;' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']); ?></td>
+        <td><?php if ($i==0) echo COUPON_DESC_HELP; ?></td>
       </tr>
 <?php
 }
 ?>
       <tr>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_AMOUNT; ?></td>
-        <td align="left"><?php echo tep_draw_input_field('coupon_amount', $coupon_amount); ?></td>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_AMOUNT_HELP; ?></td>
+        <td><?php echo COUPON_AMOUNT; ?></td>
+        <td><?php echo tep_draw_input_field('coupon_amount', $coupon_amount); ?></td>
+        <td><?php echo COUPON_AMOUNT_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_MIN_ORDER; ?></td>
+        <td><?php echo COUPON_MIN_ORDER; ?></td>
         <td align="left"><?php echo tep_draw_input_field('coupon_min_order', $coupon_min_order); ?></td>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_MIN_ORDER_HELP; ?></td>
+        <td align="left"><?php echo COUPON_MIN_ORDER_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_FREE_SHIP; ?></td>
+        <td align="left"><?php echo COUPON_FREE_SHIP; ?></td>
         <td align="left"><?php echo tep_draw_checkbox_field('coupon_free_ship', $coupon_free_ship); ?></td>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_FREE_SHIP_HELP; ?></td>
+        <td align="left"><?php echo COUPON_FREE_SHIP_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_CODE; ?></td>
+        <td align="left"><?php echo COUPON_CODE; ?></td>
         <td align="left"><?php echo tep_draw_input_field('coupon_code', $coupon_code); ?></td>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_CODE_HELP; ?></td>
+        <td align="left"><?php echo COUPON_CODE_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_USES_COUPON; ?></td>
+        <td align="left"><?php echo COUPON_USES_COUPON; ?></td>
         <td align="left"><?php echo tep_draw_input_field('coupon_uses_coupon', $coupon_uses_coupon); ?></td>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_USES_COUPON_HELP; ?></td>
+        <td align="left"><?php echo COUPON_USES_COUPON_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_USES_USER; ?></td>
+        <td align="left"><?php echo COUPON_USES_USER; ?></td>
         <td align="left"><?php echo tep_draw_input_field('coupon_uses_user', $coupon_uses_user); ?></td>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_USES_USER_HELP; ?></td>
+        <td align="left"><?php echo COUPON_USES_USER_HELP; ?></td>
       </tr>
        <tr>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_PRODUCTS; ?></td>
+        <td align="left"><?php echo COUPON_PRODUCTS; ?></td>
         <td align="left"><?php echo tep_draw_input_field('coupon_products', $coupon_products); ?> <A HREF="validproducts.php" TARGET="_blank" ONCLICK="window.open('validproducts.php', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_PRODUCTS_HELP; ?></td>
+        <td align="left"><?php echo COUPON_PRODUCTS_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_CATEGORIES; ?></td>
+        <td align="left"><?php echo COUPON_CATEGORIES; ?></td>
         <td align="left"><?php echo tep_draw_input_field('coupon_categories', $coupon_categories); ?> <A HREF="validcategories.php" TARGET="_blank" ONCLICK="window.open('validcategories.php?cat_type=obn', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_CATEGORIES_HELP; ?></td>
+        <td align="left"><?php echo COUPON_CATEGORIES_HELP; ?></td>
       </tr>
       <tr>
 <?php
@@ -785,14 +785,14 @@ $customer = tep_db_fetch_array($customer_query);
     }
 
 ?>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_STARTDATE; ?></td>
+        <td align="left"><?php echo COUPON_STARTDATE; ?></td>
         <td align="left"><?php echo tep_draw_date_selector('coupon_startdate', mktime(0,0,0, $coupon_startdate[1], $coupon_startdate[2], $coupon_startdate[0])); ?></td>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_STARTDATE_HELP; ?></td>
+        <td align="left"><?php echo COUPON_STARTDATE_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_FINISHDATE; ?></td>
-        <td align="left" style="color:#FFFFFF"><?php echo tep_draw_date_selector('coupon_finishdate', mktime(0,0,0, $coupon_finishdate[1], $coupon_finishdate[2], $coupon_finishdate[0])); ?></td>
-        <td align="left" class="main" style="color:#FFFFFF"><?php echo COUPON_FINISHDATE_HELP; ?></td>
+        <td align="left"><?php echo COUPON_FINISHDATE; ?></td>
+        <td align="left"><?php echo tep_draw_date_selector('coupon_finishdate', mktime(0,0,0, $coupon_finishdate[1], $coupon_finishdate[2], $coupon_finishdate[0])); ?></td>
+        <td align="left"><?php echo COUPON_FINISHDATE_HELP; ?></td>
       </tr>
 <?php
       echo tep_draw_hidden_field('date_created', $date_created);
@@ -810,12 +810,12 @@ $customer = tep_db_fetch_array($customer_query);
     break;
   default:
 ?>    
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+     <table class="table table-bordered table-hover">
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="main"><?php echo tep_draw_form('status', FILENAME_COUPON_ADMIN, '', 'get'); ?>
+            <td><?php echo HEADING_TITLE; ?></td>
+            <td><?php echo tep_draw_form('status', FILENAME_COUPON_ADMIN, '', 'get'); ?>
 <?php
     $status_array[] = array('id' => 'Y', 'text' => TEXT_COUPON_ACTIVE);
     $status_array[] = array('id' => 'N', 'text' => TEXT_COUPON_INACTIVE);
@@ -835,16 +835,16 @@ $customer = tep_db_fetch_array($customer_query);
         </table></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo COUPON_NAME; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo COUPON_AMOUNT; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo COUPON_CODE; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TEXT_REDEMPTIONS; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo COUPON_STATUS; ?></td>  
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+            <td><table class="table table-bordered table-hover">
+              <tr>
+                <td><?php echo COUPON_NAME; ?></td>
+                <td><?php echo COUPON_AMOUNT; ?></td>
+                <td><?php echo COUPON_CODE; ?></td>
+                <td><?php echo TEXT_REDEMPTIONS; ?></td>
+                <td><?php echo COUPON_STATUS; ?></td>  
+                <td><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
     if ($HTTP_GET_VARS['page'] > 1) $rows = $HTTP_GET_VARS['page'] * 20 - 20;
@@ -875,8 +875,8 @@ $customer = tep_db_fetch_array($customer_query);
       $coupon_description_query = tep_db_query("select coupon_name from " . TABLE_COUPONS_DESCRIPTION . " where coupon_id = '" . $cc_list['coupon_id'] . "' and language_id = '" . $languages_id . "'");
       $coupon_desc = tep_db_fetch_array($coupon_description_query);
 ?>
-                <td class="dataTableContent"><?php echo $coupon_desc['coupon_name']; ?></td>
-                <td class="dataTableContent" align="center">
+                <td><?php echo $coupon_desc['coupon_name']; ?></td>
+                <td align="center">
 <?php  
       if ($cc_list['coupon_type'] == 'P') {
         // not floating point value, don't display decimal info
@@ -888,12 +888,12 @@ $customer = tep_db_fetch_array($customer_query);
       }
 ?>
             &nbsp;</td>
-                <td class="dataTableContent" align="center"><?php echo $cc_list['coupon_code']; ?></td>
-                <td class="dataTableContent" align="center">
+                <td align="center"><?php echo $cc_list['coupon_code']; ?></td>
+                <td align="center">
 <?php
       echo tep_db_num_rows($redeem_query);   // number of redemptions
 ?>
-                <td class="dataTableContent" align="center">
+                <td align="center">
 <?php
       if ($cc_list['coupon_active'] == 'Y') {
         echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_COUPON_ADMIN, 'action=setflag&flag=N&cid=' . $cc_list['coupon_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -914,14 +914,14 @@ $customer = tep_db_fetch_array($customer_query);
     }
 ?>
           <tr>
-            <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td colspan="5"><table class="table table-bordered table-hover">
               <tr>
-                <td class="smallText2">&nbsp;<?php echo $cc_split->display_count($cc_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_COUPONS); ?>&nbsp;</td>
-                <td align="right" class="smallText2">&nbsp;<?php echo $cc_split->display_links($cc_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], 'status=' . $status); ?>&nbsp;</td>
+                <td>&nbsp;<?php echo $cc_split->display_count($cc_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_COUPONS); ?>&nbsp;</td>
+                <td align="right">&nbsp;<?php echo $cc_split->display_links($cc_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], 'status=' . $status); ?>&nbsp;</td>
               </tr>
 
               <tr>
-                <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . tep_href_link('coupon_admin.php', 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->coupon_id . '&action=new') . '">' . tep_image_button('button_insert_b.gif', IMAGE_INSERT) . '</a>'; ?></td>
+                <td align="right" colspan="2"><?php echo '<a href="' . tep_href_link('coupon_admin.php', 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->coupon_id . '&action=new') . '">' . tep_image_button('button_insert_b.gif', IMAGE_INSERT) . '</a>'; ?></td>
               </tr>
             </table></td>
           </tr>
@@ -977,10 +977,10 @@ $customer = tep_db_fetch_array($customer_query);
                      COUPON_CATEGORIES . '&nbsp;:&nbsp;' . $cat_details . '<br>' .
                      DATE_CREATED . '&nbsp;:&nbsp;' . tep_date_short($cInfo->date_created) . '<br>' .
                      DATE_MODIFIED . '&nbsp;:&nbsp;' . tep_date_short($cInfo->date_modified) . '<br><br>' .
-                     '<center><a href="'.tep_href_link('coupon_admin.php','action=email&cid='.$cInfo->coupon_id,'NONSSL').'">'.tep_image_button('button_email.gif',COUPON_BUTTON_EMAIL_VOUCHER).'</a>' .
-                     '<a href="'.tep_href_link('coupon_admin.php','action=voucheredit&cid='.$cInfo->coupon_id,'NONSSL').'">'.tep_image_button('button_edit.gif',COUPON_BUTTON_EDIT_VOUCHER).'</a>' .
+                     '<center><a href="'.tep_href_link('coupon_admin.php','action=email&cid='.$cInfo->coupon_id,'NONSSL').'" style="margin-right:2px;">'.tep_image_button('button_email.gif',COUPON_BUTTON_EMAIL_VOUCHER).'</a>' .
+                     '<a href="'.tep_href_link('coupon_admin.php','action=voucheredit&cid='.$cInfo->coupon_id,'NONSSL').'" style="margin-right:2px;">'.tep_image_button('button_edit.gif',COUPON_BUTTON_EDIT_VOUCHER).'</a>' .
                      '<a href="'.tep_href_link('coupon_admin.php','action=voucherdelete&status=' . $status . (($HTTP_GET_VARS['page'] > 1) ? '&page=' . $HTTP_GET_VARS['page']: '') . '&cid='.$cInfo->coupon_id,'NONSSL').'">'.tep_image_button('button_delete.gif',COUPON_BUTTON_DELETE_VOUCHER).'</a>' .
-                     '<br><a href="'.tep_href_link('coupon_admin.php','action=voucherreport&cid='.$cInfo->coupon_id,'NONSSL').'">'.tep_image_button('button_report.gif',COUPON_BUTTON_VOUCHER_REPORT).'</a></center>');
+                     '<p style=" height: 0;"></p><a href="'.tep_href_link('coupon_admin.php','action=voucherreport&cid='.$cInfo->coupon_id,'NONSSL').'">'.tep_image_button('button_report.gif',COUPON_BUTTON_VOUCHER_REPORT).'</a></center>');
         }
         break;
       }
@@ -997,10 +997,23 @@ $customer = tep_db_fetch_array($customer_query);
 <!-- body_text_eof //-->
   </tr>
 </table>
+<!-- END your table-->
 <!-- body_eof //-->
+
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-</body>
-</html>
+<link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
+<script language="JavaScript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
+<script language="javascript">
+  var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",scBTNMODE_CUSTOMBLUE);
+  
+function addCategories(category_string){
+	jQuery('input:text[name=coupon_categories]').val(category_string);
+}
+
+function addProducts(product_string){
+	jQuery('input:text[name=coupon_products]').val(product_string);
+}
+</script>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

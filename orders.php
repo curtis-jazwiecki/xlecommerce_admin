@@ -1465,130 +1465,35 @@ if (($action == 'edit') && isset($HTTP_GET_VARS['oID'])) {
 include(DIR_WS_CLASSES . 'order.php');
 
 ?>
-
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-
-<html <?php echo HTML_PARAMS; ?>>
-
-    <head>
-
-        <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-
-        <title><?php echo TITLE; ?></title>
-
-        <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-
-        <script language="javascript" src="includes/general.js"></script>
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-        <script  type="text/javascript">
-
-            var notice_win = '';
-
-            $(document).ready(function(){ 
-
-            <?php
-
-                $like_string = '';
-
-                $is_not_fraud = fraud_prevention_is_negative($_GET['oID']);
-
-                if (!$is_not_fraud){
-
-            ?>
-
-                    notice_win = window.open('edit_orders.php?w=n',"notice","toolbar=no, menubar=no,resizable=no,location=no,directories=no,status=no,width=500,height=500");
-
-            <?php
-
-                }
-
-            ?>
-
-            })
-
-            .click(function(){
-
-                if(notice_win && !notice_win.closed) 
-
-                    notice_win.focus();
-
-            });
-
-        </script>
-
-        <script type="text/javascript">
-
-            function validate_selection(formRef){
-
-                try{
-
-                    var blnResp = false;
-
-                    for (var i=0; i<formRef.elements.length; i++){
-
-                        if (formRef.elements[i].id=='chk_send_to_obn[]' && !formRef.elements[i].disabled  && formRef.elements[i].checked){
-
-                            blnResp = true;
-
-                            break;
-
-                        }
-
-                    }
-
-                    if (!blnResp){
-
-                        alert('Please select item(s) to invoke \'Send to OBN\' functionality');
-
-                    }
-
-
-
-                    return blnResp;
-
-                } catch(e){alert(e);}	
-
-            }
-
-
-
-            // Added for Pop-up windows for Invoice and Packing Slips - OBN
-
-            var newwindow;
-
-            function poptastic(url) {
-
-                newwindow=window.open(url,'name','height=600px,width=850px');
-
-                if (window.focus) {newwindow.focus()}
-
-            }
-
-        </script>
-
-    </head>
-
-    <body style="margin:0;" bgcolor="#FFFFFF">
-
-    <!-- header //-->
-
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-
-    <!-- header_eof //-->
-
-    <!-- body //-->
-
-        <table border="0" width="760px" cellspacing="0" cellpadding="2" align="center" style="margin: 0px auto;">
-
-            <tr>
-
-            <!-- body_text //-->
-
-                <td width="100%" valign="top">
-
-                    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+      
+<!-- header //-->
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+<!-- header_eof //-->
+
+<!-- body //-->
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+               <table class="table table-bordered table-hover">
 
                     <?php
 
@@ -1600,13 +1505,13 @@ include(DIR_WS_CLASSES . 'order.php');
 
                         <tr>
 
-                            <td width="100%">
+                            <td>
 
-                                <table border="0" width="100%" cellspacing="0" cellpadding="2" bgcolor="#EEEEEE">
+                                <table class="table table-bordered table-hover">
 
                                     <tr>
 
-                                        <td colspan="2" bgcolor="#030c2c" class="pageHeading">
+                                        <td colspan="2">
 
                                         <?php echo HEADING_TITLE . (($order->customer['id']==0)? ' <b>no account!</b>':''); ?>
 
@@ -1616,9 +1521,9 @@ include(DIR_WS_CLASSES . 'order.php');
 
                                     <tr>
 
-                                        <td class="pageHeading" align="left" valign="top"><?php echo "<span style='font-size:18px; color: #000'>Order #" . $_GET['oID']."</span>"; ?><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+                                        <td align="left"><?php echo "<span style='font-size:18px; color: #000'>Order #" . $_GET['oID']."</span>"; ?><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
 
-                                        <td class="pageHeading" align="right">
+                                        <td align="right">
 
                                         <?php echo '<a href="' . tep_href_link(FILENAME_ORDERS_EDIT, 'oID=' . $_GET['oID']) . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a>' . "<a href=\"javascript:poptastic('invoice.php?oID=" . $_GET["oID"] . "')" . ';">' . tep_image_button('button_invoice.gif', IMAGE_ORDERS_INVOICE) . '</a>' . "<a href=\"javascript:poptastic('packingslip.php?oID=" . $_GET["oID"] . "')" . ';">' . tep_image_button('button_packingslip.gif', IMAGE_ORDERS_PACKINGSLIP) . '</a>' . '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('action'))) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a> '; ?>
 
@@ -1636,7 +1541,7 @@ include(DIR_WS_CLASSES . 'order.php');
 
                         <td>
 
-                            <table width="100%" border="0" cellspacing="0" cellpadding="2" bgcolor="#EEEEEE">
+                            <table class="table table-bordered table-hover">
 
                                 <tr>
 
@@ -1650,7 +1555,7 @@ include(DIR_WS_CLASSES . 'order.php');
 
                                 <tr>
 
-                                    <td colspan="3" class="smallText">
+                                    <td colspan="3">
 
                                         <b><u>IP Address: <?php echo $order->info['ip_address']; ?></u></b>
 
@@ -1658,9 +1563,9 @@ include(DIR_WS_CLASSES . 'order.php');
 
                                 </tr>
 
-                                <tr valign="top">
+                                <tr>
 
-                                    <td colspan="3" class="main" height="28px">
+                                    <td colspan="3">
 
                                     Order Placed By: 
 
@@ -1722,19 +1627,19 @@ include(DIR_WS_CLASSES . 'order.php');
 
                                 <tr>
 
-                                    <td valign="top">
+                                    <td>
 
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <table class="table table-bordered table-hover">
 
                                             <tr>
 
-                                                <td class="main" valign="top">
+                                                <td>
 
                                                     <b><?php echo ENTRY_CUSTOMER; ?></b>
 
                                                 </td>
 
-                                                <td class="main">
+                                                <td>
 
                                                 <?php echo tep_address_format($order->customer['format_id'], $order->customer, 1, '', '<br>'); ?>
 
@@ -1748,19 +1653,20 @@ include(DIR_WS_CLASSES . 'order.php');
 
                                                 <?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?>
 
+
                                                 </td>
 
                                             </tr>
 
                                             <tr>
 
-                                                <td class="main">
+                                                <td>
 
                                                     <b><?php echo ENTRY_TELEPHONE_NUMBER; ?></b>
 
                                                 </td>
 
-                                                <td class="main">
+                                                <td>
 
                                                 <?php echo $order->customer['telephone']; ?>
 
@@ -1770,37 +1676,32 @@ include(DIR_WS_CLASSES . 'order.php');
 
                                             <tr>
 
-                                                <td class="main">
+                                                <td>
 
                                                     <b><?php echo ENTRY_EMAIL_ADDRESS; ?></b>
 
                                                     </td>
 
-                                                    <td class="main">
+                                                    <td>
 
                                                     <?php echo '<a href="mailto:' . $order->customer['email_address'] . '" style="color: #333"><u>' . $order->customer['email_address'] . '</u></a>'; ?>
 
                                                     </td>
-
-                                            </tr>
-
-                                        </table>
-
-                                    </td>
-
-                                    <td valign="top">
-
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td>
+                                        <table class="table table-bordered table-hover">
 
                                             <tr>
 
-                                                <td class="main" valign="top">
+                                                <td>
 
                                                     <b><?php echo ENTRY_SHIPPING_ADDRESS; ?></b>
 
                                                 </td>
 
-                                                <td class="main">
+                                                <td>
 
                                                 <?php echo tep_address_format($order->delivery['format_id'], $order->delivery, 1, '', '<br>'); ?>
 
@@ -1812,19 +1713,19 @@ include(DIR_WS_CLASSES . 'order.php');
 
                                     </td>
 
-                                    <td valign="top">
+                                    <td>
 
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="2">
+                                        <table class="table table-bordered table-hover">
 
                                             <tr>
 
-                                                <td class="main" valign="top">
+                                                <td>
 
                                                     <b><?php echo ENTRY_BILLING_ADDRESS; ?></b>
 
                                                 </td>
 
-                                                <td class="main">
+                                                <td>
 
                                                 <?php echo tep_address_format($order->billing['format_id'], $order->billing, 1, '', '<br>'); ?>
 
@@ -1846,7 +1747,7 @@ include(DIR_WS_CLASSES . 'order.php');
 
                     <tr>
 
-                        <td bgcolor="#EEEEEE">
+                        <td>
 
                         <?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?>
 
@@ -1856,19 +1757,19 @@ include(DIR_WS_CLASSES . 'order.php');
 
                     <tr>
 
-                    <td bgcolor="#EEEEEE">
+                    <td>
 
-                        <table border="0" cellspacing="0" cellpadding="2" bgcolor="#EEEEEE">
+                        <table class="table table-bordered table-hover">
 
                             <tr>
 
-                                <td class="main">
+                                <td>
 
                                     <b><?php echo ENTRY_PAYMENT_METHOD; ?></b>
 
                                 </td>
 
-                                <td class="main">
+                                <td>
 
                                 <?php echo $order->info['payment_method']; ?>
 
@@ -1884,13 +1785,13 @@ include(DIR_WS_CLASSES . 'order.php');
 
                             <tr>
 
-                                <td class="main">
+                                <td>
 
                                     <b><?php echo 'To capture payment click here:'; ?></b>
 
                                 </td>
 
-                                <td class="main">
+                                <td>
 
                                 <?php 
 
@@ -1934,13 +1835,13 @@ include(DIR_WS_CLASSES . 'order.php');
 
                             <tr>
 
-                                <td class="main">
+                                <td>
 
                                 <?php echo ENTRY_CREDIT_CARD_TYPE; ?>
 
                                 </td>
 
-                                <td class="main">
+                                <td>
 
                                 <?php echo $order->info['cc_type']; ?>
 
@@ -1950,13 +1851,13 @@ include(DIR_WS_CLASSES . 'order.php');
 
                             <tr>
 
-                                <td class="main">
+                                <td>
 
                                 <?php echo ENTRY_CREDIT_CARD_OWNER; ?>
 
                                 </td>
 
-                                <td class="main">
+                                <td>
 
                                 <?php echo $order->info['cc_owner']; ?>
 
@@ -1966,13 +1867,13 @@ include(DIR_WS_CLASSES . 'order.php');
 
                             <tr>
 
-                                <td class="main">
+                                <td>
 
                                 <?php echo ENTRY_CREDIT_CARD_NUMBER; ?>
 
                                 </td>
 
-                                <td class="main">
+                                <td>
 
                                 <?php echo $order->info['cc_number']; ?>
 
@@ -1982,13 +1883,13 @@ include(DIR_WS_CLASSES . 'order.php');
 
                             <tr>
 
-                                <td class="main">
+                                <td>
 
                                 <?php echo ENTRY_CREDIT_CARD_EXPIRES; ?>
 
                                 </td>
 
-                                <td class="main">
+                                <td>
 
                                 <?php echo $order->info['cc_expires']; ?>
 
@@ -1998,13 +1899,13 @@ include(DIR_WS_CLASSES . 'order.php');
 
                             <tr>
 
-                                <td class="main">
+                                <td>
 
                                 <?php echo 'CVV: '; ?>
 
                                 </td>
 
-                                <td class="main">
+                                <td>
 
                                 <?php echo $order->info['cc_cvv']; ?>
 
@@ -2026,7 +1927,7 @@ include(DIR_WS_CLASSES . 'order.php');
 
                 <tr>
 
-                    <td bgcolor="#EEEEEE">
+                    <td>
 
                     <?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?>
 
@@ -2036,69 +1937,69 @@ include(DIR_WS_CLASSES . 'order.php');
 
                 <tr>
 
-                    <td bgcolor="#EEEEEE">
+                    <td>
 
                         <?php echo tep_draw_form('send_to_obn', FILENAME_ORDERS, tep_get_all_get_params(array('action')) . 'action=send_to_obn'); ?>
 
-                        <table border="0" width="100%" cellspacing="0" cellpadding="2" border="1">
+                        <table class="table table-bordered table-hover">
 
-                            <tr class="dataTableHeadingRow">
+                            <tr>
 
-                                <td class="dataTableHeadingContent">
+                                <td>
 
                                 <?php echo TABLE_HEADING_PRODUCTS; ?>
 
                                 </td>
 
-                                <td class="dataTableHeadingContent">
+                                <td>
 
                                 <?php echo 'Send to OBN'; ?>
 
                                 </td>
 
-                                <td class="dataTableHeadingContent">
+                                <td>
 
                                 <?php echo TABLE_HEADING_PRODUCTS_MODEL; ?>
 
                                 </td>
 
-                                <td class="dataTableHeadingContent" align="right">
+                                <td align="right">
 
                                 <?php echo 'QTY'; ?>
 
                                 </td>
 
-                                <td class="dataTableHeadingContent" align="right">
+                                <td align="right">
 
                                 <?php echo 'QTY in Stock'; ?>
 
                                 </td>
 
-                                <td class="dataTableHeadingContent" align="right">
+                                <td align="right">
 
                                 <?php echo TABLE_HEADING_TAX; ?>
 
                                 </td>            
 
-                                <td class="dataTableHeadingContent" align="right">
+                                <td align="right">
 
                                 <?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?>
 
                                 </td>
 
-                                <td class="dataTableHeadingContent" align="right">
+                                <td align="right">
 
                                 <?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?>
 
                                 </td>
 
-                                <td class="dataTableHeadingContent" align="right">
+                                <td align="right">
 
                                 <?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?>
 
                                 </td>
 
-                                <td class="dataTableHeadingContent" align="right">
+                                <td align="right">
 
                                 <?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?>
 
@@ -2190,13 +2091,13 @@ include(DIR_WS_CLASSES . 'order.php');
 
                                 <td align="right" colspan="10">
 
-                                    <table border="0" cellspacing="0" cellpadding="2">
+                                    <table class="table table-bordered table-hover">
 
                                     <?php
 
                                     for ($i = 0, $n = sizeof($order->totals); $i < $n; $i++) {
 
-                                        echo '              <tr>' . "\n" . '                <td align="right" class="smallText">' . $order->totals[$i]['title'] . '</td>' . "\n" . '                <td align="right" class="smallText">' . $order->totals[$i]['text'] . '</td>' . "\n" . '              </tr>' . "\n";
+                                        echo '              <tr>' . "\n" . '                <td align="right">' . $order->totals[$i]['title'] . '</td>' . "\n" . '                <td align="right">' . $order->totals[$i]['text'] . '</td>' . "\n" . '              </tr>' . "\n";
 
                                     }
 
@@ -2218,7 +2119,7 @@ include(DIR_WS_CLASSES . 'order.php');
 
                 <tr>
 
-                    <td bgcolor="#EEEEEE">
+                    <td>
 
                     <?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?>
 
@@ -2228,19 +2129,19 @@ include(DIR_WS_CLASSES . 'order.php');
 
                 <tr>
 
-                    <td class="main" bgcolor="#EEEEEE" align="center">
+                    <td>
 
-                        <table border="1" cellspacing="0" cellpadding="5">
+                        <table class="table table-bordered table-hover">
 
                             <tr>
 
-                                <td class="smallText" align="center"><b><?php echo TABLE_HEADING_DATE_ADDED; ?></b></td>
+                                <td align="center"><b><?php echo TABLE_HEADING_DATE_ADDED; ?></b></td>
 
-                                <td class="smallText" align="center"><b><?php echo TABLE_HEADING_CUSTOMER_NOTIFIED; ?></b></td>
+                                <td align="center"><b><?php echo TABLE_HEADING_CUSTOMER_NOTIFIED; ?></b></td>
 
-                                <td class="smallText" align="center"><b><?php echo TABLE_HEADING_STATUS; ?></b></td>
+                                <td align="center"><b><?php echo TABLE_HEADING_STATUS; ?></b></td>
 
-                                <td class="smallText" align="center"><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
+                                <td align="center"><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
 
                             </tr>
 
@@ -2254,9 +2155,9 @@ include(DIR_WS_CLASSES . 'order.php');
 
                                     echo '          <tr>' . "\n" .
 
-                                    '            <td class="smallText" align="center">' . tep_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
+                                    '            <td align="center">' . tep_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
 
-                                    '            <td class="smallText" align="center">';
+                                    '            <td align="center">';
 
                                 
 
@@ -2272,9 +2173,9 @@ include(DIR_WS_CLASSES . 'order.php');
 
 
 
-                                    echo '            <td class="smallText">' . $orders_status_array[$orders_history['orders_status_id']] . '</td>' . "\n" .
+                                    echo '            <td>' . $orders_status_array[$orders_history['orders_status_id']] . '</td>' . "\n" .
 
-                                    '            <td class="smallText">' . nl2br(tep_db_output($orders_history['comments'])) . '&nbsp;</td>' . "\n" .
+                                    '            <td>' . nl2br(tep_db_output($orders_history['comments'])) . '&nbsp;</td>' . "\n" .
 
                                     '          </tr>' . "\n";
 
@@ -2284,7 +2185,7 @@ include(DIR_WS_CLASSES . 'order.php');
 
                                 echo '          <tr>' . "\n" .
 
-                                '            <td class="smallText" colspan="5">' . TEXT_NO_ORDER_HISTORY . '</td>' . "\n" .
+                                '            <td colspan="5">' . TEXT_NO_ORDER_HISTORY . '</td>' . "\n" .
 
                                 '          </tr>' . "\n";
 
@@ -2300,7 +2201,7 @@ include(DIR_WS_CLASSES . 'order.php');
 
                 <tr>
 
-                    <td class="main" bgcolor="#EEEEEE">
+                    <td>
 
                     <br><b>&nbsp;<?php echo TABLE_HEADING_COMMENTS; ?></b>
 
@@ -2310,7 +2211,7 @@ include(DIR_WS_CLASSES . 'order.php');
 
                 <tr>
 
-                    <td bgcolor="#EEEEEE"><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
+                    <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
 
                 </tr>
 
@@ -2322,13 +2223,13 @@ include(DIR_WS_CLASSES . 'order.php');
 
                 ?>
 
-                    <td class="main" bgcolor="#EEEEEE">&nbsp;<?php echo tep_draw_textarea_field('comments', 'soft', '60', '5'); ?></td>
+                    <td>&nbsp;<?php echo tep_draw_textarea_field('comments', 'soft', '60', '5'); ?></td>
 
                 </tr>
 
                 <tr>
 
-                    <td bgcolor="#EEEEEE"><?php //echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+                    <td><?php //echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
 
                 </tr>
 
@@ -2342,9 +2243,9 @@ include(DIR_WS_CLASSES . 'order.php');
 
 				<tr>
 
-					<td bgcolor="#EEEEEE" align="center">
+					<td>
 
-						<table border="0" cellspacing="0" cellpadding="2">
+						<table class="table table-bordered table-hover">
 
 							<tr>
 
@@ -2364,7 +2265,7 @@ include(DIR_WS_CLASSES . 'order.php');
 
 								<tr>
 
-                                <td align="left" class="main">
+                                <td align="left">
 
                                   <?php
 
@@ -2410,17 +2311,6 @@ include(DIR_WS_CLASSES . 'order.php');
 
 									<!-- ups tracking details ends -->
 
-                                 
-
-                                 
-
-                                 
-
-                                 
-
-                                 
-
-                                 
 
                                  <!-- usps tracking details starts -->
 
@@ -2449,16 +2339,6 @@ include(DIR_WS_CLASSES . 'order.php');
 									} ?>
 
 								 <!-- usps tracking details starts -->	
-
-                                    
-
-                                   
-
-                                    
-
-                                    
-
-                                    
 
                                     
 
@@ -2518,7 +2398,7 @@ include(DIR_WS_CLASSES . 'order.php');
 
 				<tr>
 
-                    <td bgcolor="#EEEEEE"><table border="0" cellspacing="0" cellpadding="2">
+                    <td><table class="table table-bordered table-hover">
 
                 <tr>
 
@@ -2530,15 +2410,15 @@ include(DIR_WS_CLASSES . 'order.php');
 
                 <tr>
 
-                    <td bgcolor="#EEEEEE"><table border="0" cellspacing="0" cellpadding="2">
+                    <td><table class="table table-bordered table-hover">
 
                 <tr>
 
-                    <td class="main"><b><?php echo TABLE_HEADING_USPS_TRACKING; ?></b></td>
+                    <td><b><?php echo TABLE_HEADING_USPS_TRACKING; ?></b></td>
 
-                    <td class="main"><?php echo tep_draw_textbox_field('usps_track_num', '40', '40', '', $order->info['usps_track_num']); ?></td>
+                    <td><?php echo tep_draw_textbox_field('usps_track_num', '40', '40', '', $order->info['usps_track_num']); ?></td>
 
-                    <td class="main"><a target="_blank" href="http://trkcnfrm1.smi.usps.com/PTSInternetWeb/InterLabelInquiry.do?origTrackNum=<?php echo $order->info['usps_track_num']; ?>"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td><td><a href="display_usps_label.php?oID=<?php echo $_GET['oID']; ?>" target="_blank" id="uspsGetLabel" style="color:black;">Get Label</a></td>
+                    <td><a target="_blank" href="http://trkcnfrm1.smi.usps.com/PTSInternetWeb/InterLabelInquiry.do?origTrackNum=<?php echo $order->info['usps_track_num']; ?>"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td><td><a href="display_usps_label.php?oID=<?php echo $_GET['oID']; ?>" target="_blank" id="uspsGetLabel" style="color:black;">Get Label</a></td>
 
                 </tr>
 
@@ -2550,9 +2430,9 @@ include(DIR_WS_CLASSES . 'order.php');
 
                 <tr>
 
-                    <td class="main"><b><?php echo TABLE_HEADING_UPS_TRACKING; ?></b></td>
+                    <td><b><?php echo TABLE_HEADING_UPS_TRACKING; ?></b></td>
 
-                    <td class="main"><?php echo tep_draw_textbox_field('ups_track_num', '40', '40', '', $order->info['ups_track_num']); ?></td>
+                    <td><?php echo tep_draw_textbox_field('ups_track_num', '40', '40', '', $order->info['ups_track_num']); ?></td>
 
                     <td><a target="_blank" href="http://wwwapps.ups.com/etracking/tracking.cgi?InquiryNumber1=<?php echo $order->info['ups_track_num']; ?>&InquiryNumber2=&InquiryNumber3=&InquiryNumber4=&InquiryNumber5=&TypeOfInquiryNumber=T&UPS_HTML_Version=3.0&IATA=us&Lang=en&submit=Track+Package"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td><td><a href="display_ups_label.php?oID=<?php echo $_GET['oID']; ?>" target="_blank" id="fedexGetLabel" style="color:black;">Get Label</a></td>
 
@@ -2566,11 +2446,11 @@ include(DIR_WS_CLASSES . 'order.php');
 
                 <tr>
 
-                    <td class="main"><b><?php echo TABLE_HEADING_FEDEX_TRACKING; ?></b></td>
+                    <td><b><?php echo TABLE_HEADING_FEDEX_TRACKING; ?></b></td>
 
-                    <td class="main"><?php echo tep_draw_textbox_field('fedex_track_num', '40', '40', '', $order->info['fedex_track_num']); ?></td>
+                    <td><?php echo tep_draw_textbox_field('fedex_track_num', '40', '40', '', $order->info['fedex_track_num']); ?></td>
 
-                    <td class="main"><a target="_blank" href="http://www.fedex.com/Tracking?tracknumbers=<?php echo $order->info['fedex_track_num']; ?>&action=track&language=english&cntry_code=us"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td><td><a href="fedex_popup_thermal.php?oID=<?php echo $_GET['oID']; ?>" target="_blank" id="fedexGetLabel" style="color:black;">Get Label</a></td>
+                    <td><a target="_blank" href="http://www.fedex.com/Tracking?tracknumbers=<?php echo $order->info['fedex_track_num']; ?>&action=track&language=english&cntry_code=us"><?php echo tep_image_button('button_track.gif', 'Track Package'); ?></a></td><td><a href="fedex_popup_thermal.php?oID=<?php echo $_GET['oID']; ?>" target="_blank" id="fedexGetLabel" style="color:black;">Get Label</a></td>
 
                 </tr>
 
@@ -2582,9 +2462,9 @@ include(DIR_WS_CLASSES . 'order.php');
 
                 <tr>
 
-                    <td class="main"><b>Distributor Tracking Number</b></td>
+                    <td><b>Distributor Tracking Number</b></td>
 
-                    <td class="main"><?php echo tep_draw_textbox_field('extra_track_num', '40', '40', '', $order->info['extra_track_num']); ?></td>
+                    <td><?php echo tep_draw_textbox_field('extra_track_num', '40', '40', '', $order->info['extra_track_num']); ?></td>
 
                 </tr>
 
@@ -2608,29 +2488,29 @@ include(DIR_WS_CLASSES . 'order.php');
 
     <!-- Package Tracking Plus END -->
 
-    <tr bgcolor="#EEEEEE">
+    <tr>
 
-        <td bgcolor="#EEEEEE">
+        <td>
 
-            <table border="0" cellspacing="0" cellpadding="2">
+            <table class="table table-bordered table-hover">
 
                 <tr>
 
                     <td>
 
-                        <table border="0" cellspacing="0" cellpadding="2">
+                        <table class="table table-bordered table-hover">
 
                             <tr>
 
-                                <td class="main"><b><?php echo ENTRY_STATUS; ?></b> <?php echo tep_draw_pull_down_menu('status', $orders_statuses, $order->info['orders_status']); ?></td>
+                                <td><b><?php echo ENTRY_STATUS; ?></b> <?php echo tep_draw_pull_down_menu('status', $orders_statuses, $order->info['orders_status']); ?></td>
 
                             </tr>
 
                             <tr>
 
-                                <td class="main"><b><?php echo ENTRY_NOTIFY_CUSTOMER; ?></b> <?php echo tep_draw_checkbox_field('notify', '', true); ?></td>
+                                <td><b><?php echo ENTRY_NOTIFY_CUSTOMER; ?></b> <?php echo tep_draw_checkbox_field('notify', '', true); ?></td>
 
-                                <td class="main"><b><?php echo ENTRY_NOTIFY_COMMENTS; ?></b> <?php echo tep_draw_checkbox_field('notify_comments', '', true); ?></td>
+                                <td><b><?php echo ENTRY_NOTIFY_COMMENTS; ?></b> <?php echo tep_draw_checkbox_field('notify_comments', '', true); ?></td>
 
                             </tr>
 
@@ -2638,7 +2518,7 @@ include(DIR_WS_CLASSES . 'order.php');
 
                     </td>
 
-                    <td valign="top"><?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE); ?></td>
+                    <td><?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE); ?></td>
 
                 </tr>
 
@@ -2672,7 +2552,7 @@ include(DIR_WS_CLASSES . 'order.php');
 
     <tr>
 
-        <td colspan="2" align="right" bgcolor="#EEEEEE">
+        <td colspan="2" align="right">
 
 		<?php echo '<a href="' . tep_href_link(FILENAME_ORDERS_EDIT, 'oID=' . $_GET['oID']) . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a>' .
 
@@ -2694,25 +2574,25 @@ include(DIR_WS_CLASSES . 'order.php');
 
     <tr>
 
-        <td width="100%">
+        <td>
 
-            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <table class="table table-bordered table-hover">
 
                 <tr>
 
-                    <td class="pageHeading" valign="middle"><?php echo HEADING_TITLE. '&nbsp;&nbsp;'.'<a href="' . tep_href_link(FILENAME_CREATE_ORDER) . '">'. tep_image_button('button_create_order.gif', IMAGE_CREATE_ORDER) . '</a>';  ?></td>
+                    <td valign="middle"><?php echo HEADING_TITLE. '&nbsp;&nbsp;'.'<a href="' . tep_href_link(FILENAME_CREATE_ORDER) . '">'. tep_image_button('button_create_order.gif', IMAGE_CREATE_ORDER) . '</a>';  ?></td>
 
-                    <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+                    <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
 
                     <td align="right">
 
-                        <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                        <table class="table table-bordered table-hover">
 
                             <tr>
 
                             <?php echo tep_draw_form('orders', FILENAME_ORDERS, '', 'get'); ?>
 
-                                <td class="smallText2" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('oID', '', 'size="12"') . tep_draw_hidden_field('action', 'edit'); ?></td>
+                                <td align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('oID', '', 'size="12"') . tep_draw_hidden_field('action', 'edit'); ?></td>
 
                                 </form>
 
@@ -2728,7 +2608,7 @@ include(DIR_WS_CLASSES . 'order.php');
 
                             <?php echo tep_draw_form('status', FILENAME_ORDERS, '', 'get'); ?>
 
-                                <td class="smallText2" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . tep_draw_pull_down_menu('status', array_merge(array(array('id' => '', 'text' => TEXT_ALL_ORDERS)), $orders_statuses), '', 'onChange="this.form.submit();"'); ?></td>
+                                <td align="right"><?php echo HEADING_TITLE_STATUS . ' ' . tep_draw_pull_down_menu('status', array_merge(array(array('id' => '', 'text' => TEXT_ALL_ORDERS)), $orders_statuses), '', 'onChange="this.form.submit();"'); ?></td>
 
                                 </form>
 
@@ -2748,27 +2628,27 @@ include(DIR_WS_CLASSES . 'order.php');
 
     <tr>
 
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
 
             <tr>
 
                 <td valign="top">
 
-                    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                    <table class="table table-bordered table-hover">
 
-                        <tr class="dataTableHeadingRow">
+                        <tr>
 
-                            <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
+                            <td><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
 
-                            <td class="dataTableHeadingContent" align="right">Order Number</td>
+                            <td align="right">Order Number</td>
 
-                            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></td>
+                            <td align="right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></td>
 
-                            <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
+                            <td align="center"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
 
-                            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
+                            <td align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
 
-                            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                            <td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
 
                         </tr>
 
@@ -2824,9 +2704,9 @@ include(DIR_WS_CLASSES . 'order.php');
 
                         ?>
 
-                            <td class="dataTableContent"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID', 'action')) . 'oID=' . $orders['orders_id'] . '&action=edit') . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $orders['customers_name']; ?></td>
+                            <td><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID', 'action')) . 'oID=' . $orders['orders_id'] . '&action=edit') . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $orders['customers_name']; ?></td>
 
-                            <td class="dataTableContent" align="right">
+                            <td align="right">
 
                             <?php 
 
@@ -2854,13 +2734,13 @@ include(DIR_WS_CLASSES . 'order.php');
 
                             </td>
 
-                            <td class="dataTableContent" align="right"><?php echo strip_tags($orders['order_total']); ?></td>
+                            <td align="right"><?php echo strip_tags($orders['order_total']); ?></td>
 
-                            <td class="dataTableContent" align="center"><?php echo tep_datetime_short($orders['date_purchased']); ?></td>
+                            <td align="center"><?php echo tep_datetime_short($orders['date_purchased']); ?></td>
 
-                            <td class="dataTableContent" align="right"><?php echo $orders['orders_status_name'] . $ack_resp; ?></td>
+                            <td align="right"><?php echo $orders['orders_status_name'] . $ack_resp; ?></td>
 
-                            <td class="dataTableContent" align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id)) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                            <td align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id)) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
 
                         </tr>
 
@@ -2874,13 +2754,13 @@ include(DIR_WS_CLASSES . 'order.php');
 
                             <td colspan="5">
 
-                                <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                                <table class="table table-bordered table-hover">
 
                                     <tr>
 
-                                        <td class="smallText2" valign="top"><?php echo $orders_split->display_count($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
+                                        <td><?php echo $orders_split->display_count($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
 
-                                        <td class="smallText2" align="right"><?php echo $orders_split->display_links($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'oID', 'action'))); ?></td>
+                                        <td align="right"><?php echo $orders_split->display_links($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'oID', 'action'))); ?></td>
 
                                     </tr>
 
@@ -2932,7 +2812,7 @@ include(DIR_WS_CLASSES . 'order.php');
 
                         $contents[] = array('align' => 'center', 'text' => "<a href=\"javascript:poptastic('invoice.php?oID=" . $_GET["oID"] . "')" . ';">' . tep_image_button('button_invoice.gif', IMAGE_ORDERS_INVOICE) . '</a>' .
 
-                        "<a href=\"javascript:poptastic('packingslip.php?oID=" . $_GET["oID"] . "')" . ';">' . tep_image_button('button_packingslip.gif', IMAGE_ORDERS_PACKINGSLIP) . '</a>' .
+                        "<a href=\"javascript:poptastic('packingslip.php?oID=" . $_GET["oID"] . "')" . ';" style="margin:0 2px;">' . tep_image_button('button_packingslip.gif', IMAGE_ORDERS_PACKINGSLIP) . '</a>' .
 
                         '<a href="' . tep_href_link(FILENAME_ORDERS_EDIT, 'oID=' . $oInfo->orders_id) . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a>');
 
@@ -2987,22 +2867,95 @@ include(DIR_WS_CLASSES . 'order.php');
 </tr>
 
 </table>
-
+<!-- END your table-->
 <!-- body_eof //-->
 
-
-
 <!-- footer //-->
-
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-
 <!-- footer_eof //-->
+<script  type="text/javascript">
 
-<br>
+            var notice_win = '';
 
-</body>
+            $(document).ready(function(){ 
 
-</html>
+            <?php
 
+                $like_string = '';
+
+                $is_not_fraud = fraud_prevention_is_negative($_GET['oID']);
+
+                if (!$is_not_fraud){
+
+            ?>
+
+                    notice_win = window.open('edit_orders.php?w=n',"notice","toolbar=no, menubar=no,resizable=no,location=no,directories=no,status=no,width=500,height=500");
+
+            <?php
+
+                }
+
+            ?>
+
+            })
+
+            .click(function(){
+
+                if(notice_win && !notice_win.closed) 
+
+                    notice_win.focus();
+
+            });
+
+        </script>
+
+        <script type="text/javascript">
+
+            function validate_selection(formRef){
+
+                try{
+
+                    var blnResp = false;
+
+                    for (var i=0; i<formRef.elements.length; i++){
+
+                        if (formRef.elements[i].id=='chk_send_to_obn[]' && !formRef.elements[i].disabled  && formRef.elements[i].checked){
+
+                            blnResp = true;
+
+                            break;
+
+                        }
+
+                    }
+
+                    if (!blnResp){
+
+                        alert('Please select item(s) to invoke \'Send to OBN\' functionality');
+
+                    }
+
+
+
+                    return blnResp;
+
+                } catch(e){alert(e);}	
+
+            }
+
+
+
+            // Added for Pop-up windows for Invoice and Packing Slips - OBN
+
+            var newwindow;
+
+            function poptastic(url) {
+
+                newwindow=window.open(url,'name','height=600px,width=850px');
+
+                if (window.focus) {newwindow.focus()}
+
+            }
+
+        </script>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
-

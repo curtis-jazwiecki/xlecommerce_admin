@@ -36,24 +36,10 @@ $rowz = tep_db_fetch_array($template_query);
 $selected_template = $rowz['configuration_value'];
 // End Template Check
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-	<title><?php echo TITLE; ?></title>
-	<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-        <style>
-            a:link.file_link{
-                color:red;
-            }
-            a:visited.file_link{
-                color:red;
-            }
-        </style>
-        
-<!-- SCRIPT FOR ACCORDIAN -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"> </script>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"> </script>
 <script type="text/javascript" src="../../../jquery.min.js"> </script>
+<script type="text/javascript" src="includes/javascript/jquery-linedtextarea.js"></script>
 <script type="text/javascript">
     $(document).ready(function() { 	 	
         //ACCORDION BUTTON ACTION (ON CLICK DO THE FOLLOWING)	
@@ -67,7 +53,9 @@ $selected_template = $rowz['configuration_value'];
                 $(this).addClass('on');			  		
                 ////OPEN THE SLIDE			
                 $(this).next().slideDown('normal');		 
-            } 		  	 
+            } 
+			
+				  	 
         });	
         /*** REMOVE IF MOUSEOVER IS NOT REQUIRED ***/	
         //ADDS THE .OVER CLASS FROM THE STYLESHEET ON MOUSEOVER 	
@@ -81,6 +69,7 @@ $selected_template = $rowz['configuration_value'];
         /********************************************************************************************************************	CLOSES ALL S ON PAGE LOAD	********************************************************************************************************************/		
 		$('.accordionContent').hide();		
         $("#open").trigger('click');});
+		
 </script> 
 <!-- END SCRIPT FOR ACCORDIAN -->
 <!-- CSS FOR ACCORDIAN -->
@@ -117,15 +106,103 @@ $selected_template = $rowz['configuration_value'];
         background-repeat:no-repeat;	
     }		
 	</style>
-<!-- END CSS FOR ACCORDIAN -->
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
-	<!-- header //-->
-	<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-	<!-- header_eof //-->
+    <style type="text/css">
+    /**
+ * jQuery Lined Textarea Plugin
+ *   http://alan.blog-city.com/jquerylinedtextarea.htm
+ *
+ * Copyright (c) 2010 Alan Williamson
+ *
+ * Released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ * 
+ * Usage:
+ *   Displays a line number count column to the left of the textarea
+ *   
+ *   Class up your textarea with a given class, or target it directly
+ *   with JQuery Selectors
+ *   
+ *   $(".lined").linedtextarea({
+ *   	selectedLine: 10,
+ *    selectedClass: 'lineselect'
+ *   });
+ *
+ */
 
-	<!-- body //-->
-	<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+.linedwrap {
+	border: 1px solid #c0c0c0;
+	padding: 3px;
+}
+
+.linedtextarea {
+	padding: 0px;
+	margin: 0px;
+}
+
+.linedtextarea textarea, .linedwrap .codelines .lineno {
+	font-size: 10pt;
+	font-family: monospace;
+	line-height: normal !important;
+}
+
+.linedtextarea textarea {
+	padding-right:0.3em;
+	padding-top:0.3em;
+	border: 0;
+}
+
+.linedwrap .lines {
+	margin-top: 0px;
+	width: 50px;
+	float: left;
+	overflow: hidden;
+	border-right: 1px solid #c0c0c0;
+	margin-right: 10px;
+}
+
+.linedwrap .codelines {
+	padding-top: 5px;
+}
+
+.linedwrap .codelines .lineno {
+	color:#AAAAAA;
+	padding-right: 0.5em;
+	padding-top: 0.0em;
+	text-align: right;
+	white-space: nowrap;
+}
+
+.linedwrap .codelines .lineselect {
+	color: red;
+}
+    </style>
+<!-- header //-->
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+<!-- header_eof //-->
+
+<!-- body //-->
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Edit Templates<?php if(isset($_POST['update_template'])) echo '<span> - New Template Selected</span>'; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">Edit Templates<?php if(isset($_POST['update_template'])) echo '<span> - New Template Selected</span>'; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
 		<tr>
 		<?php
 		if((!isset($_POST['action']) && !isset($_GET['action'])) || $_GET['action'] == "revert"){
@@ -147,18 +224,8 @@ $selected_template = $rowz['configuration_value'];
 			</td>
 		</tr>
                 <tr>
-                    <td width="100%" valign="top">
-                        <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                            <tr>
-                                <td>
-                                    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td class="pageHeading">Edit Templates<?php if(isset($_POST['update_template'])) echo '<span style="font-size: 14px;"> - New Template Selected</span>'; ?></td>
-                                            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
+                    <td>
+                        <table class="table table-bordered table-hover">
                             <tr>
                                 <td>
                                     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" name="template_update">
@@ -194,7 +261,8 @@ $selected_template = $rowz['configuration_value'];
                                    <!-- ALSO SEE ACCORDIAN CSS AND SCRIPT IN <head> AREA -->
                                     <?php
                                     foreach($templates as $template){
-                                       if (basename($template) != 'template13' && basename($template) != 'template14' && basename($template) != 'template15' && basename($template) != 'template16' && basename($template) != 'template17') {
+										
+                                      /* if (basename($template) != 'template13' && basename($template) != 'template14' && basename($template) != 'template15' && basename($template) != 'template16' && basename($template) != 'template17') {*/
                                         $current_template = 'full/' . basename($template);  
                                     ?>
                                     <div id="wrapper">	
@@ -224,7 +292,7 @@ $selected_template = $rowz['configuration_value'];
                                                                     echo $row['key'] . ': ' . $row['value'] . '<br>';
                                                                 } elseif($row['type']=='file'){
                                                                     echo '<div>';
-                                                                    echo '<div style="float:left;">' . str_pad('<a class="file_link" href="' . $_SERVER['PHP_SELF'] . '?action=edit&file=' . $row['file'] . '&id=' . $template_id . '">' . (!empty($row['description']) ? $row['description'] : $row['file']) . '</a>', 50, '&nbsp;') . (!empty($row['variable']) ? ' (' . $row['variable'] . ')' : '') . '</div><div style="float:right;">' . (file_exists($dir . 'template'. $template_id . '/' . $row['file']) ? date('m/d/y', filemtime(utf8_decode($dir . 'template'. $template_id . '/' . $row['file']))):'') . '</div>';
+                                                                    echo '<div style="float:left;">' . str_pad('<a class="file_link" href="' . $_SERVER['PHP_SELF'] . '?action=edit&file=' . $row['file'] . '&id=' . $template_id . '">' . (!empty($row['description']) ? $row['description'] : $row['file']) . '</a>', 50, '&nbsp;') . (!empty($row['variable']) ? ' (' . $row['variable'] . ')' : '') . '</div><div style="float:right;">' . date('m/d/y', filemtime($dir . 'template'. $template_id . '/' . $row['file'])) . '</div>';
                                                                     echo '</div><br>';
                                                                 }
                                                             }
@@ -252,8 +320,9 @@ $selected_template = $rowz['configuration_value'];
                                           
                                         </div>
                                     <?php
-                                      }
-                                    }
+                                      //}
+                                    
+									}
                                     ?>
                                     </div>
                                             <input border="0" type="image" title=" Update " alt="Update" src="includes/languages/english/images/buttons/button_update_b.gif">
@@ -268,21 +337,7 @@ $selected_template = $rowz['configuration_value'];
                     
 		<tr>
 			<!-- body_text //-->
-			<td width="100%" valign="top">
-				<table border="0" width="100%" cellspacing="0" cellpadding="2">
-					<tr>
-						<td>
-							<table border="0" width="100%" cellspacing="0" cellpadding="0">
-								<tr>
-									<td class="pageHeading">Edit Templates<?php if(isset($_POST['update_template'])) echo '<span style="font-size: 14px;"> - New Template Selected</span>'; ?></td>
-									<td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-
-				</table>
-			</td>
+			
 			<!-- body_text_eof //-->
 			<?php
 			} elseif($_GET['action'] == "edit" || $_POST['action'] == "edit") {
@@ -293,45 +348,47 @@ $selected_template = $rowz['configuration_value'];
 				$contents = file($folder_name.$filename);
 				$string = implode($contents);
 			?>
-			<td width="100%" valign="top">
-				<table border="0" width="100%" cellspacing="0" cellpadding="2">
+			<td>
+				<table class="table table-bordered table-hover">
 					<tr>
 						<td>
-							<table border="0" width="100%" cellspacing="0" cellpadding="0">
+							<table class="table table-bordered table-hover">
 								<tr>
-									<td class="pageHeading">Edit Templates</td>
-									<td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+									<td>Edit Templates</td>
+									<td align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
 								</tr>
 							</table>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<table border="0" width="100%" cellspacing="0" cellpadding="0">
+							<form method='post' action='edit_templates.php?<?php echo tep_get_all_get_params();?>'>
+                            <input type="hidden" name="file_name" value="<?php echo str_replace('/', '$', str_replace('.css', 'dotc', str_replace('.html', 'doth', str_replace('.php', 'dotp', $folder_name.$filename)))); ?>" />
+							<input type="hidden" name="action" value="edit" />
+                            <table class="table table-bordered table-hover">
 								<tr>
-									<td valign="top">
-										<table border="0" width="100%" cellspacing="0" cellpadding="2">
-											<tr class="dataTableHeadingRow">
-												<td class="dataTableHeadingContent" align="left" colspan="4">File Text for "<?php echo $filename; ?>"</td>
+									<td>
+										<table class="table table-bordered table-hover">
+											<tr>
+												<td align="left" colspan="4">File Text for "<?php echo $filename; ?>"</td>
 											</tr>
-											<form method='post' action='edit_templates.php?<?php echo tep_get_all_get_params();?>'>
-											<!--<input type="hidden" name="file_name" value="<?php //echo $folder_name.$filename; ?>" /> -->
-                                                                                            <input type="hidden" name="file_name" value="<?php echo str_replace('/', '$', str_replace('.css', 'dotc', str_replace('.html', 'doth', str_replace('.php', 'dotp', $folder_name.$filename)))); ?>" />
-											<input type="hidden" name="action" value="edit" />
-											<tr bgcolor="#FFFFFF">
-												<td class="dataTableHeadingContent" align="center" colspan="4" align="center">
-													<textarea name="file_text" style="width: 750px; height: 650px; margin: 5px 0"><?php echo $string; ?></textarea>
-												</td>
+											
+											<tr>
+												<td align="center" colspan="4">
+                                                    <textarea name="file_text" class="lined" style="width:100%; min-height:800px;color: white; background-color: black;">
+                                                        <?php echo $string; ?>
+                                                    </textarea>
+                        						</td>
 											</tr>
 										</table>
 									</td>
 								</tr>
 							</table>
 							<div style="float: right; margin: 5px 0 0 0;">
-							<?php echo '<a href="edit_templates.php">' . tep_image_button('button_back_b.gif', IMAGE_BACK) . '</a>';?>
-								<input border="0" type="image" title=" Update " alt="Update" src="includes/languages/english/images/buttons/button_update_b.gif">
+							<?php echo '<a href="edit_templates.php">' . tep_image_button('button_back_b.gif', IMAGE_BACK) . '</a>';?>							
+                            <input border="0" type="image" title=" Update " alt="Update" src="includes/languages/english/images/buttons/button_update_b.gif">
 							</div>
-											</form>
+							</form>
 						</td>
 					</tr>
 				</table>
@@ -342,12 +399,17 @@ $selected_template = $rowz['configuration_value'];
 		</tr>
 		<tr><td colspan="4"></td></tr>
 	</table>
-	<!-- body_eof //-->
-	<!-- footer //-->
-	<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-	<!-- footer_eof //-->
-	<br>
-</body>
-</html>
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+               <!-- END your table-->
+<!-- body_eof //-->
+<script type="text/javascript">
+$(document).ready(function(e) {
+	$(".lined").linedtextarea(
+		{selectedLine: 1}
+	);    
+});
+</script>
+<!-- footer //-->
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+<!-- footer_eof //-->
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

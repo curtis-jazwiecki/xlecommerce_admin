@@ -276,15 +276,9 @@
     
 
 ?>
-<!doctype html>
-<html <?php echo HTML_PARAMS; ?>>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-        <title>Marketing Feeds</title>
+<title>Marketing Feeds</title>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
          <style>
-        body {
-        min-width: 520px;
-        }
         .column {
         width: 300px;
         float: left;
@@ -366,45 +360,44 @@ $(function() {
     
 });
 </script>
-    </head>
-    <body style="margin:0;">
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-        <table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
-            <tr>
-                <td width="100%" valign="top">
-                    <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                        <tr>
-                            <td>
-                                <table border="0" width="100%" cellspacing="0" cellpadding="0">
-                                    <tr>
-                                        <td class="pageHeading">
-                                            Marketing Feeds
-                                        </td>
-                                        <td class="pageHeading" align="right">
-                                        <?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+
+<!-- header //-->
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+<!-- header_eof //-->
+
+<!-- body //-->
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Marketing Feeds
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">Marketing Feeds
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
             <tr>
                 <td>
-                <?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?>
-                </td>
-            </tr>
-            <tr>
-                <td class="smallText" style="color:white;font-weight:bold;">
                 Drag from left and drop on right
                 </td>
             </tr>
             <tr>
-                <td style="background-color: white;">
-                    <table style="width:100%;">
+                <td>
+                    <table class="table table-bordered table-hover">
                         <tr>
-                            <td style="width:50%;" valign="top">
+                            <td>
                                 <div class="column">
                             <?php 
                             // reference: https://jqueryui.com/sortable/#portlets
@@ -434,7 +427,7 @@ $(function() {
                             <?php } ?>
                                 </div>
                             </td>
-                            <td id="selection" style="width:50%;background-color:#eeeeee;" valign="top">
+                            <td id="selection">
                             <div style="margin-bottom: 15px;"><button id="generate_report">Click to Generate Report</button></div>
                                 <div class="column">
                                 </div>
@@ -454,5 +447,11 @@ $(function() {
             <input type="hidden" name="columns" value="" />
             <input type="hidden" name="action" value="generate_csv" />
         </form>
-    </body>
-</html>
+               <!-- END your table-->
+<!-- body_eof //-->
+
+<!-- footer //-->
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+<!-- footer_eof //-->
+
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

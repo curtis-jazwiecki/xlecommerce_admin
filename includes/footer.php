@@ -10,10 +10,7 @@
   Released under the GNU General Public License
 */
 ?>
-<br>
-<table border="0" width="100%" cellspacing="0" cellpadding="2" bgcolor="#030c2c">
-  <tr>
-    <td align="center" class="smallText">
+
 <?php
 /*
   The following copyright announcement is in compliance
@@ -30,12 +27,53 @@
   following copyright announcement.
 */
 ?>
-<span style="color:#FFFFFF">OBN E-Commerce Solution Copyright &copy; 2014 <a href="http://www.outdoorbusinessnetwork.com" target="_blank">Outdoor Business Network, Inc.</a><br>
-Powered By <a href="http://www.outdoorbusinessnetwork.com">OBN V6.0</a><br />
-CloudCommerce V<?php echo trim(implode('', file(DIR_FS_CATALOG . 'includes/version.php'))); ?></span>
-    </td>
-  </tr>
-  <tr>
-    <td><?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '5'); ?></td>
-  </tr>
-</table>
+                     <!-- START footer Page content-->
+                          <div class="col-lg-12">
+                          <div><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></div>
+                            <span>OBN E-Commerce Solution Copyright &copy; 2016 <a href="http://www.outdoorbusinessnetwork.com" target="_blank">Outdoor Business                          Network,Inc.</a><br>
+                 Powered By <a href="http://www.outdoorbusinessnetwork.com">OBN V6.0</a><br />
+                 CloudCommerce V<?php echo trim(implode('', file(DIR_FS_CATALOG . 'includes/version.php'))); ?></span>
+                 <div><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></div>
+                           </div>
+                     <!-- END Page footer content-->
+         <!-- END Page footer content-->
+                  <!-- END summary widgets-->
+               </div>
+               <!-- END dashboard main content-->
+            </div>
+         </section>
+         <!-- END Page content-->
+      <!-- END Main section-->
+   </section>
+   </section>
+   <!-- END Main wrapper-->
+
+</body>
+
+</html>
+   <!-- START Scripts-->
+   <!-- Main vendor Scripts-->
+   
+   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+   <!-- Plugins-->
+   <script src="vendor/chosen/chosen.jquery.min.js"></script>
+   <script src="vendor/slider/js/bootstrap-slider.js"></script>
+   <script src="vendor/filestyle/bootstrap-filestyle.min.js"></script>
+   <!-- Animo-->
+   <script src="vendor/animo/animo.min.js"></script>
+   <!-- Sparklines-->
+   <script src="vendor/sparklines/jquery.sparkline.min.js"></script>
+   <!-- Slimscroll-->
+   <script src="vendor/slimscroll/jquery.slimscroll.min.js"></script>
+   <!-- START Page Custom Script-->
+   <!-- END Page Custom Script-->
+   <!-- App Main-->
+   <script src="app/js/app.js"></script>
+   <!--  Flot Charts-->
+   <script src="vendor/flot/jquery.flot.min.js"></script>
+   <script src="vendor/flot/jquery.flot.tooltip.min.js"></script>
+   <script src="vendor/flot/jquery.flot.resize.min.js"></script>
+   <script src="vendor/flot/jquery.flot.pie.min.js"></script>
+   <script src="vendor/flot/jquery.flot.time.min.js"></script>
+   <script src="vendor/flot/jquery.flot.categories.min.js"></script>
+   <!-- END Scripts-->

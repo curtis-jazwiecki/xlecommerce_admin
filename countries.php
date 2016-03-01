@@ -85,55 +85,61 @@ elseif($_POST['action'] == "update_country_info")
 		$i++;
 	  }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
+    <td><table class="table table-bordered table-hover">
       <tr>
         <td>
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table table-bordered table-hover">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td><table class="table table-bordered table-hover">
 			<form method="post" action="<?php echo FILENAME_COUNTRIES; ?>" name="countries">
 			<input type="hidden" name="action" value="update_countries" />
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent" width="35%"><?php echo TABLE_HEADING_COUNTRY_NAME; ?></td>
+              <tr>
+                <td><?php echo TABLE_HEADING_COUNTRY_NAME; ?></td>
                 
-                <td class="dataTableHeadingContent" align="center" colspan="2" width="27%"><?php echo TABLE_HEADING_COUNTRY_CODES; ?></td>
-                <td class="dataTableHeadingContent" width="30%">Active Country</td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                <td align="center" colspan="2"><?php echo TABLE_HEADING_COUNTRY_CODES; ?></td>
+                <td>Active Country</td>
+                <td align="center"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
 // Below displays all Countries that are Active - OBN
 	for($z=0; $z < sizeof($countries_array_id)-1; $z++)
 	  {
 ?>
-          <tr bgcolor="#DDDDDD">
-            <td class="dataTableContent"><b><?php echo $countries_array_name[$z]; ?></b></td>
-            <td class="dataTableContent" align="center" colspan="2"><b><?php echo $countries_array_iso_code_2[$z].' &nbsp; '.$countries_array_iso_code_3[$z]; ?></b></td>
-            <td class="dataTableContent" align="left"><b>
+          <tr>
+            <td><b><?php echo $countries_array_name[$z]; ?></b></td>
+            <td align="center" colspan="2"><b><?php echo $countries_array_iso_code_2[$z].' &nbsp; '.$countries_array_iso_code_3[$z]; ?></b></td>
+            <td align="left"><b>
             <input type="radio" name="<?php echo $countries_array_id[$z]; ?>" value="true" checked />Yes </b>
             <input type="radio" name="<?php echo $countries_array_id[$z]; ?>" value="false" />No
             <input type="hidden" name="<?php echo $countries_array_id[$z]; ?>_value" value="true" />
@@ -143,7 +149,7 @@ elseif($_POST['action'] == "update_country_info")
             <input type="hidden" name="<?php echo $countries_array_id[$z]; ?>countries_iso_code_3" value="<?php echo $countries_array_iso_code_3[$z]; ?>" />
             <input type="hidden" name="<?php echo $countries_array_id[$z]; ?>address_format_id" value="<?php echo $countries_array_address_format_id[$z]; ?>" />
             </td>
-            <td class="dataTableContent" align="center"><a href="<?php echo $_SERVER['PHP_SELF'] . "?action=edit&t=on&id=" . $countries_array_id[$z];?>" style="color: #222222; font-weight:bold;">[Edit]</a></td>
+            <td align="center"><a href="<?php echo $_SERVER['PHP_SELF'] . "?action=edit&t=on&id=" . $countries_array_id[$z];?>" style="color: #222222; font-weight:bold;">[Edit]</a></td>
           </tr>
           
 <?php
@@ -151,11 +157,11 @@ elseif($_POST['action'] == "update_country_info")
 	for($z=0; $z < sizeof($countries_array_off_id)-1; $z++)
       {
 ?>
-          <tr bgcolor="#DDDDDD">
-            <td class="dataTableContent"><?php echo $countries_array_off_name[$z]; ?></td>
-            <td class="dataTableContent" align="center" colspan="2"><?php echo $countries_array_off_iso_code_2[$z].' &nbsp; '.$countries_array_off_iso_code_3[$z]; ?></td>
+          <tr>
+            <td><?php echo $countries_array_off_name[$z]; ?></td>
+            <td align="center" colspan="2"><?php echo $countries_array_off_iso_code_2[$z].' &nbsp; '.$countries_array_off_iso_code_3[$z]; ?></td>
             
-            <td class="dataTableContent" align="left">
+            <td align="left">
             <input type="radio" name="<?php echo $countries_array_off_id[$z]; ?>" value="true" />Yes
             <input type="radio" name="<?php echo $countries_array_off_id[$z]; ?>" value="false" checked /><b>No
             <input type="hidden" name="<?php echo $countries_array_off_id[$z]; ?>_value" value="false" />
@@ -165,17 +171,17 @@ elseif($_POST['action'] == "update_country_info")
             <input type="hidden" name="<?php echo $countries_array_off_id[$z]; ?>countries_iso_code_3" value="<?php echo $countries_array_off_iso_code_3[$z]; ?>" />
             <input type="hidden" name="<?php echo $countries_array_off_id[$z]; ?>address_format_id" value="<?php echo $countries_array_off_address_format_id[$z]; ?>" />
             </b></td>
-            <td class="dataTableContent" align="center"><a href="<?php echo $_SERVER['PHP_SELF'] . "?action=edit&t=off&id=" . $countries_array_off_id[$z];?>" style="color: #222222; font-weight:bold;">[Edit]</a></td>
+            <td align="center"><a href="<?php echo $_SERVER['PHP_SELF'] . "?action=edit&t=off&id=" . $countries_array_off_id[$z];?>" style="color: #222222; font-weight:bold;">[Edit]</a></td>
           </tr>
 <?php
 	  }
 ?>
-			  <tr style="background-color: #030C2C">
+			  <tr>
 				<td colspan="5" align="right"><input border="0" type="image" title="Update" alt="Update" src="includes/languages/english/images/buttons/button_update_b.gif"></td>
               </tr>
 			  </form>
               <tr>
-              <td bgcolor="#FFFFFF">
+              <td>
               <?php echo "Total Active Countries: <b>".(sizeof($countries_array_id)-1).'</b><br /> Total In-Active Countries: <b>'.(sizeof($countries_array_off_id)-1).'</b>'; ?>
               </td>
               <td colspan="4">&nbsp;</td>
@@ -198,33 +204,33 @@ elseif($_POST['action'] == "update_country_info")
 		$countries_edit[countries_iso_code_3];
 ?>
 		  <td valign="top" width="25%">
-            <table width="100%" cellpadding="2" cellspacing="0">
-              <tr class="infoBoxHeading">
-                <td class="infoBoxHeading"><b>Edit Country</b></td>
+            <table class="table table-bordered table-hover">
+              <tr>
+                <td><b>Edit Country</b></td>
               </tr>
             </table>
-            <table width="100%" cellpadding="2" cellspacing="0">
+            <table class="table table-bordered table-hover">
               <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
               <input name="action" value="update_country_info" type="hidden" />
               <input name="id" value="<?php echo $_GET['id']; ?>" type="hidden" />
               <input name="status" value="<?php echo $_GET['t']; ?>" type="hidden" />
               <tr>
-                <td class="infoBoxContent">
-	              <table width="100%" cellpadding="2" cellspacing="0">
-              		<tr class="infoBoxContent" valign="top">
-                	  <td class="infoBoxContent">Countries Name:</td>
-                      <td class="infoBoxContent"><input type="text" name="countries_name" value="<?php echo $countries_edit[countries_name]; ?>" style="width: 80px" /></td>
+                <td>
+	              <table class="table table-bordered table-hover">
+              		<tr>
+                	  <td>Countries Name:</td>
+                      <td><input type="text" name="countries_name" value="<?php echo $countries_edit[countries_name]; ?>" style="width: 80px" /></td>
                     </tr>
-              		<tr class="infoBoxContent" valign="top">
-                	  <td class="infoBoxContent">Countries Code:<br />(2 digit)</td>
-                      <td class="infoBoxContent"><input type="text" name="countries_iso_code_2" value="<?php echo $countries_edit[countries_iso_code_2]; ?>" style="width: 50px" /></td>
+              		<tr>
+                	  <td>Countries Code:<br />(2 digit)</td>
+                      <td><input type="text" name="countries_iso_code_2" value="<?php echo $countries_edit[countries_iso_code_2]; ?>" style="width: 50px" /></td>
                     </tr>
-              		<tr class="infoBoxContent" valign="top">
-                	  <td class="infoBoxContent">Countries Code:<br />(3 digit)</td>
-                      <td class="infoBoxContent"><input type="text" name="countries_iso_code_3" value="<?php echo $countries_edit[countries_iso_code_3]; ?>" style="width: 50px" /></td>
+              		<tr>
+                	  <td>Countries Code:<br />(3 digit)</td>
+                      <td><input type="text" name="countries_iso_code_3" value="<?php echo $countries_edit[countries_iso_code_3]; ?>" style="width: 50px" /></td>
                     </tr>
-					<tr class="infoBoxContent" valign="top">
-                	  <td class="infoBoxContent" colspan="2" align="center"><input border="0" type="image" title=" Update " alt="Update" src="includes/languages/english/images/buttons/button_update.gif"></td>
+					<tr>
+                	  <td colspan="2" align="center"><input border="0" type="image" title=" Update " alt="Update" src="includes/languages/english/images/buttons/button_update.gif"></td>
                     </tr>
                   </table>
                 </td>
@@ -243,12 +249,11 @@ elseif($_POST['action'] == "update_country_info")
 <!-- body_text_eof //-->
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

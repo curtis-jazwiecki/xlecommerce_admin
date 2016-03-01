@@ -44,35 +44,44 @@ function set_pod_item_status($pod_id, $status) {
 	}
 }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-		<title>Product Per Day Scheduler</title>
-		<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-		<script language="javascript" src="includes/general.js"></script>
-		<script language="javascript" src="includes/featured.js"></script>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+<script type="text/javascript">
+<?php echo ($_GET['action']=='new' ? 'displaySelection(\'div_listing\', \'C0\', \'F\');' : ''); ?>
+</script>
+<script language="javascript" src="includes/featured.js"></script>
 		<?php if ( ($_GET['action'] == 'new') || ($_GET['action'] == 'edit') ) { ?>
 		<link rel="stylesheet" type="text/css" href="includes/javascript/calendar.css">
 		<script language="JavaScript" src="includes/javascript/calendarcode.js"></script>
 		<?php } ?>
-	</head>
-	<body bgcolor="#FFFFFF" onload="SetFocus();" style="margin:0;">
-		<div id="popupcalendar" class="text"></div>
-		<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-		<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
-			<tr>
-				<td width="100%" valign="top">
-					<table border="0" width="100%" cellspacing="0" cellpadding="2">
-						<tr>
-							<td class="pageHeading">Product Per Day Scheduler</td>
-							<td class="pageHeading" align="right">
-							<?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
+<div id="popupcalendar" class="text" style="z-index:9999; position:absolute;"></div>
+<!-- header //-->
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+<!-- header_eof //-->
+
+<!-- body //-->
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Product Per Day Scheduler
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">Product Per Day Scheduler
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
+			
 			<?php 
 			if ( ($_GET['action'] == 'new') || ($_GET['action'] == 'edit') ) { 
 				$form_action = 'insert';
@@ -93,10 +102,10 @@ function set_pod_item_status($pod_id, $status) {
 						echo tep_draw_hidden_field('pod_id', $_GET['podID']); 
 					}
 					?>
-						<table border="0" cellspacing="0" cellpadding="2">
+						<table class="table table-bordered table-hover">
 							<tr>
-								<td class="main" valign="top" style="color:#FFFFFF">Product for Day</td>
-								<td class="main" style="color:#FFFFFF">            	
+								<td>Product for Day</td>
+								<td>            	
 								<?php 
 								echo (($podInfo->products_name) 
 								? $podInfo->products_name 
@@ -107,13 +116,13 @@ function set_pod_item_status($pod_id, $status) {
 								</td>
 							</tr>
 							<tr>
-								<td class="main" style="color:#FFFFFF">Start Day</td>
-								<td class="main">
+								<td>Start Day</td>
+								<td>
 								<?php echo tep_draw_input_field('day', substr($podInfo->start_date, 8, 2), 'size="2" maxlength="2" class="cal-TextBox"') . tep_draw_input_field('month', substr($podInfo->start_date, 5, 2), 'size="2" maxlength="2" class="cal-TextBox"') . tep_draw_input_field('year', substr($podInfo->start_date, 0, 4), 'size="4" maxlength="4" class="cal-TextBox"'); ?><a class="so-BtnLink" href="javascript:calClick();return false;" onMouseOver="calSwapImg('BTN_date', 'img_Date_OVER',true);" onMouseOut="calSwapImg('BTN_date', 'img_Date_UP',true);" onClick="calSwapImg('BTN_date', 'img_Date_DOWN');showCalendar('new_feature','dteWhen','BTN_date');return false;"><?php echo tep_image(DIR_WS_IMAGES . 'cal_date_up.gif', 'Calendar', '22', '17', 'align="absmiddle" name="BTN_date"'); ?></a>
 								</td>
 							</tr>
 							<tr>
-								<td class="main" align="right" valign="top" colspan="2">
+								<td align="right" colspan="2">
 								<br>
 								<?php 
 								echo (($form_action == 'insert') 
@@ -136,15 +145,15 @@ function set_pod_item_status($pod_id, $status) {
 			?>
 			<tr>
 				<td>
-					<table border="0" width="100%" cellspacing="0" cellpadding="0">
+					<table class="table table-bordered table-hover">
 						<tr>
-							<td valign="top">
-								<table border="0" width="100%" cellspacing="0" cellpadding="2">
-									<tr class="dataTableHeadingRow">
-										<td class="dataTableHeadingContent">Show Date</td>
-										<td class="dataTableHeadingContent">Products</td>
-										<td class="dataTableHeadingContent" align="right">Status</td>
-										<td class="dataTableHeadingContent" align="right">Action&nbsp;</td>
+							<td>
+								<table class="table table-bordered table-hover">
+									<tr>
+										<td>Show Date</td>
+										<td>Products</td>
+										<td align="right">Status</td>
+										<td align="right">Action&nbsp;</td>
 									</tr>
 									<?php
 									$listing_query_raw = "select pftd.id, pftd.products_id, pftd.start_date, pftd.status, pftd.date_added, pftd.last_modified, pd.products_name from product_for_the_day pftd inner join products p on pftd.products_id=p.products_id inner join products_description pd on  (p.products_id=pd.products_id and pd.language_id='1') order by pftd.start_date desc";
@@ -157,15 +166,15 @@ function set_pod_item_status($pod_id, $status) {
 										
 										if ( (is_object($podInfo)) && ($entry['id'] == $podInfo->id) ) {
 									?>
-									<tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\''<?php echo tep_href_link('product_per_day.php', 'page=' . $HTTP_GET_VARS['page'] . '&podID=' . $entry->featured_id . '&action=edit'); ?>'\'">
+									<tr onMouseOver="this.style.cursor=\'hand\'" onClick="document.location.href=\''<?php echo tep_href_link('product_per_day.php', 'page=' . $HTTP_GET_VARS['page'] . '&podID=' . $entry->featured_id . '&action=edit'); ?>'\'">
 										<?php } else { ?>
-									<tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\''<?php echo tep_href_link(FILENAME_FEATURED, 'page=' . $HTTP_GET_VARS['page'] . '&sID=' . $featured['featured_id']); ?>'\'">
+									<tr onMouseOver="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onMouseOut="this.className=\'dataTableRow\'" onClick="document.location.href=\''<?php echo tep_href_link(FILENAME_FEATURED, 'page=' . $HTTP_GET_VARS['page'] . '&sID=' . $featured['featured_id']); ?>'\'">
 									<?php } ?>
-										<td  class="dataTableContent">
+										<td>
 										<b><?php echo $entry['start_date']; ?></b>
 										</td>
-										<td  class="dataTableContent"><?php echo $entry['products_name']; ?></td>
-										<td  class="dataTableContent" align="right">
+										<td><?php echo $entry['products_name']; ?></td>
+										<td align="right">
 										<?php
 										if ($entry['status'] == '1') {
 											echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '&nbsp;&nbsp;<a href="' . tep_href_link('product_per_day.php', 'action=setflag&flag=0&id=' . $entry['id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -174,7 +183,7 @@ function set_pod_item_status($pod_id, $status) {
 										}
 										?>
 										</td>
-										<td class="dataTableContent" align="right">
+										<td align="right">
 										<?php 
 										if ( (is_object($podInfo)) && ($entry['id'] == $podInfo->id) ) { 
 											echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); 
@@ -186,18 +195,18 @@ function set_pod_item_status($pod_id, $status) {
 									<?php } ?>
 									<tr>
 										<td colspan="4">
-											<table border="0" width="100%" cellpadding="0"cellspacing="2">
+											<table class="table table-bordered table-hover">
 												<tr>
-													<td class="smallText2" valign="top">
+													<td>
 													<?php echo $listing_split->display_count($listing_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], 'Displaying %d to %d (of %d products)'); ?>
 													</td>
-													<td class="smallText2" align="right">
+													<td align="right">
 													<?php echo $listing_split->display_links($listing_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>
 													</td>
 												</tr>
 												<?php if (!$HTTP_GET_VARS['action']) { ?>
 												<tr>
-													<td colspan="2" align="right">
+													<td align="right">
 													<?php echo '<a href="' . tep_href_link('product_per_day.php', 'page=' . $HTTP_GET_VARS['page'] . '&action=new') . '">' . tep_image_button('button_new_product.gif', IMAGE_NEW_PRODUCT) . '</a>'; ?>
 													</td>
 												</tr>
@@ -269,10 +278,13 @@ function set_pod_item_status($pod_id, $status) {
 			} 
 			?>
 		</table>
-		<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-		<script>
-		<?php echo ($_GET['action']=='new' ? 'displaySelection(\'div_listing\', \'C0\', \'F\');' : ''); ?>
-		</script>
-	</body>
-</html>
+               <!-- END your table-->
+<!-- body_eof //-->
+
+<!-- footer //-->
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+<!-- footer_eof //-->
+<script>
+<?php echo ($_GET['action']=='new' ? 'displaySelection(\'div_listing\', \'C0\', \'F\');' : ''); ?>
+</script>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

@@ -40,29 +40,41 @@
   }  
   		
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td valign="top">
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td>
+<table class="table table-bordered table-hover">
   <tr>
-    <td class="pageHeading"><?php echo HEADING_TITLE ?></td>
-    <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-  </tr><tr>
-    <td class="main" colspan="2">
+    <td colspan="2">
 <?php
 	
 if ($_GET['action'] == 'Delete') {
@@ -94,19 +106,19 @@ if ($_GET['update'] == BUTTON_UPDATE_WORD_LIST) {
 {  echo tep_draw_form('addwords', 'stats_keywords.php', '', 'get');
 	
 	?>
-<table border="0" cellpadding="2" cellspacing="0" width="100%">
+<table class="table table-bordered table-hover">
 <?php if(isset($_GET['add'])) { ?>
 <tr><td colspan="4">
-<table border="1" cellpadding="0" cellspacing="1" width="100%" bgcolour="gray"><tr><td>
-  <table border="0" cellpadding="2" cellspacing="0" width="100%"><tr class="dataTableRow">
-    <td class="main" nowrap><br><?php echo WORD_ENTRY_ORIGINAL ?> 
+<table class="table table-bordered table-hover"><tr><td>
+  <table class="table table-bordered table-hover"><tr>
+    <td><br><?php echo WORD_ENTRY_ORIGINAL ?> 
     <input type="text" name="txtWord" value="<?php if(isset($word_select_result['sws_word'])){echo stripslashes($word_select_result['sws_word']);} ?>" size="12">&nbsp;
     <?php echo WORD_ENTRY_REPLACEMENT ?>
     <input type="text" name="txtReplacement" value="<?php if(isset($word_select_result['sws_replacement'])){echo stripslashes($word_select_result['sws_replacement']);} ?>" size="12"></td>
     <?php if(isset($word_select_result['sws_id'])){echo '<input type="hidden" name="id" value="' . $word_select_result['sws_id'] . '">';} ?>
   </tr>
-  <tr class="dataTableRow">
-    <td class="main"><?php  if(isset($_GET['editword']) && isset($_GET['link'])){ ?>
+  <tr>
+    <td><?php  if(isset($_GET['editword']) && isset($_GET['link'])){ ?>
     <input type="submit" name="editword" value="<?php echo BUTTON_EDIT_WORD ?>">
     <input type="hidden" name="updateword" value="1">
     <br><br><?php }
@@ -118,25 +130,25 @@ if ($_GET['update'] == BUTTON_UPDATE_WORD_LIST) {
   </table></td></tr></table>
   </d></tr>  
 <?php } ?>  
-  <tr class="dataTableHeadingRow">
-    <td class="dataTableHeadingContent" width="40%"><?php echo WORD_ENTRY_ORIGINAL ?></td>
-    <td class="dataTableHeadingContent" colspan="3"><?php echo WORD_ENTRY_REPLACEMENT ?></td>
+  <tr>
+    <td><?php echo WORD_ENTRY_ORIGINAL ?></td>
+    <td colspan="3"><?php echo WORD_ENTRY_REPLACEMENT ?></td>
   </tr>
 <?php
 
 $pw_word_sql = "SELECT * FROM searchword_swap ORDER BY sws_word ASC" ;
 $pw_words = tep_db_query($pw_word_sql);
     while ($pw_words_result = tep_db_fetch_array($pw_words)) { ?>
-  <tr class="dataTableRow">
-    <td class="dataTableContent"><?php echo stripslashes($pw_words_result['sws_word']); ?></td>  
-    <td class="dataTableContent"><?php echo stripslashes($pw_words_result['sws_replacement']); ?></td>
-    <td class="dataTableHeadingContent"><a href="<?php echo tep_href_link('stats_keywords.php', 'editword=1&link=1&add=1&action=' . BUTTON_VIEW_WORD_LIST . '&edit=' . $pw_words_result['sws_id']); ?>"><u><?php echo LINK_EDIT ?></u></a></td>
+  <tr>
+    <td><?php echo stripslashes($pw_words_result['sws_word']); ?></td>  
+    <td><?php echo stripslashes($pw_words_result['sws_replacement']); ?></td>
+    <td><a href="<?php echo tep_href_link('stats_keywords.php', 'editword=1&link=1&add=1&action=' . BUTTON_VIEW_WORD_LIST . '&edit=' . $pw_words_result['sws_id']); ?>"><u><?php echo LINK_EDIT ?></u></a></td>
     <td class="dataTableHeadingContent"><a href="<?php echo tep_href_link('stats_keywords.php', 'removeword=1&delete=' . $pw_words_result['sws_id']); ?>"><u><?php echo LINK_DELETE ?></u></a></td>
   </tr>
 <?php    } // while 
 ?>
   <tr>
-    <td colspan="4" class="main" align="right"><br><input type="submit" value="New Entry" name="add" method="post" />
+    <td colspan="4" align="right"><br><input type="submit" value="New Entry" name="add" method="post" />
     <input type="hidden" name="action" value="<?php echo BUTTON_VIEW_WORD_LIST ?>"></td>
   </tr>
 </table></form>
@@ -146,10 +158,10 @@ $pw_words = tep_db_query($pw_word_sql);
     
     if(!isset($_GET['action']) && $_GET['action'] != BUTTON_VIEW_WORD_LIST){
     	?>
-    	<table border="0" cellpadding="2" cellspacing="0" width="100%">
-  <tr class="dataTableHeadingRow">
-    <td class="dataTableHeadingContent" width="40%"><?php echo KEYWORD_TITLE ?></td>
-    <td class="dataTableHeadingContent"><?php echo KEYWORD_TITLE2 ?></td>
+    	<table class="table table-bordered table-hover">
+  <tr>
+    <td><?php echo KEYWORD_TITLE ?></td>
+    <td><?php echo KEYWORD_TITLE2 ?></td>
   </tr>
 <?php
 
@@ -168,8 +180,8 @@ switch($_GET['sortorder']){
 $sql_q = tep_db_query($pw_sql);
     while ($sql_q_result = tep_db_fetch_array($sql_q)) { ?>
   <tr class="dataTableRow"  onmouseover="this.className='dataTableRowOver';this.style.cursor='hand'" onMouseOut="this.className='dataTableRow'" onClick="document.location.href='<?php echo tep_catalog_href_link( 'advanced_search_result.php', 'keywords=' . urlencode($sql_q_result['search_text']). '&search_in_description=1' ); ?>'" >
-    <td class="link3"><a target="_blank" href="<?php echo tep_catalog_href_link( 'advanced_search_result.php', 'keywords=' . urlencode($sql_q_result['search_text']). '&search_in_description=1' ); ?>"><?php echo $sql_q_result['search_text']; ?></a></td>  
-    <td class="dataTableContent"><?php echo $sql_q_result['search_count']; ?></td>
+    <td><a target="_blank" href="<?php echo tep_catalog_href_link( 'advanced_search_result.php', 'keywords=' . urlencode($sql_q_result['search_text']). '&search_in_description=1' ); ?>"><?php echo $sql_q_result['search_text']; ?></a></td>  
+    <td><?php echo $sql_q_result['search_count']; ?></td>
   </tr>
 <?php    } // while 
 ?>
@@ -184,10 +196,8 @@ $sql_q = tep_db_query($pw_sql);
 <!-- right_column_bof //-->
 <td valign="top" width="25%">
 <?php echo tep_draw_form('delete', 'stats_keywords.php', '', 'get'); ?>
-<table border="0" cellspacing="0" cellpadding="2" width="100%">
+<table class="table table-bordered table-hover">
   <tr>
-    <td class="pageHeading" align="right">&nbsp;</td>
-  </tr><tr>
     <td>
 <?php
     $heading = array();
@@ -215,15 +225,12 @@ $sql_q = tep_db_query($pw_sql);
 </td></tr></table></form>
 </td>
   </tr>
-</table>  
-<!-- right_column_eof //-->
-            
+</table>
+               <!-- END your table-->
+<!-- body_eof //-->
+
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-</body>         
-</html>       
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
-          
-        
 
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

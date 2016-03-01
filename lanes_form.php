@@ -12,20 +12,20 @@
   */
 ?>
 <tr>
-	<td class="pageHeading"><?php echo $title ?></td>
+	<td><?php echo $title ?></td>
 </tr>
 <tr>
 	<td>
 	
-<table border="0" cellpadding="0" cellspacing="2">
+<table class="table table-bordered table-hover">
 <?php	
 	//echo'<pre>';
 	//print_r($edit); 
 if(!strstr($info_group['locked'], 'status')) {
 ?>
 	<tr>
-		<td class="main" style="color:#FFFFFF"><?php echo ENTRY_STATUS; ?></td>
-		<td class="main" style="color:#FFFFFF">
+		<td><?php echo ENTRY_STATUS; ?></td>
+		<td>
 		<?php 
 		
 		$t = true;
@@ -41,7 +41,7 @@ if(!strstr($info_group['locked'], 'status')) {
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2" height="10"></td>
+		<td colspan="2"></td>
 	</tr>
 <?php
 }
@@ -49,16 +49,16 @@ if(!strstr($info_group['locked'], 'status')) {
 
 ?>
 	<tr>
-		<td class="main" style="color:#FFFFFF"><?php if ($i == 0) echo ENTRY_TITLE;?><br></td>
-		<td style="color:#FFFFFF"><?php echo tep_draw_input_field('lanes_name', stripslashes($edit[lanes_name]), 'maxlength=255'); ?></td>
+		<td><?php if ($i == 0) echo ENTRY_TITLE;?><br></td>
+		<td><?php echo tep_draw_input_field('lanes_name', stripslashes($edit[lanes_name]), 'maxlength=255'); ?></td>
 	</tr>
 	<tr>
 		<td colspan="2" height="10"></td>
 	</tr>
 	
 	<tr>
-		<td class="main" style="color:#FFFFFF"><?php if ($i == 0) echo ENTRY_PARENT_PAGE;?><br></td>
-		<td style="color:#FFFFFF">
+		<td><?php if ($i == 0) echo ENTRY_PARENT_PAGE;?><br></td>
+		<td>
 			<select name="ranges_id">
 			<option value="0">Select Range</option>
 				<?php
@@ -75,15 +75,15 @@ if(!strstr($info_group['locked'], 'status')) {
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2" height="10"></td>
+		<td colspan="2"></td>
 	</tr>
 	
 	<tr>
-		<td class="main" style="color:#FFFFFF"><?php if ($i == 0) echo ENTRY_SORT_ORDER;?><br></td>
-		<td style="color:#FFFFFF"><?php echo tep_draw_input_field('sort_order', stripslashes($edit[sort_order]), 'maxlength=255'); ?></td>
+		<td><?php if ($i == 0) echo ENTRY_SORT_ORDER;?><br></td>
+		<td><?php echo tep_draw_input_field('sort_order', stripslashes($edit[sort_order]), 'maxlength=255'); ?></td>
 	</tr>
 	<tr>
-		<td colspan="2" height="10"></td>
+		<td colspan="2"></td>
 	</tr>
 
 	

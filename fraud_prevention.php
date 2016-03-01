@@ -164,13 +164,8 @@ $shipping_methods = getShippingMethods();
 */
 
 ?>
-<!doctype html>
-<html <?php echo HTML_PARAMS; ?>>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-        <title>Fraud Prevention</title>
-        <link rel="stylesheet" type="text/css" href="includes/stylesheet.css" />
-        <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 		<style type="text/css">
 		.ui-button-text{
 			font-size:12px;
@@ -261,34 +256,34 @@ $shipping_methods = getShippingMethods();
                
             });
         </script>
-    </head>
-    <body style="margin: 0;">
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-        <form name="fraud_prevention" method="post" action="fraud_prevention.php?action=save">
-            <table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
-                <tr>
-                    <td width="100%" valign="top">
-                        <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                            <tr>
-                                <td>
-                                    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td class="pageHeading">
-                                                Fraud Prevention
-                                            </td>
-                                            <td class="pageHeading" align="right">
-                                            <?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-                </tr>
+<!-- header //-->
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+<!-- header_eof //-->
+
+<!-- body //-->
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Fraud Prevention
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">Fraud Prevention
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<form name="fraud_prevention" method="post" action="fraud_prevention.php?action=save">
+            <table class="table table-bordered table-hover">
                 <tr>
                     <td>
                         <div id="status">
@@ -307,7 +302,7 @@ $shipping_methods = getShippingMethods();
                                 Shipping Methods
                             </h3>
                             <div style="height: auto;">
-								<table>
+								<table class="table">
 									<tr>
 										<td>
 											<span id="shipping_status">
@@ -315,15 +310,15 @@ $shipping_methods = getShippingMethods();
 												<input type="radio" id="shipping_status_off" name="shipping_status" value="0" <?php echo ($shipping_status=='0' ? ' checked="checked" ' : ''); ?> /><label for="shipping_status_off">Off</label>
 											</span>
 										</td>
-										<td class="smallText">Apply Shipping Modules & Methods Check</td>
+										<td>Apply Shipping Modules & Methods Check</td>
 									</tr>
 									<tr>
-										<td colspan="2" class="smallText"><b>Available Shipping Modules & Methods</b></td>
+										<td colspan="2"><b>Available Shipping Modules & Methods</b></td>
 									</tr>
 									<tr>
 										<td colspan="2">
 											<div id="shipping_methods">
-												<table>
+										<table class="table">
 											<?php 
 											$ship_methods_count = 0;
 											foreach ($shipping_methods as $method){
@@ -346,7 +341,7 @@ $shipping_methods = getShippingMethods();
                                 Countries
                             </h3>
                             <div>
-								<table>
+								<table class="table">
 									<tr>
 										<td>
 											<span id="countries_status">
@@ -354,7 +349,7 @@ $shipping_methods = getShippingMethods();
 												<input type="radio" id="countries_status_off" name="countries_status" value="0" <?php echo ($countries_status=='0' ? ' checked="checked" ' : ''); ?> /><label for="countries_status_off">Off</label>
 											</span>
 										</td>
-										<td class="smallText">Apply Country Check</td>
+										<td>Apply Country Check</td>
 									</tr>
 									<tr>
 										<td colspan="2">
@@ -368,7 +363,7 @@ $shipping_methods = getShippingMethods();
                                 IP Addresses
                             </h3>
                             <div>
-								<table>
+								<table class="table">
 									<tr>
 										<td>
 											<span id="ip_status">
@@ -376,7 +371,7 @@ $shipping_methods = getShippingMethods();
 												<input type="radio" id="ip_status_off" name="ip_status" value="0" <?php echo ($ip_status=='0' ? ' checked="checked" ' : ''); ?> /><label for="ip_status_off">Off</label>
 											</span>
 										</td>
-										<td class="smallText">Apply IP Address Check</td>
+										<td>Apply IP Address Check</td>
 									</tr>
 									<tr>
 										<td colspan="2">
@@ -391,7 +386,7 @@ $shipping_methods = getShippingMethods();
                                 Customer Names
                             </h3>
                             <div>
-								<table>
+								<table class="table">
 									<tr>
 										<td>
 											<span id="customer_name_status">
@@ -399,7 +394,7 @@ $shipping_methods = getShippingMethods();
 												<input type="radio" id="customer_name_status_off" name="customer_name_status" value="0" <?php echo ($customer_name_status=='0' ? ' checked="checked" ' : ''); ?> /><label for="customer_name_status_off">Off</label>
 											</span>
 										</td>
-										<td class="smallText">Apply Customer Name(s) Check</td>
+										<td>Apply Customer Name(s) Check</td>
 									</tr>
 									<tr>
 										<td colspan="2">
@@ -414,7 +409,7 @@ $shipping_methods = getShippingMethods();
                                 Addresses
                             </h3>
                             <div>
-								<table>
+								<table class="table">
 									<tr>
 										<td>
 											<span id="address_status">
@@ -422,7 +417,7 @@ $shipping_methods = getShippingMethods();
 												<input type="radio" id="address_status_off" name="address_status" value="0" <?php echo ($address_status=='0' ? ' checked="checked" ' : ''); ?> /><label for="address_status_off">Off</label>
 											</span>
 										</td>
-										<td class="smallText">Apply Address Check</td>
+										<td>Apply Address Check</td>
 									</tr>
 									<tr>
 										<td colspan="2">
@@ -437,7 +432,7 @@ $shipping_methods = getShippingMethods();
                                 Dollar Value
                             </h3>
                             <div>
-								<table>
+								<table class="table">
 									<tr>
 										<td>
 											<span id="amount_status">
@@ -445,7 +440,7 @@ $shipping_methods = getShippingMethods();
 												<input type="radio" id="amount_status_off" name="amount_status" value="0" <?php echo ($amount_status=='0' ? ' checked="checked" ' : ''); ?> /><label for="amount_status_off">Off</label>
 											</span>
 										</td>
-										<td class="smallText">Apply Amount Check</td>
+										<td>Apply Amount Check</td>
 									</tr>
 									<tr>
 										<td colspan="2">
@@ -460,7 +455,7 @@ $shipping_methods = getShippingMethods();
                                 Email Address
                             </h3>
                             <div>
-								<table>
+								<table class="table">
 									<tr>
 										<td>
 											<span id="email_status">
@@ -468,7 +463,7 @@ $shipping_methods = getShippingMethods();
 												<input type="radio" id="email_status_off" name="email_status" value="0" <?php echo ($email_status=='0' ? ' checked="checked" ' : ''); ?> /><label for="email_status_off">Off</label>
 											</span>
 										</td>
-										<td class="smallText">Apply Email Address(es) Check</td>
+										<td>Apply Email Address(es) Check</td>
 									</tr>
 									<tr>
 										<td colspan="2">
@@ -483,7 +478,7 @@ $shipping_methods = getShippingMethods();
                                 Product Category List
                             </h3>
                             <div>
-								<table>
+								<table class="table">
 									<tr>
 										<td>
 											<span id="category_status">
@@ -491,7 +486,7 @@ $shipping_methods = getShippingMethods();
 												<input type="radio" id="category_status_off" name="category_status" value="0" <?php echo ($category_status=='0' ? ' checked="checked" ' : ''); ?> /><label for="category_status_off">Off</label>
 											</span>
 										</td>
-										<td class="smallText">Apply Categories Check</td>
+										<td>Apply Categories Check</td>
 									</tr>
 									<tr>
 										<td colspan="2">
@@ -506,7 +501,7 @@ $shipping_methods = getShippingMethods();
                                 Shipping/Billing Mismatch
                             </h3>
                             <div>
-								<table>
+								<table class="table">
 									<tr>
 										<td>
 											<span id="mismatch_status">
@@ -514,7 +509,7 @@ $shipping_methods = getShippingMethods();
 												<input type="radio" id="mismatch_status_off" name="mismatch_status" value="0" <?php echo ($mismatch_status=='0' ? ' checked="checked" ' : ''); ?> /><label for="mismatch_status_off">Off</label>
 											</span>
 										</td>
-										<td class="smallText">Apply Shipping / Billing Mismatch Check</td>
+										<td>Apply Shipping / Billing Mismatch Check</td>
 									</tr>
 								</table>
      
@@ -525,7 +520,7 @@ $shipping_methods = getShippingMethods();
                                 Phone Number
                             </h3>
                             <div>
-								<table>
+								<table class="table">
 									<tr>
 										<td>
 											<span id="phone_status">
@@ -533,7 +528,7 @@ $shipping_methods = getShippingMethods();
 												<input type="radio" id="phone_status_off" name="phone_status" value="0" <?php echo ($phone_status=='0' ? ' checked="checked" ' : ''); ?> /><label for="phone_status_off">Off</label>
 											</span>
 										</td>
-										<td class="smallText">Apply Phone Number(s) Check</td>
+										<td>Apply Phone Number(s) Check</td>
 									</tr>
 									<tr>
 										<td colspan="2">
@@ -561,7 +556,11 @@ $shipping_methods = getShippingMethods();
             <input type="hidden" name="selected_categories" value="<?php echo FRAUD_PREVENTION_PRODUCT_CATEGORIES; ?>" />
             <input type="hidden" name="ship_methods_count" value="<?php echo $ship_methods_count; ?>" />
         </form>
-    </body>
-</html>
+               <!-- END your table-->
+<!-- body_eof //-->
+
+<!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+<!-- footer_eof //-->
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

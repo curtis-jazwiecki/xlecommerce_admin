@@ -241,12 +241,7 @@ if (tep_not_null($action))
 	}
 }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
 <script language="javascript" src="includes/general.js"></script>
 <?php
 if ( ($action == 'new') || ($action == 'edit') )
@@ -257,26 +252,38 @@ if ( ($action == 'new') || ($action == 'edit') )
 <?php
 }
 ?>
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
-<div id="popupcalendar" class="text"></div>
+<div id="popupcalendar" class="text" style="z-index:99999; position:absolute;"></div>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+                <table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
+    <td><table class="table table-bordered table-hover">
+      
 <?php
 if ( ($action == 'new') || ($action == 'edit') )
 {
@@ -309,32 +316,32 @@ if ( ($action == 'new') || ($action == 'edit') )
 ?>
 <form name="new_special" <?php echo 'action="' . tep_href_link(FILENAME_CATEGORY_SPECIALS, tep_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action, 'NONSSL') . '"'; ?> method="post">
       <tr><?php if ($form_action == 'update') echo tep_draw_hidden_field('specials_id', $HTTP_GET_VARS['sID']); ?>
-        <td><br><table border="0" cellspacing="0" cellpadding="2">
+        <td><br><table class="table table-bordered table-hover">
           <tr>
-            <td class="main" style="color:#FFFFFF"><?php echo TEXT_SPECIALS_CATEGORY; ?>&nbsp;</td>
-            <td class="main" style="color:#FFFFFF"><?php echo (isset($sInfo->categories_name)) ? $sInfo->categories_name 
+            <td><?php echo TEXT_SPECIALS_CATEGORY; ?>&nbsp;</td>
+            <td><?php echo (isset($sInfo->categories_name)) ? $sInfo->categories_name 
 				: tep_draw_pull_down_menu('categ_id', tep_get_category_tree(), $specials_array); ?></td>
           </tr>
           <tr>
-            <td class="main" style="color:#FFFFFF"><?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?>&nbsp;</td>
-            <td class="main"><?php echo tep_draw_input_field('specials_price', (isset($sInfo->discount) ? ($sInfo->discount . $per) : '')); ?></td>
+            <td><?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?>&nbsp;</td>
+            <td><?php echo tep_draw_input_field('specials_price', (isset($sInfo->discount) ? ($sInfo->discount . $per) : '')); ?></td>
           </tr>
           <tr>
-            <td class="main" style="color:#FFFFFF"><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?>&nbsp;</td>
+            <td><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?>&nbsp;</td>
             <td class="main"><?php echo tep_draw_input_field('day', (isset($sInfo->expire_date) ? substr($sInfo->expire_date, 8, 2) : ''), 'size="2" maxlength="2" class="cal-TextBox"') . tep_draw_input_field('month', (isset($sInfo->expire_date) ? substr($sInfo->expire_date, 5, 2) : ''), 'size="2" maxlength="2" class="cal-TextBox"') . tep_draw_input_field('year', (isset($sInfo->expire_date) ? substr($sInfo->expire_date, 0, 4) : ''), 'size="4" maxlength="4" class="cal-TextBox"'); ?><a class="so-BtnLink" href="javascript:calClick();return false;" onMouseOver="calSwapImg('BTN_date', 'img_Date_OVER',true);" onMouseOut="calSwapImg('BTN_date', 'img_Date_UP',true);" onClick="calSwapImg('BTN_date', 'img_Date_DOWN');showCalendar('new_special','dteWhen','BTN_date');return false;"><?php echo tep_image(DIR_WS_IMAGES . 'cal_date_up.gif', 'Calendar', '22', '17', 'align="absmiddle" name="BTN_date"'); ?></a></td>
           </tr>
           <tr>
-            <td colspan="2" valign="middle" class="main" style="color:#FFFFFF"><?php echo tep_draw_checkbox_field('override', 'y') . tep_draw_hidden_field('include_sub', 'y'); ?> &nbsp; <?php echo TEXT_SPECIALS_OVERRIDE; ?></td>
+            <td colspan="2" valign="middle"><?php echo tep_draw_checkbox_field('override', 'y') . tep_draw_hidden_field('include_sub', 'y'); ?> &nbsp; <?php echo TEXT_SPECIALS_OVERRIDE; ?></td>
           </tr>
         
           
         </table></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="main" style="color:#FFFFFF"><br><?php echo TEXT_SPECIALS_PRICE_TIP; ?></td>
-            <td class="main" align="right" valign="top"><br><?php echo (($form_action == 'insert') ? tep_image_submit('button_insert_b.gif', IMAGE_INSERT) : tep_image_submit('button_update_b.gif', IMAGE_UPDATE)). '&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORY_SPECIALS, 'page=' . $HTTP_GET_VARS['page'] . (isset($HTTP_GET_VARS['sID']) ? '&sID=' . $HTTP_GET_VARS['sID'] : '')) . '">' . tep_image_button('button_cancel_b.gif', IMAGE_CANCEL) . '</a>'; ?></td>
+            <td><br><?php echo TEXT_SPECIALS_PRICE_TIP; ?></td>
+            <td align="right"><br><?php echo (($form_action == 'insert') ? tep_image_submit('button_insert_b.gif', IMAGE_INSERT) : tep_image_submit('button_update_b.gif', IMAGE_UPDATE)). '&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORY_SPECIALS, 'page=' . $HTTP_GET_VARS['page'] . (isset($HTTP_GET_VARS['sID']) ? '&sID=' . $HTTP_GET_VARS['sID'] : '')) . '">' . tep_image_button('button_cancel_b.gif', IMAGE_CANCEL) . '</a>'; ?></td>
           </tr>
         </table></td>
       </tr>
@@ -345,15 +352,15 @@ else
 {
 ?>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CATEGORY; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_SPECIAL_PRODUCT; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_CATEGORY_DISCOUNT; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+            <td><table class="table table-bordered table-hover">
+              <tr>
+                <td><?php echo TABLE_HEADING_CATEGORY; ?></td>
+                <td align="center"><?php echo TABLE_HEADING_SPECIAL_PRODUCT; ?></td>
+                <td align="right"><?php echo TABLE_HEADING_CATEGORY_DISCOUNT; ?></td>
+                <td align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
+                <td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
 	$specials_query_raw = "select A.special_id, A.categ_id, A.discount, A.discount_type, A.status, B.categories_name, A.special_date_added, A.special_last_modified, A.expire_date, 
@@ -391,10 +398,10 @@ else
 		$prod_count = tep_db_fetch_array($prod_count);
 		$total_product = $prod_count['cnt'];
 ?>
-                <td  class="dataTableContent"><?php echo $specials['categories_name']; ?></td>
-                <td  class="dataTableContent" align="center"><?php echo $special_product. " / ". $total_product; ?></td>
-                <td  class="dataTableContent" align="right"><span class="specialPrice"><?= $specials['discount_type'] == "f" ? "$" : "%"; ?> <?php echo sprintf("%0.2f", $specials['discount']); ?></span></td>
-                <td  class="dataTableContent" align="right">
+                <td><?php echo $specials['categories_name']; ?></td>
+                <td align="center"><?php echo $special_product. " / ". $total_product; ?></td>
+                <td align="right"><span class="specialPrice"><?= $specials['discount_type'] == "f" ? "$" : "%"; ?> <?php echo sprintf("%0.2f", $specials['discount']); ?></span></td>
+                <td align="right">
 <?php
 		if ($specials['status'] == '1')
 		{
@@ -412,17 +419,17 @@ else
 	}
 ?>
               <tr>
-                <td colspan="5"><table border="0" width="100%" cellpadding="0"cellspacing="2">
+                <td colspan="5"><table class="table table-bordered table-hover">
                   <tr>
-                    <td class="smallText2" valign="top"><?php echo $specials_split->display_count($specials_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_SPECIAL_CATEGORY); ?></td>
-                    <td class="smallText" align="right"><?php echo $specials_split->display_links($specials_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?></td>
+                    <td><?php echo $specials_split->display_count($specials_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_SPECIAL_CATEGORY); ?></td>
+                    <td align="right"><?php echo $specials_split->display_links($specials_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?></td>
                   </tr>
 <?php
 	if (empty($action))
 	{
 ?>
                   <tr>
-                    <td colspan="2" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_CATEGORY_SPECIALS, 'page=' . $HTTP_GET_VARS['page'] . '&action=new') . '">' . tep_image_button('button_new_category.gif', IMAGE_NEW_CATEGORY) . '</a>'; ?></td>
+                    <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_CATEGORY_SPECIALS, 'page=' . $HTTP_GET_VARS['page'] . '&action=new') . '">' . tep_image_button('button_new_category.gif', IMAGE_NEW_CATEGORY) . '</a>'; ?></td>
                   </tr>
 <?php
 	}
@@ -482,11 +489,10 @@ else
 <!-- body_text_eof //-->
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-</body>
-</html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

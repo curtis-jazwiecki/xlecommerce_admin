@@ -256,39 +256,34 @@
 
   include(DIR_WS_CLASSES . 'order.php');
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-<script language="javascript"><!--
-function validate(field) {
-  var valid = "0123456789."
-  var ok = "yes";
-  var temp;
- for (var i=0; i<field.value.length; i++) {
-  temp = "" + field.value.substring(i, i+1);
-  if (valid.indexOf(temp) == "-1") ok = "no";
-  }
-  if (ok == "no") {
-    alert("<?php echo POINTS_ENTER_JS_ERROR; ?>");
-    field.focus();
-    field.value = "";
-  }
-}
-//--></script>
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
 <!-- header //-->
-<?php
-  require(DIR_WS_INCLUDES . 'header.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" align="center" width="80%" cellspacing="2" cellpadding="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
     <?php/*<td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
 <!-- left_navigation //-->
@@ -296,7 +291,7 @@ function validate(field) {
 <!-- left_navigation_eof //-->
     </table></td>*/?>
 <!-- body_text //-->
-    <td align="center" width="85%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td><table class="table table-bordered table-hover">
 <?php
   $orders_statuses = array();
   $orders_status_array = array();
@@ -320,32 +315,32 @@ function validate(field) {
      $point_or_points = ((POINTS_PER_AMOUNT_PURCHASE > 1) ? HEADING_POINTS : HEADING_POINT);
 ?>
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE . '<br /><span class="smallText2">' . HEADING_RATE . '&nbsp;&nbsp;&nbsp;' .  HEADING_AWARDS . $currencies->format(1) . ' = ' . number_format(POINTS_PER_AMOUNT_PURCHASE,POINTS_DECIMAL_PLACES) .'&nbsp;' . $point_or_points . '&nbsp;&nbsp;&nbsp;' . HEADING_REDEEM  .  number_format(POINTS_PER_AMOUNT_PURCHASE,POINTS_DECIMAL_PLACES) . '&nbsp;' . $point_or_points . ' = ' . $currencies->format(POINTS_PER_AMOUNT_PURCHASE * REDEEM_POINT_VALUE); ?></td>
-            <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td><?php echo HEADING_TITLE . '<br /><span>' . HEADING_RATE . '&nbsp;&nbsp;&nbsp;' .  HEADING_AWARDS . $currencies->format(1) . ' = ' . number_format(POINTS_PER_AMOUNT_PURCHASE,POINTS_DECIMAL_PLACES) .'&nbsp;' . $point_or_points . '&nbsp;&nbsp;&nbsp;' . HEADING_REDEEM  .  number_format(POINTS_PER_AMOUNT_PURCHASE,POINTS_DECIMAL_PLACES) . '&nbsp;' . $point_or_points . ' = ' . $currencies->format(POINTS_PER_AMOUNT_PURCHASE * REDEEM_POINT_VALUE); ?></td>
+            <td align="right"><table class="table table-bordered table-hover">
               <tr><?php echo tep_draw_form('filterthis', FILENAME_CUSTOMERS_POINTS_REFERRAL, '', 'get'); ?>
-                <td class="smallText2" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('search', '', 'size="12"'); ?></td>
+                <td align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('search', '', 'size="12"'); ?></td>
               </tr>
               <tr>
-                <td class="smallText2" align="right"><?php echo TABLE_HEADING_POINTS_TYPE . ': ' .tep_draw_pull_down_menu('potype', $potype_array) . '&nbsp;'. TABLE_HEADING_POINTS_STATUS . ':'. tep_draw_pull_down_menu('filter', $filter_array, '', 'onChange="this.form.submit();"'); ?></td>
+                <td align="right"><?php echo TABLE_HEADING_POINTS_TYPE . ': ' .tep_draw_pull_down_menu('potype', $potype_array) . '&nbsp;'. TABLE_HEADING_POINTS_STATUS . ':'. tep_draw_pull_down_menu('filter', $filter_array, '', 'onChange="this.form.submit();"'); ?></td>
               </form></tr>
             </table></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=c_name-asc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_CUSTOMERS . TABLE_HEADING_SORT_UA . '">+</a>&nbsp;' . TABLE_HEADING_CUSTOMERS . '&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=c_name-desc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_CUSTOMERS . TABLE_HEADING_SORT_DA; ?>">-</a></td>
-                <td class="dataTableHeadingContent"><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=p_type-asc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS_TYPE . TABLE_HEADING_SORT_U1 . '">+</a>&nbsp;' . TABLE_HEADING_POINTS_TYPE . '&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=p_type-desc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS_TYPE . TABLE_HEADING_SORT_D1; ?>">-</a></td>
-                <td class="dataTableHeadingContent"><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=points-asc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS . TABLE_HEADING_SORT_U1 . '">+</a>&nbsp;' . TABLE_HEADING_POINTS . '&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=poinst-desc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS . TABLE_HEADING_SORT_D1; ?>">-</a></td>
-                <td class="dataTableHeadingContent"><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=points-asc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS_VALUE . TABLE_HEADING_SORT_U1 . '">+</a>&nbsp;' . TABLE_HEADING_POINTS_VALUE . '&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=points-desc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS_VALUE . TABLE_HEADING_SORT_D1; ?>">-</a></td>
-                <td class="dataTableHeadingContent"><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=date-asc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_DATE_ADDED . TABLE_HEADING_SORT_UA . '">+</a>&nbsp;' . TABLE_HEADING_DATE_ADDED . '&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=date-desc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_DATE_ADDED . TABLE_HEADING_SORT_DA; ?>">-</a></td>
-                <td class="dataTableHeadingContent"><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=p_status-asc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS_STATUS . TABLE_HEADING_SORT_UA . '">+</a>&nbsp;' . TABLE_HEADING_POINTS_STATUS . '&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=p_status-desc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS_STATUS . TABLE_HEADING_SORT_DA; ?>">-</a></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+            <td valign="top"><table class="table table-bordered table-hover">
+              <tr>
+                <td><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=c_name-asc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_CUSTOMERS . TABLE_HEADING_SORT_UA . '">+</a>&nbsp;' . TABLE_HEADING_CUSTOMERS . '&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=c_name-desc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_CUSTOMERS . TABLE_HEADING_SORT_DA; ?>">-</a></td>
+                <td><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=p_type-asc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS_TYPE . TABLE_HEADING_SORT_U1 . '">+</a>&nbsp;' . TABLE_HEADING_POINTS_TYPE . '&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=p_type-desc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS_TYPE . TABLE_HEADING_SORT_D1; ?>">-</a></td>
+                <td><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=points-asc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS . TABLE_HEADING_SORT_U1 . '">+</a>&nbsp;' . TABLE_HEADING_POINTS . '&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=poinst-desc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS . TABLE_HEADING_SORT_D1; ?>">-</a></td>
+                <td><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=points-asc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS_VALUE . TABLE_HEADING_SORT_U1 . '">+</a>&nbsp;' . TABLE_HEADING_POINTS_VALUE . '&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=points-desc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS_VALUE . TABLE_HEADING_SORT_D1; ?>">-</a></td>
+                <td><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=date-asc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_DATE_ADDED . TABLE_HEADING_SORT_UA . '">+</a>&nbsp;' . TABLE_HEADING_DATE_ADDED . '&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=date-desc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_DATE_ADDED . TABLE_HEADING_SORT_DA; ?>">-</a></td>
+                <td><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=p_status-asc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS_STATUS . TABLE_HEADING_SORT_UA . '">+</a>&nbsp;' . TABLE_HEADING_POINTS_STATUS . '&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params() . 'viewedSort=p_status-desc') . '" title="' . TABLE_HEADING_SORT . TABLE_HEADING_POINTS_STATUS . TABLE_HEADING_SORT_DA; ?>">-</a></td>
+                <td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
 //$potype ='';
@@ -457,25 +452,25 @@ function validate(field) {
 	$type = ($pending_points['points_type'] == 'RF') ? TEXT_TYPE_REFERRAL : TEXT_TYPE_REVIEW;
 
 ?>
-                <td class="dataTableContent">&nbsp;<?php echo $link . $pending_points['customers_lastname'] . '&nbsp;' . $pending_points['customers_firstname']; ?></td>
-                <td class="dataTableContent">&nbsp;&nbsp;&nbsp;<?php echo $type; ?></td>
-                <td class="dataTableContent">&nbsp;&nbsp;&nbsp;<?php echo number_format($pending_points['points_pending'],POINTS_DECIMAL_PLACES); ?></td>
-                <td class="dataTableContent">&nbsp;&nbsp;&nbsp;<?php echo $currencies->format($pending_points['points_pending'] * REDEEM_POINT_VALUE); ?></td>
-                <td class="dataTableContent">&nbsp;&nbsp;&nbsp;<?php echo tep_date_short($pending_points['date_added']); ?></td>
-                <td class="dataTableContent">&nbsp;&nbsp;&nbsp;<?php echo $points_status_name; ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($uInfo) && is_object($uInfo) && ($pending_points['unique_id'] == $uInfo->unique_id)) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params(array('uID')) . 'uID=' . $pending_points['unique_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td>&nbsp;<?php echo $link . $pending_points['customers_lastname'] . '&nbsp;' . $pending_points['customers_firstname']; ?></td>
+                <td>&nbsp;&nbsp;&nbsp;<?php echo $type; ?></td>
+                <td>&nbsp;&nbsp;&nbsp;<?php echo number_format($pending_points['points_pending'],POINTS_DECIMAL_PLACES); ?></td>
+                <td>&nbsp;&nbsp;&nbsp;<?php echo $currencies->format($pending_points['points_pending'] * REDEEM_POINT_VALUE); ?></td>
+                <td>&nbsp;&nbsp;&nbsp;<?php echo tep_date_short($pending_points['date_added']); ?></td>
+                <td>&nbsp;&nbsp;&nbsp;<?php echo $points_status_name; ?></td>
+                <td align="right"><?php if (isset($uInfo) && is_object($uInfo) && ($pending_points['unique_id'] == $uInfo->unique_id)) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_POINTS_REFERRAL, tep_get_all_get_params(array('uID')) . 'uID=' . $pending_points['unique_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     }
 ?>
               <tr>
-                <td colspan="7"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="7"><table class="table table-bordered table-hover">
                   <tr>
-                    <td class="smallText2" valign="top"><?php echo $pending_points_split->display_count($pending_points_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
-                    <td class="smallText2" align="right"><?php echo $pending_points_split->display_links($pending_points_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], tep_get_all_get_params(array('page', 'uID', 'action'))); ?></td>
+                    <td valign="top"><?php echo $pending_points_split->display_count($pending_points_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
+                    <td align="right"><?php echo $pending_points_split->display_links($pending_points_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], tep_get_all_get_params(array('page', 'uID', 'action'))); ?></td>
                   </tr>
                   <tr>
-                    <td class="smallText2" align="center"><br><br><?php echo TEXT_LINK_CREDIT ;?> </td>
+                    <td align="center"><br><br><?php echo TEXT_LINK_CREDIT ;?> </td>
                   </tr>
 <?php
     if (isset($_GET['search']) && tep_not_null($_GET['search'])) {
@@ -631,11 +626,26 @@ function validate(field) {
 <!-- body_text_eof //-->
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-</body>
-</html>
+<script language="javascript"><!--
+function validate(field) {
+  var valid = "0123456789."
+  var ok = "yes";
+  var temp;
+ for (var i=0; i<field.value.length; i++) {
+  temp = "" + field.value.substring(i, i+1);
+  if (valid.indexOf(temp) == "-1") ok = "no";
+  }
+  if (ok == "no") {
+    alert("<?php echo POINTS_ENTER_JS_ERROR; ?>");
+    field.focus();
+    field.value = "";
+  }
+}
+//--></script>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

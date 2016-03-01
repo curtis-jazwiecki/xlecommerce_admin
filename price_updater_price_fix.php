@@ -1,7 +1,7 @@
 <?php
 if($_GET['action'] == 'update_price' && isset($_GET['qid']))
   {
-	include("includes/application_top.php");
+	include("includes/application_top.php"); 
 	
   function tep_get_manufacturers($manufacturers_array = '') { // Function borrowed from the Catalog side
     if (!is_array($manufacturers_array)) $manufacturers_array = array();

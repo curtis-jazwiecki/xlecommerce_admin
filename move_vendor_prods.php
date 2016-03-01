@@ -24,32 +24,39 @@
     $update_result = tep_db_query($update_query);
   }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+
 <!-- header //-->
-<?php require_once (DIR_WS_INCLUDES . 'header.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2" bgcolor="#030c2c">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
+    <td><table class="table table-bordered">
+      
 <?php
 
   if ($action == 'update') {
@@ -66,7 +73,7 @@
     if ($update_result) {
 ?>
       <tr>
-        <td class="messageStackSuccess" align="left">
+        <td align="left">
       </tr>
 <?php
       // echo '<br><b>The new Vendor\'s name:  ' . $moved_vendor;
@@ -74,7 +81,7 @@
     } else {
 ?>
       <tr>
-        <td class="messageStackError" align="left">
+        <td align="left">
       </tr>
 <?php
       echo '<br><b>NO</b> products were moved from <b>' . $deleted_vendor . '</b> to <b>' . $moved_vendor . '</b>.<br> You should Go <a href="' . tep_href_link(FILENAME_MOVE_VENDORS) . '"><b>Back and start</b></a> over OR Go <a href="' . tep_href_link(FILENAME_VENDORS) . '"><b>Back To Vendors List</b></a>';
@@ -84,17 +91,17 @@
   } elseif ($action == '') { 
 ?>
       <tr>
-        <td class="main" align="left" style="color:#ffffff;"><?php echo '<a href="' . tep_href_link(FILENAME_VENDORS) . '"><b>Go Back To Vendors List</a>';?></tr>
+        <td align="left"><?php echo '<a href="' . tep_href_link(FILENAME_VENDORS) . '"><b>Go Back To Vendors List</a>';?></tr>
       <tr>
-        <td class="main" align="left" style="color:#ffffff;"><?php echo 'Select the vendors you plan to work with.'; ?>
+        <td align="left"><?php echo 'Select the vendors you plan to work with.'; ?>
       </tr>
       <tr bgcolor="#FF0000">
-        <td class="main" align="left" style="color:#ffffff;"><?php echo '<b>This action is not easily reversible, and clicking the update button will perform this action immediately, there is no turning back.</b>'; ?>
+        <td align="left" style="color:#fff;"><?php echo '<b>This action is not easily reversible, and clicking the update button will perform this action immediately, there is no turning back.</b>'; ?>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td><table class="table table-bordered table-hover">
               <tr>
 <?php
     echo tep_draw_form ('move_vendor_form', FILENAME_MOVE_VENDORS, tep_get_all_get_params( array ('action') ) . 'action=update', 'post');
@@ -114,10 +121,10 @@
                                );
     }
 ?>
-                <td class="main" align="left" style="color:#ffffff;"><?php echo TEXT_VENDOR_CHOOSE_MOVE . ' -->  '; ?><?php echo tep_draw_form('vendors_report', FILENAME_PRODS_VENDORS) . tep_draw_pull_down_menu('delete_vendors_id', $vendors_array);?></td>
+                <td align="left"><?php echo TEXT_VENDOR_CHOOSE_MOVE . ' -->  '; ?><?php echo tep_draw_form('vendors_report', FILENAME_PRODS_VENDORS) . tep_draw_pull_down_menu('delete_vendors_id', $vendors_array);?></td>
               </tr>
               <tr>
-                <td class="main" align="left" style="color:#ffffff;"><br><?php echo TEXT_VENDOR_CHOOSE_MOVE_TO . ' -->  '; ?><?php echo tep_draw_form('vendors_report', FILENAME_PRODS_VENDORS) . tep_draw_pull_down_menu('new_vendors_id', $vendors_array);?></td>
+                <td align="left"><br><?php echo TEXT_VENDOR_CHOOSE_MOVE_TO . ' -->  '; ?><?php echo tep_draw_form('vendors_report', FILENAME_PRODS_VENDORS) . tep_draw_pull_down_menu('new_vendors_id', $vendors_array);?></td>
               </tr>
               <tr>
                 <td><br><?php echo tep_image_submit ('button_update.gif', 'SUBMIT') . ' <a href="' . tep_href_link (FILENAME_MOVE_VENDORS, tep_get_all_get_params (array ('action') ) ) .'">' . tep_image_button ('button_cancel.gif', IMAGE_CANCEL) . '</a>';  ?></td>
@@ -130,10 +137,10 @@
   } 
 ?>
       <tr>
-        <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td colspan="3"><table class="table table-bordered table-hover">
           <tr>
-            <td class="smallText" valign="top"><?php //echo $products_split->display_count($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS);?></td>
-            <td class="smallText" align="right"><?php //echo $products_split->display_links($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'].$vendors_id);?></td>
+            <td><?php //echo $products_split->display_count($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS);?></td>
+            <td align="right"><?php //echo $products_split->display_links($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'].$vendors_id);?></td>
           </tr>
         </table></td>
       </tr>
@@ -141,11 +148,11 @@
 <!-- body_text_eof //-->
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-</body>
-</html>
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php');  ?>
+
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

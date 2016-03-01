@@ -452,6 +452,7 @@ function item_group_list() {
 	return;
 }
 
+
 function item_menu($prodid,$optionid) { ?>
   <td class="dropqblist"><select name="product_menu[<?php echo $prodid."-".$optionid?>]"> <?php
   // Find existing product - item match
@@ -771,28 +772,50 @@ function prod_options($prod_id,$options_id,$prod_name,$prod_desc,$prod_price) {
 }
 
 function prod_update($product_menu) {
-	// Parse form results
-	foreach ($product_menu as $compid=>$itemid) {
-		$compids=explode("-",$compid);
-		$prodid=$compids[0];
-		$optvalid=$compids[1];
-		settype($prodid,'integer');		
-		settype($optvalid,'integer');
+	
+	if(isset($_POST['match_all_products']) && $_POST['match_all_products'] == '1'){
+
+		$itemid = $product_menu['0-0'];
+		
 		settype($itemid,'integer');
-	// Update, delete, or insert into db
-		$result=tep_db_query("SELECT * FROM ".TABLE_QBI_PRODUCTS_ITEMS." WHERE products_id='$prodid' AND products_options_values_id='$optvalid' LIMIT 1");
-		if (tep_db_fetch_array($result)) {
-			if ($itemid>0) {
-				tep_db_query("UPDATE ".TABLE_QBI_PRODUCTS_ITEMS." SET qbi_groupsitems_refnum='$itemid' WHERE products_id='$prodid' AND products_options_values_id='$optvalid'");
-				} else {
-				tep_db_query("DELETE FROM ".TABLE_QBI_PRODUCTS_ITEMS." WHERE products_id='$prodid' AND products_options_values_id='$optvalid' LIMIT 1");
-			}
-		} elseif (!tep_db_fetch_array($result)) {
-			if ($itemid>0) {
-				tep_db_query("INSERT INTO ".TABLE_QBI_PRODUCTS_ITEMS." (products_id,products_options_values_id,qbi_groupsitems_refnum) VALUES ('$prodid','$optvalid','$itemid')");
+		
+		if ($itemid>0) {
+		
+			tep_db_query("DELETE FROM ".TABLE_QBI_PRODUCTS_ITEMS); // empty table
+			
+			 $products_query = tep_db_query("SELECT *, p.products_id AS pproducts_id FROM ".TABLE_PRODUCTS." AS p LEFT JOIN ".TABLE_PRODUCTS_ATTRIBUTES." AS pa ON p.products_id=pa.products_id ORDER BY products_model, options_values_id");
+			 
+			 while($products = tep_db_fetch_array($products_query)){
+				 tep_db_query("INSERT INTO ".TABLE_QBI_PRODUCTS_ITEMS." (products_id,products_options_values_id,qbi_groupsitems_refnum) VALUES ('".$products['pproducts_id']."','0','$itemid')");
+			 }
+			
+		}
+		
+	}else{
+		// Parse form results
+		foreach ($product_menu as $compid=>$itemid) {
+			$compids=explode("-",$compid);
+			$prodid=$compids[0];
+			$optvalid=$compids[1];
+			settype($prodid,'integer');		
+			settype($optvalid,'integer');
+			settype($itemid,'integer');
+		// Update, delete, or insert into db
+			$result=tep_db_query("SELECT * FROM ".TABLE_QBI_PRODUCTS_ITEMS." WHERE products_id='$prodid' AND products_options_values_id='$optvalid' LIMIT 1");
+			if (tep_db_fetch_array($result)) {
+				if ($itemid>0) {
+					tep_db_query("UPDATE ".TABLE_QBI_PRODUCTS_ITEMS." SET qbi_groupsitems_refnum='$itemid' WHERE products_id='$prodid' AND products_options_values_id='$optvalid'");
+					} else {
+					tep_db_query("DELETE FROM ".TABLE_QBI_PRODUCTS_ITEMS." WHERE products_id='$prodid' AND products_options_values_id='$optvalid' LIMIT 1");
+				}
+			} elseif (!tep_db_fetch_array($result)) {
+				if ($itemid>0) {
+					tep_db_query("INSERT INTO ".TABLE_QBI_PRODUCTS_ITEMS." (products_id,products_options_values_id,qbi_groupsitems_refnum) VALUES ('$prodid','$optvalid','$itemid')");
+				}
 			}
 		}
 	}
+	
 	return;
 }
 

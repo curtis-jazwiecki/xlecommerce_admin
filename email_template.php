@@ -18,13 +18,8 @@
   }
 
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<div id="spiffycalendar" class="text"></div>
 <script language="javascript" type="text/javascript" src="tiny_mce/tiny_mce.js"></script>
 <script language="javascript" type="text/javascript">
 tinyMCE.init({
@@ -51,15 +46,33 @@ flash_external_list_url : "example_data/example_flash_list.js"
 <script language="javascript">
   var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",scBTNMODE_CUSTOMBLUE);
 </script>
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
-<div id="spiffycalendar" class="text"></div>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
 <?php 
@@ -75,27 +88,27 @@ flash_external_list_url : "example_data/example_flash_list.js"
               $template_vars_str = $template_array['email_templates_variables'];
           }
 ?>
-            <td width="100%" valign="top">
-                  <table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td>
+               <table class="table table-bordered table-hover">
                     <tr>
-                      <td class="pageHeading"><?php echo $template_array['email_templates_name']; ?></td>
-                      <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+                      <td><?php echo $template_array['email_templates_name']; ?></td>
+                      <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
                     </tr>
                   </table>
                 <form name="template" method="post" action="email_template.php?action=update&tid=<?php echo $_GET['tid'];?>">
-                <table border="0" width="100%" cellspacing="0" cellpadding="2" bgcolor="#FFFFFF">
-                    <tr class="dataTableHeadingRow">
-                        <td class="dataTableHeading">&nbsp;</td>
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <td>&nbsp;</td>
                     </tr>
                     <tr>
                         <td><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
                     </tr>
                     <tr>
-                        <td  width="100%" valign="top">
-                            <table border="0" width="100%" cellspacing="2" cellpadding="2">
+                        <td>
+                           <table class="table table-bordered table-hover">
                                 <tr>
-                                  <td align="left" width="30%"><b>Please use place holder from below list to add corresponding variables:</b></td>
-                                  <td align="left" width="60%"><?php echo $template_vars_str; ?></td>
+                                  <td><b>Please use place holder from below list to add corresponding variables:</b></td>
+                                  <td><?php echo $template_vars_str; ?></td>
                                 </tr>
                             </table>
                         </td>
@@ -104,17 +117,17 @@ flash_external_list_url : "example_data/example_flash_list.js"
                         <td><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
                     </tr>
                     <tr>
-                        <td  width="100%" valign="top">
-                            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                        <td>
+                           <table class="table table-bordered table-hover">
                                 <tr>
-                                  <td align="left" ><b>Email/Page Content:</b></td>
+                                  <td align="left"><b>Email/Page Content:</b></td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                     <tr>
-                        <td  width="100%" valign="top">
-                            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                        <td>
+                           <table class="table table-bordered table-hover">
                                 <tr>
                                   <td align="center" ><?php echo tep_draw_textarea_field('email_templates_content', 'soft', '110', '30',(!empty($template_array['email_templates_content']) ? stripslashes($template_array['email_templates_content']) : ''),'class="mceEditor"'); ?></td>
                                 </tr>
@@ -125,8 +138,8 @@ flash_external_list_url : "example_data/example_flash_list.js"
                         <td><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
                     </tr>
                     <tr>
-                        <td  width="100%" valign="top">
-                            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                        <td>
+                           <table class="table table-bordered table-hover">
                                 <tr>
                                   <td align="left"><a href="<?php echo tep_href_link('email_template.php',tep_get_all_get_params(array('action')));?>"><input type="button" value="Back"></a></td>
                                   <td align="right"><input type="submit" value="Save" name="Save"></td>
@@ -148,29 +161,17 @@ flash_external_list_url : "example_data/example_flash_list.js"
       }
   }else{
 ?>
-      <td width="100%" valign="top">         
-        <table border="0" width="100%" cellspacing="0" cellpadding="2">
+      <td>         
+        <table class="table table-bordered table-hover">
             <tr>
                 <td>
-                    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-                        <tr>
-                          <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-                          <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td width="75%" valign="top">
-                    <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                        
-                        
+                    <table class="table table-bordered table-hover">
                         <tr>
                           <td>
-                              <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                                <tr class="dataTableHeadingRow">
-                                    <td class="dataTableHeadingContent" width="70%">Email Templates</td>
-                                    <td class="dataTableHeadingContent" width="30%">Action</td>
+                              <table class="table table-bordered table-hover">
+                                <tr>
+                                    <td>Email Templates</td>
+                                    <td align="right">Action</td>
                                 </tr>
                                 
                                 <?php 
@@ -186,13 +187,13 @@ flash_external_list_url : "example_data/example_flash_list.js"
                                     $count++;
                                     
                                     if (isset($_GET['tid']) &&   $_GET['tid'] == $get_template_array['email_templates_id'] ) {
-                                        echo '<tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_EMAIL_TEMPLATE, 'tid=' . $get_template_array['email_templates_id'] ) . '\'">' . "\n";
+                                        echo '<tr id="defaultSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_EMAIL_TEMPLATE, 'tid=' . $get_template_array['email_templates_id'] ) . '\'">' . "\n";
                                     } else {
-                                        echo '<tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_EMAIL_TEMPLATE, 'tid=' . $get_template_array['email_templates_id'] ) . '\'">' . "\n";
+                                        echo '<tr onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_EMAIL_TEMPLATE, 'tid=' . $get_template_array['email_templates_id'] ) . '\'">' . "\n";
                                     }
 ?>
-                                    <td class="dataTableContent"><?php echo '<a href="' . tep_href_link(FILENAME_EMAIL_TEMPLATE, 'tid=' . $get_template_array['email_templates_id'] . '&action=edit' ) . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $get_template_array['email_templates_name']; ?></td>
-                                    <td class="dataTableContent" align="right"><?php if (isset($_GET['tid']) &&   $_GET['tid'] == $get_template_array['email_templates_id'] ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_EMAIL_TEMPLATE, 'tid=' . $get_template_array['email_templates_id'] )  . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                                    <td><?php echo '<a href="' . tep_href_link(FILENAME_EMAIL_TEMPLATE, 'tid=' . $get_template_array['email_templates_id'] . '&action=edit' ) . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $get_template_array['email_templates_name']; ?></td>
+                                    <td align="right"><?php if (isset($_GET['tid']) &&   $_GET['tid'] == $get_template_array['email_templates_id'] ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_EMAIL_TEMPLATE, 'tid=' . $get_template_array['email_templates_id'] )  . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
                                   </tr>
                   <?php
                                 }
@@ -216,7 +217,7 @@ flash_external_list_url : "example_data/example_flash_list.js"
     
          
 ?>                       
-    <td width="25%" valign="top">
+    <td>
 <?php
       $box = new box;
       echo $box->infoBox($heading, $contents);
@@ -232,10 +233,11 @@ flash_external_list_url : "example_data/example_flash_list.js"
 <!-- body_text_eof //-->
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
+
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-</body>
-</html>
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

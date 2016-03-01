@@ -48,29 +48,43 @@
     $messageStack->add(sprintf(ERROR_IMAGES_DIRECTORY_NOT_WRITEABLE, tep_href_link(FILENAME_SEC_DIR_PERMISSIONS)), 'error');
   }*/
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+      
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-<!-- header_eof //--> 
+<!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2" bgcolor="#FFFFFF">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+  <table class="table table-bordered table-hover">
   <tr> 
     <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td><table class="table table-bordered table-hover">
         <tr>
-          <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <td><table class="table table-bordered table-hover">
               <tr>
-                <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-                <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+                <td><?php echo HEADING_TITLE; ?></td>
+                <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
               </tr>
             </table></td>
         </tr>
@@ -82,11 +96,11 @@
         </tr>
         <tr>
           <td><?php echo tep_draw_form('logo', FILENAME_STORE_LOGO, 'action=save', 'post', 'enctype="multipart/form-data"'); ?>
-            <table border="0" cellspacing="0" cellpadding="2">
+            <table class="table table-bordered table-hover">
               <tr>
-                <td class="main" valign="top"><?php echo TEXT_LOGO_IMAGE; ?></td>
-                <td class="main"><?php echo tep_draw_file_field('store_logo'); ?></td>
-                <td class="smallText"><?php echo tep_image_submit('button_save.gif', IMAGE_SAVE); ?></td>
+                <td><?php echo TEXT_LOGO_IMAGE; ?></td>
+                <td><?php echo tep_draw_file_field('store_logo'); ?></td>
+                <td><?php echo tep_image_submit('button_save.gif', IMAGE_SAVE); ?></td>
               </tr>
             </table>
             </form></td>
@@ -95,27 +109,22 @@
           <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
         </tr>
         <tr>
-          <td class="main"><?php echo TEXT_FORMAT_AND_LOCATION; ?></td>
+          <td><?php echo TEXT_FORMAT_AND_LOCATION; ?></td>
         </tr>
         <tr>
           <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
         </tr>
         <tr>
-          <td class="main"><?php echo DIR_FS_CATALOG_IMAGES . 'store_logo.png'; ?></td>
+          <td><?php echo DIR_FS_CATALOG_IMAGES . 'store_logo.png'; ?></td>
         </tr>
       </table></td>
   </tr>
 </table>
-</td>
-<!-- body_text_eof //-->
-</tr>
-</table>
-<!-- body_eof //--> 
+               <!-- END your table-->
+<!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-<!-- footer_eof //--> 
-<br>
-</body>
-</html>
+<!-- footer_eof //-->
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

@@ -35,8 +35,8 @@ require(DIR_WS_INCLUDES . 'qbi_definitions.php');
 require(DIR_WS_INCLUDES . 'qbi_page_top.php');
 require(DIR_WS_INCLUDES . 'qbi_menu_tabs.php');
 
-echo '<div class="smallText2">'.ABOUT_VER." ".QBI_VER.'</div>';
-echo '<div class="createhead" style="background-color: #fff; padding: 5px; color: #000">'.ABOUT_DON."<br /><br />";
+echo '<div style="padding-top:10px;">'.ABOUT_VER."".QBI_VER.'</div>';
+echo '<div>'.ABOUT_DON."<br /><br />";
 echo ABOUT_DON_PAYPAL."<br /><br />"; ?>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_s-xclick">

@@ -984,6 +984,8 @@ if ( $download == 'stream' or  $download == 'tempfile' ){
 				$row['v_customer_price_' . $ll] 	= $row2['customers_group_price'];
 				$row2 = tep_db_fetch_array($result2);
 				$ll++;
+
+
 			}
 		}
 		if ($dltype == 'froogle'){
@@ -1110,38 +1112,41 @@ header("Pragma: ");
 	}
 }   // *** END *** download section
 ?>
-
-
-
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-
-<html <?php echo HTML_PARAMS; ?>>
-
-<head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-
-<title><?php echo TITLE; ?></title>
-
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-
-</head>
-
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 
+<!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+<!-- header_eof //-->
 
+<!-- body //-->
 
-
-<table width="780" border="0" align="center" cellpadding="0" cellspacing="0">
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo "Easy Populate $curver - Default Language : " . $epdlanguage_name . '(' . $epdlanguage_id .')' ; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo "Easy Populate $curver - Default Language : " . $epdlanguage_name . '(' . $epdlanguage_id .')' ; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
 
   <tr>
 
-    <td height="27" valign="top" class="pageHeading">
-
-	<?php echo "Easy Populate $curver - Default Language : " . $epdlanguage_name . '(' . $epdlanguage_id .')' ; ?>
-
-    <p class="smallText">
+    <td>
+    
+    <p>
 
 
 
@@ -1188,7 +1193,7 @@ if (($localfile or is_uploaded_file($usrfl)) && $split==0) {
 
 
 
-		echo "<p class=smallText>";
+		echo "<p>";
 
 		echo "File uploaded. <br>";
 
@@ -1232,7 +1237,7 @@ if (($localfile or is_uploaded_file($usrfl)) && $split==0) {
 
 
 
-		echo "<p class=smallText>";
+		echo "<p>";
 
 		echo "Filename: " . $localfile . "<br>";
 
@@ -1429,25 +1434,20 @@ if (($localfile || is_uploaded_file($usrfl)) && $split==1) {
 
 
 
-      <table width="100%" border="0" bgcolor="EEEEEE">
+      <table class="table table-bordered table-hover">
 
-        <tr class="dataTableHeadingRow">
-
-          <td colspan=2 class="dataTableHeadingContent">&nbsp;</td>
-
-        </tr>
 
         <tr>
 
           <td colspan="2">
 
-            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <table class="table table-bordered table-hover">
 
               <tr valign="top">
 
-                <td class="smallText"><span style="color: #F00; font-weight: bold; font-size:14px">Warning</span>: &nbsp;&nbsp;</td>
+                <td><span style="color: #F00; font-weight: bold;">Warning</span>: &nbsp;&nbsp;</td>
 
-                <td class="smallText"><span style="font-size:14px"> This is an extremely powerful tool, Do Not use unless you are absolutely sure of how to use it.<br />Incorrect use may corrupt your whole products database.<br /><br />Using this information for any use outside of the Outdoor Business Network store, is against the terms and conditions of your agreement due to data licensing requirements.</span><br /><br />When uploading product information, only upload 1000 products at a time, any more than that will not work.</td>
+                <td><span> This is an extremely powerful tool, Do Not use unless you are absolutely sure of how to use it.<br />Incorrect use may corrupt your whole products database.<br /><br />Using this information for any use outside of the Outdoor Business Network store, is against the terms and conditions of your agreement due to data licensing requirements.</span><br /><br />When uploading product information, only upload 1000 products at a time, any more than that will not work.</td>
 
               </tr>
 
@@ -1459,7 +1459,7 @@ if (($localfile || is_uploaded_file($usrfl)) && $split==1) {
 
         <tr>
 
-          <td width="100%">
+          <td>
 
            <FORM ENCTYPE="multipart/form-data" ACTION="easypopulate.php?split=0" METHOD=POST>
 
@@ -1603,7 +1603,7 @@ if (($localfile || is_uploaded_file($usrfl)) && $split==1) {
 
 	      <!-- Download file links -  Add your custom fields here -->
 
-	  <span class="link3">  <a href="easypopulate.php?download=stream&dltype=full">Download <b>Complete</b> tab-delimited .txt file to edit</a><br>
+	  <span>  <a href="easypopulate.php?download=stream&dltype=full">Download <b>Complete</b> tab-delimited .txt file to edit</a><br>
 
 	  <a href="easypopulate.php?download=stream&dltype=priceqty">Download <b>Model/Price/Qty</b> tab-delimited .txt file to edit</a><br>
 
@@ -1623,7 +1623,7 @@ if (($localfile || is_uploaded_file($usrfl)) && $split==1) {
 
 ?>
 
-	  <span class="link3"> <a href="easypopulate.php?download=stream&dltype=attrib">Download <b>Model/Attributes</b> tab-delimited .txt file</a></span><br>
+	  <span> <a href="easypopulate.php?download=stream&dltype=attrib">Download <b>Model/Attributes</b> tab-delimited .txt file</a></span><br>
 
 <?php
 
@@ -1730,23 +1730,12 @@ function validateFields(){
   </tr>
 
 </table>
+               <!-- END your table-->
+<!-- body_eof //-->
 
-
-
+<!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-
-
-
-
-
-<p><br>
-
-</p></body>
-
-</html>
-
-
-
+<!-- footer_eof //-->
 <?php
 
 
@@ -3508,6 +3497,7 @@ if (!isset($v_manufacturers_image) || $v_manufacturers_image == '' ){
 
 					}
 
+
                   if (isset($v_categories_image[$categorylevel])) {
 
 					tep_db_query("update categories set categories_image = '" . $v_categories_image[$categorylevel] . "' where categories_id = '" . (int)$thiscategoryid  . "'");
@@ -3921,6 +3911,7 @@ if (!isset($v_manufacturers_image) || $v_manufacturers_image == '' ){
 
             // added on 22-12-2015 #start
             if(!empty($v_parent_products_model)){
+
                 
                 if(tep_db_num_rows(tep_db_query("select 1 from products where products_model = '".$v_parent_products_model."'")) == 0){
                     
@@ -3929,6 +3920,7 @@ if (!isset($v_manufacturers_image) || $v_manufacturers_image == '' ){
                 }
             }
             // added on 22-12-2015 #ends
+
 
 
 
@@ -4492,6 +4484,7 @@ if (!isset($v_manufacturers_image) || $v_manufacturers_image == '' ){
 
 
 
+
 								$v_attribute_values_name_var = 'v_attribute_values_name_' . $attribute_options_count . '_' . $attribute_values_count . '_' . $lid;
 
 
@@ -4808,6 +4801,6 @@ function getprice($markup, $price) {
 
 
 
+?>
 
-
-require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

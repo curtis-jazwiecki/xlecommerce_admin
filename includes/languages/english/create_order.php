@@ -116,4 +116,6 @@ define('BUTTON_SUBMIT', 'confirm');
 define('ENTRY_CURRENCY','Select Currency');
 define('ENTRY_ADMIN','Order Entered By:');
 define('TEXT_CS','Customer Service');
+define('IMAGE_BUTTON_BACK','Back');
+define('IMAGE_BUTTON_CONFIRM','Confirm');
 ?>

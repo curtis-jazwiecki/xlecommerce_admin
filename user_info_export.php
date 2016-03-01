@@ -40,40 +40,42 @@ define('CUSTOMER_SUBSCRIBED_COUNT',$customercount['customercnt']);
 
 //get path of directory containing this script
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- Code related to index.php only -->
 <link type="text/css" rel="StyleSheet" href="includes/index.css" />
 <link type="text/css" rel="StyleSheet" href="includes/helptip.css" />
 <script type="text/javascript" src="includes/javascript/helptip.js"></script>
 <!-- code related to index.php EOF -->
-</head>
-<body>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
-<table width="760"  border="0" align="center" cellpadding="2" cellspacing="2">
+<!-- body //-->
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Export User Information
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">Export User Information
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
-    <td valign="top">
-      <table width="100%"  border="0" cellspacing="0" cellpadding="0" summary="Table holding Store Information">
-        <tr valign="top">
-          <td>
-            <table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td class="pageHeading">Export User Information</td>
-                <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-             </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-      <table bgcolor="#DDDDDD" cellspacing="0" cellpadding="10px" border="0" width="760px">
+    <td>
+      <table class="table table-bordered table-hover" summary="Table holding Store Information">
         <tr>
           <td>
             <br />
@@ -118,9 +120,9 @@ define('CUSTOMER_SUBSCRIBED_COUNT',$customercount['customercnt']);
 		
 ?>
 
-			<a href="<?php echo DIR_WS_ADMIN; ?>export_files/customer_information.csv" style="text-decoration:underline; color: #333">Click Here to download Customer Infomation (<?php echo number_format(filesize(DIR_FS_ADMIN . 'export_files/customer_information.csv') / 1024, 2); ?>KB)</a><span style="font-size: 9px; color:#000"> - (.csv format)</span>
+			<a href="<?php echo DIR_WS_ADMIN; ?>export_files/customer_information.csv" style="text-decoration:underline; color: #333">Click Here to download Customer Infomation (<?php echo number_format(filesize(DIR_FS_ADMIN . 'export_files/customer_information.csv') / 1024, 2); ?>KB)</a><span> - (.csv format)</span>
 			<br /><br />
-			<span style="font-size: 11px; font-family: Georgia, 'Times New Roman', Times, serif; color:#000">File will be automatically removed from server within 30 minutes. Just reload page to generate a new file.</span>
+			<span>File will be automatically removed from server within 30 minutes. Just reload page to generate a new file.</span>
 
 <?php	/*/
 		///////////////////////////////////////////////////////////
@@ -148,26 +150,18 @@ define('CUSTOMER_SUBSCRIBED_COUNT',$customercount['customercnt']);
 /*/ ?>
           </td>
         </tr>
-        <tr valign="top">
-          <td colspan=2><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
-        </tr>
-      </table>
-      <?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?>
-      <table width="100%"  border="0" cellspacing="0" cellpadding="0" summary="Footer Banner Table">
         <tr>
-          <td align="center"></td>
+          <td colspan=2><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
         </tr>
       </table>
     </td>
   </tr>
 </table>
-
-<!-- former position of disclaimer  -->
+               <!-- END your table-->
+<!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

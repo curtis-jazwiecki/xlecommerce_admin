@@ -18,7 +18,7 @@
     $auto_credit_query = "select unique_id, customer_id, orders_id, date_added, points_pending, points_type from " . TABLE_CUSTOMERS_POINTS_PENDING . " where date_added <= (CURDATE() - '" . (int)POINTS_AUTO_ON . "') and points_status = 1 order by customer_id";
     $credit_rows = tep_db_query($auto_credit_query);
     
-    echo '<p style="font-family: Tahoma, Arial, sans-serif; font-size: 12px;"><b>Points confirmed for the following rows...</b><br><br>For your convenience here is the cron command for your site:<br><br>php&nbsp; ' . $_SERVER["PATH_TRANSLATED"] . '<form><input name="print" type="button" value="Print this" onclick="window.print()"></form></p>';
+    echo '<p><b>Points confirmed for the following rows...</b><br><br>For your convenience here is the cron command for your site:<br><br>php&nbsp; ' . $_SERVER["PATH_TRANSLATED"] . '<form><input name="print" type="button" value="Print this" onclick="window.print()"></form></p>';
       
     while($auto_credit = tep_db_fetch_array($credit_rows)){
 	    
@@ -32,7 +32,7 @@
       
       $sql = "optimize table " . TABLE_CUSTOMERS_POINTS_PENDING . "";
 
-      print $total_points_awarded = '<li style="font-family: Tahoma, Arial, sans-serif; font-size: 12px;">Customer id :' . (int)$auto_credit['customer_id'] .'&nbsp;&nbsp;Order id :' . (int)$auto_credit['orders_id'] .'&nbsp;&nbsp;Date :' . tep_date_short($auto_credit['date_added']) .'&nbsp;&nbsp;Total Points :' . number_format($auto_credit['points_pending'],POINTS_DECIMAL_PLACES) .'&nbsp;&nbsp;Points Type =' . $auto_credit['points_type'] .'</li>';
+      print $total_points_awarded = '<li>Customer id :' . (int)$auto_credit['customer_id'] .'&nbsp;&nbsp;Order id :' . (int)$auto_credit['orders_id'] .'&nbsp;&nbsp;Date :' . tep_date_short($auto_credit['date_added']) .'&nbsp;&nbsp;Total Points :' . number_format($auto_credit['points_pending'],POINTS_DECIMAL_PLACES) .'&nbsp;&nbsp;Points Type =' . $auto_credit['points_type'] .'</li>';
       $total_points_mail = $total_points_mail .= 'Customer id :' . (int)$auto_credit['customer_id'] .' Order id :' . (int)$auto_credit['orders_id'] .' Date :' . tep_date_short($auto_credit['date_added']) .' Total Points :' . number_format($auto_credit['points_pending'],POINTS_DECIMAL_PLACES) .' Points Type =' . $auto_credit['points_type']. "\n";
   
     }

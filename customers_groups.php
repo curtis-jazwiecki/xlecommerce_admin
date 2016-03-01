@@ -141,29 +141,44 @@
     }
   }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onload="SetFocus();">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
+      
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
+
+         <section>
+         <!-- START Page content-->
+
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+               <table class="table table-bordered table-hover">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft_">
+    <td><table class="table table-bordered table-hover">
 <!-- left_navigation //-->
 <?php //require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td><table class="table table-bordered table-hover">
 
 <?php
   if ($_GET['action'] == 'edit') {
@@ -239,40 +254,27 @@ function check_form() {
   }
 }
 //--></script>
-
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-      </tr>
-
 	  <tr><?php echo tep_draw_form('customers', FILENAME_CUSTOMERS_GROUPS, tep_get_all_get_params(array('action')) . 'action=update', 'post', 'onSubmit="return check_form();"'); ?>
         <td class="formAreaTitle"><?php echo CATEGORY_PERSONAL; ?></td>
       </tr>
 
       <tr>
-        <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
+        <td class="formArea"><table class="table table-bordered table-hover">
           <tr>
-            <td class="main"><?php echo ENTRY_GROUPS_NAME; ?></td>
-            <td class="main"><?php echo tep_draw_input_field('customers_group_name', $cInfo->customers_group_name, 'maxlength="32"', false) . ENTRY_GROUP_NAME_MAX_LENGTH; ?></td>
+            <td><?php echo ENTRY_GROUPS_NAME; ?></td>
+            <td><?php echo tep_draw_input_field('customers_group_name', $cInfo->customers_group_name, 'maxlength="32"', false) . ENTRY_GROUP_NAME_MAX_LENGTH; ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo ENTRY_GROUP_SHOW_TAX; ?></td>
-            <td class="main"><?php echo tep_draw_pull_down_menu('customers_group_show_tax', $cg_show_tax_array, (($cInfo->customers_group_show_tax == '1') ? '1' : '0')) . ENTRY_GROUP_SHOW_TAX_EXPLAIN_1; ?></td>
+            <td><?php echo ENTRY_GROUP_SHOW_TAX; ?></td>
+            <td><?php echo tep_draw_pull_down_menu('customers_group_show_tax', $cg_show_tax_array, (($cInfo->customers_group_show_tax == '1') ? '1' : '0')) . ENTRY_GROUP_SHOW_TAX_EXPLAIN_1; ?></td>
           </tr>
           <tr>
-            <td class="main">&#160;</td>
-            <td class="main" style="line-height: 2"><?php echo ENTRY_GROUP_SHOW_TAX_EXPLAIN_2; ?></td>
+            <td>&#160;</td>
+            <td><?php echo ENTRY_GROUP_SHOW_TAX_EXPLAIN_2; ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo ENTRY_GROUP_TAX_EXEMPT; ?></td>
-            <td class="main"><?php
+            <td><?php echo ENTRY_GROUP_TAX_EXEMPT; ?></td>
+            <td><?php
             echo tep_draw_pull_down_menu('customers_group_tax_exempt', $cg_tax_exempt_array, (($cInfo->customers_group_tax_exempt == '1') ? '1' : '0')); ?></td>
           </tr>
 	</table>
@@ -287,8 +289,8 @@ function check_form() {
       </tr>
       <tr>
         <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-	   <tr bgcolor="#DEE4E8">
-            <td class="main"><?php echo tep_draw_radio_field('group_payment_settings', '1', false, (tep_not_null($cInfo->group_payment_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_PAYMENT_SET . '&nbsp;&nbsp;' . tep_draw_radio_field('group_payment_settings', '0', false, (tep_not_null($cInfo->group_payment_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_PAYMENT_DEFAULT ; ?></td>
+	   <tr>
+            <td><?php echo tep_draw_radio_field('group_payment_settings', '1', false, (tep_not_null($cInfo->group_payment_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_PAYMENT_SET . '&nbsp;&nbsp;' . tep_draw_radio_field('group_payment_settings', '0', false, (tep_not_null($cInfo->group_payment_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_PAYMENT_DEFAULT ; ?></td>
           </tr>
 <?php
     $module_active = explode (";",MODULE_PAYMENT_INSTALLED);
@@ -308,14 +310,14 @@ function check_form() {
      } // end if (tep_class_exists($class))
 ?>
 	   <tr>
-            <td class="main"><?php echo tep_draw_checkbox_field('payment_allowed[' . $i . ']', $module->code.".php" , (in_array ($module->code.".php", $payments_allowed)) ?  1 : 0); ?>&#160;&#160;<?php echo $module->title; ?></td>
+            <td><?php echo tep_draw_checkbox_field('payment_allowed[' . $i . ']', $module->code.".php" , (in_array ($module->code.".php", $payments_allowed)) ?  1 : 0); ?>&#160;&#160;<?php echo $module->title; ?></td>
            </tr>
 <?php
   } // end if (in_array ($directory_array[$i], $module_active)) 
  } // end for ($i = 0, $n = sizeof($directory_array); $i < $n; $i++)
 ?>
 	   <tr>
-            <td class="main" style="padding-left: 30px; padding-right: 10px; padding-top: 10px;"><?php echo ENTRY_PAYMENT_SET_EXPLAIN ?></td>
+            <td><?php echo ENTRY_PAYMENT_SET_EXPLAIN ?></td>
            </tr>
         </table>
        </td>
@@ -327,9 +329,9 @@ function check_form() {
         <td class="formAreaTitle"><?php echo HEADING_TITLE_MODULES_SHIPPING; ?></td>
       </tr>
       <tr>
-        <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-	   <tr bgcolor="#DEE4E8">
-            <td class="main"><?php echo tep_draw_radio_field('group_shipment_settings', '1', false, (tep_not_null($cInfo->group_shipment_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_SHIPPING_SET . '&nbsp;&nbsp;' . tep_draw_radio_field('group_shipment_settings', '0', false, (tep_not_null($cInfo->group_shipment_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_SHIPPING_DEFAULT ; ?></td>
+        <td class="formArea"><table class="table table-bordered table-hover">
+	   <tr>
+            <td><?php echo tep_draw_radio_field('group_shipment_settings', '1', false, (tep_not_null($cInfo->group_shipment_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_SHIPPING_SET . '&nbsp;&nbsp;' . tep_draw_radio_field('group_shipment_settings', '0', false, (tep_not_null($cInfo->group_shipment_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_SHIPPING_DEFAULT ; ?></td>
           </tr>
 <?php
     $ship_module_active = explode (";",MODULE_SHIPPING_INSTALLED);
@@ -349,14 +351,14 @@ function check_form() {
      } // end if (tep_class_exists($ship_class))
 ?>
 	   <tr>
-            <td class="main"><?php echo tep_draw_checkbox_field('shipping_allowed[' . $i . ']', $ship_module->code.".php" , (in_array ($ship_module->code.".php", $shipment_allowed)) ?  1 : 0); ?>&#160;&#160;<?php echo $ship_module->title; ?></td>
+            <td><?php echo tep_draw_checkbox_field('shipping_allowed[' . $i . ']', $ship_module->code.".php" , (in_array ($ship_module->code.".php", $shipment_allowed)) ?  1 : 0); ?>&#160;&#160;<?php echo $ship_module->title; ?></td>
            </tr>
 <?php
   } // end if (in_array ($ship_directory_array[$i], $ship_module_active)) 
  } // end for ($i = 0, $n = sizeof($ship_directory_array); $i < $n; $i++)
 ?>
 	   <tr>
-            <td class="main" style="padding-left: 30px; padding-right: 10px; padding-top: 10px;"><?php echo ENTRY_SHIPPING_SET_EXPLAIN ?></td>
+            <td><?php echo ENTRY_SHIPPING_SET_EXPLAIN ?></td>
            </tr>
         </table>
        </td>
@@ -370,8 +372,8 @@ function check_form() {
       </tr>
       <tr>
         <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-	   <tr bgcolor="#DEE4E8">
-            <td class="main"><?php echo tep_draw_radio_field('group_order_total_settings', '1', false, (tep_not_null($cInfo->group_order_total_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_ORDER_TOTAL_SET . '&nbsp;&nbsp;' . tep_draw_radio_field('group_order_total_settings', '0', false, (tep_not_null($cInfo->group_order_total_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_ORDER_TOTAL_DEFAULT ; ?></td>
+	   <tr>
+            <td><?php echo tep_draw_radio_field('group_order_total_settings', '1', false, (tep_not_null($cInfo->group_order_total_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_ORDER_TOTAL_SET . '&nbsp;&nbsp;' . tep_draw_radio_field('group_order_total_settings', '0', false, (tep_not_null($cInfo->group_order_total_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_ORDER_TOTAL_DEFAULT ; ?></td>
           </tr>
 <?php
     $order_total_module_active = explode (";",MODULE_ORDER_TOTAL_INSTALLED);
@@ -391,14 +393,14 @@ function check_form() {
      } // end if (tep_class_exists($order_total_class))
 ?>
 	   <tr>
-            <td class="main"><?php echo tep_draw_checkbox_field('order_total_allowed[' . $i . ']', $order_total_module->code.".php" , (in_array ($order_total_module->code.".php", $order_total_allowed)) ?  1 : 0); ?>&#160;&#160;<?php echo $order_total_module->title; ?></td>
+            <td><?php echo tep_draw_checkbox_field('order_total_allowed[' . $i . ']', $order_total_module->code.".php" , (in_array ($order_total_module->code.".php", $order_total_allowed)) ?  1 : 0); ?>&#160;&#160;<?php echo $order_total_module->title; ?></td>
            </tr>
 <?php
   } // end if (in_array ($oder_total_directory_array[$i], $order_total_module_active)) 
  } // end for ($i = 0, $n = sizeof($order_total_directory_array); $i < $n; $i++)
 ?>
 	   <tr>
-            <td class="main" style="padding-left: 30px; padding-right: 10px; padding-top: 10px;"><?php echo ENTRY_ORDER_TOTAL_SET_EXPLAIN ?></td>
+            <td><?php echo ENTRY_ORDER_TOTAL_SET_EXPLAIN ?></td>
            </tr>
         </table>
        </td>
@@ -412,21 +414,21 @@ function check_form() {
       </tr>
       <tr>
         <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-	   <tr bgcolor="#DEE4E8">
-            <td class="main"><?php echo tep_draw_radio_field('group_tax_rate_exempt_settings', '1', false, (tep_not_null($cInfo->group_specific_taxes_exempt)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_TAX_RATES_EXEMPT . '&nbsp;&nbsp;' . tep_draw_radio_field('group_tax_rate_exempt_settings', '0', false, (tep_not_null($cInfo->group_specific_taxes_exempt)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_TAX_RATES_DEFAULT ; ?></td>
+	   <tr>
+            <td><?php echo tep_draw_radio_field('group_tax_rate_exempt_settings', '1', false, (tep_not_null($cInfo->group_specific_taxes_exempt)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_TAX_RATES_EXEMPT . '&nbsp;&nbsp;' . tep_draw_radio_field('group_tax_rate_exempt_settings', '0', false, (tep_not_null($cInfo->group_specific_taxes_exempt)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_TAX_RATES_DEFAULT ; ?></td>
            </tr>
 <?php
 $tax_query = tep_db_query("select tax_rates_id, tax_rate, tax_description from " . TABLE_TAX_RATES . " order by tax_rates_id");
 while ($tax_rate = tep_db_fetch_array($tax_query)) {
 ?>
 	   <tr>
-            <td class="main"><?php echo tep_draw_checkbox_field('group_tax_rate_exempt_id[' . $tax_rate['tax_rates_id'] . ']', $tax_rate['tax_rates_id'] , (in_array($tax_rate['tax_rates_id'], $group_tax_ids_exempt)) ? 1 : 0); ?>&#160;&#160;<?php echo $tax_rate['tax_description']; ?></td>
+            <td><?php echo tep_draw_checkbox_field('group_tax_rate_exempt_id[' . $tax_rate['tax_rates_id'] . ']', $tax_rate['tax_rates_id'] , (in_array($tax_rate['tax_rates_id'], $group_tax_ids_exempt)) ? 1 : 0); ?>&#160;&#160;<?php echo $tax_rate['tax_description']; ?></td>
            </tr>
 <?php
 } // end while ($tax_rate = tep_fetch_array($tax_query)
 ?>
 	   <tr>
-            <td class="main" style="padding-left: 30px; padding-right: 10px; padding-top: 10px;"><?php echo ENTRY_TAX_RATES_EXEMPT_EXPLAIN ?></td>
+            <td><?php echo ENTRY_TAX_RATES_EXEMPT_EXPLAIN ?></td>
            </tr>
         </table>
        </td>
@@ -436,7 +438,7 @@ while ($tax_rate = tep_db_fetch_array($tax_query)) {
       </tr>
       <!-- end insert tax rate exempt -->
       <tr>
-        <td align="right" class="main"><?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE) . ' <a href="' . tep_href_link(FILENAME_CUSTOMERS_GROUPS, tep_get_all_get_params(array('action','cID'))) .'">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?></td>
+        <td align="right"><?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE) . ' <a href="' . tep_href_link(FILENAME_CUSTOMERS_GROUPS, tep_get_all_get_params(array('action','cID'))) .'">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?></td>
       </tr>
       </form>
 
@@ -466,39 +468,27 @@ function check_form() {
   }
 }
 //--></script>
-
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-      </tr>
       <tr><?php echo tep_draw_form('customers', FILENAME_CUSTOMERS_GROUPS, tep_get_all_get_params(array('action')) . 'action=newconfirm', 'post', 'onSubmit="return check_form();"'); ?>
         <td class="formAreaTitle"><?php echo CATEGORY_PERSONAL; ?></td>
       </tr>
       <tr>
         <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
           <tr>
-            <td class="main"><?php echo ENTRY_GROUPS_NAME; ?></td>
-            <td class="main"><?php echo tep_draw_input_field('customers_group_name', '', 'maxlength="32"', false); ?></td>
+            <td><?php echo ENTRY_GROUPS_NAME; ?></td>
+            <td><?php echo tep_draw_input_field('customers_group_name', '', 'maxlength="32"', false); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo ENTRY_GROUP_SHOW_TAX; ?></td>
-            <td class="main"><?php
+            <td><?php echo ENTRY_GROUP_SHOW_TAX; ?></td>
+            <td><?php
             echo tep_draw_pull_down_menu('customers_group_show_tax', $cg_show_tax_array, '1'); ?>  This Setting only works when 'Display Prices with Tax'</td>
           </tr>
           <tr>
-            <td class="main">&#160;</td>
-            <td class="main" style="line-height: 2"> is set to true in the Configuration for your store and Tax Exempt (below) to 'No'.</td>
+            <td>&#160;</td>
+            <td> is set to true in the Configuration for your store and Tax Exempt (below) to 'No'.</td>
           </tr>
           <tr>
-            <td class="main"><?php echo ENTRY_GROUP_TAX_EXEMPT; ?></td>
-            <td class="main"><?php
+            <td><?php echo ENTRY_GROUP_TAX_EXEMPT; ?></td>
+            <td><?php
             echo tep_draw_pull_down_menu('customers_group_tax_exempt', $cg_tax_exempt_array, '0'); ?></td>
           </tr>
 	 </table>
@@ -560,9 +550,9 @@ function check_form() {
 	echo HEADING_TITLE_MODULES_PAYMENT; ?></td>
       </tr>
       <tr>
-        <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-	   <tr bgcolor="#DEE4E8">
-            <td class="main"><?php echo tep_draw_radio_field('group_payment_settings', '1', false, '0') . '&nbsp;&nbsp;' . ENTRY_GROUP_PAYMENT_SET . '&nbsp;&nbsp;' . tep_draw_radio_field('group_payment_settings', '0', false, '0') . '&nbsp;&nbsp;' . ENTRY_GROUP_PAYMENT_DEFAULT ; ?></td>
+        <td class="formArea"><table class="table table-bordered table-hover">
+	   <tr>
+            <td><?php echo tep_draw_radio_field('group_payment_settings', '1', false, '0') . '&nbsp;&nbsp;' . ENTRY_GROUP_PAYMENT_SET . '&nbsp;&nbsp;' . tep_draw_radio_field('group_payment_settings', '0', false, '0') . '&nbsp;&nbsp;' . ENTRY_GROUP_PAYMENT_DEFAULT ; ?></td>
           </tr>
 <?php
     $module_active = explode (";",MODULE_PAYMENT_INSTALLED);
@@ -586,13 +576,13 @@ function check_form() {
   for ($y = 0; $y < sizeof($installed_modules) ; $y++) {
 ?>
 	   <tr>
-            <td class="main"><?php echo tep_draw_checkbox_field('payment_allowed[' . $y . ']', $installed_modules[$y]['file_name'] , 0); ?>&#160;&#160;<?php echo $installed_modules[$y]['title']; ?></td>
+            <td><?php echo tep_draw_checkbox_field('payment_allowed[' . $y . ']', $installed_modules[$y]['file_name'] , 0); ?>&#160;&#160;<?php echo $installed_modules[$y]['title']; ?></td>
            </tr>
 <?php
  } // end for ($y = 0; $y < sizeof($installed_modules) ; $y++)
 ?>
 	   <tr>
-            <td class="main" style="padding-left: 30px; padding-right: 10px; padding-top: 10px;"><?php echo ENTRY_PAYMENT_SET_EXPLAIN ?></td>
+            <td><?php echo ENTRY_PAYMENT_SET_EXPLAIN ?></td>
            </tr>
         </table>
        </td>
@@ -603,9 +593,9 @@ function check_form() {
         <td class="formAreaTitle"><?php echo HEADING_TITLE_MODULES_SHIPPING; ?></td>
       </tr>
       <tr>
-        <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-	   <tr bgcolor="#DEE4E8">
-            <td class="main"><?php echo tep_draw_radio_field('group_shipment_settings', '1', false, (tep_not_null($cInfo->group_shipment_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_SHIPPING_SET . '&nbsp;&nbsp;' . tep_draw_radio_field('group_shipment_settings', '0', false, (tep_not_null($cInfo->group_shipment_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_SHIPPING_DEFAULT ; ?></td>
+        <td class="formArea"><table class="table table-bordered table-hover">
+	   <tr>
+            <td><?php echo tep_draw_radio_field('group_shipment_settings', '1', false, (tep_not_null($cInfo->group_shipment_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_SHIPPING_SET . '&nbsp;&nbsp;' . tep_draw_radio_field('group_shipment_settings', '0', false, (tep_not_null($cInfo->group_shipment_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_SHIPPING_DEFAULT ; ?></td>
           </tr>
 <?php
     $ship_module_active = explode (";",MODULE_SHIPPING_INSTALLED);
@@ -629,13 +619,13 @@ function check_form() {
  for ($y = 0; $y < sizeof($installed_shipping_modules) ; $y++) {
 ?>
 	   <tr>
-            <td class="main"><?php echo tep_draw_checkbox_field('shipping_allowed[' . $y . ']', $installed_shipping_modules[$y]['file_name'] , 0); ?>&#160;&#160;<?php echo $installed_shipping_modules[$y]['title']; ?></td>
+            <td><?php echo tep_draw_checkbox_field('shipping_allowed[' . $y . ']', $installed_shipping_modules[$y]['file_name'] , 0); ?>&#160;&#160;<?php echo $installed_shipping_modules[$y]['title']; ?></td>
            </tr>
 <?php
   } // end for ($y = 0; $y < sizeof($installed_shipping_modules) ; $y++) 
 ?>
 	   <tr>
-            <td class="main" style="padding-left: 30px; padding-right: 10px; padding-top: 10px;"><?php echo ENTRY_SHIPPING_SET_EXPLAIN ?></td>
+            <td><?php echo ENTRY_SHIPPING_SET_EXPLAIN ?></td>
            </tr>
         </table>
        </td>
@@ -649,9 +639,9 @@ function check_form() {
         <td class="formAreaTitle"><?php echo HEADING_TITLE_MODULES_ORDER_TOTAL; ?></td>
       </tr>
       <tr>
-        <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-	   <tr bgcolor="#DEE4E8">
-            <td class="main"><?php echo tep_draw_radio_field('group_order_total_settings', '1', false, (tep_not_null($cInfo->group_order_total_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_ORDER_TOTAL_SET . '&nbsp;&nbsp;' . tep_draw_radio_field('group_order_total_settings', '0', false, (tep_not_null($cInfo->group_order_total_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_ORDER_TOTAL_DEFAULT ; ?></td>
+        <td class="formArea"><table class="table table-bordered table-hover">
+	   <tr>
+            <td><?php echo tep_draw_radio_field('group_order_total_settings', '1', false, (tep_not_null($cInfo->group_order_total_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_ORDER_TOTAL_SET . '&nbsp;&nbsp;' . tep_draw_radio_field('group_order_total_settings', '0', false, (tep_not_null($cInfo->group_order_total_allowed)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_GROUP_ORDER_TOTAL_DEFAULT ; ?></td>
           </tr>
 <?php
     $order_total_module_active = explode (";",MODULE_ORDER_TOTAL_INSTALLED);
@@ -681,7 +671,7 @@ function check_form() {
   } // end for ($y = 0; $y < sizeof($installed_order_total_modules) ; $y++) 
 ?>
 	   <tr>
-            <td class="main" style="padding-left: 30px; padding-right: 10px; padding-top: 10px;"><?php echo ENTRY_ORDER_TOTAL_SET_EXPLAIN ?></td>
+            <td><?php echo ENTRY_ORDER_TOTAL_SET_EXPLAIN ?></td>
            </tr>
         </table>
        </td>
@@ -695,22 +685,22 @@ function check_form() {
         <td class="formAreaTitle"><?php echo HEADING_TITLE_GROUP_TAX_RATES_EXEMPT; ?></td>
       </tr>
       <tr>
-        <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-	   <tr bgcolor="#DEE4E8">
-            <td class="main"><?php echo tep_draw_radio_field('group_tax_rate_exempt_settings', '1', false, '0') . '&nbsp;&nbsp;' . ENTRY_GROUP_TAX_RATES_EXEMPT . '&nbsp;&nbsp;' . tep_draw_radio_field('group_tax_rate_exempt_settings', '0', false, '0') . '&nbsp;&nbsp;' . ENTRY_GROUP_TAX_RATES_DEFAULT ; ?></td>
+        <td class="formArea"><table class="table table-bordered table-hover">
+	   <tr>
+            <td><?php echo tep_draw_radio_field('group_tax_rate_exempt_settings', '1', false, '0') . '&nbsp;&nbsp;' . ENTRY_GROUP_TAX_RATES_EXEMPT . '&nbsp;&nbsp;' . tep_draw_radio_field('group_tax_rate_exempt_settings', '0', false, '0') . '&nbsp;&nbsp;' . ENTRY_GROUP_TAX_RATES_DEFAULT ; ?></td>
            </tr>
 <?php
 $tax_query = tep_db_query("select tax_rates_id, tax_rate, tax_description from " . TABLE_TAX_RATES . " order by tax_rates_id");
 while ($tax_rate = tep_db_fetch_array($tax_query)) {
 ?>
 	   <tr>
-            <td class="main"><?php echo tep_draw_checkbox_field('group_tax_rate_exempt_id[' . $tax_rate['tax_rates_id'] . ']', $tax_rate['tax_rates_id'] , 0); ?>&#160;&#160;<?php echo $tax_rate['tax_description']; ?></td>
+            <td><?php echo tep_draw_checkbox_field('group_tax_rate_exempt_id[' . $tax_rate['tax_rates_id'] . ']', $tax_rate['tax_rates_id'] , 0); ?>&#160;&#160;<?php echo $tax_rate['tax_description']; ?></td>
            </tr>
 <?php
 } // end while ($tax_rate = tep_fetch_array($tax_query)
 ?>
 	   <tr>
-            <td class="main" style="padding-left: 30px; padding-right: 10px; padding-top: 10px;"><?php echo ENTRY_TAX_RATES_EXEMPT_EXPLAIN ?></td>
+            <td><?php echo ENTRY_TAX_RATES_EXEMPT_EXPLAIN ?></td>
            </tr>
         </table>
        </td>
@@ -720,18 +710,16 @@ while ($tax_rate = tep_db_fetch_array($tax_query)) {
       </tr>
       <!-- end insert tax rate exempt -->
       <tr>
-        <td align="right" class="main"><?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE) . ' <a href="' . tep_href_link(FILENAME_CUSTOMERS_GROUPS, tep_get_all_get_params(array('action','cID'))) .'">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?></td>
+        <td align="right"><?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE) . ' <a href="' . tep_href_link(FILENAME_CUSTOMERS_GROUPS, tep_get_all_get_params(array('action','cID'))) .'">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?></td>
       </tr>
       </form>
 <?php 
   } else { // end action=new
 ?>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr><?php echo tep_draw_form('search', FILENAME_CUSTOMERS_GROUPS, '', 'get'); ?>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
-            <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('search'); ?></td>
+            <td align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('search'); ?></td>
           </form></tr>
         </table></td>
       </tr>
@@ -749,12 +737,12 @@ while ($tax_rate = tep_db_fetch_array($tax_query)) {
               $order = "g.customers_group_id ASC";
           }
           ?>
-	    <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+	    <td><table class="table table-bordered table-hover">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-               <tr class="dataTableHeadingRow">
-	       <td class="dataTableHeadingContent"><a href="<?php echo $_SERVER['PHP_SELF'] . '?listing=group'; ?>"><?php echo tep_image_button('ic_up.gif', ' Sort ' . TABLE_HEADING_NAME . ' --> A-B-C From Top '); ?></a>&nbsp;<a href="<?php echo $_SERVER['PHP_SELF'] . '?listing=group-desc'; ?>"><?php echo tep_image_button('ic_down.gif', ' Sort ' . TABLE_HEADING_NAME . ' --> Z-X-Y From Top '); ?></a><br><?php echo TABLE_HEADING_NAME; ?></td>
-				   <td class="dataTableHeadingContent" align="right" valign="bottom"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+            <td><table class="table table-bordered table-hover">
+               <tr>
+	       <td><a href="<?php echo $_SERVER['PHP_SELF'] . '?listing=group'; ?>"><?php echo tep_image_button('ic_up.gif', ' Sort ' . TABLE_HEADING_NAME . ' --> A-B-C From Top '); ?></a>&nbsp;<a href="<?php echo $_SERVER['PHP_SELF'] . '?listing=group-desc'; ?>"><?php echo tep_image_button('ic_down.gif', ' Sort ' . TABLE_HEADING_NAME . ' --> Z-X-Y From Top '); ?></a><br><?php echo TABLE_HEADING_NAME; ?></td>
+				   <td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
 			   </tr>
 
 <?php
@@ -782,17 +770,17 @@ while ($tax_rate = tep_db_fetch_array($tax_query)) {
         echo '          <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CUSTOMERS_GROUPS, tep_get_all_get_params(array('cID')) . 'cID=' . $customers_groups['customers_group_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo $customers_groups['customers_group_name']; ?></td>
-                <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($customers_groups['customers_group_id'] == $cInfo->customers_group_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_GROUPS, tep_get_all_get_params(array('cID')) . 'cID=' . $customers_groups['customers_group_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td><?php echo $customers_groups['customers_group_name']; ?></td>
+                <td align="right"><?php if ( (is_object($cInfo)) && ($customers_groups['customers_group_id'] == $cInfo->customers_group_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_GROUPS, tep_get_all_get_params(array('cID')) . 'cID=' . $customers_groups['customers_group_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     }
 ?>
               <tr>
-                <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="4"><table class="table table-bordered table-hover">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $customers_groups_split->display_count($customers_groups_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS_GROUPS); ?></td>
-                    <td class="smallText" align="right"><?php echo $customers_groups_split->display_links($customers_groups_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y', 'cID'))); ?></td>
+                    <td><?php echo $customers_groups_split->display_count($customers_groups_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS_GROUPS); ?></td>
+                    <td align="right"><?php echo $customers_groups_split->display_links($customers_groups_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y', 'cID'))); ?></td>
                   </tr>
 <?php
     if (tep_not_null($_GET['search'])) {
@@ -804,7 +792,7 @@ while ($tax_rate = tep_db_fetch_array($tax_query)) {
     } else {
 ?>
 			      <tr>
-                    <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_GROUPS, 'page=' . $_GET['page'] . '&action=new') . '">' . tep_image_button('button_insert.gif', IMAGE_INSERT) . '</a>'; ?></td>
+                    <td align="right" colspan="2"><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS_GROUPS, 'page=' . $_GET['page'] . '&action=new') . '">' . tep_image_button('button_insert.gif', IMAGE_INSERT) . '</a>'; ?></td>
                   </tr>
 <?php
 	}
@@ -856,12 +844,11 @@ while ($tax_rate = tep_db_fetch_array($tax_query)) {
 <!-- body_text_eof //-->
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

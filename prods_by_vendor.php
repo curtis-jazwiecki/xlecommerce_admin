@@ -123,53 +123,51 @@
 
 
 ?>
-
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-
-<html <?php echo HTML_PARAMS; ?>>
-
-<head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-
-<title><?php echo TITLE; ?></title>
-
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-
-<script language="javascript" src="includes/general.js"></script>
-
-</head>
-
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 
 <!-- header //-->
-
-<?php require_once(DIR_WS_INCLUDES . 'header.php'); ?>
-
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
-
-
 
 <!-- body //-->
 
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2" bgcolor="#030c2c">
-
-  <tr>
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
+<tr>
 
 
 <!-- body_text //-->
 
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td><table class="table table-bordered table-hover">
 
       <tr>
 
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
 
           <tr>
 
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td><?php echo HEADING_TITLE; ?></td>
 
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
 
           </tr>
 
@@ -179,11 +177,11 @@
 
       <tr>
 
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table class="table table-bordered table-hover">
 
           <tr>
 
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td><table class="table table-bordered table-hover">
 
               <tr>
 
@@ -215,9 +213,9 @@
 
 ?>
 
-                <td class="main" align="left" style="color:#ffffff;"><?php echo TABLE_HEADING_VENDOR_CHOOSE . ' '; ?><?php echo tep_draw_form ('vendors_report', FILENAME_PRODS_VENDORS, '', 'get') . tep_draw_pull_down_menu ('vendors_id', $vendors_array,'','onChange="this.form.submit()";');?></form></td>
+                <td align="left"><?php echo TABLE_HEADING_VENDOR_CHOOSE . ' '; ?><?php echo tep_draw_form ('vendors_report', FILENAME_PRODS_VENDORS, '', 'get') . tep_draw_pull_down_menu ('vendors_id', $vendors_array,'','onChange="this.form.submit()";');?></form></td>
 
-                <td class="main" align="left" style="color:#ffffff;"><?php echo '<a href="' . tep_href_link(FILENAME_VENDORS) . '"><b>Go To Vendors List</a>';?><td>
+                <td align="left"><?php echo '<a href="' . tep_href_link(FILENAME_VENDORS) . '"><b>Go To Vendors List</a>';?><td>
 
               </tr>
 
@@ -271,24 +269,24 @@
 
       <tr>
 
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
 
           <tr>
 
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="1">
+            <td><table class="table table-bordered table-hover">
 
-              <tr class="dataTableHeadingRow">
+              <tr>
 
-                <td class="dataTableHeadingContent" align="left"><?php echo TABLE_HEADING_VENDOR; ?></td>
+                <td align="left"><?php echo TABLE_HEADING_VENDOR; ?></td>
 
-                <td class="dataTableHeadingContent" align="left">
+                <td align="left">
                 <?php //echo '<a href="' . tep_href_link(FILENAME_PRODS_VENDORS, 'vendors_id=' . $vendors_id . '&line=prod') . '" style="color:#ffffff;">' . TABLE_HEADING_PRODUCTS_NAME . '</a>'; 
                 echo TABLE_HEADING_PRODUCTS_NAME;
                 ?>&nbsp;</td>
 
                 <?php /*<td class="dataTableHeadingContent" align="left"><?php echo '<a href="' . tep_href_link(FILENAME_PRODS_VENDORS, 'vendors_id=' . $vendors_id . '&line=vpid') . '">' . TABLE_HEADING_VENDORS_PRODUCT_ID . '</a>'; ?></td> */ ?>
 
-                <td class="dataTableHeadingContent" align="left"><?php echo '<a href="' . tep_href_link(FILENAME_PRODS_VENDORS, 'vendors_id=' . $vendors_id . '&line=pid') . '" style="color:#ffffff;">' .  TABLE_HEADING_PRODUCTS_ID . '</a>'; ?></td>
+                <td align="left"><?php echo '<a href="' . tep_href_link(FILENAME_PRODS_VENDORS, 'vendors_id=' . $vendors_id . '&line=pid') . '" style="color:#656565;">' .  TABLE_HEADING_PRODUCTS_ID . '</a>'; ?></td>
 
                 <?php /*<td class="dataTableHeadingContent" align="left"><?php echo '<a href="' . tep_href_link(FILENAME_PRODS_VENDORS, 'vendors_id=' . $vendors_id . '&line=qty') . '">' .  TABLE_HEADING_QUANTITY . '</a>'; ?></td>
 
@@ -298,13 +296,13 @@
 
               </tr>
 
-              <tr class="dataTableRow">
+              <tr>
 
-                <td class="dataTableContent"><?php echo '<a href="' . tep_href_link(FILENAME_VENDORS, '&vendors_id=' . $vendors_id . '&action=edit') . '" TARGET="_blank" style="color:#ffffff;"><b>' . $vendors['name'] . '</a></b>'; ?></td>
+                <td><?php echo '<a href="' . tep_href_link(FILENAME_VENDORS, '&vendors_id=' . $vendors_id . '&action=edit') . '" TARGET="_blank"><b>' . $vendors['name'] . '</a></b>'; ?></td>
 
-                <td class="dataTableContent"><?php echo ''; ?></td>
+                <td><?php echo ''; ?></td>
 
-                <td class="dataTableContent"><?php echo ''; ?></td>
+                <td><?php echo ''; ?></td>
 
                 <?php /*<td class="dataTableContent"><?php echo ''; ?></td>
 
@@ -362,7 +360,7 @@
 
 ?>
 
-              <tr class="dataTableRow">
+              <tr>
 
 <?php
 
@@ -376,13 +374,13 @@
 
 ?>
 
-                <td class="dataTableContent"><?php echo ''; ?></td>
+                <td><?php echo ''; ?></td>
 
-                <td class="dataTableContent"><?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product&pID=' . $products['products_id']) . '" TARGET="_blank" style="color:#000000;"><b>' . $products['products_name'] . '</a></b>'; ?></td>
+                <td><?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product&pID=' . $products['products_id']) . '" TARGET="_blank" style="color:#000000;"><b>' . $products['products_name'] . '</a></b>'; ?></td>
 
                 <?php /*<td class="dataTableContent"><?php echo $products['vendors_prod_id']; ?></td> */ ?>
 
-                <td class="dataTableContent" class="smallText"><?php echo $products['products_id']; ?></td>
+                <td><?php echo $products['products_id']; ?></td>
 
                 <?php /*<td class="dataTableContent" align="left"><?php echo $products['products_quantity']; ?>&nbsp;</td>
 
@@ -408,11 +406,11 @@
 
           <tr>
 
-            <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td colspan="3"><table class="table table-bordered table-hover">
 
               <tr>
 
-                <td class="smallText2" valign="top">
+                <td>
 
 <?php
 
@@ -424,7 +422,7 @@
 
                 </td>
 
-                <td class="smallText2" align="right">
+                <td align="right">
 
 <?php
 
@@ -453,19 +451,13 @@
   </tr>
 
 </table>
-
+</tr>
+</table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
-
-
 <!-- footer //-->
-
-<?php require_once(DIR_WS_INCLUDES . 'footer.php'); ?>
-
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 
-</body>
-
-</html>
-
-<?php require_once(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

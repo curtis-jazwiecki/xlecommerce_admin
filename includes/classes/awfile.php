@@ -74,7 +74,7 @@ class awfile {
 								$n--;
 						}
 													
-
+/*
 						fseek($fd,$this->_positions["POS_TIME"]);
 						list(,$n) = explode(" ",trim(fgets($fd)));
 						while ($n>0) {
@@ -130,6 +130,7 @@ class awfile {
 								$this->aSections[$elem] = $num;
 								$n--;
 						}
+                        */
 				
 				}	
 						

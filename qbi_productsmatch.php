@@ -40,7 +40,7 @@ if (isset($stage) AND $stage=="produpdate") {
   echo MATCH_SUCCESS;
 }
 ?>
-<table class="lists" width="100%" bgcolor="#FFFFFF">
+<table class="table table-bordered table-hover">
 <form action="<?php echo $_SERVER[PHP_SELF]?>" method="post" name="qbi_products" id="qbi_products">
 <input name="stage" id="stage" type="hidden" value="produpdate" />
 <input name="search_page" id="search_page" type="hidden" value="<?php echo $search_page?>" />
@@ -58,7 +58,34 @@ if($count > 0){
   $pstring = $page->make_page_string(); //add the other variables to pass to next page in a similar fashion 
   echo "<tr><th colspan='3' class='counter'>$hstring</th></tr>\r\n"; 
   echo "<tr><td colspan='3'>&nbsp;</td></tr>\r\n"; 
-  echo "<tr><th class='colhead'>".MATCH_OSC."</th><th></th><th class='colhead'>".MATCH_QB."</th></tr>\r\n"; 
+  echo "<tr><th class='colhead'>".MATCH_OSC."</th><th></th><th class='colhead'>".MATCH_QB."</th></tr>\r\n";  ?>
+  <tr>
+  	<th colspan="2">
+    	<table class="lists" width="100%" bgcolor="#FFFFFF">
+ <tr>
+  	<th colspan="2" align="left">
+    	<table width="100%">
+        	<tr>
+            	<td>Products</td>
+                <td>Quickbooks</td>
+            </tr>
+            <tr>
+            	<td>Match All <input type="checkbox" name="match_all_products" value="1" id="match_all_products" /></td>
+                <?php echo item_menu(0,0); ?>
+            </tr>
+        </table>
+    </th>
+    <th>&nbsp;</th>
+ </tr>
+</table>
+	</th>
+	<th>&nbsp;</th>
+  </tr>
+  
+  
+  
+  
+  <?php
   while ($myrowqbc = tep_db_fetch_array($resultqbc)) {
 	$prod_id=$myrowqbc["pproducts_id"];
 	$optval_id=$myrowqbc["options_values_id"];
@@ -80,6 +107,18 @@ echo "<tr><td colspan=\"3\" class='pagelist'>$pstring</td></tr>\r\n";
 <tr><td colspan="3"><input name="submit" type="submit" id="submit" value="<?php echo MATCH_BUTTON ?>" /></td></tr>
 </form>
 </table>
+<script type="text/javascript">
+jQuery(document).ready(function(e) {
+    jQuery("#match_all_products").click(function(){
+		if(jQuery("#match_all_products").is(':checked')){
+			jQuery("#other_option").find("select").attr("disabled", "disabled");
+			jQuery('[name="product_menu[0-0]"]').removeAttr("disabled");
+		}else{
+    		jQuery("#other_option").find("select").removeAttr("disabled");
+		}
+	});
+});
+</script>
 <?php
 require(DIR_WS_INCLUDES . 'qbi_page_bot.php');
 ?>

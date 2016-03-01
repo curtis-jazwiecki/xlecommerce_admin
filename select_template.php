@@ -25,65 +25,68 @@
 // End Template Check
 
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Select Product Listing Template
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">Select Product Listing Template<br /><span>(Seen on search page and categories page)</span>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td width="100%" valign="top">
-      <table border="0" width="100%" cellspacing="0" cellpadding="2">
-        <tr>
-          <td>
-            <table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td class="pageHeading">Select Product Listing Template<br /><span style="font-size: 14px">(Seen on search page and categories page)</span></td>
-                <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
+    <td>
+      <table class="table table-bordered table-hover">
         <tr>
           <td>
 		    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" name="countries">
             <input type="hidden" name="update_template" value="update_template" />
-            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <table class="table table-bordered table-hover">
               <tr>
-                <td valign="top">
-                  <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                    <tr class="dataTableHeadingRow">
-                	  <td class="dataTableHeadingContent">Preview Layout</td>
-	                  <td class="dataTableHeadingContent" align="center">Selected</td>
+                <td>
+                  <table class="table table-bordered table-hover">
+                    <tr>
+                	  <td>Preview Layout</td>
+	                  <td align="center">Selected</td>
               		</tr>
 <?php
 	// Below displays options for template layout - OBN
 ?>
-                    <tr bgcolor="#DDDDDD">
-                      <td class="dataTableContent"><b>Standard Layout</b><br />4 columns with small pictures, displays 20 per page. Results usually fit on one page.</td>
-                      <td class="dataTableContent" align="center"><input type="radio" name="product_listing_value" value="0" <?php if($selected_template == 0) echo "checked"; ?> /></td>
+                    <tr>
+                      <td><b>Standard Layout</b><br />4 columns with small pictures, displays 20 per page. Results usually fit on one page.</td>
+                      <td align="center"><input type="radio" name="product_listing_value" value="0" <?php if($selected_template == 0) echo "checked"; ?> /></td>
                     </tr>
-                    <tr bgcolor="#DDDDDD">
-                      <td class="dataTableContent"><b>Column Layout</b><br />1 product per row, similar to auction sites.</td>
-                      <td class="dataTableContent" align="center"><input type="radio" name="product_listing_value" value="1" <?php if($selected_template == 1) echo "checked"; ?> /></td>
+                    <tr>
+                      <td><b>Column Layout</b><br />1 product per row, similar to auction sites.</td>
+                      <td align="center"><input type="radio" name="product_listing_value" value="1" <?php if($selected_template == 1) echo "checked"; ?> /></td>
                     </tr>
-                    <tr bgcolor="#DDDDDD">
-                      <td class="dataTableContent"><b>Large Picture Layout</b><br />3 columns, displays larger pictures, name, description, price, and stock information (displays 30 products per page)</td>
-                      <td class="dataTableContent" align="center"><input type="radio" name="product_listing_value" value="2" <?php if($selected_template == 2) echo "checked"; ?> /></td>
+                    <tr>
+                      <td><b>Large Picture Layout</b><br />3 columns, displays larger pictures, name, description, price, and stock information (displays 30 products per page)</td>
+                      <td align="center"><input type="radio" name="product_listing_value" value="2" <?php if($selected_template == 2) echo "checked"; ?> /></td>
                     </tr>
-                    <tr bgcolor="#DDDDDD">
-                      <td class="dataTableContent"><b>Large Descriptive Layout</b><br />1 product per row, displays larger pictures, name, description, price, and stock information</td>
-                      <td class="dataTableContent" align="center"><input type="radio" name="product_listing_value" value="3" <?php if($selected_template == 3) echo "checked"; ?> /></td>
+                    <tr>
+                      <td><b>Large Descriptive Layout</b><br />1 product per row, displays larger pictures, name, description, price, and stock information</td>
+                      <td align="center"><input type="radio" name="product_listing_value" value="3" <?php if($selected_template == 3) echo "checked"; ?> /></td>
                     </tr>
                     <tr>
            				<td colspan="5" align="right"><input border="0" type="image" title="Update" alt="Update" src="includes/languages/english/images/buttons/button_update_b.gif"></td>
@@ -100,12 +103,11 @@
 <!-- body_text_eof //-->
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

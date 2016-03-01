@@ -112,102 +112,49 @@ function generateJsRowFillCall($prodID){
 	return $resp;
 }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<style>
-.productmenutitle{
-cursor:pointer;
-margin-bottom: 0px;
-background-color:orange;
-color:#FFFFFF;
-font-weight:bold;
-font-family:ms sans serif;
-width:100%;
-padding:3px;
-font-size:12px;
-text-align:center;
-/*/*/border:1px solid #000000;/* */
-}
-.productmenutitle1{
-cursor:pointer;
-margin-bottom: 0px;
-background-color: red;
-color:#FFFFFF;
-font-weight:bold;
-font-family:ms sans serif;
-width:100%;
-padding:3px;
-font-size:12px;
-text-align:center;
-/*/*/border:1px solid #000000;/* */
-}
-</style>
-<script type="text/javascript" src="includes/xsell.js"></script>
-<script type="text/javascript" src="includes/featured.js"></script>
-<script type="text/javascript" src="includes/general.js"></script>
-<script language="JavaScript1.2">
-
-function cOn(td)
-{
-if(document.getElementById||(document.all && !(document.getElementById)))
-{
-td.style.backgroundColor="#CCCCCC";
-}
-}
-
-function cOnA(td)
-{
-if(document.getElementById||(document.all && !(document.getElementById)))
-{
-td.style.backgroundColor="#CCFFFF";
-}
-}
-
-function cOut(td)
-{
-if(document.getElementById||(document.all && !(document.getElementById)))
-{
-td.style.backgroundColor="DFE4F4";
-}
-}
-</script>
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+      
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
-  <tr>
-  <td width="100%" valign="top">
-<!-- body_text //-->
-  <table border="0" width="100%" cellspacing="0" cellpadding="0">
-   <tr>
-    <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10');?></td>
-   </tr>
-   <tr>
-    <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-   </tr>
-   <tr>
-    <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '15');?></td>
-   </tr>
-  </table>
 
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+  <table class="table table-bordered table-hover">
+  <tr>
+  <td>
+<!-- body_text //-->
+  
 <?php
   if ($_GET['add_related_product_ID'] == ''){
 ?>
-  <table border="0" cellspacing="1" cellpadding="2" bgcolor="#999999" align="center">
-   <tr class="dataTableHeadingRow">
-    <td class="dataTableHeadingContent" width="75"><?php echo TABLE_HEADING_PRODUCT_ID;?></td>
-    <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCT_MODEL;?></td>
-    <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCT_NAME;?></td>
-    <td class="dataTableHeadingContent" nowrap><?php echo TABLE_HEADING_CURRENT_SELLS;?></td>
-    <td class="dataTableHeadingContent" colspan="2" nowrap align="center"><?php echo TABLE_HEADING_UPDATE_SELLS;?></td>
+  <table class="table table-bordered table-hover">
+   <tr>
+    <td><?php echo TABLE_HEADING_PRODUCT_ID;?></td>
+    <td><?php echo TABLE_HEADING_PRODUCT_MODEL;?></td>
+    <td><?php echo TABLE_HEADING_PRODUCT_NAME;?></td>
+    <td><?php echo TABLE_HEADING_CURRENT_SELLS;?></td>
+    <td colspan="2"><?php echo TABLE_HEADING_UPDATE_SELLS;?></td>
    </tr>
 <?php
     $products_query_raw = 'select p.products_id, p.products_model, pd.products_name, p.products_id from '.TABLE_PRODUCTS.' p, '.TABLE_PRODUCTS_DESCRIPTION.' pd where p.products_id = pd.products_id and pd.language_id = "'.(int)$languages_id.'" and p.products_id in (select distinct(a.products_id) from ' . TABLE_PRODUCTS_XSELL . ' a) order by p.products_id asc';
@@ -217,10 +164,10 @@ td.style.backgroundColor="DFE4F4";
 ?>
    <!--<tr onMouseOver="cOn(this); this.style.cursor='pointer'; this.style.cursor='hand';" onMouseOut="cOut(this);" bgcolor='#DFE4F4' onClick=document.location.href="<?php //echo tep_href_link(FILENAME_XSELL_PRODUCTS, 'add_related_product_ID=' . $products['products_id'], 'NONSSL');?>">-->
 	<tr onMouseOver="cOn(this);" onMouseOut="cOut(this);" bgcolor='#DFE4F4'>   
-    <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_id'];?>&nbsp;</td>
-    <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_model'];?>&nbsp;</td>
-    <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_name'];?>&nbsp;</td>
-    <td class="dataTableContent" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td>&nbsp;<?php echo $products['products_id'];?>&nbsp;</td>
+    <td>&nbsp;<?php echo $products['products_model'];?>&nbsp;</td>
+    <td>&nbsp;<?php echo $products['products_name'];?>&nbsp;</td>
+    <td><table class="table table-bordered table-hover">
 <?php
     $products_cross_query = tep_db_query('select p.products_id, p.products_model, pd.products_name, p.products_id, x.products_id, x.xsell_id, x.sort_order, x.ID from '.TABLE_PRODUCTS.' p, '.TABLE_PRODUCTS_DESCRIPTION.' pd, '.TABLE_PRODUCTS_XSELL.' x where x.xsell_id = p.products_id and x.products_id = "'.$products['products_id'].'" and p.products_id = pd.products_id and pd.language_id = "'.(int)$languages_id.'" order by x.sort_order asc');
 	$i=0;
@@ -228,36 +175,36 @@ td.style.backgroundColor="DFE4F4";
 		$i++;
 ?>
 	 <tr>
-	  <td class="dataTableContent">&nbsp;<?php echo $i . '.&nbsp;&nbsp;<b>' . $products_cross['products_model'] . '</b>&nbsp;' . $products_cross['products_name'];?>&nbsp;</td>
+	  <td>&nbsp;<?php echo $i . '.&nbsp;&nbsp;<b>' . $products_cross['products_model'] . '</b>&nbsp;' . $products_cross['products_name'];?>&nbsp;</td>
 	 </tr>
 <?php
 	}
     if ($i <= 0){
 ?>
 	 <tr>
-	  <td class="dataTableContent">&nbsp;--&nbsp;</td>
+	  <td>&nbsp;--&nbsp;</td>
 	 </tr>
 <?php
 	}else{
 ?>
 	 <tr>
-	  <td class="dataTableContent"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10');?></td>
+	  <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10');?></td>
 	 </tr>
 <?php
 }
 ?>
     </table></td>
-    <td class="dataTableContent" valign="top">&nbsp;<a href="<?php echo tep_href_link(FILENAME_XSELL_PRODUCTS, tep_get_all_get_params(array('action')) . 'add_related_product_ID=' . $products['products_id'], 'NONSSL');?>"><?php echo tep_image_button('button_edit.gif', IMAGE_EDIT);?></a>&nbsp;</td>
-    <td class="dataTableContent" valign="top" align="center">&nbsp;<?php echo (($i > 0) ? '<a href="' . tep_href_link(FILENAME_XSELL_PRODUCTS, tep_get_all_get_params(array('action')) . 'action=delete&add_related_product_ID=' . $products['products_id'], 'NONSSL') .'" onclick="javascript:return confirm(\'This action will release related product(s) association !!\');">'.tep_image_button('button_delete.gif', IMAGE_DELETE).'</a>&nbsp;' : '--')?></td>
+    <td>&nbsp;<a href="<?php echo tep_href_link(FILENAME_XSELL_PRODUCTS, tep_get_all_get_params(array('action')) . 'add_related_product_ID=' . $products['products_id'], 'NONSSL');?>"><?php echo tep_image_button('button_edit.gif', IMAGE_EDIT);?></a>&nbsp;</td>
+    <td align="center">&nbsp;<?php echo (($i > 0) ? '<a href="' . tep_href_link(FILENAME_XSELL_PRODUCTS, tep_get_all_get_params(array('action')) . 'action=delete&add_related_product_ID=' . $products['products_id'], 'NONSSL') .'" onclick="javascript:return confirm(\'This action will release related product(s) association !!\');">'.tep_image_button('button_delete.gif', IMAGE_DELETE).'</a>&nbsp;' : '--')?></td>
    </tr>
 <?php
 	}
 ?>
    <tr>
-    <td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="infoBoxContent">
+    <td colspan="6"><table class="table table-bordered table-hover">
      <tr>
-      <td class="smallText" valign="top"><?php echo $products_split->display_count($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
-      <td class="smallText" align="right"><?php echo $products_split->display_links($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y', 'cID', 'action'))); ?></td>
+      <td><?php echo $products_split->display_count($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
+      <td align="right"><?php echo $products_split->display_links($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y', 'cID', 'action'))); ?></td>
      </tr>
     </table></td>
    </tr>
@@ -269,7 +216,7 @@ td.style.backgroundColor="DFE4F4";
 	echo tep_draw_hidden_field('products_id', (!empty($_GET['add_related_product_ID']) ? $_GET['add_related_product_ID'] : ''));
 	echo tep_draw_hidden_field('related_products_id');	 
 ?>
-	<table cellspacing="0" cellpadding="0" border="0">
+	<table class="table table-bordered table-hover">
 <?php
 	if (!empty($_GET['add_related_product_ID'])){
 		$master_product_id = (int)$_GET['add_related_product_ID'];
@@ -277,38 +224,36 @@ td.style.backgroundColor="DFE4F4";
 		$products_name = tep_db_fetch_array($products_name_query);
 		$cat_info = get_category_id($master_product_id);
 		echo '<tr><td colspan="3">';
-		echo '<div id="div_listing" class="smallText2">' . get_category_levels($cat_info['cat_id']) . get_separator() . $products_name['products_name'] . '</div>';
+		echo '<div id="div_listing">' . get_category_levels($cat_info['cat_id']) . get_separator() . $products_name['products_name'] . '</div>';
 		echo '</td></tr>'; 
 	}else{
 		$master_product_id = 0;
-		echo '<tr><td valign="top" class="smallText2">Select Main Product</td><td valign="top" class="smallText">&nbsp;:&nbsp;</td><td>';
+		echo '<tr><td valign="top">Select Main Product</td><td valign="top">&nbsp;:&nbsp;</td><td>';
 		echo '<div id="div_listing"></div><span id="span_loader" style="display:none;">' . tep_image('images/ajax-loader.gif') . '</span>';
 		echo '</td></tr>';
 	}	
 ?>
 	<tr><td colspan="3">&nbsp;</td></tr>
 	<tr>
-		<td valign="top" class="smallText2">Append Related Product(s)</td>
-		<td valign="top" class="smallText">&nbsp;:&nbsp;</td>
+		<td>Append Related Product(s)</td>
+		<td>&nbsp;:&nbsp;</td>
 		<td>
 			<div id="div_related" addbuttonid="btn_add"></div><span id="span_loader1" style="display:none;"><?php echo tep_image('images/ajax-loader.gif'); ?></span>
 		</td>
 	</tr>
 	<tr>
-		<td valign="top" class="smallText">&nbsp;</td>
-		<td valign="top" class="smallText">&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
 		<td>
 			<input id="btn_add" type="button" value="Append to List" style="display:none" onClick="javascript:addToList();">
 		</td>
 	</tr>
 	<tr><td colspan="3">&nbsp;</td></tr>
-	<tr><td colspan="3" class="smallText2"><b>Product(s) related so far</b></td></tr>
+	<tr><td colspan="3"><b>Product(s) related so far</b></td></tr>
 	<tr><td colspan="3">&nbsp;</td></tr>
 	<tr>
-		<td valign="top" class="smallText2">&nbsp;</td>
-		<td valign="top" class="smallText2">&nbsp;</td>
 		<td>
-			<table cellspacing="2" cellpadding="2" border="1" id="tab_products" bgcolor="#EEEEEE"></table>
+            <table class="table table-bordered table-hover" id="tab_products"></table>
 		</td>
 	</tr>
 	<tr><td colspan="3">&nbsp;</td></tr>
@@ -365,8 +310,8 @@ td.style.backgroundColor="DFE4F4";
    <tr>
     <td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="infoBoxContent">
      <tr>
-      <td class="smallText" valign="top"><?php //echo $products_split->display_count($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
-      <td class="smallText" align="right"><?php //echo $products_split->display_links($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y', 'cID', 'action'))); ?></td>
+      <td><?php //echo $products_split->display_count($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
+      <td><?php //echo $products_split->display_links($products_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y', 'cID', 'action'))); ?></td>
      </tr>
     </table></td>
    </tr>
@@ -438,13 +383,68 @@ td.style.backgroundColor="DFE4F4";
   </td>
  </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
+
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+<style>
+.productmenutitle{
+cursor:pointer;
+margin-bottom: 0px;
+background-color:orange;
+color:#FFFFFF;
+font-weight:bold;
+font-family:ms sans serif;
+width:100%;
+padding:3px;
+font-size:12px;
+text-align:center;
+/*/*/border:1px solid #000000;/* */
+}
+.productmenutitle1{
+cursor:pointer;
+margin-bottom: 0px;
+background-color: red;
+color:#FFFFFF;
+font-weight:bold;
+font-family:ms sans serif;
+width:100%;
+padding:3px;
+font-size:12px;
+text-align:center;
+/*/*/border:1px solid #000000;/* */
+}
+</style>
+<script type="text/javascript" src="includes/xsell.js"></script>
+<script type="text/javascript" src="includes/featured.js"></script>
+<script language="JavaScript1.2">
+
+function cOn(td)
+{
+if(document.getElementById||(document.all && !(document.getElementById)))
+{
+td.style.backgroundColor="#CCCCCC";
+}
+}
+
+function cOnA(td)
+{
+if(document.getElementById||(document.all && !(document.getElementById)))
+{
+td.style.backgroundColor="#CCFFFF";
+}
+}
+
+function cOut(td)
+{
+if(document.getElementById||(document.all && !(document.getElementById)))
+{
+td.style.backgroundColor="DFE4F4";
+}
+}
+</script>
 <script type="text/javascript">
  <?php echo ($_GET['add_related_product_ID']!= '' ? (empty($_GET['add_related_product_ID']) ? 'displaySelection(\'div_listing\', \'C0\', \'X\');displaySelection(\'div_related\', \'C0\', \'XR\');' : 'displaySelection(\'div_related\', \'C0\', \'XR\');' . generateJsRowFillCall($_GET['add_related_product_ID'])) : ''); ?> 
  </script>

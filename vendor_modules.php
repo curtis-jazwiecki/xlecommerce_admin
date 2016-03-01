@@ -108,65 +108,40 @@
   }
 
 ?>
-
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-
-<html <?php echo HTML_PARAMS; ?>>
-
-<head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-
-<title><?php echo TITLE; ?></title>
-
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-
-<script language="javascript" src="includes/general.js"></script>
-
-</head>
-
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
-
 <!-- header //-->
-
-<?php require_once(DIR_WS_INCLUDES . 'header.php'); ?>
-
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
-
-
 
 <!-- body //-->
 
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2" bgcolor="#030c2c">
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE_MODULES_SHIPPING; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
 
   <tr>
 
 
 <!-- body_text //-->
 
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-
-      <tr>
-
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-
-          <tr>
-
-            <td class="pageHeading"><?php echo HEADING_TITLE_MODULES_SHIPPING; ?></td>
-
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-
-          </tr>
-
-        </table></td>
-
-      </tr>
+    <td><table class="table table-bordered table-hover">
 
 <!-- //MVS  -->
 
       <tr>
 
-        <td class="main" style="color: #ffffff;">
+        <td>
 
 <?php
 
@@ -200,19 +175,19 @@
 
       <tr>
 
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
 
           <tr>
 
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td><table class="table table-bordered table-hover">
 
-              <tr class="dataTableHeadingRow">
+              <tr>
 
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_MODULES; ?></td>
+                <td><?php echo TABLE_HEADING_MODULES; ?></td>
 
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_SORT_ORDER; ?></td>
+                <td align="right"><?php echo TABLE_HEADING_SORT_ORDER; ?></td>
 
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                <td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
 
               </tr>
 
@@ -344,27 +319,27 @@
 
         if ($module->check($vendors_id) > 0) {
 
-          echo '              <tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_VENDOR_MODULES, 'module=' . $class . '&action=edit&vendors_id=' . $vendors_id) . '\'">' . "\n";
+          echo '              <tr id="defaultSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_VENDOR_MODULES, 'module=' . $class . '&action=edit&vendors_id=' . $vendors_id) . '\'">' . "\n";
 
         } else {
 
-          echo '              <tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">' . "\n";
+          echo '              <tr id="defaultSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">' . "\n";
 
         }
 
       } else {
 
-         echo '              <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_VENDOR_MODULES, 'module=' . $class . '&vendors_id=' . $vendors_id) . '\'">' . "\n";
+         echo '              <tr onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_VENDOR_MODULES, 'module=' . $class . '&vendors_id=' . $vendors_id) . '\'">' . "\n";
 
       }
 
 ?>
 
-                <td class="dataTableContent"><?php echo $module->title; ?></td>
+                <td><?php echo $module->title; ?></td>
 
-                <td class="dataTableContent" align="right"><?php if (is_numeric($module->sort_order($vendors_id))) echo $module->sort_order($vendors_id); ?></td>
+                <td align="right"><?php if (is_numeric($module->sort_order($vendors_id))) echo $module->sort_order($vendors_id); ?></td>
 
-                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_VENDOR_MODULES, 'module=' . $class . '&vendors_id=' . $vendors_id) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_VENDOR_MODULES, 'module=' . $class . '&vendors_id=' . $vendors_id) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
 
               </tr>
 
@@ -404,7 +379,7 @@
 
               <tr>
 
-                <td colspan="3" class="smallText"><?php echo TEXT_MODULE_DIRECTORY . ' ' . DIR_FS_CATALOG_MODULES . 'vendors_shipping/'; ?></td>
+                <td colspan="3"><?php echo TEXT_MODULE_DIRECTORY . ' ' . DIR_FS_CATALOG_MODULES . 'vendors_shipping/'; ?></td>
 
               </tr>
 
@@ -566,22 +541,12 @@
 
   </tr>
 
-</table>
-
+</table>  
+               <!-- END your table-->
 <!-- body_eof //-->
 
-
-
 <!-- footer //-->
-
-<?php require_once(DIR_WS_INCLUDES . 'footer.php'); ?>
-
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 
-<br>
-
-</body>
-
-</html>
-
-<?php require_once(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

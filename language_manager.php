@@ -125,33 +125,31 @@
     }
   }
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE; ?></div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr><?php echo tep_draw_form('goto', FILENAME_LANGUAGE_MANAGER, '', 'get'); ?>
-            <td class="pageHeading"><?php echo HEADING_TITLE . '<br><span class="smallText">' . $current_path . '</span>'; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', '1', HEADING_IMAGE_HEIGHT); ?></td>
-            <td class="pageHeading" align="right">&nbsp;<?php //echo tep_draw_pull_down_menu('goto', $goto_array, $current_path, 'onChange="this.form.submit();"'); ?></td>
-          </form></tr>
-        </table></td>
-      </tr>
+    <td><table class="table table-bordered table-hover">
+      
 <?php
   if ( (($action == 'new_file') && ($directory_writeable == true)) || ($action == 'edit') ) {
     if (isset($HTTP_GET_VARS['info']) && strstr($HTTP_GET_VARS['info'], '..')) tep_redirect(tep_href_link(FILENAME_LANGUAGE_MANAGER));
@@ -173,26 +171,24 @@
       $filename_input_field = $HTTP_GET_VARS['info'] . tep_draw_hidden_field('filename', $HTTP_GET_VARS['info']);
     }
 ?>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-      </tr>
+      
       <tr><?php echo tep_draw_form('new_file', FILENAME_LANGUAGE_MANAGER, 'action=save'); ?>
-        <td><table border="0" cellspacing="0" cellpadding="2">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td class="main" style="color:white;"><?php echo TEXT_FILE_NAME; ?></td>
-            <td class="main" style="color:white;"><?php echo $filename_input_field; ?></td>
+            <td><?php echo TEXT_FILE_NAME; ?></td>
+            <td><?php echo $filename_input_field; ?></td>
           </tr>
             
           <tr>
-            <td class="main" style="color:white;">&nbsp;</td>
-            <td class="main" style="color:white;">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
           </tr>   
                  
           <?php
           foreach($languageConstants as $constantKey => $constantValue){?>
           <tr>
-            <td class="main" valign="top" style="color:white;"><?php echo $constantKey; ?></td>
-            <td class="main">
+            <td><?php echo $constantKey; ?></td>
+            <td>
                 <textarea name="constant[<?php echo $constantKey; ?>]" id="<?php echo $constantKey; ?>"><?php echo trim(stripslashes($constantValue)); ?></textarea>
             </td>
           </tr>
@@ -201,7 +197,7 @@
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td align="right" class="main" colspan="2"><?php if ($file_writeable == true) echo tep_image_submit('button_save.gif', IMAGE_SAVE) . '&nbsp;'; echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) : '')) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?></td>
+            <td align="right" colspan="2"><?php if ($file_writeable == true) echo tep_image_submit('button_save.gif', IMAGE_SAVE) . '&nbsp;'; echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) : '')) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?></td>
           </tr>
         </table></td>
       </form></tr>
@@ -239,17 +235,17 @@
 ?>
 
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table class="table table-bordered table-hover">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_FILENAME; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_SIZE; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_PERMISSIONS; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_USER; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_GROUP; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LAST_MODIFIED; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+            <td><table class="table table-bordered table-hover">
+              <tr>
+                <td><?php echo TABLE_HEADING_FILENAME; ?></td>
+                <td align="right"><?php echo TABLE_HEADING_SIZE; ?></td>
+                <td align="center"><?php echo TABLE_HEADING_PERMISSIONS; ?></td>
+                <td><?php echo TABLE_HEADING_USER; ?></td>
+                <td><?php echo TABLE_HEADING_GROUP; ?></td>
+                <td align="center"><?php echo TABLE_HEADING_LAST_MODIFIED; ?></td>
+                <td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
   for ($i=0, $n=sizeof($contents); $i<$n; $i++) {
@@ -265,14 +261,14 @@
 
     if (isset($fInfo) && is_object($fInfo) && ($contents[$i]['name'] == $fInfo->name)) {
       if ($fInfo->is_dir) {
-        echo '              <tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">' . "\n";
+        echo '              <tr id="defaultSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">' . "\n";
         $onclick_link = 'goto=' . $goto_link;
       } else {
-        echo '              <tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">' . "\n";
+        echo '              <tr id="defaultSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">' . "\n";
         $onclick_link = 'info=' . urlencode($fInfo->name) . '&action=edit';
       }
     } else {
-      echo '              <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">' . "\n";
+      echo '              <tr onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">' . "\n";
       $onclick_link = 'info=' . urlencode($contents[$i]['name']);
     }
 
@@ -288,22 +284,22 @@
       $link = tep_href_link(FILENAME_LANGUAGE_MANAGER, 'action=download&filename=' . urlencode($contents[$i]['name']));
     }
 ?>
-                <td class="dataTableContent" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo '<a href="' . $link . '">' . $icon . '</a>&nbsp;' . $contents[$i]['name']; ?></td>
-                <td class="dataTableContent" align="right" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo ($contents[$i]['is_dir'] ? '&nbsp;' : $contents[$i]['size']); ?></td>
-                <td class="dataTableContent" align="center" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><tt><?php echo $contents[$i]['permissions']; ?></tt></td>
-                <td class="dataTableContent" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['user']; ?></td>
-                <td class="dataTableContent" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['group']; ?></td>
-                <td class="dataTableContent" align="center" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['last_modified']; ?></td>
-                <td class="dataTableContent" align="right"><?php if ($contents[$i]['name'] != '..') echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, 'info=' . urlencode($contents[$i]['name']) . '&action=delete') . '">' . tep_image(DIR_WS_ICONS . 'delete.gif', ICON_DELETE) . '</a>&nbsp;'; if (isset($fInfo) && is_object($fInfo) && ($fInfo->name == $contents[$i]['name'])) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, 'info=' . urlencode($contents[$i]['name'])) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo '<a href="' . $link . '">' . $icon . '</a>&nbsp;' . $contents[$i]['name']; ?></td>
+                <td align="right" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo ($contents[$i]['is_dir'] ? '&nbsp;' : $contents[$i]['size']); ?></td>
+                <td align="center" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><tt><?php echo $contents[$i]['permissions']; ?></tt></td>
+                <td onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['user']; ?></td>
+                <td onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['group']; ?></td>
+                <td align="center" onClick="document.location.href='<?php echo tep_href_link(FILENAME_LANGUAGE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['last_modified']; ?></td>
+                <td align="right"><?php if ($contents[$i]['name'] != '..') echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, 'info=' . urlencode($contents[$i]['name']) . '&action=delete') . '">' . tep_image(DIR_WS_ICONS . 'delete.gif', ICON_DELETE) . '</a>&nbsp;'; if (isset($fInfo) && is_object($fInfo) && ($fInfo->name == $contents[$i]['name'])) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, 'info=' . urlencode($contents[$i]['name'])) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
   }
 ?>
               <tr>
-                <td colspan="7"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr valign="top">
-                    <td class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, 'action=reset') . '">' . tep_image_button('button_reset_b.gif', IMAGE_RESET) . '</a>'; ?></td>
-                    <td class="smallText" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) . '&' : '') . 'action=upload') . '">' . tep_image_button('button_upload_b.gif', IMAGE_UPLOAD) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) . '&' : '') . 'action=new_file') . '">' . tep_image_button('button_new_file_b.gif', IMAGE_NEW_FILE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) . '&' : '') . 'action=new_folder') . '">' . tep_image_button('button_new_folder.gif', IMAGE_NEW_FOLDER) . '</a>'; ?></td>
+                <td colspan="7"><table class="table table-bordered table-hover">
+                  <tr>
+                    <td><?php echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, 'action=reset') . '">' . tep_image_button('button_reset_b.gif', IMAGE_RESET) . '</a>'; ?></td>
+                    <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) . '&' : '') . 'action=upload') . '">' . tep_image_button('button_upload_b.gif', IMAGE_UPLOAD) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) . '&' : '') . 'action=new_file') . '">' . tep_image_button('button_new_file_b.gif', IMAGE_NEW_FILE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_LANGUAGE_MANAGER, (isset($HTTP_GET_VARS['info']) ? 'info=' . urlencode($HTTP_GET_VARS['info']) . '&' : '') . 'action=new_folder') . '">' . tep_image_button('button_new_folder.gif', IMAGE_NEW_FOLDER) . '</a>'; ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -374,13 +370,12 @@ function getUserDefinedConstants() {
     </table></td>
 <!-- body_text_eof //-->
   </tr>
-</table>
+</table>  
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

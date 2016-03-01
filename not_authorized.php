@@ -1,20 +1,45 @@
 <?php require('includes/application_top.php'); ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-    <title>Not authorized</title>
-</head>
-<body bgcolor="#030c2c">
-    <table style="width: 100%;">
+<title>Not authorized</title>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+
+<!-- header //-->
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+<!-- header_eof //-->
+
+<!-- body //-->
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Not Authorized
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">Not Authorized
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
         <tr>
             <td style="text-align: center;">
                 Not Authorized.
             </td>
         </tr>
     </table>
-    <center><font color="#FFFFFF"  face="Arial, Helvetica, sans-serif" pointsize="12">
-        &copy; 2006-2010 Outdoor Business Network, Inc.</font>
-    </center>
-</body>
-</html>
+               <!-- END your table-->
+<!-- body_eof //-->
+
+<!-- footer //-->
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+<!-- footer_eof //-->
+
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

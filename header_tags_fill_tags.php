@@ -291,40 +291,37 @@
 	  }
   }
 ?>
-  
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<style type="text/css">
-td.HTC_Head {color: sienna; font-size: 24px; font-weight: bold; } 
-td.HTC_subHead {color: #000000; font-size: 14px; } 
-.dataTableHeadingRow { background-color: #C9C9C9; background-image:url(../../images/template/admin_table_heading_content.jpg); background-repeat:repeat-x; }
-.dataTableHeadingContent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; font-weight: bold; }
-.pageHeading { font-family: Verdana, Arial, sans-serif; font-size: 18px; color: #FFFFFF; font-weight: bold; }
-</style>
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="1" cellspacing="1">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo HEADING_TITLE_FILL_TAGS; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo HEADING_TITLE_FILL_TAGS; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="1" bgcolor="#EEEEEE">
-         <tr bgcolor="#030c2c">
-      <td class="pageHeading"><?php echo HEADING_TITLE_FILL_TAGS; ?></td>
-      </tr>
-       <tr bgcolor="#030c2c">
-      <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
-      </tr>
-     <tr class="dataTableHeadingRow">
-      <td class="dataTableHeadingContent" height="15"></td>
-     </tr>
+    <td><table class="table table-bordered table-hover">
      <tr>
       <td class="HTC_subHead"><?php echo TEXT_FILL_TAGS; ?></td>
      </tr>
@@ -337,19 +334,19 @@ td.HTC_subHead {color: #000000; font-size: 14px; }
       <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
      </tr>
      <tr>
-      <td><table width="100%" border="0">
+      <td><table class="table table-bordered table-hover">
        <tr>
-        <td class="main" width="12%" style="color:#000000">Language:&nbsp;</td>
+        <td>Language:&nbsp;</td>
         <td><?php echo tep_draw_pull_down_menu('fill_language', $languages_array, $langID);?></td>
        </tr>
       </table> 
 
-      <table width="80%" border="0">
+      <table class="table table-bordered table-hover">
        <tr> 
-        <td class="main" style="color:#000000">Fill products meta description with Products Description?</td>
-        <td align=left style="color:#000000"><INPUT TYPE="radio" NAME="group4" VALUE="fillMetaDesc_yes" <?php echo $checkedMetaDesc['yes']; ?>> Yes</td>
-        <td align=left style="color:#000000"><INPUT TYPE="radio" NAME="group4" VALUE="fillmetaDesc_no" <?php echo $checkedMetaDesc['no']; ?>> No</td>
-        <td align="right" class="main" style="color:#000000"><?php echo 'Limit to '. tep_draw_input_field('fillMetaDescrlength', $productsMetaDescLength, 'maxlength="255", size="5"', false) . ' characters.'; ?> </td>
+        <td>Fill products meta description with Products Description?</td>
+        <td><INPUT TYPE="radio" NAME="group4" VALUE="fillMetaDesc_yes" <?php echo $checkedMetaDesc['yes']; ?>> Yes</td>
+        <td><INPUT TYPE="radio" NAME="group4" VALUE="fillmetaDesc_no" <?php echo $checkedMetaDesc['no']; ?>> No</td>
+        <td align="right"><?php echo 'Limit to '. tep_draw_input_field('fillMetaDescrlength', $productsMetaDescLength, 'maxlength="255", size="5"', false) . ' characters.'; ?> </td>
        </tr>
       </table></td> 
      </tr>     
@@ -358,28 +355,28 @@ td.HTC_subHead {color: #000000; font-size: 14px; }
        </tr>
        
        <tr>
-        <td><table border="0" width="50%">
-         <tr class="smallText">
-          <th style="color:#000000"><?php echo HEADING_TITLE_CONTROLLER_CATEGORIES; ?></th>
-          <th style="color:#000000"><?php echo HEADING_TITLE_CONTROLLER_MANUFACTURERS; ?></th>          
-          <th style="color:#000000"><?php echo HEADING_TITLE_CONTROLLER_PRODUCTS; ?></th>
+        <td><table class="table table-bordered table-hover">
+         <tr>
+          <th><?php echo HEADING_TITLE_CONTROLLER_CATEGORIES; ?></th>
+          <th><?php echo HEADING_TITLE_CONTROLLER_MANUFACTURERS; ?></th>          
+          <th><?php echo HEADING_TITLE_CONTROLLER_PRODUCTS; ?></th>
          </tr> 
-         <tr class="smallText">          
+         <tr>          
           <td align=left><INPUT TYPE="radio" NAME="group1" VALUE="none" <?php echo $checkedCats['none']; ?>> <?php echo HEADING_TITLE_CONTROLLER_SKIPALL; ?></td>
           <td align=left><INPUT TYPE="radio" NAME="group2" VALUE="none" <?php echo $checkedManuf['none']; ?>> <?php echo HEADING_TITLE_CONTROLLER_SKIPALL; ?></td>
           <td align=left><INPUT TYPE="radio" NAME="group3" VALUE="none" <?php echo $checkedProds['none']; ?>> <?php echo HEADING_TITLE_CONTROLLER_SKIPALL; ?></td>
          </tr>
-         <tr class="smallText"> 
+         <tr> 
           <td align=left><INPUT TYPE="radio" NAME="group1" VALUE="empty" <?php echo $checkedCats['empty']; ?> > <?php echo HEADING_TITLE_CONTROLLER_FILLONLY; ?></td>
           <td align=left><INPUT TYPE="radio" NAME="group2" VALUE="empty" <?php echo $checkedManuf['empty']; ?>> <?php echo HEADING_TITLE_CONTROLLER_FILLONLY; ?></td>
           <td align=left><INPUT TYPE="radio" NAME="group3" VALUE="empty" <?php echo $checkedProds['empty']; ?>> <?php echo HEADING_TITLE_CONTROLLER_FILLONLY; ?></td>
          </tr>
-         <tr class="smallText"> 
+         <tr> 
           <td align=left><INPUT TYPE="radio" NAME="group1" VALUE="full" <?php echo $checkedCats['full']; ?>> <?php echo HEADING_TITLE_CONTROLLER_FILLALL; ?></td>
           <td align=left><INPUT TYPE="radio" NAME="group2" VALUE="full" <?php echo $checkedManuf['full']; ?>> <?php echo HEADING_TITLE_CONTROLLER_FILLALL; ?></td>
           <td align=left><INPUT TYPE="radio" NAME="group3" VALUE="full" <?php echo $checkedProds['full']; ?>> <?php echo HEADING_TITLE_CONTROLLER_FILLALL; ?></td>
          </tr>
-         <tr class="smallText"> 
+         <tr> 
           <td align=left><INPUT TYPE="radio" NAME="group1" VALUE="clear" <?php echo $checkedCats['clear']; ?>> <?php echo HEADING_TITLE_CONTROLLER_CLEARALL; ?></td>
           <td align=left><INPUT TYPE="radio" NAME="group2" VALUE="clear" <?php echo $checkedManuf['clear']; ?>> <?php echo HEADING_TITLE_CONTROLLER_CLEARALL; ?></td>
           <td align=left><INPUT TYPE="radio" NAME="group3" VALUE="clear" <?php echo $checkedProds['clear']; ?>> <?php echo HEADING_TITLE_CONTROLLER_CLEARALL; ?></td>
@@ -388,7 +385,7 @@ td.HTC_subHead {color: #000000; font-size: 14px; }
        </tr> 
        
        <tr>
-        <td><table border="0" width="40%">
+        <td><table class="table table-bordered table-hover">
          <tr>
           <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
          </tr>
@@ -423,12 +420,17 @@ td.HTC_subHead {color: #000000; font-size: 14px; }
 <!-- body_text_eof //-->
   </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+<style type="text/css">
+td.HTC_Head {color: sienna; font-size: 24px; font-weight: bold; } 
+td.HTC_subHead {color: #000000; font-size: 14px; } 
+.dataTableHeadingRow { background-color: #C9C9C9; background-image:url(../../images/template/admin_table_heading_content.jpg); background-repeat:repeat-x; }
+.dataTableHeadingContent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; font-weight: bold; }
+.pageHeading { font-family: Verdana, Arial, sans-serif; font-size: 18px; color: #FFFFFF; font-weight: bold; }
+</style>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

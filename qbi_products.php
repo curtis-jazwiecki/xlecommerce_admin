@@ -47,7 +47,7 @@ if (!isset($stage)) {
     }
   }
   if ($filefound==1) { ?>
-    <table class="lists" width="100%" bgcolor="#FFFFFF"><tr><td>
+     <table class="table table-bordered table-hover"><tr><td>
     <form action="<?php echo $_SERVER[PHP_SELF] ?>" method="post" name="additems">
     <input name="file_name" type="hidden" value="<?php echo $filename ?>" />	
     <input name="stage" type="hidden" value="processfile" /> <?php
@@ -55,7 +55,7 @@ if (!isset($stage)) {
     <input name="submitfile" type="submit" id="submitfile" value="<?php echo SETUP_FILE_BUTTON ?>" />
     </form></td></tr></table><br /><br /> <?php
   } else {
-    echo '<table class="lists" width="100%" bgcolor="#FFFFFF"><tr><td>'.SETUP_FILE_MISSING."</td></tr></table>";
+    echo '<table class="table table-bordered table-hover lists"><tr><td>'.SETUP_FILE_MISSING."</td></tr></table>";
   }
   item_group_list();
 } elseif (isset($stage) AND $stage=="processfile") {
@@ -65,13 +65,13 @@ if (!isset($stage)) {
     exit;
   }
   unset($iif_refnum);
-  echo '<table class="lists" width="100%" bgcolor="#FFFFFF">';
+  echo '<table class="table table-bordered table-hover lists">';
   while (($iifread=fgetcsv($handle, 512, "\t"))!==FALSE) {
     if ($iifread[0]=="!INVITEM") {
       $iifheader=$iifread;
       echo "<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
-      echo '<tr><th class="colhead">'.PROD_ITEMS."</th><th></th><th></th><th></th></tr>";
-      echo '<tr><th class="colhead">'.SETUP_NAME.'</th><th class="colhead">'.SETUP_DESC.'</th><th class="colhead">'.SETUP_ACCT.'</th><th class="colhead">'.SETUP_ACTION."</th></tr>";
+      echo '<tr><th>'.PROD_ITEMS."</th><th></th><th></th><th></th></tr>";
+      echo '<tr><th>'.SETUP_NAME.'</th><th>'.SETUP_DESC.'</th><th>'.SETUP_ACCT.'</th><th>'.SETUP_ACTION."</th></tr>";
     } elseif ($iifread[0]=="INVITEM") {
       $iifdetail=$iifread;
       $iifitem=arraycombine($iifheader,$iifdetail);

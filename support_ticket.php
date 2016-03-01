@@ -11,61 +11,62 @@
   require('includes/application_top.php');
 
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- Code related to index.php only -->
 <link type="text/css" rel="StyleSheet" href="includes/index.css" />
 <link type="text/css" rel="StyleSheet" href="includes/helptip.css" />
 <script type="text/javascript" src="includes/javascript/helptip.js"></script>
 <!-- code related to index.php EOF -->
-</head>
-<body>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
-<table width="780"  border="0" align="center" cellpadding="2" cellspacing="2">
+<!-- body //-->
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Support Ticket
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">Support Ticket
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
-    <td valign="top">
-      <table width="100%"  border="0" cellspacing="0" cellpadding="0" summary="Table holding Store Information">
-        <tr valign="top">
-          <td colspan=2>
-          <?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?>          </td>
-        </tr>
-        <tr valign="top">
-	      <td width="100%" align="center">
-      		<table width="812px" cellpadding="0" cellspacing="0">
+    <td>
+    <table class="table table-bordered table-hover" summary="Table holding Store Information">
+        <tr>
+	      <td align="center">
+      		<table class="table table-bordered table-hover">
               <tr>
-                <td width="100px" valign="top" align="left">
-				  <iframe src="https://www.obnit.com/clientarea.php" scrolling="auto" width="812px" height="700px"></iframe>                </td>
+                <td>
+				  <iframe src="https://www.obnit.com/clientarea.php" width="100%" height="720px"></iframe>                </td>
               </tr>
-            </table>      	  </td>
-        </tr>
-        <tr valign="top">
-          <td colspan=2>
-            <?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?>          </td>
+            </table>      	  
+           </td>
         </tr>
       </table>
       <!--BLOCK CODE ENDS -->
-      <?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?>
-      <table width="100%"  border="0" cellspacing="0" cellpadding="0" summary="Footer Banner Table">
-        <tr>
-          <td align="center">          </td>
-        </tr>
-      </table>    </td>
+      </td>
   </tr>
 </table>
-<!-- former position of disclaimer  -->
+               <!-- END your table-->
+<!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-<br>
-</body>
-</html>
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

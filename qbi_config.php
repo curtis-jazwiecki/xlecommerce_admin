@@ -113,9 +113,9 @@ require(DIR_WS_INCLUDES . 'qbi_menu_tabs.php');
 
 if ($msg==1) $message=CONFIG_SET_OPT."<br />".CONFIG_SET_OPT2."<br /><br />";
 
-echo '<div class="smallText2">' . $message . '</div>';
+echo '<div>' . $message . '</div>';
 
-echo '<div class="smallText2">' . CONFIG_QBI_VER . " " . QBI_VER . '</div>';
+echo '<div>' . CONFIG_QBI_VER . " " . QBI_VER . '</div>';
 
 
 
@@ -125,7 +125,7 @@ $config = new form_fields;
 
 ?>
 
-<table style="background-color: #fff;" width="100%">
+<table class="table table-bordered table-hover">
 
 <form action="<?php echo $_SERVER[PHP_SELF] ?>" method="post" name="qbi_config" id="qbi_config">
 

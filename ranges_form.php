@@ -21,18 +21,18 @@
  //EOF RANGE LOGO 09-JAN-2014  
 ?>
 <tr>
-	<td class="pageHeading"><?php echo $title ?></td>
+	<td><?php echo $title ?></td>
 </tr>
 <tr>
 	<td>
 	
-<table border="0" cellpadding="0" cellspacing="2">
+<table class="table table-bordered table-hover">
 <?php	
 if(!strstr($info_group['locked'], 'status')) {
 ?>
 	<tr>
-		<td class="main" style="color:#FFFFFF"><?php echo ENTRY_STATUS; ?></td>
-		<td class="main" style="color:#FFFFFF"><?php echo tep_draw_radio_field('status', '1', false, $edit['status']) . '&nbsp;&nbsp;' . STATUS_ACTIVE . '&nbsp;&nbsp;' . tep_draw_radio_field('status', '0', false, $edit['status']) . '&nbsp;&nbsp;' . STATUS_INACTIVE; ?></td>
+		<td><?php echo ENTRY_STATUS; ?></td>
+		<td><?php echo tep_draw_radio_field('status', '1', false, $edit['status']) . '&nbsp;&nbsp;' . STATUS_ACTIVE . '&nbsp;&nbsp;' . tep_draw_radio_field('status', '0', false, $edit['status']) . '&nbsp;&nbsp;' . STATUS_INACTIVE; ?></td>
 	</tr>
 	<tr>
 		<td colspan="2" height="10"></td>
@@ -43,8 +43,8 @@ if(!strstr($info_group['locked'], 'status')) {
 
 ?>
 <tr>
-		<td class="main" style="color:#FFFFFF"><?php if ($i == 0) echo CALCULATE_VIA;?><br></td>
-		<td style="color:#FFFFFF">
+		<td><?php if ($i == 0) echo CALCULATE_VIA;?><br></td>
+		<td>
             <select name="calculate_via">
                 <?php
                     
@@ -63,7 +63,7 @@ if(!strstr($info_group['locked'], 'status')) {
         </td>
 	</tr>
 	<tr>
-		<td colspan="2" height="10"></td>
+		<td colspan="2"></td>
 	</tr>
     <input type="hidden" name="day_hours" value="0">
     <?php /*
@@ -79,8 +79,8 @@ if(!strstr($info_group['locked'], 'status')) {
 		<td colspan="2" height="10"></td>
 	</tr>
 	<tr>
-		<td class="main" style="color:#FFFFFF">Range Logo</td>
-		<td style="color:#FFFFFF"><input type="hidden" name="logoname" value="<?php echo $edit[logo]; ?>"><input type="file" name="logo" value="<?php echo $edit[logo];?>"><img src="<?php echo RANGE_LOGO.$edit[logo]?>">
+		<td>Range Logo</td>
+		<td><input type="hidden" name="logoname" value="<?php echo $edit[logo]; ?>"><input type="file" name="logo" value="<?php echo $edit[logo];?>"><img src="<?php echo RANGE_LOGO.$edit[logo]?>">
 		<?php
 		if($edit[ranges_id])
 		{
@@ -91,14 +91,14 @@ if(!strstr($info_group['locked'], 'status')) {
 	</tr>
 	<!--BOF RANGE LOGO 09-JAN-2014-->
 	<tr>
-		<td colspan="2" height="10"></td>
+		<td colspan="2"></td>
 	</tr>
 	<tr>
-		<td class="main" style="color:#FFFFFF"><?php if ($i == 0) echo ENTRY_TITLE;?><br></td>
+		<td><?php if ($i == 0) echo ENTRY_TITLE;?><br></td>
 		<td style="color:#FFFFFF"><?php echo tep_draw_input_field('ranges_name', stripslashes($edit[ranges_name]), 'maxlength=255'); ?></td>
 	</tr>
 	<tr>
-		<td colspan="2" height="10"></td>
+		<td colspan="2"></td>
 	</tr>
 
 	 

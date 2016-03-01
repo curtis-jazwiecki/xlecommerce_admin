@@ -95,4 +95,6 @@ if ($HTTP_GET_VARS['gPath'] == 1) {
 } else {
   define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br>Change permission for this group by selecting or unselecting boxes and files provided. Click <b>save</b> to save the changes.<br><br>');
 }
+define('TEXT_INFO_HEADING_EDIT_GROUP','Edit Group');
+define('TEXT_INFO_EDIT_GROUP_INTRO','Edit Group Name');
 ?>

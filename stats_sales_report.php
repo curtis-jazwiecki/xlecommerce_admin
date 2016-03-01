@@ -68,14 +68,7 @@ $report_desc = REPORT_TYPE_YEARLY;
   $report = new sales_report($sales_report_view, $startDate, $endDate);
 
 ?>
-
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo DIR_WS_CLASSES . 'currencies.php'; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-</head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <SCRIPT LANGUAGE="JavaScript1.2" SRC="jsgraph/graph.js"></SCRIPT>
 <!-- header //-->
@@ -83,26 +76,37 @@ $report_desc = REPORT_TYPE_YEARLY;
 <!-- header_eof //-->
 
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3><?php echo $report_desc . ' ' . HEADING_TITLE; ?>
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading"><?php echo $report_desc . ' ' . HEADING_TITLE; ?>
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
   <tr>
 <!-- body_text //-->
-		<td width="100%" valign="top">
-			<table border="0" width="100%" cellspacing="0" cellpadding="2">
-				<tr>
-					<td colspan=2>
-						<table border="0" width="100%" cellspacing="0" cellpadding="0">
-							<tr>
-								<td class="pageHeading"><?php echo $report_desc . ' ' . HEADING_TITLE; ?></td>
-								<td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-							</tr>
-						</table>
-					</td>
-				</tr>
+		<td>
+			<table class="table table-bordered table-hover">
 			    <tr>
 					<td colspan=2>
-						<table border="0" width="100%" cellspacing="0" cellpadding="0">
+						<table class="table table-bordered table-hover">
 							<tr>
-<td align=right class="link4">
+<td align="right">
 <?php
   echo '<a href="' . tep_href_link(FILENAME_STATS_SALES_REPORT, 'report=1', 'NONSSL') . '">' . REPORT_TYPE_HOURLY .'</a>  ';
   echo '<a href="' . tep_href_link(FILENAME_STATS_SALES_REPORT, 'report=2', 'NONSSL') . '">' . REPORT_TYPE_DAILY .'</a>  ';
@@ -116,7 +120,7 @@ $report_desc = REPORT_TYPE_YEARLY;
 					</td>
 				</tr>
 				<tr>
-					<td valign=top width=200 align=center bgcolor="#DDDDDD">
+					<td align="center">
 <?php 
 if ($sales_report_view > 1) {
 if ($report->size > 1) {
@@ -206,17 +210,17 @@ g.build();
 }
 ?>
 					</td>
-			        <td width=100% valign=top bgcolor="#dddddd">
-						<table border="0" width="100%" cellspacing="0" cellpadding="2">
+			        <td>
+					 <table class="table table-bordered table-hover">
 							<tr>
-								<td valign="top">
-									<table border="0" width="100%" cellspacing="0" cellpadding="2">
-										<tr class="dataTableHeadingRow">
-											<td class="dataTableHeadingContent"></td>
-											<td class="dataTableHeadingContent" align=center><?php echo TABLE_HEADING_ORDERS; ?></td>
-											<td class="dataTableHeadingContent" align=right><?php echo TABLE_HEADING_CONV_PER_ORDER; ?></td>
-											<td class="dataTableHeadingContent" align=right><?php echo TABLE_HEADING_CONVERSION; ?></td>
-											<td class="dataTableHeadingContent" align=right><?php echo TABLE_HEADING_VARIANCE; ?></td>
+								<td>
+									<table class="table table-bordered table-hover">
+										<tr>
+											<td></td>
+											<td align=center><?php echo TABLE_HEADING_ORDERS; ?></td>
+											<td align=right><?php echo TABLE_HEADING_CONV_PER_ORDER; ?></td>
+											<td align=right><?php echo TABLE_HEADING_CONVERSION; ?></td>
+											<td align=right><?php echo TABLE_HEADING_VARIANCE; ?></td>
 										</tr>
 <?php
 
@@ -232,21 +236,21 @@ g.build();
     $avg += $report->info[$i]['avg'];
     $last_value = $report->info[$i]['sum'];
 ?>
-										<tr class="dataTableRow" onMouseOver="this.className='dataTableRowOver';this.style.cursor='hand'" onMouseOut="this.className='dataTableRow'">
-							                <td class="dataTableContent">
+										<tr onMouseOver="this.className='dataTableRowOver';this.style.cursor='hand'" onMouseOut="this.className='dataTableRow'">
+							                <td>
 <?php
     if (strlen($report->info[$i]['link']) > 0 ) {
-      echo '<span class="link3"><a href="' . tep_href_link(FILENAME_STATS_SALES_REPORT, $report->info[$i]['link'], 'NONSSL') . '">';
+      echo '<span><a href="' . tep_href_link(FILENAME_STATS_SALES_REPORT, $report->info[$i]['link'], 'NONSSL') . '">';
     }
     echo $report->info[$i]['text'] . $date_text[$i];
     if (strlen($report->info[$i]['link']) > 0 ) {
       echo '</a></span>';
     }
 ?></td>
-											<td class="dataTableContent" align=center><?php echo $report->info[$i]['count']?></td>
-											<td class="dataTableContent"align=right><?php echo $currencies->format($report->info[$i]['avg'])?></td>
-											<td class="dataTableContent" align=right><?php echo $currencies->format($report->info[$i]['sum'])?></td>
-											<td class="dataTableContent" align=right>
+											<td align=center><?php echo $report->info[$i]['count']?></td>
+											<td align=right><?php echo $currencies->format($report->info[$i]['avg'])?></td>
+											<td align=right><?php echo $currencies->format($report->info[$i]['sum'])?></td>
+											<td align="right">
 <?php
     if ($percent == 0){
       echo "---";
@@ -264,17 +268,17 @@ g.build();
   if (strlen($report->previous . " " . $report->next) > 1) {
 ?>
 										<tr>
-											<td width=100% colspan=5>
-												<table width=100%>
+											<td colspan=5>
+												<table class="table table-bordered table-hover">
 													<tr>
-														<td align=left class="link3">
+														<td align="left">
 <?php
     if (strlen($report->previous) > 0) {
       echo '<a href="' . tep_href_link(FILENAME_STATS_SALES_REPORT, $report->previous, 'NONSSL') . '">&lt;&lt;&nbsp;Previous</a>';
     }
 ?>
 														</td>
-										                <td align=right class="link3">
+										                <td align="right">
 <?php
     if (strlen($report->next) > 0) {
       echo '<a href="' . tep_href_link(FILENAME_STATS_SALES_REPORT, $report->next, 'NONSSL') . '">Next&nbsp;&gt;&gt;</a>';
@@ -292,21 +296,21 @@ g.build();
 
 									</table>
 									<p>
-									<table border="0" width="100%" cellspacing="0" cellpadding="2">
+									<table class="table table-bordered table-hover">
 <?php if ($order_cnt != 0){
 ?>
-										<tr class="dataTableRow">
-											<td class="dataTableContent" width=100% align=right><?php echo '<b>'. AVERAGE_ORDER . ' </b>' ?></td>
-											<td class="dataTableContent"align=right><?php echo $currencies->format($sum / $order_cnt) ?></td>
+										<tr>
+											<td align="right"><?php echo '<b>'. AVERAGE_ORDER . ' </b>' ?></td>
+											<td align="right"><?php echo $currencies->format($sum / $order_cnt) ?></td>
 										</tr>
 <?php } ?>
-										<tr class="dataTableRow">
-											<td class="dataTableContent" width=100% align=right><?php echo '<b>'. $summary1 . ' </b>' ?></td>
-											<td class="dataTableContent"align=right><?php echo $currencies->format($sum / $report->size) ?></td>
+										<tr>
+											<td align="right"><?php echo '<b>'. $summary1 . ' </b>' ?></td>
+											<td align="right"><?php echo $currencies->format($sum / $report->size) ?></td>
 										</tr>
-										<tr class="dataTableRow">
-											<td class="dataTableContent" width=100% align=right><?php echo '<b>'. $summary2 . ' </b>' ?></td>
-											<td class="dataTableContent" align=right><?php echo $currencies->format($sum) ?></td>
+										<tr>
+											<td align="right"><?php echo '<b>'. $summary2 . ' </b>' ?></td>
+											<td align="right"><?php echo $currencies->format($sum) ?></td>
 										</tr>
 									</table>
 								</td>
@@ -319,11 +323,11 @@ g.build();
 <!-- body_text_eof //-->
 	</tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
 
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-</body>
-</html>
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

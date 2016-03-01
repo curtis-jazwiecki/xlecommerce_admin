@@ -46,14 +46,8 @@ if ($total_pages){
 }
 
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-        <title><?php echo TITLE; ?></title>
-        <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-        <script language="javascript" src="includes/general.js"></script>
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/smoothness/jquery-ui.css" />
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
@@ -64,42 +58,62 @@ if ($total_pages){
                 });
             });
         </script>
-    </head>
-    <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onload="SetFocus();">
-    <!-- header //-->
-    <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-    <!-- header_eof //-->
-    <!-- body //-->
-        <table width="780" border="0" align="center" cellpadding="2" cellspacing="2">
+<!-- header //-->
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+<!-- header_eof //-->
+
+<!-- body //-->
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>eBay Feeds Manager
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">eBay Feeds Manager
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
             <tr>
             <!-- body_text //-->
-                <td width="100%" valign="top">
-                    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td>
+                    <table class="table table-bordered table-hover">
                         <tr>
                             <td>
-                                <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                                <table class="table table-bordered table-hover">
                                     <tr>
-                                        <td class="pageHeading">
-                                            <?php echo 'eBay Feeds Manager'; ?>                                            <input type="button" value="Initiate Upload Jobs" onclick="location.href='<?php echo tep_href_link('ebay_feeds_manager.php', 'action=initiate_upload'); ?>';" />
+                                        <td>
+                                            <?php echo 'eBay Feeds Manager'; ?>                                            <input type="button" value="Initiate Upload Jobs" onClick="location.href='<?php echo tep_href_link('ebay_feeds_manager.php', 'action=initiate_upload'); ?>';" />
                                             &nbsp;
-                                            <input type="button" value="Initiate Download Jobs" onclick="location.href='<?php echo tep_href_link('ebay_feeds_manager.php', 'action=initiate_download'); ?>';" style="display:none;" />                                        </td>
-                                        <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+                                            <input type="button" value="Initiate Download Jobs" onClick="location.href='<?php echo tep_href_link('ebay_feeds_manager.php', 'action=initiate_download'); ?>';" style="display:none;" />                                        </td>
+                                        <td align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
                                     </tr>
                                 </table>
                             </td>
                         </tr>
                         <tr>
-                            <td style="color:white;width:100%;">
+                            <td>
                             <?php if ($total_pages){ ?>
-                            <div class="smallText" style="padding:10px 0 10px 0;"><?php echo $navigation; ?></div>
-                            <table border="0" style="width:100%;">
-                                <tr class="dataTableHeadingRow">
-                                    <td class="dataTableHeadingContent"><b>#</b></td>
-                                    <td class="dataTableHeadingContent"><b>Environment</b></td>
-                                    <td class="dataTableHeadingContent"><b>Job Type</b></td>
-                                    <td class="dataTableHeadingContent"><b>Job ID</b></td>
-                                    <td class="dataTableHeadingContent"><b>File reference ID</b></td>
-                                    <td class="dataTableHeadingContent"><b>Is Open</b></td>
+                            <div><?php echo $navigation; ?></div>
+                            <table class="table table-bordered table-hover">
+                                <tr>
+                                    <td><b>#</b></td>
+                                    <td><b>Environment</b></td>
+                                    <td><b>Job Type</b></td>
+                                    <td><b>Job ID</b></td>
+                                    <td><b>File reference ID</b></td>
+                                    <td><b>Is Open</b></td>
                                 </tr>
                             <?php
                             $sql = tep_db_query("(select date_added, id, environment, job_type, job_id, file_reference_id, is_open, 'uploads' as action from ebay_jobs) union (select date_added, id, environment, job_type, job_id, '' as file_reference_id, is_open, 'downloads' as action from ebay_download_jobs) order by 1 desc limit " . (($page-1)*$entries_per_page) . ", " . $entries_per_page);
@@ -107,19 +121,19 @@ if ($total_pages){
                             while($entry = tep_db_fetch_array($sql)){
                                 $count++;
                             ?>
-                                <tr class="dataTableRow">
-                                    <td class="smallText dataTableContent"><?php echo $count; ?></td>
-                                    <td class="smallText dataTableContent"><?php echo $entry['environment']; ?></td>
-                                    <td class="smallText dataTableContent"><?php echo $entry['job_type']; ?></td>
-                                    <td class="smallText dataTableContent"><?php echo $entry['job_id']; ?></td>
-                                    <td class="smallText dataTableContent"><?php echo $entry['file_reference_id']; ?></td>
-                                    <td class="smallText dataTableContent"><?php echo $entry['is_open']; ?></td>
+                                <tr>
+                                    <td><?php echo $count; ?></td>
+                                    <td><?php echo $entry['environment']; ?></td>
+                                    <td><?php echo $entry['job_type']; ?></td>
+                                    <td><?php echo $entry['job_id']; ?></td>
+                                    <td><?php echo $entry['file_reference_id']; ?></td>
+                                    <td><?php echo $entry['is_open']; ?></td>
                                 </tr>
                             <?php
                             }
                             ?>
                             </table>
-                            <div class="smallText" style="padding:10px 0 10px 0;"><?php echo $navigation; ?></div>
+                            <div><?php echo $navigation; ?></div>
                             <?php } ?>
                             </td>
                         </tr>
@@ -132,12 +146,11 @@ if ($total_pages){
                 </td>
             </tr>
         </table>
-        <!-- body_text_eof //-->
-        <!-- body_eof //-->
-        <!-- footer //-->
-        <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-        <!-- footer_eof //-->
-        <br>
-    </body>
-</html>
+               <!-- END your table-->
+<!-- body_eof //-->
+
+<!-- footer //-->
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
+<!-- footer_eof //-->
+
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

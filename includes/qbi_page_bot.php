@@ -28,12 +28,11 @@ Released under the GNU General Public License
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 ?>
-</table>
+
 <?php
 require(DIR_WS_INCLUDES . 'footer.php');
 ?>
-</body>
-</html>
+
 <?php
 require(DIR_WS_INCLUDES . 'application_bottom.php');
 ?>

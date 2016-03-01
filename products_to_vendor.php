@@ -177,14 +177,31 @@ switch($action){
 }
 
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<style type="text/css">
+#cancel{
+ cursor: pointer !important;
+    border-radius: 3px;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset !important;
+    transition: none !important;
+	border-radius: 4px !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+	text-transform:capitalize !important;
+	margin-right:2px !important;
+    padding: 5px 10px !important;
+	background-color: #3498db !important;
+    border-color: #258cd1 !important;
+    color: #ffffff !important;
+	outline-color:#258cd1 !important;
+	font-weight:bold !important;
+	background-image:none !important;
+  
+}
+</style>
+<!-- header //-->
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
+<!-- header_eof //-->
 <script>
 var jQuery = jQuery.noConflict();
 jQuery(function(){
@@ -346,44 +363,38 @@ function set_count_by_filters(){
 }
 
 </script>
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
-<!-- header //-->
-<?php require_once (DIR_WS_INCLUDES . 'header.php'); ?>
-<!-- header_eof //-->
 <!-- body //-->
-<table width="780" border="0" align="center" cellpadding="2" cellspacing="2" bgcolor="#030c2c">
-    <tr>
-    <!-- body_text //-->
-        <td width="100%" valign="top">
-            <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                <tr>
-                    <td>
-                        <table border="0" width="100%" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td class="pageHeading">Products to Vendors Mapping</td>
-                                <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>
-        <?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?>
-        </td>
-    </tr>
+
+         <section>
+         <!-- START Page content-->
+         <section class="main-content">
+            <h3>Products to Vendors Mapping
+               <br>
+            </h3>
+            <!-- START panel-->
+            <div class="panel panel-default">
+               <div class="panel-heading">Products to Vendors Mapping
+                  <a href="#" data-perform="panel-dismiss" data-toggle="tooltip" title="Close Panel" class="pull-right">
+                     <em class="fa fa-times"></em>
+                  </a>
+                  <a href="#" data-perform="panel-collapse" data-toggle="tooltip" title="Collapse Panel" class="pull-right">
+                     <em class="fa fa-minus"></em>
+                  </a>
+               </div>
+               <!-- START table-responsive-->
+               
+               <div class="table-responsive">
+               <!-- START your table-->
+<table class="table table-bordered table-hover">
     <tr>
         <td>
             <form name="form_vendor" method="post" action="products_to_vendor.php">
                 <table>
                     <tr>
-                        <td class="smallText2" valign="middle">
+                        <td>
                             Select Vendor:
                         </td>
-                        <td class="smallText2" valign="middle">
+                        <td>
                             <?php echo tep_draw_pull_down_menu('vendors_id', $vendors_array,'','onChange="this.form.submit()";');?>
                         </td>
                     </tr>
@@ -398,19 +409,19 @@ function set_count_by_filters(){
         </td>
     </tr>
     <tr>
-        <td style="background-color:#eeeeee;">
+        <td>
             <form name="form_mapping" method="post">
                 <fieldset>
-                    <legend class="smallText"><b>Manage Products</b></legend>
-                    <table style="width: 100%;">
+                    <legend><b>Manage Products</b></legend>
+                    <table class="table table-bordered table-hover">
                         <tr>
-                            <td colspan="4" class="smallText">
+                            <td colspan="4">
                             Currently associated products count: <a href="<?php echo tep_href_link(FILENAME_PRODS_VENDORS, 'vendors_id=' . $vendors_id); ?>" style="color: #000000;"><?php echo get_products_count_by_vendor($vendors_id); ?></a>
                             </td>
                         </tr>
                         <tr>
-                            <td class="smallText">Action:</td>
-                            <td class="smallText" colspan="3">
+                            <td>Action:</td>
+                            <td colspan="3">
                                 <select name="operation">
                                     <option value="set">Set Products Mapping by Filter(s)</option>
                                     <option value="remove">Remove Products Mapping by Filter(s)</option>
@@ -418,7 +429,7 @@ function set_count_by_filters(){
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="smallText">
+                            <td colspan="4">
                             Matching products count by below filters: <span id="matching_products_count" style="color: red;">--</span>
                             </td>
                         </tr>
@@ -428,47 +439,48 @@ function set_count_by_filters(){
                             </td>
                         </tr>
                         <tr>
-                            <td class="smallText">Products wildcard:</td>
-                            <td class="smallText">&nbsp;</td>
-                            <td class="smallText">&nbsp;</td>
-                            <td class="smallText">&nbsp;</td>
+                            <td>Products wildcard:</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
                         </tr>
                         <tr>
                             <td valign="top" align="left">
                                 <input type="text" name="productswildcard" maxlength="50" style="width:100%;" />
                             </td>
-                            <td valign="top" align="left">&nbsp;</td>
-                            <td valign="top" align="left">&nbsp;</td>
-                            <td valign="top" align="left">&nbsp;</td>
+                            <td align="left">&nbsp;</td>
+                            <td align="left">&nbsp;</td>
+                            <td align="left">&nbsp;</td>
                         </tr>
                         <tr>
-                            <td class="smallText">Manufacturers:</td>
-                            <td class="smallText">Categories:</td>
-                            <td class="smallText">Products:</td>
-                            <td class="smallText">&nbsp;</td>
+                            <td>Manufacturers:</td>
+                            <td>Categories:</td>
+                            <td>Products:</td>
+                            <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td valign="top" align="left">
+                            <td align="left">
                             <?php echo tep_draw_pull_down_menu('manufacturers_id[]', tep_get_manufacturers(), '', 'multiple="multiple" size="10" style="width:200px;"'); ?>
                             </td>
-                            <td valign="top" align="left">
+                            <td align="left">
                             <?php echo tep_draw_pull_down_menu('categories_id[]', tep_get_category_tree(), '', 'multiple="multiple" size="10" style="width:200px;"'); ?>
                             </td>
-                            <td valign="top" align="left">
+                            <td align="left">
                                 <?php echo get_categories_html(); ?>
                                 <div id="products"></div>
+
                             </td>
-                            <td valign="top" align="right">
+                            <td align="right">
                                 <input type="submit" value="Process" style="width:100%;" />
                                 <br>
                                 <button id="cancel" style="width:100%;">Cancel</button>
                             </td>
                         </tr>
                         <tr>
-                            <td class="smallText"><b>Products:</b></td>
+                            <td><b>Products:</b></td>
                         </tr>
                         <tr>
-                            <td colspan="4" id="display_products" class="smallText"></td>
+                            <td colspan="4" id="display_products"></td>
                         </tr>
                     </table>
                 </fieldset>
@@ -480,10 +492,11 @@ function set_count_by_filters(){
         </td>
     </tr>
 </table>
+               <!-- END your table-->
 <!-- body_eof //-->
+
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
-</body>
-</html>
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php');  ?>
+
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
