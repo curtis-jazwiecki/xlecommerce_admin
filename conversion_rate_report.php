@@ -93,6 +93,41 @@ if (is_dir($dir)){
 
 }
 
+// reading ssl folder #start
+$dir_ssl = DIR_FS_ROOT . 'tmp/awstats/ssl/';
+$files_ssl = array();
+if (is_dir($dir_ssl)) {
+	
+    if ($handle = opendir($dir_ssl)) {
+		
+        while (($file = readdir($handle)) !== false) {
+            
+			$pattern = '/^awstats\d*\.[\w\W]+\.txt$/';
+            
+			if (preg_match($pattern, $file)) {
+				
+                $month = substr($file, 7, 2);
+                
+                $year = substr($file, 9, 4);
+                
+                if (!in_array($year, $years))
+                    $years[] = $year;
+                    
+                $start_date_ts = mktime(0, 0, 0, $month, 1, $year);
+
+                $end_day = date('t', $start_date_ts);
+                
+                $end_date_ts = mktime(23, 59, 59, $month, $end_day, $year);
+
+                $files_ssl[$year . $month] = $dir_ssl . $file;
+            
+			}
+        }
+        closedir($handle);
+	}
+    krsort($files);
+}
+// reading ssl folder #ends
 
 $rows = array();
 
@@ -104,30 +139,26 @@ switch ($type){
 
         foreach($files as $file){
 
+           $ssl_log_count = 0;
+            if(array_key_exists($key,$files_ssl)){
+                $log_ssl = new awfile($files_ssl[$key]);
+                $ssl_log_count = $log_ssl->GetUniqueVisits();
+            }
+            
+            
+            
             $month = str_pad($file['month'], 2, 0, STR_PAD_LEFT);
-
             $log = new awfile($file['file']);
-
             $orders_count = get_orders_count($file['start_date_ts'], $file['end_date_ts']);
-
-            $conversion_rate_in_figures = ($orders_count / $log->GetUniqueVisits());
-
+            $conversion_rate_in_figures = ($orders_count / ($log->GetUniqueVisits() + $ssl_log_count));
             $conversion_rate_in_percent = $conversion_rate_in_figures * 100;
-
             $rows[$month . $file['year']] = array(
-
-                'unit' => $month . '-' . $file['year'], 
-
+                'unit' => $month . '-' . $file['year'],
                 'orders' => $orders_count,
-
-                'unique_visits' =>  $log->GetUniqueVisits(), 
-
-                'conversion_rate_in_figures' => $conversion_rate_in_figures, 
-
+                'unique_visits' => ($log->GetUniqueVisits() + $ssl_log_count),
+                'conversion_rate_in_figures' => $conversion_rate_in_figures,
                 'conversion_rate_in_percent' => $conversion_rate_in_percent,
-
             );
-
             
 
         }
@@ -140,34 +171,27 @@ switch ($type){
 
         foreach($files as $file){
 
-            if (!array_key_exists($file['year'], $rows)) $rows[$file['year']] = array();
-
+            $ssl_log_count = 0;
+            if(array_key_exists($key,$files_ssl)){
+                $log_ssl = new awfile($files_ssl[$key]);
+                $ssl_log_count = $log_ssl->GetUniqueVisits();
+            }
+            
+            if (!array_key_exists($file['year'], $rows))
+                $rows[$file['year']] = array();
             $log = new awfile($file['file']);
-
             $orders_count = get_orders_count($file['start_date_ts'], $file['end_date_ts']);
-
             //$conversion_rate_in_figures = $orders_count / $log->GetUniqueVisits();
-
             //$conversion_rate_in_percent = $conversion_rate_in_figures * 100;
 
-            
-
-            if (empty($rows[$file['year']]['unit'])){
-
+            if (empty($rows[$file['year']]['unit'])) {
                 $rows[$file['year']]['unit'] = $file['year'];
-
                 $rows[$file['year']]['conversion_rate_in_figures'] = 0;
-
                 $rows[$file['year']]['conversion_rate_in_percent'] = 0;
-
             }
 
-
-
             $rows[$file['year']]['orders'] += $orders_count;
-
-            $rows[$file['year']]['unique_visits'] += $log->GetUniqueVisits();
-
+            $rows[$file['year']]['unique_visits'] += ($log->GetUniqueVisits() + $ssl_log_count);
 
 
         }
