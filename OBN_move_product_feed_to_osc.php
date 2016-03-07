@@ -7,7 +7,7 @@ $feed = new global_feed_to_osc();
 $feed->product_feed_to_osc();
 //updateOBN('complete',$status_id);
 // below runs the custom price updates after the main cron has completed
-include('OBN_custom_price_fix.php');
+//include('OBN_custom_price_fix.php');
 
 /*function updateOBN($status = 'start',$status_id='') {
   $params = array('cron_status' => $status,
