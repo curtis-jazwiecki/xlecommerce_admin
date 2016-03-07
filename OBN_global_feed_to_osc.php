@@ -906,7 +906,7 @@ class global_feed_to_osc{
 								//'products_image' => (empty($temp_prod_image_small) ? '' : $this->small_image_path . $temp_prod_image_small),
 								//'products_mediumimage' => (empty($temp_prod_image_medium) ? '' : $this->medium_image_path . $temp_prod_image_medium),
 								//'products_largeimage' => (empty($temp_prod_image_large) ? '' : $this->large_image_path . $temp_prod_image_large),
-								'products_price' => $products_price,
+								'products_price' => (($products_price > 0) ? $products_price: 0),
 								'products_weight' => $temp_prod_weight,
 								'manufacturers_id' => $temp_manuf_osc_id,
 								'base_price' => $base_price,
