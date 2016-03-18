@@ -425,7 +425,7 @@ class global_feed_to_osc{
 			
             $temp_prod_qty = (string)$product->{NODE_PRODUCT_QUANTITY};
             
-			if ( (!empty($temp_prod_model)) && (!empty($temp_prod_qty)) ){
+			if ( (!empty($temp_prod_model)) && ($temp_prod_qty != '') ){
 				$sql_array = array('products_model' => $temp_prod_model,
                                     'products_quantity'=>(int)$temp_prod_qty,
                                     'products_last_modified'=> 'now()');
