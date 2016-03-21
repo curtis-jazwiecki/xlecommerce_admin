@@ -192,7 +192,7 @@ function getTotalNumberOfCustomers(){
 
 
 
-function getOrdersForDashboard($limit,$order_status){
+function getOrdersForDashboard($limit = '',$order_status = ''){
 
 
 
@@ -229,14 +229,6 @@ function getOrdersForDashboard($limit,$order_status){
 
 
 	 	$limit = "limit $limit";
-
-
-
-	 }else{
-
-
-
-	 	$limit = '';
 
 
 
