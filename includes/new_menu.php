@@ -728,11 +728,6 @@ echo '<li><a href="' . tep_href_link(FILENAME_INFORMATION_MANAGER, 'gID=' . $inf
                             </a>'; ?>
                             </li>
                             <li>
-                            <?php echo '<a href="'.FILENAME_ORDERS_VENDORS.'" title="Vendors Orders List" data-toggle="" class="no-submenu">
-                            <span class="item-text">' . BOX_VENDORS_ORDERS . '</span>
-                            </a>'; ?>
-                            </li>
-                            <li>
                             <?php echo '<a href="'.FILENAME_MOVE_VENDORS.'" title="Move Products between Vendors" data-toggle="" class="no-submenu">
                             <span class="item-text">' . BOX_MOVE_VENDOR_PRODS . '</span>
                             </a>'; ?>
