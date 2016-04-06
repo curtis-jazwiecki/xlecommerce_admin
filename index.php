@@ -114,7 +114,7 @@ function get_conversion_rate() {
 
     
 
-$dir = DIR_FS_ROOT . 'tmp/awstats/';
+$dir = DIR_FS_ROOT . 'tmp/awstats/ssl/';
 
 $totalvisits= 0;
 
@@ -596,7 +596,7 @@ function getAvgorderAndTotalIncome(&$avg_order,&$total_order_sales){
 
 
 
-				$path .= "tmp/awstats/";
+				$path .= "tmp/awstats/ssl/";
 
 
 
