@@ -15,7 +15,7 @@
 	
   // individual site configuration
   $aConfig[STATS_SITE_NAME] = array(
-	"statspath"   => $path."tmp/awstats/",
+	"statspath"   => $path."tmp/awstats/ssl/",
 	"statsname"   => "awstats[MM][YYYY]." . STATS_SITE_NAME . ".txt",
 	"updatepath"  => "/usr/local/cpanel/base/awstats.pl/",
 	"siteurl"     => HTTP_SERVER,
