@@ -11193,9 +11193,10 @@ if (isset($_GET['pID'])) {
                                                                         echo "<tr><td>";
 
 
-
-                                                                        echo tep_image(DIR_WS_CATALOG_IMAGES . $bundle_data['products_image'], $bundle_data['products_name'], intval(SMALL_IMAGE_WIDTH / 2), intval(SMALL_IMAGE_HEIGHT / 2), 'hspace="1" vspace="1"') . '</td>';
-
+if(file_exists(DIR_WS_CATALOG_IMAGES . $bundle_data['products_image'])){
+                                                                        echo tep_image(DIR_WS_CATALOG_IMAGES . $bundle_data['products_image'], $bundle_data['products_name'], intval(SMALL_IMAGE_WIDTH / 2), intval(SMALL_IMAGE_HEIGHT / 2), 'hspace="1" vspace="1"');
+}
+echo '</td>';
 
 
                                                                         // comment out the following line to hide the subproduct qty
