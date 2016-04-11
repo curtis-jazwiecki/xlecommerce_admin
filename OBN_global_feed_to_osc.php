@@ -2482,7 +2482,7 @@ class global_feed_to_osc{
 
                 //although tep_db_input function handled such cases but, somehow, it's not working and I'm getting errors: 22jan2015
 
-                $sql = tep_db_query("select a.categories_id, b.parent_id from categories_description a inner join categories b on a.categories_id=b.categories_id where a.categories_name='" . addslashes(tep_db_input($cat_name)) . "' and a.language_id='1'");
+                $sql = tep_db_query("select a.categories_id, b.parent_id from categories_description a inner join categories b on a.categories_id=b.categories_id where a.categories_name='" . tep_db_input($cat_name) . "' and a.language_id='1'");
 
 		if (tep_db_num_rows($sql)){ // if some rows exist
 
