@@ -12,21 +12,28 @@
 
   require('includes/application_top.php');
 
-  $templates = array(
-	array('id' => '1', 'text' => 'template1'), 
-	array('id' => '2', 'text' => 'template2'), 
-	array('id' => '3', 'text' => 'template3'), 
-	array('id' => '4', 'text' => 'template4'), 
-	array('id' => '5', 'text' => 'template5'), 
-	array('id' => '11', 'text' => 'template11'), 
-	array('id' => '12', 'text' => 'template12'), 
-	array('id' => '13', 'text' => 'template13'), 
-	array('id' => '14', 'text' => 'template14'), 
-	array('id' => '15', 'text' => 'template15'), 
-	array('id' => '16', 'text' => 'template16'), 
-	array('id' => '17', 'text' => 'template17'), 
-  );
-
+	// fix applied on 14-04-2016 #start
+	$templates_count = array();
+	$dir = DIR_FS_CATALOG . 'includes/sts_templates/full/';
+	if (is_dir($dir)){
+		if ($dh = opendir($dir)){
+			while(($file = readdir($dh))!==false){
+				if (is_dir($dir . $file)){
+					if (strpos($file, 'template')!==false && is_numeric(substr($file, -1))){
+						$templates_count[str_ireplace('template', '', $file)] = $dir . $file . '/';
+					}
+				}
+			}
+			closedir($dh);
+		}
+	}
+	ksort($templates_count, SORT_NUMERIC);
+	
+	foreach($templates_count as $template_id => $template){
+		$templates[] = array('id' => $template_id, 'text' => basename($template));
+	}
+	// fix applied on 14-04-2016 #ends
+	
   $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
   
   if ($action=='insert' || $action=='update'){
@@ -47,6 +54,7 @@
     }
   }
   
+  
   $banner_extension = tep_banner_image_extension();
 
   if (tep_not_null($action)) {
@@ -60,7 +68,7 @@
           $messageStack->add_session(ERROR_UNKNOWN_STATUS_FLAG, 'error');
         }
 
-        tep_redirect(tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $HTTP_GET_VARS['bID']));
+        tep_redirect(tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $HTTP_GET_VARS['bID'].'&template=' . $HTTP_GET_VARS['template']));
         break;
       case 'insert':
       case 'update':
@@ -242,25 +250,6 @@ function popupImageWindow(url) {
   window.open(url,'popupImageWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=100,height=100,screenX=150,screenY=150,top=150,left=150')
 }
 //--></script>
-<script>
-    jQuery(document).ready(function(){
-       jQuery('select[name="template"]').change(function(){
-            location.href = '<?php echo FILENAME_BANNER_MANAGER; ?>?template=' + jQuery(this).val();
-       }); 
-       jQuery('select[name="banners_group"]').change(function(){
-            template_variable = jQuery(this).find('option:selected').text();
-            template_variable = template_variable.replace(/\s/g, '_');  
-            jQuery('span#template_variable').html(template_variable);
-            jQuery('input[name="new_template_variable"]').val('$banner_' + template_variable);
-       });
-       jQuery('input[name="new_banners_group"]').keyup(function(){
-            template_variable = jQuery(this).val();
-            template_variable = template_variable.replace(/\s/g , '_');  
-            jQuery('span#template_variable').html(template_variable);
-            jQuery('input[name="new_template_variable"]').val('$banner_' + template_variable);
-       });
-    });
-</script>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
@@ -381,7 +370,7 @@ function popupImageWindow(url) {
             <div>$banner_<span id="template_variable">xxxx</span></div>
             <br>
             <?php 
-             echo (!empty($bInfo->template_variable) ? '<span style="font-weight:normal;color:#dddddd;font-style:italic;">' . $bInfo->template_variable . ' (current template variable)</span>' : '');
+             echo (!empty($bInfo->template_variable) ? '<span style="font-weight:normal;font-style:italic;">' . $bInfo->template_variable . ' (current template variable)</span>' : '');
              echo tep_draw_hidden_field('old_template_variable', $bInfo->template_variable);
              echo tep_draw_hidden_field('new_template_variable', '');
             ?>
@@ -478,9 +467,9 @@ function popupImageWindow(url) {
       $banners_clicked = ($info['banners_clicked'] != '') ? $info['banners_clicked'] : '0';
 
       if (isset($bInfo) && is_object($bInfo) && ($banners['banners_id'] == $bInfo->banners_id)) {
-        echo '              <tr id="defaultSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_BANNER_STATISTICS, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $bInfo->banners_id) . '\'">' . "\n";
+        echo '              <tr id="defaultSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_BANNER_STATISTICS, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $bInfo->banners_id.'&template=' . $current_template) . '\'">' . "\n";
       } else {
-        echo '              <tr onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id']) . '\'">' . "\n";
+        echo '              <tr onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id'].'&template=' . $current_template) . '\'">' . "\n";
       }
 ?>
                 <td><?php echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?banner=' . $banners['banners_id'] . '\')">' . tep_image(DIR_WS_IMAGES . 'icon_popup.gif', 'View Banner') . '</a>&nbsp;' . $banners['banners_title']; ?></td>
@@ -489,12 +478,12 @@ function popupImageWindow(url) {
                 <td align="right">
 <?php
       if ($banners['status'] == '1') {
-        echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', 'Active', 10, 10) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id'] . '&action=setflag&flag=0') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', 'Set Inactive', 10, 10) . '</a>';
+        echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', 'Active', 10, 10) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id'] . '&action=setflag&flag=0'.'&template=' . $current_template) . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', 'Set Inactive', 10, 10) . '</a>';
       } else {
-        echo '<a href="' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id'] . '&action=setflag&flag=1') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', 'Set Active', 10, 10) . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', 'Inactive', 10, 10);
+        echo '<a href="' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id'] . '&action=setflag&flag=1'.'&template=' . $current_template) . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', 'Set Active', 10, 10) . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', 'Inactive', 10, 10);
       }
 ?></td>
-                <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_BANNER_STATISTICS, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id']) . '">' . tep_image(DIR_WS_ICONS . 'statistics.gif', ICON_STATISTICS) . '</a>&nbsp;'; if (isset($bInfo) && is_object($bInfo) && ($banners['banners_id'] == $bInfo->banners_id)) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_BANNER_STATISTICS, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id'].'&template=' . $current_template) . '">' . tep_image(DIR_WS_ICONS . 'statistics.gif', ICON_STATISTICS) . '</a>&nbsp;'; if (isset($bInfo) && is_object($bInfo) && ($banners['banners_id'] == $bInfo->banners_id)) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id'].'&template=' . $current_template) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     }
@@ -589,5 +578,24 @@ function popupImageWindow(url) {
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+       jQuery('select[name="template"]').change(function(){
+            location.href = '<?php echo FILENAME_BANNER_MANAGER; ?>?template=' + jQuery(this).val();
+       }); 
+       jQuery('select[name="banners_group"]').change(function(){
+            template_variable = jQuery(this).find('option:selected').text();
+            template_variable = template_variable.replace(/\s/g, '_');  
+            jQuery('span#template_variable').html(template_variable);
+            jQuery('input[name="new_template_variable"]').val('$banner_' + template_variable);
+       });
+       jQuery('input[name="new_banners_group"]').keyup(function(){
+            template_variable = jQuery(this).val();
+            template_variable = template_variable.replace(/\s/g , '_');  
+            jQuery('span#template_variable').html(template_variable);
+            jQuery('input[name="new_template_variable"]').val('$banner_' + template_variable);
+       });
+    });
+</script>
 
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
