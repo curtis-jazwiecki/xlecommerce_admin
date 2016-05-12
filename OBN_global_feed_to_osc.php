@@ -58,7 +58,16 @@ define ('NODE_PRODUCT_QUANTITY', 'ProductQuantity');
 
 define ('NODE_PRODUCT_MANUFACTURER', 'ProductManufacturer');
 
-define ('NODE_PRODUCT_PRICE', 'WholesalePrice');
+if (XML_FEED_DEFAULT_PRICE_TYPE == 'MS') 
+ define ('NODE_PRODUCT_PRICE', 'MSRPPrice');
+elseif (XML_FEED_DEFAULT_PRICE_TYPE == 'UP') 
+  define ('NODE_PRODUCT_PRICE', 'CostPrice');
+elseif (XML_FEED_DEFAULT_PRICE_TYPE == 'MA') 
+  define ('NODE_PRODUCT_PRICE', 'MAPPrice');
+else 
+  define ('NODE_PRODUCT_PRICE', 'WholesalePrice');
+  
+define ('DEFAULT_NODE_PRODUCT_PRICE', 'WholesalePrice');  
 
 define ('NODE_PRODUCT_UPC', 'UPC_EAN');
 
@@ -1339,6 +1348,10 @@ class global_feed_to_osc{
 					$temp_prod_manuf = htmlspecialchars_decode((string)$product->{NODE_PRODUCT_MANUFACTURER});
 
 					$temp_prod_price = (string)$product->{NODE_PRODUCT_PRICE};
+                    
+                    if ($temp_prod_price <= 0) {
+                      $temp_prod_price = (string)$product->{DEFAULT_NODE_PRODUCT_PRICE};  
+                    }
 
 					//BOF:mod 20120402
 
