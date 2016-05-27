@@ -4,7 +4,7 @@ require_once('eBay/get-common/ServiceEndpointsAndTokens.php');
 require_once('eBay/get-common/LargeMerchantServiceSession.php');
 require_once('eBay/get-common/PrintUtils.php');
 
-$debug_mode = false;
+$debug_mode = true;
 if ($debug_mode){
     echo 'Start: ' . date('c') . "\n";
 }

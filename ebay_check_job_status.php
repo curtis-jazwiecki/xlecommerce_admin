@@ -12,6 +12,14 @@ if ($debug_mode){
     echo 'Start: ' . date('c') . "\n";
 }
 
+$session = new LargeMerchantServiceSession('XML','XML', EBAY_ENVIRONMENT);
+ $request = createGetJobStatusRequest($_GET['job_id']);
+ $response = $session->sendBulkDataExchangeRequest('getJobStatus', $request);
+ $xml = simplexml_load_string($response);
+ PrintUtils::printXML($response);
+ exit;
+ die;
+ 
 function createGetJobStatusRequest($jobId){
   $request  = '<getJobStatusRequest xmlns:sct="http://www.ebay.com/soaframework/common/types" xmlns="http://www.ebay.com/marketplace/services">';
   $request .= '<jobId>' . $jobId . '</jobId>';
