@@ -47,7 +47,7 @@
    </section>
    </section>
    <!-- END Main wrapper-->
-
+<script>!function(){var e=document.createElement("script"),t=document.getElementsByTagName("script")[0];e.async=1,e.src="https://inlinemanual.com/embed/player.cefff896d11aa32df600db73f12256d5.js",e.charset="UTF-8",t.parentNode.insertBefore(e,t)}();</script>
 </body>
 
 </html>

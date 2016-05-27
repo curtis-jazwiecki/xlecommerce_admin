@@ -58,7 +58,16 @@ define ('NODE_PRODUCT_QUANTITY', 'ProductQuantity');
 
 define ('NODE_PRODUCT_MANUFACTURER', 'ProductManufacturer');
 
-define ('NODE_PRODUCT_PRICE', 'WholesalePrice');
+if (XML_FEED_DEFAULT_PRICE_TYPE == 'MS') 
+ define ('NODE_PRODUCT_PRICE', 'MSRPPrice');
+elseif (XML_FEED_DEFAULT_PRICE_TYPE == 'UP') 
+  define ('NODE_PRODUCT_PRICE', 'CostPrice');
+elseif (XML_FEED_DEFAULT_PRICE_TYPE == 'MA') 
+  define ('NODE_PRODUCT_PRICE', 'MAPPrice');
+else 
+  define ('NODE_PRODUCT_PRICE', 'WholesalePrice');
+  
+define ('DEFAULT_NODE_PRODUCT_PRICE', 'WholesalePrice');  
 
 define ('NODE_PRODUCT_UPC', 'UPC_EAN');
 
@@ -1339,6 +1348,10 @@ class global_feed_to_osc{
 					$temp_prod_manuf = htmlspecialchars_decode((string)$product->{NODE_PRODUCT_MANUFACTURER});
 
 					$temp_prod_price = (string)$product->{NODE_PRODUCT_PRICE};
+                    
+                    if ($temp_prod_price <= 0) {
+                      $temp_prod_price = (string)$product->{DEFAULT_NODE_PRODUCT_PRICE};  
+                    }
 
 					//BOF:mod 20120402
 
@@ -2482,7 +2495,7 @@ class global_feed_to_osc{
 
                 //although tep_db_input function handled such cases but, somehow, it's not working and I'm getting errors: 22jan2015
 
-                $sql = tep_db_query("select a.categories_id, b.parent_id from categories_description a inner join categories b on a.categories_id=b.categories_id where a.categories_name='" . addslashes(tep_db_input($cat_name)) . "' and a.language_id='1'");
+                $sql = tep_db_query("select a.categories_id, b.parent_id from categories_description a inner join categories b on a.categories_id=b.categories_id where a.categories_name='" . tep_db_input($cat_name) . "' and a.language_id='1'");
 
 		if (tep_db_num_rows($sql)){ // if some rows exist
 

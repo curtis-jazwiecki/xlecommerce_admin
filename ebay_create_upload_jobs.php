@@ -1,8 +1,15 @@
 <?php
 if (!empty($action) && $action=='initiate_upload'){
+    $argv[1] = 'AddFixedPriceItem';
 } else {
 	require('cron_application_top.php');
 }
+
+if (isset($_GET['jobtype'])) {
+  $argv[1] = $_GET['jobtype'];  
+}
+
+
 require_once('eBay/get-common/ServiceEndpointsAndTokens.php');
 require_once('eBay/get-common/LargeMerchantServiceSession.php');
 require_once('eBay/get-common/PrintUtils.php');
@@ -17,17 +24,16 @@ function createUploadJobRequest($jobType, $uuid){
   $request .= '<uploadJobType>' . $jobType . '</uploadJobType>';
   $request .= '<UUID>' . $uuid . '</UUID>';
   $request .= '</createUploadJobRequest>';
-
   return $request;
 }
 
 function createUploadJob($job_type){
 	global $session, $debug_mode;
-	
 	$open_job_query = tep_db_query("select id from ebay_jobs where job_type='" . tep_db_prepare_input($job_type) . "' and is_open='1' and status_upload_file is null and status_validation is null");
 	$matches = tep_db_num_rows($open_job_query);
 	if (!$matches){
 		$unique_id = microtime(true);
+        $error_message = '';
 		$request = createUploadJobRequest($job_type, $unique_id);
 		$response = $session->sendBulkDataExchangeRequest('createUploadJob', $request);
 		$xml = simplexml_load_string($response);
@@ -44,7 +50,8 @@ function createUploadJob($job_type){
 				$sql_data['is_open'] = '0';
 				$error_category = (string)$xml->errorMessage->error->category;
 				if (!empty($error_category)){
-					$sql_data['create_job_error_category'] = $error_category;
+                    $error_message = (string)$xml->errorMessage->error->message;
+					$sql_data['create_job_error_category'] = $error_category . ':' . $error_message;
 				}
 			}
 		} else {
@@ -55,6 +62,36 @@ function createUploadJob($job_type){
         if ($debug_mode){
             PrintUtils::printXML($response);
             echo "\n";
+        }
+        if ($error_message == 'Maximum of one job per job-type in non-terminated state is allowed') {
+  
+          $request = '<getJobsRequest xmlns="http://www.ebay.com/marketplace/services">' . 
+                     ' <creationTimeFrom>'  . date("Y-m-d\TH:i:s.u", strtotime("-1 month")) . '</creationTimeFrom>' . 
+                     ' <creationTimeTo>'  . date("Y-m-d\TH:i:s.u") . '</creationTimeTo>' . 
+                     '<jobStatus>Created</jobStatus>' .
+                     '<jobStatus>InProcess</jobStatus>' .
+                     '<jobType>' . $job_type . '</jobType>' . 
+                     '</getJobsRequest>' ;          
+          $response = $session->sendBulkDataExchangeRequest('getJobs', $request);
+          $xml=simplexml_load_string($response);
+          foreach ($xml->jobProfile as $jobs => $data) {
+           $jobId = $data->jobId;
+ 
+	       $request  = '<abortJobRequest xmlns:sct="http://www.ebay.com/soaframework/common/types" xmlns="http://www.ebay.com/marketplace/services">';
+	       $request .= '<jobId>' . $jobId . '</jobId>';
+	       $request .= '</abortJobRequest>';
+	       $response = $session->sendBulkDataExchangeRequest('abortJob', $request);
+	       $xml = simplexml_load_string($response);  
+           	if (!empty($xml)){
+			 if ((string)$xml->ack!='Success'){ 
+			     exit;
+                 }
+                } 
+          tep_db_query("update ebay_jobs set status_processing='Aborted', is_open='0' where job_id='" . $jobId . "'");      
+          }
+           
+         createUploadJob($job_type);  
+
         }
         /*if (strtolower($sql_data['status_create_job'])!='success'){
             $to = 'tech1@outdoorbusinessnetwork.com';
@@ -98,7 +135,7 @@ if ($argv[1]=='ReviseFixedPriceItem' || $argv[1]=='RelistFixedPriceItem'){
 	}
 }
 
-if ($argv[1]=='AddFixedPriceItem'){
+if ($argv[1]== 'AddFixedPriceItem'){
 	$job_type = 'AddFixedPriceItem';
 	if ($debug_mode){
 		echo $job_type . ' job handling start: ' . date('c') . "\n";

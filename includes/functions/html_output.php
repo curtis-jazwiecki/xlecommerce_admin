@@ -440,6 +440,40 @@ function get_google_categories_html($parent_id, $parent_level){
     return $html;
 }
 
+function get_amazon_categories($parent_id = ''){
+    $response = array();
+
+    if (empty($parent_id)){
+        $categories_query = tep_db_query("select id, category_name from amazon_tree_guide where category_level='2' order by item_type");    
+    } else {
+        $categories_query = tep_db_query("select id, category_name from amazon_tree_guide where category_level!=2 and parent_category_id='" . $parent_id . "'order by item_type");
+    }
+    if (tep_db_num_rows($categories_query)){
+        $response[] = array('id' => '', 'text' => '-- Select --');
+        while($entry = tep_db_fetch_array($categories_query)){
+            $response[] = array(
+                'id' => $entry['id'], 
+                'text' => $entry['category_name']);
+        }
+    }
+
+	return $response;
+}
+
+function get_amazon_categories_html($parent_id, $parent_level){
+    $html = '';
+    $categories = get_amazon_categories($parent_id);
+    if ($categories){
+        $html = '<select name="amazoncategory_' . ($parent_level+1) . '" style="width:100%;">';
+        foreach($categories as $category){
+            $html .= '<option value="' . $category['id'] . '">' . $category['text'] . '</option>';            
+        }
+        $html .= '</select>'; 
+        $html = '<span id="amazoncategory_' . ($parent_level+1) . '">' . $html . '<br><br></span>';
+    }
+    return $html;
+}
+
 //MVS start
 ////
 // Create a pull-down list of countries

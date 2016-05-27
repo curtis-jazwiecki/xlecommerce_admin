@@ -1,7 +1,7 @@
 <?php
 include_once("../includes/configure.php");
 $path = DIR_FS_ROOT;
-$path .= "tmp/awstats/";
+$path .= "tmp/awstats/ssl/";
 if(date('d') == 1) {
    $lastmonth = date('m') - 1;
    if(strlen($lastmonth) == 1)

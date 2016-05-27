@@ -831,7 +831,7 @@
 
             'align' => 'center',
 
-            'text' => '<a href="' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params (array ('vendors_id', 'action')) . 'vendors_id=' . $vInfo->vendors_id . '&action=edit') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a><p style="margin-bottom:-15px;"></p>' . ($vInfo->vendors_id>1 ? '<a href="' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params(array ('vendors_id', 'action')) . 'vendors_id=' . $vInfo->vendors_id . '&action=confirm') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a>' : '') . '<br><a href="' . tep_href_link(FILENAME_VENDOR_MODULES, 'set=shipping&vendors_id=' . $vInfo->vendors_id) . '">' . tep_image_button('button_manage.gif', IMAGE_MANAGE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params(array ('vendors_id', 'action')) . 'action=new') . '">' . tep_image_button('button_new_vendor.gif', IMAGE_INSERT) . '</a><br><br>There are <b>' . $num_orders . '</b> orders for this Vendor.<br>This Vendor has <b>' . $num_products . '</b> products.<br>Click <a href="' . tep_href_link(FILENAME_PRODS_VENDORS, '&vendors_id=' . $vInfo->vendors_id) . '"><b>here </b></a>for Products Report<br>'
+            'text' => '<a href="' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params (array ('vendors_id', 'action')) . 'vendors_id=' . $vInfo->vendors_id . '&action=edit') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a><p style="margin-bottom:9px;"></p>' . ($vInfo->vendors_id>1 ? '<a href="' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params(array ('vendors_id', 'action')) . 'vendors_id=' . $vInfo->vendors_id . '&action=confirm') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a><p style=""></p>' : '') . '<a href="' . tep_href_link(FILENAME_VENDOR_MODULES, 'set=shipping&vendors_id=' . $vInfo->vendors_id) . '">' . tep_image_button('button_manage.gif', IMAGE_MANAGE) . '</a>&nbsp;<p style="margin-bottom:3px;"></p><a href="' . tep_href_link(FILENAME_VENDORS, tep_get_all_get_params(array ('vendors_id', 'action')) . 'action=new') . '">' . tep_image_button('button_new_vendor.gif', IMAGE_INSERT) . '</a><br><br>There are <b>' . $num_orders . '</b> orders for this Vendor.<br>This Vendor has <b>' . $num_products . '</b> products.<br>Click <a href="' . tep_href_link(FILENAME_PRODS_VENDORS, '&vendors_id=' . $vInfo->vendors_id) . '"><b>here </b></a>for Products Report<br>'
 
             );
 
@@ -889,4 +889,4 @@
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?> 
