@@ -97,6 +97,6 @@
   require(DIR_WS_CLASSES . 'email.php');
 
 //BOF:amazon_integration
-require_once(DIR_FS_ROOT . 'amazon_mws/config.php');
+require_once(DIR_FS_ADMIN . 'amazon_mws/config.php');
 //EOF:amazon_integration
 ?>
