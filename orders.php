@@ -34,7 +34,7 @@ if ($_GET['w']=='n'){
 
 
 
-require(DIR_FS_ROOT . 'amazon_mws/config.php');
+require(DIR_FS_ADMIN . 'amazon_mws/config.php');
 
 
 

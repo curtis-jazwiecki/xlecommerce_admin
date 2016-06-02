@@ -2,7 +2,7 @@
 
 require('includes/application_top.php');
 
-require(DIR_FS_ROOT . 'amazon_mws/config.php');
+require(DIR_FS_ADMIN . 'amazon_mws/config.php');
 
 $action = isset($_POST['action']) ? $_POST['action'] : '';
 
