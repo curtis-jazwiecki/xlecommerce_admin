@@ -610,6 +610,7 @@ echo FRAUD_PREVENTION_NOTIFICATION;
         $order->adjust_zones();
         
         $cart = new manualCart();
+		$_SESSION['cart'] = $cart;
         $cart->restore_contents($oID);
         $total_count = $cart->count_contents();
         $total_weight = $cart->show_weight();
