@@ -323,8 +323,18 @@ echo FRAUD_PREVENTION_NOTIFICATION;
 
 		//this is where we call the order total modules
 		require( 'order_editor/order_total.php');
+		
 		$order_total_modules = new order_total();
-        $order_totals = $order_total_modules->process();  
+        
+		// remove avalara module #start
+		if(($key = array_search('ot_avatax.php', $order_total_modules->modules)) !== false) {
+			unset($order_total_modules->modules[$key]);
+			$order_total_modules->modules = array_values($order_total_modules->modules);
+		}
+		// remove avalara module #ends	
+		
+		
+		$order_totals = $order_total_modules->process();  
 
         $current_ot_totals_array = array();
 		$current_ot_titles_array = array();

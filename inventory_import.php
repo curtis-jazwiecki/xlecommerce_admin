@@ -3,7 +3,7 @@ require('includes/application_top.php');
 
 if (isset($_POST['validate_mode']) && $_POST['validate_mode']=='1'){
 	$model = $_POST['model'];
-	$sql = tep_db_query("select products_id, warehouse_quantity from products where products_model='" . tep_db_input($model) . "'");
+	$sql = tep_db_query("select products_id, store_quantity from products where products_model='" . tep_db_input($model) . "'");
 	//echo tep_db_num_rows($sql) ? 'OK' : 'ERROR';
     echo tep_db_num_rows($sql) ? 'OK|' . $_POST['index'] : 'ER|' . $_POST['index'];
 	exit();
@@ -18,10 +18,10 @@ if (isset($_POST['action']) && $_POST['action']=='save'){
 	$id = tep_db_insert_id();
 	for($i=0; $i<=$_POST['last_index']; $i++){
 		$previous_stock_level = 'null';
-		$sql = tep_db_query("select warehouse_quantity from products where products_model='" . tep_db_input($_POST['model_' . $i]) . "'");
+		$sql = tep_db_query("select store_quantity from products where products_model='" . tep_db_input($_POST['model_' . $i]) . "'");
 		if (tep_db_num_rows($sql)){
 			$info = tep_db_fetch_array($sql);
-			$previous_stock_level = $info['warehouse_quantity'];
+			$previous_stock_level = $info['store_quantity'];
 		}
 	
 		$inventory_import_02_data = array(
@@ -33,7 +33,7 @@ if (isset($_POST['action']) && $_POST['action']=='save'){
 		);
 		tep_db_perform('inventory_import_02', $inventory_import_02_data);
 		
-		tep_db_query("update products set warehouse_quantity=warehouse_quantity + " . (int)$_POST['stock_' . $i] . ", products_last_modified=now() where products_model='" . tep_db_input($_POST['model_' . $i]) . "'");
+		tep_db_query("update products set store_quantity=store_quantity + " . (int)$_POST['stock_' . $i] . ", products_last_modified=now() where products_model='" . tep_db_input($_POST['model_' . $i]) . "'");
 	}
 	echo 'OK';
 	exit();
@@ -54,9 +54,9 @@ function getItems($id){
 ?>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="SetFocus();">
 <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/jquery-ui.css">
-		<script language="javascript" src="includes/general.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+<script language="javascript" src="includes/general.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 <script type="text/javascript">
 			var loader = new Image();
 			loader.src = '<?php echo DIR_WS_IMAGES ?>ajax-loader.gif';

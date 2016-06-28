@@ -31,6 +31,28 @@
 */
       }
     }
+	
+	function restore_contents_shipping($orders_id,$products_to_include) {
+      $this->reset();
+
+      $products_query = tep_db_query("select products_id, products_quantity from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . (int)$orders_id . "'");
+      while ($products = tep_db_fetch_array($products_query)) {
+		if(array_key_exists($products['products_id'],$products_to_include)){
+			$this->contents[$products['products_id']] = array('qty' => $products_to_include[$products['products_id']]);	
+		}
+      }
+    }
+	
+	function restore_contents_return($orders_id,$products_to_include) {
+      $this->reset();
+
+      $products_query = tep_db_query("select products_id, products_quantity from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . (int)$orders_id . "'");
+      while ($products = tep_db_fetch_array($products_query)) {
+		if(in_array($products['products_id'],$products_to_include)){
+			$this->contents[$products['products_id']] = array('qty' => $products['products_quantity']);	
+		}
+      }
+    }
 
     function reset() {
       $this->contents = array();

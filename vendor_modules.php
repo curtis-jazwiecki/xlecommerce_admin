@@ -207,7 +207,13 @@
 
         if (substr($file, strrpos($file, '.')) == $file_extension) {
 
-          $directory_array[] = $file;
+          if($file == 'ffldealershipping.php' && $vendors_id != '9999'){
+		  	continue;
+		  }
+		  
+		  $directory_array[] = $file;
+		  
+		 
 
         }
 
@@ -220,6 +226,8 @@
     $dir->close();
 
   }
+  
+  
 
 
 

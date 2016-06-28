@@ -207,6 +207,7 @@ define('IMAGE_NEW_CURRENCY', 'New Currency');
 define('IMAGE_NEW_FILE', 'New File');
 define('IMAGE_NEW_FOLDER', 'New Folder');
 define('IMAGE_NEW_LANGUAGE', 'New Language');
+define('IMAGE_NEW_FFL_DEALER', 'New FFL Dealer');
 define('IMAGE_NEW_NEWSLETTER', 'New Newsletter');
 define('IMAGE_NEW_PRODUCT', 'New Product');
 define('IMAGE_NEW_TAX_CLASS', 'New Tax Class');
@@ -265,6 +266,8 @@ define('TEXT_DISPLAY_NUMBER_OF_TAX_ZONES', 'Displaying <b>%d</b> to <b>%d</b> (o
 define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> tax rates)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> zones)');
 define('TEXT_DISPLAY_NUMBER_OF_LAYOUT', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> layouts)');
+define('TEXT_DISPLAY_NUMBER_OF_FFL_DEALERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> FFL Dealers List)');
+define('TEXT_DISPLAY_NUMBER_OF_AVATAX_CODES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> Avatax Tax Codes)');
 define('PREVNEXT_BUTTON_PREV', '&lt;&lt;');
 define('PREVNEXT_BUTTON_NEXT', '&gt;&gt;');
 

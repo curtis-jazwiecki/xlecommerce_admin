@@ -108,4 +108,8 @@ define('TABLE_HEADING_SHIPPING_COST', 'Ship Cost');
 define('VENDOR_ORDER_SENT', 'Order Sent to ');
 define('TABLE_HEADING_OBN_TRACKING', 'OBN Tracking Number: ');
 //MVS End
+define('TEXT_SELECTED_FFL', 'FFL Selected:');
+define('IMAGE_RETURN_ORDERS', 'Return Order');
+define('IMAGE_PARENT_ORDERS','Parent Order');
+define('IMAGE_RETURNED_ORDERS','Order Returned');
 ?>

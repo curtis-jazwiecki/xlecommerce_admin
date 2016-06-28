@@ -19,21 +19,21 @@ function dd($d){
 	$debug = 0;
 	
 	
-  require('includes/application_top.php');
-  //require(DIR_WS_FUNCTIONS . 'ship_fedex.php');
-  include(DIR_FS_CATALOG.DIR_WS_MODULES . 'shipping/fedexwebservices.php');
-  
-  define('TABLE_SHIPPING_MANIFEST','shipping_manifest');
- 
+	require('includes/application_top.php');
+	//require(DIR_WS_FUNCTIONS . 'ship_fedex.php');
+	include(DIR_FS_CATALOG.DIR_WS_MODULES . 'shipping/fedexwebservices.php');
+	
+	define('TABLE_SHIPPING_MANIFEST','shipping_manifest');
+	
 	$action = $HTTP_GET_VARS['action'];
 	$order = $HTTP_GET_VARS['oID'];
-
-// *** EDIT VARIABLES BELOW **
-$lastshipment = 17;            // Define last shipment time (ex: 17 would be 5pm on your server)
-$send_email_on_shipping = 1;   // Set to 0 to disable, set to 1 to enable automatic email of tracking number
-
-// Modify the variable here and in admin/fedex_popup.php
-$thermal_printing = 1;         // set the printing type, thermal_printing = 0 for laser, thermal_printing = 1 for label printer
+	
+	// *** EDIT VARIABLES BELOW **
+	$lastshipment = 17;            // Define last shipment time (ex: 17 would be 5pm on your server)
+	$send_email_on_shipping = 1;   // Set to 0 to disable, set to 1 to enable automatic email of tracking number
+	
+	// Modify the variable here and in admin/fedex_popup.php
+	$thermal_printing = 1;         // set the printing type, thermal_printing = 0 for laser, thermal_printing = 1 for label printer
 
 ////
 // make a new ship request
@@ -167,6 +167,12 @@ $thermal_printing = 1;         // set the printing type, thermal_printing = 0 fo
 			$trackNum = null;
   			$fedexServ = new fedexwebservices();
 			$serviceResponse = $fedexServ->shipRequest($fedexRequestData);
+			
+			
+			echo '<pre>';
+			print_r($fedexRequestData);
+			exit;
+			
 			
 			$trackingNumber = null;
 			$shipSuccess = $serviceResponse['success'];

@@ -17,7 +17,7 @@ Replacing the column_left.php with new css dropdown menu
 
 
 $selected_box = $_GET['selected_box'];
-$administrator=array('admin_account.php','admin_members.php','admin_files.php','admin_file_access.php','admin_ip_record.php');$catalog=array('categories.php','categories_frontend.php','easypopulate.php','manufacturers.php','reviews.php','category_specials.php','specials.php','price_updater.php','products_expected.php','products_discontinued.php','featured.php','featured-manufacturers.php','xsell.php','googlesitemap.php','googlefeeder.php');$configuration=array('configuration.php');$store_info=array('customers_groups.php','orders.php','coupon_admin.php','currencies.php','languages.php','orders_status.php','countries.php','zones.php','geo_zones.php','tax_classes.php','tax_rates.php','customers_points.php','customers_points_pending.php','customers_points_referral.php');$info_mgr=array('information_manager.php','header_tags_controller.php','header_tags_english.php','header_tags_fill_tags.php','edit_templates.php','layout_manager.php','modules_boxes.php','modules_boxes.php','modules_boxes_layout.php','select_template.php','select_category_template.php');$module=array('modules.php','email_template.php','fraud_prevention.php','orders_POS.php','create_order_process_POS.php','ranges_manager.php','lanes_manager.php','range_operations.php','inventory_import.php','mobilesite.php','fb-store_manage.php','vendors.php','products_to_vendor.php','prods_by_vendor.php','orders_by_vendor.php','move_vendor_prods.php','product_per_day.php');$reports=array('advanced_stats.php','stats_products_viewed.php','stats_products_purchased.php','stats_customers.php','stats_sales_report.php','stats_credits.php','sales_report_export.php','stats_wishlists.php','marketing_feeds.php','conversion_rate_report.php');$tools=array('webmail.php','amazon_feeds_manager.php','ebay_feeds_manager.php','banner_manager.php','file_manager.php','mail.php','newsletters.php','whos_online.php','qbi_create.php','stats_keywords.php','user_info_export.php','ebay_template_manager.php');$training_support=array('training_videos.php','support_ticket.php','training_videos.php');
+$administrator=array('admin_account.php','admin_members.php','admin_files.php','admin_file_access.php','admin_ip_record.php');$catalog=array('categories.php','categories_frontend.php','easypopulate.php','manufacturers.php','reviews.php','category_specials.php','specials.php','price_updater.php','products_expected.php','products_discontinued.php','featured.php','featured-manufacturers.php','xsell.php','googlesitemap.php','googlefeeder.php');$configuration=array('configuration.php','avalara.php');$store_info=array('customers_groups.php','orders.php','coupon_admin.php','currencies.php','languages.php','orders_status.php','countries.php','zones.php','geo_zones.php','tax_classes.php','tax_rates.php','customers_points.php','customers_points_pending.php','customers_points_referral.php');$info_mgr=array('information_manager.php','header_tags_controller.php','header_tags_english.php','header_tags_fill_tags.php','edit_templates.php','layout_manager.php','modules_boxes.php','modules_boxes.php','modules_boxes_layout.php','select_template.php','select_category_template.php');$module=array('modules.php','email_template.php','fraud_prevention.php','orders_POS.php','create_order_process_POS.php','ranges_manager.php','lanes_manager.php','range_operations.php','inventory_import.php','mobilesite.php','fb-store_manage.php','vendors.php','products_to_vendor.php','prods_by_vendor.php','orders_by_vendor.php','move_vendor_prods.php','product_per_day.php');$reports=array('advanced_stats.php','stats_products_viewed.php','stats_products_purchased.php','stats_customers.php','stats_sales_report.php','stats_credits.php','sales_report_export.php','stats_wishlists.php','marketing_feeds.php','conversion_rate_report.php');$tools=array('webmail.php','amazon_feeds_manager.php','ebay_feeds_manager.php','banner_manager.php','file_manager.php','mail.php','newsletters.php','whos_online.php','qbi_create.php','stats_keywords.php','user_info_export.php','import_avatax_codes.php');$training_support=array('training_videos.php','support_ticket.php','training_videos.php');
 $filename=basename($_SERVER['PHP_SELF']);
 
 ?>
@@ -321,16 +321,19 @@ if(in_array($filename,$configuration)){ $configuration_val="in"; }
 			echo '<li><a href="' . tep_href_link("store_logo.php",'', 'NONSSL') . '" title="Fire Google Feed (Over FTP)" data-toggle="" class="no-submenu">
                         <span class="item-text">Store Logo</span>
                         </a></li>';
+						
+			// added on 05-05-2016 #start
+			
+			echo '<li><a href="' . tep_href_link(FILENAME_AVALARA_CONFIGURATION,'', 'NONSSL') . '" title="Avalara Configuration" data-toggle="" class="no-submenu"><span class="item-text">Avalara Configuration</span></a></li>';
+			
+			// added on 05-05-2016 #ends		
 
 	          echo '  </ul>';
 
 	          echo '</li>';
 
-		  }
-
-		else
-
-		  {
+		  }else{
+			  
 
 			  echo '<li><a href="'.FILENAME_CONFIGURATION.'?gID=75?selected_box=configuration"  title="Configuration" data-toggle="collapse-next" class="has-submenu">
                      <em class="fa fa-wrench"></em>
@@ -393,7 +396,8 @@ if(in_array($filename,$configuration)){ $configuration_val="in"; }
 
 	          echo '</li>';
 
-		  } ?>
+		  
+		  }?>
                
                   <!-- END SubMenu item-->
                <li>
@@ -877,10 +881,11 @@ echo '<li><a href="' . tep_href_link(FILENAME_INFORMATION_MANAGER, 'gID=' . $inf
                      </a>'; ?>
                      </li>
                      <li>
-                        <?php echo '<a href="ebay_template_manager.php" title="ebay template manager" data-toggle="" class="no-submenu">
-                        <span class="item-text">Ebay Template Manager</span>
+                        <?php echo '<a href="import_avatax_codes.php" title="Import Avatax Codes" data-toggle="" class="no-submenu">
+                        <span class="item-text">Import Avatax Codes</span>
                      </a>'; ?>
                      </li>
+                     
                   </ul>
                   <!-- END SubMenu item-->
                </li>
