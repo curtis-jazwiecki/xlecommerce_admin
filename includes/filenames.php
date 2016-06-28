@@ -302,4 +302,6 @@ define('FILENAME_EMAIL_TEMPLATE', 'email_template.php');
 
   define("FILENAME_SHIP_FEDEX","ship_fedex.php");
   define('FILENAME_EBAY_TEMPLATE_MANAGER', 'ebay_template_manager.php');
+  define('FILENAME_AVATAX_CODE_LIST', 'import_avatax_codes.php'); // added on 01-06-2016
+  define('FILENAME_RETURN_ORDERS', 'return_orders.php'); // added on 09-06-2016
 ?>

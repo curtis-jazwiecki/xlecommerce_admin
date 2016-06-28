@@ -319,6 +319,7 @@ if (isset($action)) {
         
 			$cart = new manualCart();
 			$cart->restore_contents($oID);
+			$_SESSION['cart'] = $cart;
 			$total_count = $cart->count_contents();
 			$total_weight = $cart->show_weight();
 

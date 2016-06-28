@@ -2121,11 +2121,9 @@ class global_feed_to_osc{
 
 					//EOF:mod 05032012
 
+                    $sql_data_array = array('upc_ean' => $temp_product_upc,
 
-
-					$sql_data_array = array('upc_ean' => $temp_product_upc,
-
-                                            'unit_cost' => $temp_prod_price,
+                                            'unit_cost' => (!empty($product->CostPrice)) ? ((string)$product->CostPrice) : "0.00" ,
 
 											'unit_cost_cur' => $this->currency_code,
 
@@ -2134,6 +2132,9 @@ class global_feed_to_osc{
 											'min_acceptable_price' => $temp_prod_map,
 
 											//EOF:mod 20120419
+                                            
+                                            
+                                            'unit_msrp'  => (!empty($product->MSRPPrice)) ? ((string)$product->MSRPPrice) : "0.00" ,
 
 											'sales_price' =>$temp_prod_price,
 

@@ -224,6 +224,7 @@ if ($action == 'update_downloads') {
 				
 		$cart = new manualCart();
         $cart->restore_contents($oID);
+		$_SESSION['cart'] = $cart;
         $total_count = $cart->count_contents();
         $total_weight = $cart->show_weight();
 		
@@ -241,6 +242,13 @@ if ($action == 'update_downloads') {
  		//this is where we call the order total modules
 		require( 'order_editor/order_total.php');
 		$order_total_modules = new order_total();
+		
+		// remove avalara module #start
+		if(($key = array_search('ot_avatax.php', $order_total_modules->modules)) !== false) {
+			unset($order_total_modules->modules[$key]);
+			$order_total_modules->modules = array_values($order_total_modules->modules);
+		}
+		// remove avalara module #ends	
         $order_totals = $order_total_modules->process();  
 
 	    $current_ot_totals_array = array();
@@ -406,12 +414,12 @@ if ($action == 'update_downloads') {
                
              
 			  <!-- order_totals bof //-->
-                <td align="right" rowspan="2" valign="top" nowrap class="dataTableRow" style="border: 1px solid #C9C9C9;">
-                <table border="0" cellspacing="0" cellpadding="2">
-                  <tr class="dataTableHeadingRow">
-        <td class="dataTableHeadingContent" width="15" nowrap onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_TOTALS); ?>')"; onMouseout="hideddrivetip()"><img src="images/icon_info.gif" border="0" width="13" height="13"></td>
-                    <td class="dataTableHeadingContent" nowrap><?php echo TABLE_HEADING_OT_TOTALS; ?></td>
-                    <td class="dataTableHeadingContent" colspan="2" nowrap><?php echo TABLE_HEADING_OT_VALUES; ?></td>
+                <td align="right" rowspan="2" valign="top">
+                <table class="table table-bordered table-hover">
+                  <tr>
+        <td width="15" nowrap onMouseover="ddrivetip('<?php echo oe_html_no_quote(HINT_TOTALS); ?>')"; onMouseout="hideddrivetip()"><img src="images/icon_info.gif" border="0" width="13" height="13"></td>
+                    <td><?php echo TABLE_HEADING_OT_TOTALS; ?></td>
+                    <td colspan="2"><?php echo TABLE_HEADING_OT_VALUES; ?></td>
                   </tr>
 <?php
   for ($i=0; $i<sizeof($order->totals); $i++) {
@@ -431,30 +439,30 @@ if ($action == 'update_downloads') {
    
     $rowStyle = (($i % 2) ? 'dataTableRowOver' : 'dataTableRow');
     if ((!strstr($order->totals[$i]['class'], 'ot_custom')) && ($order->totals[$i]['class'] != 'ot_shipping')) {
-      echo '                  <tr class="' . $rowStyle . '">' . "\n";
+      echo '                  <tr>' . "\n";
       if ($order->totals[$i]['class'] != 'ot_total') {
-        echo '                    <td class="dataTableContent" valign="middle" height="15"><span id="update_totals['.$i.']"><a href="javascript:setCustomOTVisibility(\'update_totals['.($i+1).']\', \'visible\', \'update_totals['.$i.']\');">' . tep_image('order_editor/images/plus.gif', IMAGE_ADD_NEW_OT) . '</a></span></td>' . "\n";
+        echo '                    <td><span id="update_totals['.$i.']"><a href="javascript:setCustomOTVisibility(\'update_totals['.($i+1).']\', \'visible\', \'update_totals['.$i.']\');">' . tep_image('order_editor/images/plus.gif', IMAGE_ADD_NEW_OT) . '</a></span></td>' . "\n";
       } else {
-        echo '                    <td class="dataTableContent" valign="middle">&nbsp;</td>' . "\n";
+        echo '                    <td>&nbsp;</td>' . "\n";
       }
       
-      echo '                    <td align="right" class="dataTableContent"><input name="update_totals['.$i.'][title]" value=\'' . trim($order->totals[$i]['title']) . '\' readonly="readonly"></td>' . "\n";
+      echo '                    <td><input name="update_totals['.$i.'][title]" value=\'' . trim($order->totals[$i]['title']) . '\' readonly="readonly"></td>' . "\n";
 	  
-      if ($order->info['currency'] != DEFAULT_CURRENCY) echo '                    <td class="dataTableContent">&nbsp;</td>' . "\n";
-      echo '                    <td align="right" class="dataTableContent" nowrap>' . $order->totals[$i]['text'] . '<input name="update_totals['.$i.'][value]" type="hidden" value="' . number_format((float)$order->totals[$i]['value'], 2, '.', '') . '"><input name="update_totals['.$i.'][class]" type="hidden" value="' . $order->totals[$i]['class'] . '"></td>' . "\n" .
+      if ($order->info['currency'] != DEFAULT_CURRENCY) echo '                    <td>&nbsp;</td>' . "\n";
+      echo '                    <td>' . $order->totals[$i]['text'] . '<input name="update_totals['.$i.'][value]" type="hidden" value="' . number_format((float)$order->totals[$i]['value'], 2, '.', '') . '"><input name="update_totals['.$i.'][class]" type="hidden" value="' . $order->totals[$i]['class'] . '"></td>' . "\n" .
            '                  </tr>' . "\n";
     } else {
       if ($i % 2) {
-        echo '                  <tr class="' . $rowStyle . '" id="update_totals['.$i.']" style="visibility: hidden; display: none;">' . "\n" .
-             '                    <td class="dataTableContent" valign="middle" height="15"><a href="javascript:setCustomOTVisibility(\'update_totals['.($i).']\', \'hidden\', \'update_totals['.($i-1).']\');">' . tep_image('order_editor/images/minus.gif', IMAGE_REMOVE_NEW_OT) . '</a></td>' . "\n";
+        echo '                  <tr id="update_totals['.$i.']" style="visibility: hidden; display: none;">' . "\n" .
+             '                    <td><a href="javascript:setCustomOTVisibility(\'update_totals['.($i).']\', \'hidden\', \'update_totals['.($i-1).']\');">' . tep_image('order_editor/images/minus.gif', IMAGE_REMOVE_NEW_OT) . '</a></td>' . "\n";
       } else {
-        echo '                  <tr class="' . $rowStyle . '">' . "\n" .
-             '                    <td class="dataTableContent" valign="middle" height="15"><span id="update_totals['.$i.']"><a href="javascript:setCustomOTVisibility(\'update_totals['.($i+1).']\', \'visible\', \'update_totals['.$i.']\');">' . tep_image('order_editor/images/plus.gif', IMAGE_ADD_NEW_OT) . '</a></span></td>' . "\n";
+        echo '                  <tr>' . "\n" .
+             '                    <td><span id="update_totals['.$i.']"><a href="javascript:setCustomOTVisibility(\'update_totals['.($i+1).']\', \'visible\', \'update_totals['.$i.']\');">' . tep_image('order_editor/images/plus.gif', IMAGE_ADD_NEW_OT) . '</a></span></td>' . "\n";
       }
 
-      echo '                    <td align="right" class="dataTableContent"><input name="update_totals['.$i.'][title]" id="'.$id.'[title]" value=\'' . trim($order->totals[$i]['title']) . '\'  onChange="obtainTotals()"></td>' . "\n" .
-           '                    <td align="right" class="dataTableContent"><input name="update_totals['.$i.'][value]" id="'.$id.'[value]" value="' . number_format((float)$order->totals[$i]['value'], 2, '.', '') . '" size="6"  onChange="obtainTotals()"><input name="update_totals['.$i.'][class]" type="hidden" value="' . $order->totals[$i]['class'] . '"><input name="update_totals['.$i.'][id]" type="hidden" value="' . $shipping_module_id . '" id="' . $id . '[id]"></td>' . "\n";
-      if ($order->info['currency'] != DEFAULT_CURRENCY) echo '                    <td align="right" class="dataTableContent" nowrap>' . $order->totals[$i]['text'] . '</td>' . "\n";
+      echo '                    <td><input name="update_totals['.$i.'][title]" id="'.$id.'[title]" value=\'' . trim($order->totals[$i]['title']) . '\'  onChange="obtainTotals()"></td>' . "\n" .
+           '                    <td><input name="update_totals['.$i.'][value]" id="'.$id.'[value]" value="' . number_format((float)$order->totals[$i]['value'], 2, '.', '') . '" size="6"  onChange="obtainTotals()"><input name="update_totals['.$i.'][class]" type="hidden" value="' . $order->totals[$i]['class'] . '"><input name="update_totals['.$i.'][id]" type="hidden" value="' . $shipping_module_id . '" id="' . $id . '[id]"></td>' . "\n";
+      if ($order->info['currency'] != DEFAULT_CURRENCY) echo '                    <td>' . $order->totals[$i]['text'] . '</td>' . "\n";
       echo '                  </tr>' . "\n";
     }
   }
@@ -469,9 +477,9 @@ if ($action == 'update_downloads') {
   if (sizeof($shipping_quotes) > 0) {
 ?>
                 <!-- shipping_quote bof //-->
-                <table border="0" width="550" cellspacing="0" cellpadding="2" style="border: 1px solid #C9C9C9;">
-                  <tr class="dataTableHeadingRow">
-                    <td class="dataTableHeadingContent" colspan="3"><?php echo TABLE_HEADING_SHIPPING_QUOTES; ?></td>
+                <table class="table table-bordered table-hover">
+                  <tr>
+                    <td colspan="3"><?php echo TABLE_HEADING_SHIPPING_QUOTES; ?></td>
                   </tr>
 <?php
     $r = 0;
@@ -480,9 +488,9 @@ if ($action == 'update_downloads') {
         $r++;
 		if (!isset($shipping_quotes[$i]['tax'])) $shipping_quotes[$i]['tax'] = 0;
         $rowClass = ((($r/2) == (floor($r/2))) ? 'dataTableRowOver' : 'dataTableRow');
-        echo '                  <tr class="' . $rowClass . '" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this, \'' . $rowClass . '\')" onclick="selectRowEffect(this, ' . $r . '); setShipping(' . $r . ');">' . "\n" .
+        echo '                  <tr onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this, \'' . $rowClass . '\')" onclick="selectRowEffect(this, ' . $r . '); setShipping(' . $r . ');">' . "\n" .
              
-    '      <td class="dataTableContent" valign="top" align="left" width="15px">' . "\n" .
+    '      <td>' . "\n" .
 	
 	'      <input type="radio" name="shipping" id="shipping_radio_' . $r . '" value="' . $shipping_quotes[$i]['id'] . '_' . $shipping_quotes[$i]['methods'][$j]['id'].'">' . "\n" .
 			 
@@ -492,15 +500,15 @@ if ($action == 'update_downloads') {
 	
 	'      <input type="hidden" id="update_shipping[' . $r . '][id]" name="update_shipping[' . $r . '][id]" value="' . $shipping_quotes[$i]['id'] . '_' . $shipping_quotes[$i]['methods'][$j]['id'] . '">' . "\n" .
     
-	'        <td class="dataTableContent" valign="top">' . $shipping_quotes[$i]['module'] . ' (' . $shipping_quotes[$i]['methods'][$j]['title'] . '):</td>' . "\n" . 
+	'        <td>' . $shipping_quotes[$i]['module'] . ' (' . $shipping_quotes[$i]['methods'][$j]['title'] . '):</td>' . "\n" . 
     
-	'        <td class="dataTableContent" align="right">' . $currencies->format(tep_add_tax($shipping_quotes[$i]['methods'][$j]['cost'], $shipping_quotes[$i]['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n" . 
+	'        <td>' . $currencies->format(tep_add_tax($shipping_quotes[$i]['methods'][$j]['cost'], $shipping_quotes[$i]['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n" . 
              '                  </tr>';
       }
     }
 ?>
-                  <tr class="dataTableHeadingRow">
-                    <td class="dataTableHeadingContent" colspan="3"><?php echo sprintf(TEXT_PACKAGE_WEIGHT_COUNT, $shipping_num_boxes . ' x ' . $shipping_weight, $total_count); ?></td>
+                  <tr>
+                    <td colspan="3"><?php echo sprintf(TEXT_PACKAGE_WEIGHT_COUNT, $shipping_num_boxes . ' x ' . $shipping_weight, $total_count); ?></td>
                   </tr>
                 </table>
                 <!-- shipping_quote_eof //-->
@@ -665,6 +673,7 @@ if (tep_db_num_rows($orders_history_query)) {
         
         $cart = new manualCart();
         $cart->restore_contents($_GET['oID']);
+		$_SESSION['cart'] = $cart;
         $total_count = $cart->count_contents();
         $total_weight = $cart->show_weight();
 		

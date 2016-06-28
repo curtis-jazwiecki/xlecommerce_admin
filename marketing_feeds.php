@@ -85,13 +85,13 @@
         ), 
         'products_quantity' => array(
             'id' => TAB_PRODUCT . '.products_quantity', 
-            'title' => 'product Qty', 
-            'desc'  => 'Current product quantity',
-        ),
-        'warehouse_quantity' => array(
-            'id' => TAB_PRODUCT . '.warehouse_quantity', 
             'title' => 'Warehouse Qty', 
             'desc'  => 'Current product quantity in warehouse',
+        ),
+        'store_quantity' => array(
+            'id' => TAB_PRODUCT . '.store_quantity', 
+            'title' => 'Store Qty', 
+            'desc'  => 'Current product quantity in store',
         ),
         'products_model' => array(
             'id' => TAB_PRODUCT . '.products_model', 

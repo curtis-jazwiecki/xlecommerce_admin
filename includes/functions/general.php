@@ -2778,5 +2778,121 @@ function tep_date_raw($date, $reverse = false) {
   }
 
 }
+function getFFLDealerDetails($fflID){
+	$ffl_dealer_details = tep_db_query("select * from ".TABLE_ORDERS_FFL." where orders_ffl_id = '".tep_db_prepare_input($fflID)."'");
+	$ffl_data_string = '';
+	if(tep_db_num_rows($ffl_dealer_details)){
+		$ffl_data = tep_db_fetch_array($ffl_dealer_details);
+		$ffl_data_string =  $ffl_data['license_name'].'<br>';
+		$ffl_data_string .= $ffl_data['voice_phone'].'<br>';
+		$ffl_data_string .= $ffl_data['premise_street'].'<br>';
+		$ffl_data_string .= $ffl_data['premise_city'].'<br>';
+		$ffl_data_string .= $ffl_data['premise_state'].'<br>';
+		$ffl_data_string .= $ffl_data['premise_zip_code'].'<br>';
+	}
+	return $ffl_data_string;
+}
 
+function getVendorDetails($vendors_id){
+
+	$vendors_query = tep_db_query ("select vendors_name from " . TABLE_VENDORS . " where vendors_id = '" . (int)$vendors_id . "'");
+	$vendors_name = 'Unknown';
+
+	if ($vendors = tep_db_fetch_array($vendors_query)) {
+		$vendors_name = $vendors['vendors_name'];
+	}
+	
+	return $vendors_name;
+}	
+
+function tep_valid_countries() {
+    
+	 $cond = '';
+	 if(MODULE_ORDER_TOTAL_AVATAX_VALID_COUNTRIES != ''){
+		$cond = " where countries_id NOT IN (".MODULE_ORDER_TOTAL_AVATAX_VALID_COUNTRIES.")";
+	 }
+	$country_query = tep_db_query("select countries_id,countries_name from " . TABLE_COUNTRIES . $cond);
+	$countries_name = array();
+	
+	while($country = tep_db_fetch_array($country_query)){
+		$countries_name [$country['countries_id']] = $country['countries_name'];
+	}
+	return $countries_name;
+}	
+
+function tep_selected_countries() {
+    if(MODULE_ORDER_TOTAL_AVATAX_VALID_COUNTRIES != ''){
+		$country_query = tep_db_query("select countries_id,countries_name from " . TABLE_COUNTRIES . " where countries_id IN (".MODULE_ORDER_TOTAL_AVATAX_VALID_COUNTRIES.")");
+	}
+	
+	$countries_name = array();
+	
+	while($country = tep_db_fetch_array($country_query)){
+		$countries_name [$country['countries_id']] = $country['countries_name'];
+	}
+	return $countries_name;
+}
+
+function updateAvataxLogTable($request,$response,$action){
+	//tep_db_query("insert into " .  AVATAX_LOG . " set response = '".tep_db_prepare_input($response)."',request = '".tep_db_prepare_input($request)."',action = '".tep_db_prepare_input($action)."'");
+	if(MODULE_ORDER_TOTAL_AVATAX_ENABLE_LOGGING == '1'){
+		$sql_data_array = array(
+			'response' => $response,
+			'request'  => $request,
+			'action' =>   $action
+		);
+		tep_db_perform(AVATAX_LOG, $sql_data_array);
+	}
+	
+}
+
+function getLogs(){
+	
+	$data = array();
+	
+	$query = tep_db_query("select * from ".AVATAX_LOG." where date_created >= DATE(NOW()) - INTERVAL 7 DAY order by date_created DESC limit 50");
+
+	while($result = tep_db_fetch_array($query)){
+		$data[] = array(
+			'date_created' =>$result['date_created'],
+			'response' =>$result['response'],
+			'action' =>$result['action'],
+			'request' =>$result['request']
+		);
+	}
+	return $data;
+}
+
+function getAllTrackingDetails($order_id){
+	
+	$query = tep_db_query("select * from manage_order_shipping join manage_shipping_labels USING(manage_order_shipping_id) where  	orders_id = '".$order_id."'");
+	$data = array();
+	
+	while($result = tep_db_fetch_array($query)){
+		
+		$link = '';
+		if( $result['shipping_method'] == 'USPS'){
+			$link = 'http://trkcnfrm1.smi.usps.com/PTSInternetWeb/InterLabelInquiry.do?origTrackNum='.$result['tracking_number'];
+		}else if( $result['shipping_method'] == 'UPS' ){
+			$link = 'http://www.apps.ups.com/etracking/tracking.cgi?InquiryNumber1=' . $result['tracking_number'] . '&InquiryNumber2=&InquiryNumber3=&InquiryNumber4=&InquiryNumber5=&TypeOfInquiryNumber=T&UPS_HTML_Version=3.0&IATA=us&Lang=en&submit=Track+Package';
+		}else if( $result['shipping_method'] == 'FEDEX' ){
+			$link = 'http://www.fedex.com/Tracking?tracknumbers=' . $result['tracking_number'] . '&action=track&language=english&cntry_code=us';
+		}
+		
+		
+		$data[] = array(
+			
+			"title"	=>	'<b>'.$result['shipping_method'].'<b> ( ' .$result['courier']. ' )</b>',
+			"link"	=>	$link
+		
+		
+		);
+		
+		
+	}
+	
+	
+	return $data;
+	
+}
 ?>

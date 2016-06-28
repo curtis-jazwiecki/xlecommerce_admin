@@ -127,4 +127,8 @@ define('TABLE_WISHLIST', 'customers_wishlist');
   
   define('TABLE_MODULE_BOXES', 'module_boxes');
   define('TABLE_MODULE_BOXES_LAYOUT', 'module_boxes_layout');
+  define('TABLE_FFL_DEALERS_DOCS', 'ffl_dealers_docs');
+  define('AVATAX_LOG', 'avatax_log');
+  define('AVATAX_CODE_LIST', 'avatax_code_list'); // added on 01-06-2016 
+  define('TABLE_ORDERS_FFL', 'orders_ffl'); // added on 01-06-2016 
 ?>

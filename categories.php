@@ -177,7 +177,25 @@ if ((isset($_GET['mode'])) && ($_GET['mode'] == 'getspecname')) {
 }
 
 
+if ((isset($_GET['mode'])) && ($_GET['mode'] == 'getavataxcode')) {
 
+    $json = array();
+
+    $avatax_code_query = tep_db_query("select tax_code from avatax_code_list where LCASE(tax_code) like  '%" . strtolower($_GET['filter_name']) . "%'");
+
+    while ($result = tep_db_fetch_array($avatax_code_query)) {
+
+        $json[] = array(
+
+            'name' => strip_tags(html_entity_decode($result['tax_code'], ENT_QUOTES, 'UTF-8')),
+
+        );
+
+    }
+
+    echo json_encode($json);
+    exit;
+}
 
 
 
@@ -877,6 +895,31 @@ if (isset($_GET['action']) && $_GET['action'] == 'getProduct') {
 // end bundled products
 
 
+if ($_POST['action'] == 'setAvalaraTaxCode') {
+	
+	$is_category = $_POST['is_category'];
+	$osc_object_id = $_POST['osc_object_id'];
+	$tax_code = $_POST['tax_code'];
+	
+	if(!empty($tax_code)){ // check if valid tax code or not
+		if(tep_db_num_rows(tep_db_query("select 1 from avatax_code_list where tax_code = '".$tax_code."'")) == 0){
+			die(json_encode(array("error" => true)));
+		}
+	}
+	
+	
+	if ($is_category == 'true') {
+        tep_db_query("update categories set avalara_tax_code ='" . $tax_code ."' where categories_id='" . (int) $osc_object_id . "'");
+        tep_db_query("update products p, products_to_categories p2c set p.avalara_tax_code ='" . $tax_code ."' where p.products_id=p2c.products_id and p2c.categories_id='" . (int) $osc_object_id . "'");
+
+    } else {
+
+        tep_db_query("update products set avalara_tax_code='" . $tax_code ."' where products_id='" . (int) $osc_object_id . "'");
+
+    }
+	
+    die(json_encode(array("success" => 'mapped')));
+}
 
 
 
@@ -4674,7 +4717,7 @@ if (tep_not_null($action)) {
 
                             'yes' : 'no'),
 
-                    'warehouse_quantity' => tep_db_prepare_input($HTTP_POST_VARS['warehouse_quantity']),
+                    'store_quantity' => tep_db_prepare_input($HTTP_POST_VARS['store_quantity']),
 
                     'products_model' => tep_db_prepare_input($HTTP_POST_VARS['products_model']),
 
@@ -7038,7 +7081,7 @@ if (tep_not_null($action)) {
 
 
 
-                      $product_query = tep_db_query("select products_quantity, warehouse_quantity, products_model, products_image, products_mediumimage, products_largeimage,  products_price, products_date_available, products_weight, products_length, products_width, products_height, products_ready_to_ship,products_tax_class_id, manufacturers_id, free_shipping, disclaimer_needed, in_store_pickup, lock_price,hide_price from " . TABLE_PRODUCTS . " where products_id = '" . (int)$products_id . "'");
+                      $product_query = tep_db_query("select products_quantity, store_quantity, products_model, products_image, products_mediumimage, products_largeimage,  products_price, products_date_available, products_weight, products_length, products_width, products_height, products_ready_to_ship,products_tax_class_id, manufacturers_id, free_shipping, disclaimer_needed, in_store_pickup, lock_price,hide_price from " . TABLE_PRODUCTS . " where products_id = '" . (int)$products_id . "'");
 
 
 
@@ -7070,7 +7113,7 @@ if (tep_not_null($action)) {
 
 
 
-                    $product_query = tep_db_query("select products_quantity, warehouse_quantity, products_model, products_image, products_mediumimage, products_largeimage,  products_price, products_date_available, products_weight, products_length, products_width, products_height, products_ready_to_ship,products_tax_class_id, manufacturers_id, free_shipping, lock_status, lock_title, lock_specs, is_store_item, disclaimer_needed, in_store_pickup, lock_price,hide_price, is_lane_item, range_id, lane_id, is_fullday_price, products_bundle, sold_in_bundle_only, vendors_prod_id, vendors_prod_comments, vendors_id from " .
+                    $product_query = tep_db_query("select products_quantity, store_quantity, products_model, products_image, products_mediumimage, products_largeimage,  products_price, products_date_available, products_weight, products_length, products_width, products_height, products_ready_to_ship,products_tax_class_id, manufacturers_id, free_shipping, lock_status, lock_title, lock_specs, is_store_item, disclaimer_needed, in_store_pickup, lock_price,hide_price, is_lane_item, range_id, lane_id, is_fullday_price, products_bundle, sold_in_bundle_only, vendors_prod_id, vendors_prod_comments, vendors_id from " .
 
                             TABLE_PRODUCTS . " where products_id = '" . (int) $products_id . "'");
 
@@ -7130,7 +7173,7 @@ if (tep_not_null($action)) {
 
 
 
-                      tep_db_query("insert into " . TABLE_PRODUCTS . " (products_quantity, warehouse_quantity, products_model,products_image, products_mediumimage, products_largeimage, products_price, products_date_added, products_date_available, products_weight, products_length, products_width, products_height, products_ready_to_ship,products_status, disclaimer_needed, products_tax_class_id, manufacturers_id, free_shipping, in_store_pickup, lock_price,hide_price) values ('" . tep_db_input($product['products_quantity']) . "', '" . tep_db_input($product['warehouse_quantity']) . "', '" . tep_db_input($product['products_model']) . "', '" . tep_db_input($product['products_image']) . "', '" . tep_db_input($product['products_mediumimage']) . "', '" . tep_db_input($product['products_largeimage']) . "', '" . tep_db_input($product['products_price']) . "',  now(), " . (empty($product['products_date_available']) ? "null" : "'" . tep_db_input($product['products_date_available']) . "'") . ", '" . tep_db_input($product['products_weight']) . "', '" . tep_db_input($product['products_length']) . "',  '" . tep_db_input($product['products_width']) . "', '" . tep_db_input($product['products_height']) . "', '" . tep_db_input($product['products_ready_to_ship']) . "','0', '" . (int)$product['products_tax_class_id'] . "', '" . (int)$product['manufacturers_id'] . "', '" . (int)$product['free_shipping'] . "', '" . (int)$product['in_store_pickup'] . "', '" . (int)$product['lock_price'] . "', '" . (int)$product['hide_price'] . "')");
+                      tep_db_query("insert into " . TABLE_PRODUCTS . " (products_quantity, store_quantity, products_model,products_image, products_mediumimage, products_largeimage, products_price, products_date_added, products_date_available, products_weight, products_length, products_width, products_height, products_ready_to_ship,products_status, disclaimer_needed, products_tax_class_id, manufacturers_id, free_shipping, in_store_pickup, lock_price,hide_price) values ('" . tep_db_input($product['products_quantity']) . "', '" . tep_db_input($product['store_quantity']) . "', '" . tep_db_input($product['products_model']) . "', '" . tep_db_input($product['products_image']) . "', '" . tep_db_input($product['products_mediumimage']) . "', '" . tep_db_input($product['products_largeimage']) . "', '" . tep_db_input($product['products_price']) . "',  now(), " . (empty($product['products_date_available']) ? "null" : "'" . tep_db_input($product['products_date_available']) . "'") . ", '" . tep_db_input($product['products_weight']) . "', '" . tep_db_input($product['products_length']) . "',  '" . tep_db_input($product['products_width']) . "', '" . tep_db_input($product['products_height']) . "', '" . tep_db_input($product['products_ready_to_ship']) . "','0', '" . (int)$product['products_tax_class_id'] . "', '" . (int)$product['manufacturers_id'] . "', '" . (int)$product['free_shipping'] . "', '" . (int)$product['in_store_pickup'] . "', '" . (int)$product['lock_price'] . "', '" . (int)$product['hide_price'] . "')");
 
 
 
@@ -7158,7 +7201,7 @@ if (tep_not_null($action)) {
 
                             " (products_quantity, "
 
-                            . "warehouse_quantity, "
+                            . "store_quantity, "
 
                             . "products_model,"
 
@@ -7224,7 +7267,7 @@ if (tep_not_null($action)) {
 
                             . "" . tep_db_input($product['products_quantity']) . "', "
 
-                            . "'" . tep_db_input($product['warehouse_quantity']) . "', "
+                            . "'" . tep_db_input($product['store_quantity']) . "', "
 
                             . "'" . tep_db_input($product['products_model']) . "', "
 
@@ -9522,7 +9565,7 @@ if (isset($_GET['pID'])) {
 
                                         'products_quantity' => '',
 
-                                        'warehouse_quantity' => '',
+                                        'store_quantity' => '',
 
                                         'products_model' => '',
 
@@ -9676,7 +9719,7 @@ if (isset($_GET['pID'])) {
 
 
 
-                                          $product_query = tep_db_query("select pd.products_name, pd.products_description, pd.products_head_title_tag, pd.products_head_desc_tag, pd.products_head_keywords_tag, pd.products_url, p.products_id, p.products_quantity, p.warehouse_quantity, p.products_size, p.disclaimer_needed, p.products_model, p.products_image, p.products_mediumimage, p.products_largeimage, p.products_price, p.base_price, p.markup, p.manual_price, p.products_weight, p.free_shipping, p.in_store_pickup, p.lock_price, p.hide_price, p.roundoff_flag, products_length, products_width, products_height, products_ready_to_ship,p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . (int)$HTTP_GET_VARS['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "'");
+                                          $product_query = tep_db_query("select pd.products_name, pd.products_description, pd.products_head_title_tag, pd.products_head_desc_tag, pd.products_head_keywords_tag, pd.products_url, p.products_id, p.products_quantity, p.store_quantity, p.products_size, p.disclaimer_needed, p.products_model, p.products_image, p.products_mediumimage, p.products_largeimage, p.products_price, p.base_price, p.markup, p.manual_price, p.products_weight, p.free_shipping, p.in_store_pickup, p.lock_price, p.hide_price, p.roundoff_flag, products_length, products_width, products_height, products_ready_to_ship,p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . (int)$HTTP_GET_VARS['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "'");
 
 
 
@@ -9700,7 +9743,7 @@ if (isset($_GET['pID'])) {
 
 
 
-                                        $product_query = tep_db_query("select parent_products_model, pd.products_tags, pd.products_name, pd.products_description, pd.products_specifications, pd.products_head_title_tag, pd.products_head_desc_tag, pd.products_head_keywords_tag, pd.products_url, p.products_id, p.products_quantity, p.warehouse_quantity, p.products_size, p.disclaimer_needed, p.products_model, p.products_image, p.products_mediumimage, p.products_largeimage, p.products_price, p.base_price, p.markup, p.product_image_2, p.product_image_3, p.product_image_4, p.product_image_5, p.product_image_6, p.manual_price, p.products_weight, p.free_shipping, p.lock_title, p.lock_status, p.lock_specs, p.is_store_item, p.in_store_pickup, p.lock_price, p.hide_price, p.roundoff_flag, products_length, products_width, products_height, products_ready_to_ship,p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id, p.is_lane_item, p.range_id, p.lane_id, p.is_fullday_price, p.products_bundle, p.sold_in_bundle_only, p.vendors_id,p.variation_theme_id from " .
+                                        $product_query = tep_db_query("select parent_products_model, pd.products_tags, pd.products_name, pd.products_description, pd.products_specifications, pd.products_head_title_tag, pd.products_head_desc_tag, pd.products_head_keywords_tag, pd.products_url, p.products_id, p.products_quantity, p.store_quantity, p.products_size, p.disclaimer_needed, p.products_model, p.products_image, p.products_mediumimage, p.products_largeimage, p.products_price, p.base_price, p.markup, p.product_image_2, p.product_image_3, p.product_image_4, p.product_image_5, p.product_image_6, p.manual_price, p.products_weight, p.free_shipping, p.lock_title, p.lock_status, p.lock_specs, p.is_store_item, p.in_store_pickup, p.lock_price, p.hide_price, p.roundoff_flag, products_length, products_width, products_height, products_ready_to_ship,p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id, p.is_lane_item, p.range_id, p.lane_id, p.is_fullday_price, p.products_bundle, p.sold_in_bundle_only, p.vendors_id,p.variation_theme_id from " .
 
                                                 TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION .
 
@@ -17604,7 +17647,7 @@ if (isset($_GET['pID'])) {
 
                                                                                 echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' .
 
-                                                                                tep_draw_input_field('warehouse_quantity', $pInfo->warehouse_quantity);
+                                                                                tep_draw_input_field('store_quantity', $pInfo->store_quantity);
 
                                                                                 ?></td>
 
@@ -21076,137 +21119,131 @@ if (isset($_GET['pID'])) {
 
 
 
-                                                                        <script type="text/javascript">
+<script type="text/javascript">
 
+jQuery('input[name=\'specification_name_new\']').autocomplete({
 
+	delay: 500,
 
+	source: function (request, response) {
 
 
 
 
-                                                                            jQuery('input[name=\'specification_name_new\']').autocomplete({
 
-                                                                                delay: 500,
 
-                                                                                source: function (request, response) {
 
+		jQuery.ajax({
 
+			url: 'categories.php?mode=getspecname&filter_name=' + encodeURIComponent(request.term),
 
+			dataType: 'json',
 
+			success: function (json) {
 
 
 
-                                                                                    jQuery.ajax({
 
-                                                                                        url: 'categories.php?mode=getspecname&filter_name=' + encodeURIComponent(request.term),
 
-                                                                                        dataType: 'json',
 
-                                                                                        success: function (json) {
 
+				response(jQuery.map(json, function (item) {
 
 
 
 
 
 
-                                                                                            response(jQuery.map(json, function (item) {
 
+					return {
 
+						label: item.name,
 
+					}
 
 
 
 
-                                                                                                return {
 
-                                                                                                    label: item.name,
 
-                                                                                                }
 
+				}));
 
 
 
 
 
 
-                                                                                            }));
 
+			}
 
 
 
 
 
 
-                                                                                        }
 
+		});
 
 
 
 
 
 
-                                                                                    });
 
+	},
 
+	select: function (event, ui) {
 
 
 
 
 
-                                                                                },
 
-                                                                                select: function (event, ui) {
 
+		jQuery('#specification_name_new').val(ui.item.label);
 
 
 
 
 
 
-                                                                                    jQuery('#specification_name_new').val(ui.item.label);
 
+		return false;
 
 
 
 
 
 
-                                                                                    return false;
 
+	},
 
+	focus: function (event, ui) {
 
 
 
 
 
-                                                                                },
 
-                                                                                focus: function (event, ui) {
 
+		return false;
 
 
 
 
 
 
-                                                                                    return false;
 
+	}
 
 
 
 
 
 
-                                                                                }
 
-
-
-
-
-
-
-                                                                            });
+});
 
 
 
@@ -22634,8 +22671,10 @@ if($pInfo->variation_theme_id > 0){
 
 
 
-                                                                        echo tep_image(DIR_WS_CATALOG_IMAGES . $bundle_data['products_image'], $bundle_data['products_name'], intval(SMALL_IMAGE_WIDTH / 2), intval(SMALL_IMAGE_HEIGHT / 2), 'hspace="1" vspace="1"') . '</td>';
-
+                                                                       if(file_exists(DIR_WS_CATALOG_IMAGES . $bundle_data['products_image'])){
+                                                                        echo tep_image(DIR_WS_CATALOG_IMAGES . $bundle_data['products_image'], $bundle_data['products_name'], intval(SMALL_IMAGE_WIDTH / 2), intval(SMALL_IMAGE_HEIGHT / 2), 'hspace="1" vspace="1"');
+}
+echo '</td>';
 
 
 
@@ -22920,7 +22959,7 @@ if($pInfo->variation_theme_id > 0){
 
 
 
-                                          $product_query = tep_db_query("select p.products_id, pd.language_id, pd.products_name, pd.products_description,pd.products_head_title_tag, pd.products_head_desc_tag, pd.products_head_keywords_tag, pd.products_url, p.products_quantity, p.warehouse_quantity, p.products_model, p.products_image, p.products_mediumimage, p.products_largeimage,p.products_price, p.products_weight, p.products_length, p.products_width, p.products_height, p.products_ready_to_ship, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_size, p.disclaimer_needed, p.manufacturers_id, p.free_shipping, p.in_store_pickup, p.lock_price,p.hide_price  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and p.products_id = '" . (int)$HTTP_GET_VARS['pID'] . "'");
+                                          $product_query = tep_db_query("select p.products_id, pd.language_id, pd.products_name, pd.products_description,pd.products_head_title_tag, pd.products_head_desc_tag, pd.products_head_keywords_tag, pd.products_url, p.products_quantity, p.store_quantity, p.products_model, p.products_image, p.products_mediumimage, p.products_largeimage,p.products_price, p.products_weight, p.products_length, p.products_width, p.products_height, p.products_ready_to_ship, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_size, p.disclaimer_needed, p.manufacturers_id, p.free_shipping, p.in_store_pickup, p.lock_price,p.hide_price  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and p.products_id = '" . (int)$HTTP_GET_VARS['pID'] . "'");
 
 
 
@@ -22952,7 +22991,7 @@ if($pInfo->variation_theme_id > 0){
 
 
 
-                                        $product_query = tep_db_query("select pd.products_tags, p.products_id, pd.language_id, pd.products_name, pd.products_description, pd.products_specifications, pd.products_head_title_tag, pd.products_head_desc_tag, pd.products_head_keywords_tag, pd.products_url, p.products_quantity, p.warehouse_quantity, p.products_model, p.products_image, p.products_mediumimage, p.products_largeimage,p.products_price, p.products_weight, p.products_length, p.products_width, p.products_height, p.products_ready_to_ship, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_size, p.disclaimer_needed, p.manufacturers_id, p.free_shipping, p.lock_status, p.lock_title, p.lock_specs, p.is_store_item, p.in_store_pickup, p.lock_price,p.hide_price, p.is_lane_item, p.range_id, p.lane_id, p.products_bundle, p.sold_in_bundle_only,p.vendors_product_price, p.vendors_prod_comments, p.vendors_id,p.variation_theme_id  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and p.products_id = '" . (int) $HTTP_GET_VARS['pID'] . "'");
+                                        $product_query = tep_db_query("select pd.products_tags, p.products_id, pd.language_id, pd.products_name, pd.products_description, pd.products_specifications, pd.products_head_title_tag, pd.products_head_desc_tag, pd.products_head_keywords_tag, pd.products_url, p.products_quantity, p.store_quantity, p.products_model, p.products_image, p.products_mediumimage, p.products_largeimage,p.products_price, p.products_weight, p.products_length, p.products_width, p.products_height, p.products_ready_to_ship, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_size, p.disclaimer_needed, p.manufacturers_id, p.free_shipping, p.lock_status, p.lock_title, p.lock_specs, p.is_store_item, p.in_store_pickup, p.lock_price,p.hide_price, p.is_lane_item, p.range_id, p.lane_id, p.products_bundle, p.sold_in_bundle_only,p.vendors_product_price, p.vendors_prod_comments, p.vendors_id,p.variation_theme_id  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and p.products_id = '" . (int) $HTTP_GET_VARS['pID'] . "'");
 
 
 
@@ -26114,7 +26153,7 @@ if($pInfo->variation_theme_id > 0){
 
 
 
-                                                                          $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_quantity, p.warehouse_quantity, p.products_image, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_model, p2c.categories_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "' and p.products_id = p2c.products_id and (pd.products_name like '%" . tep_db_input($search) . "%' or p.products_model like '%" . tep_db_input($search) . "%') order by pd.products_name");
+                                                                          $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_quantity, p.store_quantity, p.products_image, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_model, p2c.categories_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "' and p.products_id = p2c.products_id and (pd.products_name like '%" . tep_db_input($search) . "%' or p.products_model like '%" . tep_db_input($search) . "%') order by pd.products_name");
 
 
 
@@ -26204,7 +26243,7 @@ if($pInfo->variation_theme_id > 0){
 
 
 
-                                                                          $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_quantity, p.warehouse_quantity, p.products_image, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_model from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . (int)$current_category_id . "' order by pd.products_name");
+                                                                          $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_quantity, p.store_quantity, p.products_image, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_model from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . (int)$current_category_id . "' order by pd.products_name");
 
 
 
@@ -26236,7 +26275,7 @@ if($pInfo->variation_theme_id > 0){
 
 
 
-                                                                        $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_quantity, p.products_image, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_model, p.is_amazon_ok, p.is_ebay_ok, p.parent_products_model, p.vendors_product_price, p.vendors_prod_comments, p.warehouse_quantity,p.variation_theme_id from " .
+                                                                        $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_quantity, p.products_image, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_model, p.is_amazon_ok, p.is_ebay_ok, p.parent_products_model, p.vendors_product_price, p.vendors_prod_comments, p.store_quantity,p.variation_theme_id from " .
 
                                                                                 TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .
 
@@ -28285,272 +28324,79 @@ if($pInfo->variation_theme_id > 0){
 
 
                                                             default:
-
-
-
-
-
-
-
                                                                 if ($rows > 0) {
+																	
 
 
 
 
 
+$avalara_tax_code = 'Not Set';
 
+if (isset($cInfo) && is_object($cInfo)) { // category info box contents
 
-                                                                    if (isset($cInfo) && is_object($cInfo)) { // category info box contents
+	$heading[] = array('text' => '<b>' . $cInfo->categories_name . '</b>');
+	$contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=edit_category') .'">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' .
 
-                                                                        $heading[] = array('text' => '<b>' . $cInfo->categories_name . '</b>');
+	tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=delete_category') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' .$cPath . '&cID=' . $cInfo->categories_id . '&action=move_category') . '">' .tep_image_button('button_move.gif', IMAGE_MOVE) . '</a>');
 
+	$contents[] = array('text' => '<br>' . TEXT_DATE_ADDED . ' ' . tep_date_short($cInfo->date_added));
 
+	if (tep_not_null($cInfo->last_modified))
+		$contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . tep_date_short($cInfo->last_modified));
 
+		$contents[] = array('text' => '<br>' . tep_info_image($cInfo->categories_image, $cInfo->categories_name, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT) . '<br>' . $cInfo->categories_image);
+		$contents[] = array('text' => '<br>' . TEXT_SUBCATEGORIES . ' ' . $cInfo->childs_count . '<br>' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
 
-
-
-
-
-
-
-
-
-
-
-
-                                                                        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=edit_category') .
-
-                                                                            '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' .
-
-                                                                            tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $cInfo->
-
-                                                                                    categories_id . '&action=delete_category') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' .
-
-                                                                                    $cPath . '&cID=' . $cInfo->categories_id . '&action=move_category') . '">' .
-
-                                                                            tep_image_button('button_move.gif', IMAGE_MOVE) . '</a>');
-
-
-
-
-
-
-
-                                                                        $contents[] = array('text' => '<br>' . TEXT_DATE_ADDED . ' ' . tep_date_short($cInfo->
-
-                                                                                    date_added));
-
-
-
-
-
-
-
-                                                                        if (tep_not_null($cInfo->last_modified))
-
-                                                                            $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . tep_date_short($cInfo->
-
-                                                                                        last_modified));
-
-
-
-
-
-
-
-                                                                        $contents[] = array('text' => '<br>' . tep_info_image($cInfo->categories_image, $cInfo->categories_name, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT) . '<br>' . $cInfo->
-
-                                                                            categories_image);
-
-
-
-
-
-
-
-                                                                        $contents[] = array('text' => '<br>' . TEXT_SUBCATEGORIES . ' ' . $cInfo->
-
-                                                                            childs_count . '<br>' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
-
-                                                                    } elseif (isset($pInfo) && is_object($pInfo)) { // product info box contents
+} elseif (isset($pInfo) && is_object($pInfo)) {
+	 // product info box contents
 
 //MVS start
 
-                                                                        $vendors_query_2 = tep_db_query("select v.vendors_id, v.vendors_name from vendors v, products p where v.vendors_id=p.vendors_id and p.products_id='" . $pInfo->products_id . "'");
+	$vendors_query_2 = tep_db_query("select v.vendors_id, v.vendors_name from vendors v, products p where v.vendors_id=p.vendors_id and p.products_id='" . $pInfo->products_id . "'");
 
-
-
-
-
-
-
-                                                                        while ($vendors_2 = tep_db_fetch_array($vendors_query_2)) {
-
-
-
-
-
-
-
-                                                                            $current_vendor_name = $vendors_2['vendors_name'];
-
-                                                                        }
-
-
-
-
-
-
+	while ($vendors_2 = tep_db_fetch_array($vendors_query_2)) {
+		$current_vendor_name = $vendors_2['vendors_name'];
+	}
 
 // MVS end
 
+	$heading[] = array('text' => '<b>' . tep_get_products_name($pInfo->products_id, $languages_id) . '</b>');
 
+	/* Ebay modification here !!!! */
 
+	$contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') .'">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' .	tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' .$cPath . '&pID=' . $pInfo->products_id . '&action=move_product') . '">' .tep_image_button('button_move.gif', IMAGE_MOVE) . '</a> <a href="' .tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=copy_to') . '">' . tep_image_button('button_copy_to.gif', IMAGE_COPY_TO) . '</a>');
 
+	//  $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=move_product') . '">' . tep_image_button('button_move.gif', IMAGE_MOVE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=copy_to') . '">' . tep_image_button('button_copy_to.gif', IMAGE_COPY_TO) . '</a>');
 
+	$contents[] = array('text' => '<br>' . TEXT_DATE_ADDED . ' ' . tep_date_short($pInfo->products_date_added));
 
+	if (tep_not_null($pInfo->products_last_modified))
 
-                                                                        $heading[] = array('text' => '<b>' . tep_get_products_name($pInfo->products_id, $languages_id) . '</b>');
+		$contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . tep_date_short($pInfo->products_last_modified));
+	
+	if (date('Y-m-d') < $pInfo->products_date_available)
 
-
-
-
-
-
-
-                                                                        /* Ebay modification here !!!! */
-
-
-
-
-
-
-
-                                                                        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') .
-
-                                                                            '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' .
-
-                                                                            tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->
-
-                                                                                    products_id . '&action=delete_product') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' .
-
-                                                                                    $cPath . '&pID=' . $pInfo->products_id . '&action=move_product') . '">' .
-
-                                                                            tep_image_button('button_move.gif', IMAGE_MOVE) . '</a> <a href="' .
-
-                                                                            tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->
-
-                                                                                    products_id . '&action=copy_to') . '">' . tep_image_button('button_copy_to.gif', IMAGE_COPY_TO) . '</a>');
-
-
-
-
-
-
-
-                                                                        //  $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=move_product') . '">' . tep_image_button('button_move.gif', IMAGE_MOVE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=copy_to') . '">' . tep_image_button('button_copy_to.gif', IMAGE_COPY_TO) . '</a>');
-
-
-
-
-
-
-
-                                                                        $contents[] = array('text' => '<br>' . TEXT_DATE_ADDED . ' ' . tep_date_short($pInfo->
-
-                                                                                    products_date_added));
-
-
-
-
-
-
-
-                                                                        if (tep_not_null($pInfo->products_last_modified))
-
-                                                                            $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . tep_date_short($pInfo->
-
-                                                                                        products_last_modified));
-
-
-
-
-
-
-
-                                                                        if (date('Y-m-d') < $pInfo->products_date_available)
-
-                                                                            $contents[] = array('text' => TEXT_DATE_AVAILABLE . ' ' . tep_date_short($pInfo->
-
-                                                                                        products_date_available));
-
-
-
-
-
-
+		$contents[] = array('text' => TEXT_DATE_AVAILABLE . ' ' . tep_date_short($pInfo->products_date_available));
 
 //MVS start
 
-                                                                        //$contents[] = array('text' => '<br>' . TEXT_PRODUCTS_PRICE_INFO . '<b> ' . $currencies->format($pInfo->products_price) . '</b><br>' . TEXT_VENDOR . '<b>' . $current_vendor_name . '</b><br>' . TEXT_VENDORS_PRODUCT_PRICE_INFO . '<b>' . $currencies->format($pInfo->vendors_product_price) . '</b><br>' . TEXT_PRODUCTS_QUANTITY_INFO . ' <b>' . $pInfo->products_quantity . '</b>');
+	//$contents[] = array('text' => '<br>' . TEXT_PRODUCTS_PRICE_INFO . '<b> ' . $currencies->format($pInfo->products_price) . '</b><br>' . TEXT_VENDOR . '<b>' . $current_vendor_name . '</b><br>' . TEXT_VENDORS_PRODUCT_PRICE_INFO . '<b>' . $currencies->format($pInfo->vendors_product_price) . '</b><br>' . TEXT_PRODUCTS_QUANTITY_INFO . ' <b>' . $pInfo->products_quantity . '</b>');
 
-
-
-
-
-
-
-                                                                        $contents[] = array('text' => '<br>' . TEXT_PRODUCTS_PRICE_INFO . '<b> ' . $currencies->format($pInfo->products_price) . '</b><br>' . TEXT_VENDOR . '<b>' . $current_vendor_name . '</b><br>' . TEXT_PRODUCTS_QUANTITY_INFO . ' <b>' . $pInfo->products_quantity . '</b>');
-
-
-
-
-
-
+	$contents[] = array('text' => '<br>' . TEXT_PRODUCTS_PRICE_INFO . '<b> ' . $currencies->format($pInfo->products_price) . '</b><br>' . TEXT_VENDOR . '<b>' . $current_vendor_name . '</b><br>' . TEXT_PRODUCTS_QUANTITY_INFO . ' <b>' . $pInfo->products_quantity . '</b>');
 
 //MVS end
 
+	$contents[] = array('text' => '<br>' . tep_info_image($pInfo->products_image, $pInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '<br>' . $pInfo->products_image);
+
+	//$contents[] = array('text' => '<br>' . TEXT_PRODUCTS_PRICE_INFO . ' ' . $currencies->format($pInfo->products_price) . '<br>' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $pInfo->products_quantity);
+
+	$contents[] = array('text' => '<br>' . TEXT_PRODUCTS_PRICE_INFO . ' ' . $currencies->format($pInfo->products_price) . '<br>Store Quantity: ' . $pInfo->store_quantity . '<br>Warehouse Quantity: ' . $pInfo->products_quantity);
 
 
+	$contents[] = array('text' => '<br>' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' .number_format($pInfo->average_rating, 2) . '%');
 
-
-
-
-                                                                        $contents[] = array('text' => '<br>' . tep_info_image($pInfo->products_image, $pInfo->
-
-                                                                                    products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '<br>' . $pInfo->
-
-                                                                            products_image);
-
-
-
-
-
-
-
-                                                                        //$contents[] = array('text' => '<br>' . TEXT_PRODUCTS_PRICE_INFO . ' ' . $currencies->format($pInfo->products_price) . '<br>' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $pInfo->products_quantity);
-
-
-
-
-
-
-
-                                                                        $contents[] = array('text' => '<br>' . TEXT_PRODUCTS_PRICE_INFO . ' ' . $currencies->
-
-                                                        format($pInfo->products_price) . '<br>Store Quantity: ' . $pInfo->warehouse_quantity . '<br>Warehouse Quantity: ' . $pInfo->products_quantity);
-
-
-
-
-
-
-
-                                                                        $contents[] = array('text' => '<br>' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' .
-
-                                                                            number_format($pInfo->average_rating, 2) . '%');
-
-                                                                    }
+}
 
 
 
@@ -28582,7 +28428,7 @@ if($pInfo->variation_theme_id > 0){
 
 
 
-                                                                    echo '<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>';
+                                                                    echo '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"> <script src="//code.jquery.com/jquery-1.10.2.min.js"></script> <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>';
 
 
 
@@ -28695,8 +28541,19 @@ if ($cInfo->amazon_category_id > 0) {
 
  $amazon_category_name = $info['item_type'];
  }
+ 
+ 
+ // code added for avalara tax code #start
+ $avalara_tax_query = tep_db_fetch_array(tep_db_query("select avalara_tax_code from categories where categories_id = '".$cInfo->categories_id."'"));
+ if(!empty($avalara_tax_query['avalara_tax_code'])){
+	 $avalara_tax_code = $avalara_tax_query['avalara_tax_code'];
+ }
+ // code added for avalara tax code #ends
+ 
+ 
 
 } elseif (isset($pInfo) && is_object($pInfo)) {
+	
 
 
 
@@ -28857,7 +28714,15 @@ if ($cInfo->amazon_category_id > 0) {
  }
                                                                                                                                                
 
-                                                                    }
+                                                                    
+	
+	 // code added for avalara tax code #start
+	 $avalara_tax_query = tep_db_fetch_array(tep_db_query("select avalara_tax_code from products where products_id = '".$pInfo->products_id."'"));
+	 if(!empty($avalara_tax_query['avalara_tax_code'])){
+		 $avalara_tax_code = $avalara_tax_query['avalara_tax_code'];
+	 }
+	 // code added for avalara tax code #ends																	
+}
 
 
 
@@ -28892,24 +28757,9 @@ if ($cInfo->amazon_category_id > 0) {
 
 
                        <script>
-
-
-
-
-
-
-
                         var jQuery = jQuery.noConflict();
 
-
-
-
-
-
-
-                        var is_category = ' . ($is_category ? 'true' : 'false') .
-
-                                                                        ';' . 'var id = \'' . $id . '\';' . '</script>
+                        var is_category = ' . ($is_category ? 'true' : 'false') .';' . 'var id = \'' . $id . '\';' . '</script>
 
 
 
@@ -28945,13 +28795,22 @@ $contents[] = array('text' => 'Map google Category: <br><b>' . $google_category_
                                                                         
  $contents[] = array('text' => 'Map Amazon Category (item-type): <br><b><div id="amazoncatname">' . $amazon_category_name . '</div>' . 
 
-                                                                        '<b><br>' . '<a href="#" id="clicktomapamazoncat" style="color:black;">Click to Map</a>' .
-
-                                                                        '<br><br>' . '<div id="amazon_categories" style="visibility:hidden;">' .
+                                                                        '<b><br>' . '<a href="#" id="clicktomapamazoncat" style="color:black;">Click to Map</a>' .'<br><br>' . '<div id="amazon_categories" style="visibility:hidden;">' .
 
                                                                         '<span id="amazoncategory_1">' . tep_draw_pull_down_menu('amazoncategory_1', $amazon_categories, '', 'style="width:100%;"') . '<br><br></span>' . '</div><span id="mapamazonbutton" style="visibility:hidden;"><input type="button" id="mapamazonbutton" value="Map Amazon Category" style="width:100%;" /><br><br></span>',);
+																		
+																		
+		// avalara tax code mapping
+		
+		$contents[] = array('text' => 'Map Avalara Tax Code: <b><div id="avalaracatname">' . $avalara_tax_code . '</div>' . 
 
-                                                                } else { // create category/product info
+                                                                        '<b><br>' . '<a href="#" id="clicktomapavalarataxcode" style="color:black;">Click to Map</a>' .'<br><br>' . '<div class="avalara_tax_code_container" style="display:none;">' .
+
+                                                                        '<span id="avalarataxcode_1">' . tep_draw_input_field('avalara_tax_codes','',' id="avalara_tax_codes" placeholder="autocomplete" ') . '<br><br></span>' . '<input type="button" id="mapavalarabutton" value="Map Avalara Tax Code" style="width:100%;" /><br><br></div>',);
+
+                                                                
+																} else {
+																	 // create category/product info
 
                                                                     $heading[] = array('text' => '<b>' . EMPTY_CATEGORY . '</b>');
 
@@ -28971,79 +28830,19 @@ $contents[] = array('text' => 'Map google Category: <br><b>' . $google_category_
 
                                                                     $contents[] = array('text' => TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS);
 
-                                                                }
-
-
-
-
-
-
-
-                                                                break;
+                                                                
+																}
+                                                            break;
 
                                                         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                                         if ((tep_not_null($heading)) && (tep_not_null($contents))) {
-
-
-
-
-
-
 
                                                             echo '            <td width="25%" valign="top">' . "\n";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                                             $box = new box;
 
-
-
-
-
-
-
                                                             echo $box->infoBox($heading, $contents);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                                                             echo '            </td>' . "\n";
 
@@ -29198,8 +28997,110 @@ $contents[] = array('text' => 'Map google Category: <br><b>' . $google_category_
 
 
 
+jQuery(document).ready(function(e) {
+    jQuery('#clicktomapavalarataxcode').on('click', function() {
+		jQuery('.avalara_tax_code_container').toggle('slow');
+	});
+	
+	jQuery('#mapavalarabutton').on('click',function() {
+		
+		var avalara_tax_codes = jQuery('input[name^="avalara_tax_codes"]').val();
+		
+		if(avalara_tax_codes != ''){
+			jQuery.ajax({
+				url: 'categories.php',
+				dataType: 'json',
+				method: 'post',
+				data: {
+					 is_category: is_category,
+					 action: 'setAvalaraTaxCode',
+					 osc_object_id: id,
+					 tax_code: encodeURIComponent(avalara_tax_codes)
+	            },
+				beforeSend: function(){
+					jQuery('#avalaracatname').append('<div class="attention"><img src="images/ajax-loader.gif" alt="" title=""></div>');
+				},
+				success: function (json) {
+					
+					jQuery('.attention').remove();
+					
+					if(json['error']){
+					
+						alert("Please enter a valid avatax code!");
+						return false;
+					
+					}else if(json['success']){
+					
+						alert("Tax Code Mapped.");
+						jQuery('input[name^="avalara_tax_codes"]').val('');
+						jQuery('.avalara_tax_code_container').toggle('slow');
+						jQuery('#avalaracatname').html(avalara_tax_codes);
+						return true;
+					
+					}else{
+						
+						alert("Please enter a valid avatax code!");
+						return false;
+						
+					}
+				}
+			});
+		}else{
+			
+			alert("Please enter a valid avatax code!");
+			return false;
+		
+		}
+	});
+	$('input[name=\'avalara_tax_codes\']').autocomplete({
 
+	delay: 500,
 
+	source: function (request, response) {
+
+		$.ajax({
+			
+	
+			url: 'categories.php?mode=getavataxcode&filter_name=' + encodeURIComponent(request.term),
+	
+			dataType: 'json',
+			
+			beforeSend: function(){
+				jQuery('#avalarataxcode_1').append('<span class="attention"><img src="images/ajax-loader.gif" alt="" title=""></span>');
+			},
+	
+			success: function (json) {
+				
+				jQuery('.attention').remove();
+				
+				response($.map(json, function (item) {
+	
+					return {
+	
+						label: item.name,
+	
+					}
+	
+				}));
+	
+			}
+	
+		
+		});
+
+	},
+
+	select: function (event, ui) {
+
+		$('#avalara_tax_codes').val(ui.item.label);
+		return false;
+	},
+
+	focus: function (event, ui) {
+		return false;
+	}
+	});
+});
 
    jQuery(document).on('change', 'select[name^="ebaycategory_"]', function() {
 

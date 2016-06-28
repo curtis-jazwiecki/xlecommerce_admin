@@ -1,5 +1,5 @@
 <?php
-function getDigestUPSLabel($params){
+function getDigestUPSLabel($params,$is_ajax_call = 0){
     /*
     parameters:
     user_name, password, license_number, 
@@ -123,8 +123,13 @@ function getDigestUPSLabel($params){
 		$xml = $xmlResponse;
 		$return_element = new SimpleXMLElement($xml);
 		if($return_element->Response->ResponseStatusDescription == 'Failure'){
-			echo "Error Occurred: <font color='#FF0000'>".$return_element->Response->Error->ErrorDescription."</font>";
-			exit;
+			if($is_ajax_call == 1){
+				echo -1;
+				return;
+			}else{
+				echo "Error Occurred: <font color='#FF0000'>".$return_element->Response->Error->ErrorDescription."</font>";
+				exit;
+			}
 		}
 		preg_match_all( "/\<ShipmentConfirmResponse\>(.*?)\<\/ShipmentConfirmResponse\>/s",$xml, $bookblocks );
 		foreach( $bookblocks[1] as $block ){
@@ -181,7 +186,7 @@ function saveLabel($license_number,$user_name,$password,$shipmentdigest,$order_i
 	imagedestroy($source); //free up the memory 
 	imagedestroy($rotate); //free up the memory
 	fclose($file);
-	echo '<img src="'.DIR_WS_ADMIN.'shipping_labels/'.$order_id.'_'.$vendor_id.'_ups_label.gif" />';
+	echo '<img src="'.DIR_WS_ADMIN.'shipping_labels/'.$order_id.'_'.$vendor_id.'_ups_label.gif" id="'.$ups_tracking_number.'" />';
 }
 
 function convertStateTo($name, $to='abbrev') {

@@ -82,6 +82,14 @@
 		  $customers_order_total_allowed = substr($customers_order_total_allowed,0,strlen($customers_order_total_allowed)-1);
 		} // end if ($_POST['order_total_allowed'])
 	} // end else ($_POST['customers_order_total_allowed']
+	
+	// added on 13-05-2016 #start
+	$is_tax_exempt = 0;
+	if($_POST['customers_tax_rate_exempt_settings'] == '1'){
+		$is_tax_exempt = 1;
+	}
+	// added on 13-05-2016 #ends
+	
 	if ($_POST['customers_specific_taxes_exempt'] && $_POST['customers_tax_rate_exempt_settings'] == '1') {
 	$customers_specific_taxes_exempt = tep_db_prepare_input($_POST['customers_specific_taxes_exempt']);
 	} else { // no error with subsequent re-posting of variables	
@@ -235,7 +243,8 @@
         'customers_shipment_allowed' => $customers_shipment_allowed,
         'customers_order_total_allowed' => $customers_order_total_allowed,
         'customers_specific_taxes_exempt' => $customers_specific_taxes_exempt,
-        'entry_company_tax_id' => $entry_company_tax_id);
+        'entry_company_tax_id' => $entry_company_tax_id,
+		'is_tax_exempt' => $is_tax_exempt);
 // EOF Separate Pricing Per Customer
 
 
@@ -313,7 +322,7 @@
       default:
      //   $customers_query = tep_db_query("select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_email_address, a.entry_company, a.entry_street_address, a.entry_suburb, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id, a.entry_country_id, c.customers_telephone, c.customers_fax, c.customers_newsletter, c.customers_default_address_id from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_default_address_id = a.address_book_id where a.customers_id = c.customers_id and c.customers_id = '" . (int)$HTTP_GET_VARS['cID'] . "'");
      // BOF Separate Pricing Per Customer
-        $customers_query = tep_db_query("select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_email_address, a.entry_company, c.entry_company_tax_id, a.entry_street_address, a.entry_suburb, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id, a.entry_country_id, c.customers_telephone, c.customers_fax, c.customers_newsletter, c.customers_group_id,  c.customers_group_ra, c.customers_payment_allowed, c.customers_shipment_allowed, c.customers_order_total_allowed, c.customers_specific_taxes_exempt, c.customers_default_address_id from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_default_address_id = a.address_book_id where a.customers_id = c.customers_id and c.customers_id = '" . (int)$HTTP_GET_VARS['cID'] . "'");
+        $customers_query = tep_db_query("select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_email_address, a.entry_company, c.entry_company_tax_id, a.entry_street_address, a.entry_suburb, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id, a.entry_country_id, c.customers_telephone, c.customers_fax, c.customers_newsletter, c.customers_group_id,  c.customers_group_ra, c.customers_payment_allowed, c.customers_shipment_allowed, c.customers_order_total_allowed, c.customers_specific_taxes_exempt, c.customers_default_address_id,c.is_tax_exempt from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_default_address_id = a.address_book_id where a.customers_id = c.customers_id and c.customers_id = '" . (int)$HTTP_GET_VARS['cID'] . "'");
 
         $module_directory = DIR_FS_CATALOG_MODULES . 'payment/';
         $ship_module_directory = DIR_FS_CATALOG_MODULES . 'shipping/';
@@ -822,7 +831,7 @@
 	    }  
 	    echo tep_draw_hidden_field('customers_tax_rate_exempt_settings');
             } else { // $processed != true
-            echo tep_draw_radio_field('customers_tax_rate_exempt_settings', '1', false, (tep_not_null($cInfo->customers_specific_taxes_exempt)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_CUSTOMERS_TAX_RATES_EXEMPT . '&nbsp;&nbsp;' . tep_draw_radio_field('customers_tax_rate_exempt_settings', '0', false, (tep_not_null($cInfo->customers_specific_taxes_exempt)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_CUSTOMERS_TAX_RATES_DEFAULT ; } ?></td>
+            echo tep_draw_radio_field('customers_tax_rate_exempt_settings', '1', false, (tep_not_null($cInfo->is_tax_exempt)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_CUSTOMERS_TAX_RATES_EXEMPT . '&nbsp;&nbsp;' . tep_draw_radio_field('customers_tax_rate_exempt_settings', '0', false, (tep_not_null($cInfo->customers_specific_taxes_exempt)? '1' : '0' )) . '&nbsp;&nbsp;' . ENTRY_CUSTOMERS_TAX_RATES_DEFAULT ; } ?></td>
 	  </tr>
 <?php if ($processed != true) {
    $customers_tax_ids_exempt = explode (",",$cInfo->customers_specific_taxes_exempt);
@@ -1141,7 +1150,7 @@
      $search = "where c.customers_lastname like '%" . $keywords . "%' or c.customers_firstname like '%" . $keywords . "%' or c.customers_email_address like '%" . $keywords . "%'";
     }
     // BOF customer_sort_admin_v1 adapted for Separate Pricing Per Customer
-    $customers_query_raw = "select c.customers_ip_address, c.customers_id, c.customers_lastname, c.customers_firstname, c.customers_email_address, c.customers_group_id, c.customers_group_ra, a.entry_country_id, a.entry_company, cg.customers_group_name from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_id = a.customers_id and c.customers_default_address_id = a.address_book_id left join " . TABLE_CUSTOMERS_GROUPS . " cg on c.customers_group_id = cg.customers_group_id " . $search . " order by $order";
+    $customers_query_raw = "select c.customers_ip_address, c.customers_id, c.customers_lastname, c.customers_firstname, c.customers_email_address, c.customers_group_id, c.customers_group_ra, a.entry_country_id, a.entry_company, cg.customers_group_name,c.is_tax_exempt from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_id = a.customers_id and c.customers_default_address_id = a.address_book_id left join " . TABLE_CUSTOMERS_GROUPS . " cg on c.customers_group_id = cg.customers_group_id " . $search . " order by $order";
     // c.customers_lastname, c.customers_firstname";
     // EOF customer_sort_admin_v1 adapted for Separate Pricing Per Customer
 
@@ -1339,6 +1348,13 @@
 
         $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=confirm') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS, 'cID=' . $cInfo->customers_id) . '">' . tep_image_button('button_orders.gif', IMAGE_ORDERS) . '</a> <a href="' . tep_href_link(FILENAME_MAIL, 'selected_box=tools&customer=' . $cInfo->customers_email_address) . '">' . tep_image_button('button_email.gif', IMAGE_EMAIL) . '</a>');
         $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_MAIL, 'selected_box=tools&wishlist=true&customer=' . $cInfo->customers_email_address. '&cID=' . $cInfo->customers_id) . '"><input type="button" name="WishlistEmail" value="Wishlist Email"></a>');
+		
+		// added on 25-04-2016 #start
+		if(MODULE_ORDER_TOTAL_AVATAX_VALIDATE != 'false'){
+			$contents[] = array('align' => 'center', 'text' => '<input type="button" name="btn_validate_address" value="'.ENTRY_CUSTOMER_VALIDATE_ADDRESS.'" onclick="popupWindow(\''. tep_href_link(FILENAME_AVATAX_ADDRESS_VALIDATION, "cID=" . $cInfo->customers_id) .'\')">');
+		}
+		// added on 25-04-2016 #ends
+		
         $contents[] = array('text' => '<br>' . TEXT_DATE_ACCOUNT_CREATED . ' ' . tep_date_short($cInfo->date_account_created));
         $contents[] = array('text' => '<br>' . TEXT_DATE_ACCOUNT_LAST_MODIFIED . ' ' . tep_date_short($cInfo->date_account_last_modified));
         $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_LAST_LOGON . ' '  . tep_date_short($cInfo->date_last_logon));
@@ -1475,4 +1491,10 @@ function check_form() {
 <?php
   }
 ?>
+<script type="text/javascript">
+	function popupWindow(url) {
+		window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=800,height=600,screenX=150,screenY=150,top=150,left=150')
+	
+	}
+</script>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

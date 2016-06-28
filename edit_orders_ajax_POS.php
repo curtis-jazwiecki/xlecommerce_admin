@@ -326,6 +326,8 @@ if ($action == 'update_downloads') {
         $total_count = $cart->count_contents();
         $total_weight = $cart->show_weight();
 		
+		$_SESSION['cart'] = $cart;
+		
 		// Get the shipping quotes
         $shipping_modules = new shipping;
         $shipping_quotes = $shipping_modules->quote();
@@ -340,6 +342,14 @@ if ($action == 'update_downloads') {
  		//this is where we call the order total modules
 		require( 'order_editor/order_total.php');
 		$order_total_modules = new order_total();
+		
+		// remove avalara module #start
+		if(($key = array_search('ot_avatax.php', $order_total_modules->modules)) !== false) {
+			unset($order_total_modules->modules[$key]);
+			$order_total_modules->modules = array_values($order_total_modules->modules);
+		}
+		// remove avalara module #ends	
+		
         $order_totals = $order_total_modules->process();  
 	    $current_ot_totals_array = array();
 		$current_ot_titles_array = array();
@@ -934,7 +944,7 @@ if (tep_db_num_rows($orders_history_query)) {
         $cart->restore_contents($_GET['oID']);
         $total_count = $cart->count_contents();
         $total_weight = $cart->show_weight();
-		
+		$_SESSION['cart'] = $cart;
 		// Get the shipping quotes
         $shipping_modules = new shipping;
         $shipping_quotes = $shipping_modules->quote();

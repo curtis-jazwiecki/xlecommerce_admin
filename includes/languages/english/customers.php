@@ -68,4 +68,5 @@ define('ENTRY_CUSTOMERS_GROUP_RA_YES', 'Alert on');
 define('ENTRY_CUSTOMERS_GROUP_RA_ERROR', '');
 define('ENTRY_CUSTOMERS_GROUP_NAME', 'Customer Group:');
 // EOF Separate Pricing Per Customer
+define('ENTRY_CUSTOMER_VALIDATE_ADDRESS', 'Validate Address');
 ?>
