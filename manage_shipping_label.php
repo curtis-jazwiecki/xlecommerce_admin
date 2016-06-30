@@ -88,15 +88,19 @@
 		
 		// Get the shipping quotes
 		$shipping_modules = new shipping;
+		
+		$shipping_modules->modules = array_values(array_diff($shipping_modules->modules,array('ffldealershipping.php','zones.php','table.php','spu.php','mzmt.php','item.php','freecats.php','flat.php')));
+		
 		$shipping_quotes = $shipping_modules->quote();
+		
 		$shipping = '';
+		
 		$r = 0;
 		
+		$allowed_shipping = array('');
+		
 		for ($i=0, $n=sizeof($shipping_quotes); $i<$n; $i++) {
-      		if( $shipping_quotes[$i]['id'] == 'ffldealershipping' || $shipping_quotes[$i]['id'] == 'flat' || $shipping_quotes[$i]['id'] == 'table'  ){
-				continue;
-			}
-			for ($j=0, $n2=sizeof($shipping_quotes[$i]['methods']); $j<$n2; $j++) {
+      		for ($j=0, $n2=sizeof($shipping_quotes[$i]['methods']); $j<$n2; $j++) {
 				$r++;
 				$shipping .= '<tr class="old_shipping dataTableRow"><td>'. $shipping_quotes[$i]['module']. ' ('.$shipping_quotes[$i]['methods'][$j]['title'].') </td><td><input type="radio" name="shipping" value="'.$shipping_quotes[$i]['id'] . '__' . $shipping_quotes[$i]['methods'][$j]['id'].'" id="'.$r.'" class="radio_shipping" /></td></tr>';
 			}

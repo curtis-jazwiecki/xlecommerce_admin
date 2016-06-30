@@ -105,7 +105,7 @@
 		  
 		  case 'delete':
 			// delete code goes here
-            
+			
             $get_file_name = tep_db_fetch_array(tep_db_query("select ffl_dealers_doc from " . TABLE_FFL_DEALERS_DOCS . " where ffl_dealers_docs_id = '".(int)$_GET['dID']."'"));
             
             unlink(DIR_FS_DOCUMENT_ROOT."ffl_dealers/".$get_file_name['ffl_dealers_doc']);
@@ -114,7 +114,7 @@
             
             tep_db_query("delete from ffl_dealers_data where ffl_dealers_docs_id = '".(int)$_GET['dID']."'");
             
-            tep_redirect(tep_href_link(FILENAME_FFL_DEALER, (isset($HTTP_GET_VARS['page']) ? 'page=' . $HTTP_GET_VARS['page'] . '&' : '') . 'vendors_id=' . $vendors_id));
+            tep_redirect(tep_href_link(FILENAME_FFL_DEALER, (isset($HTTP_GET_VARS['page']) ? 'page=' . $HTTP_GET_VARS['page'] . '&' : '') . 'vendors_id=' . $HTTP_GET_VARS['vendors_id']));
             break;
             
             case 'details':
@@ -205,9 +205,18 @@
                   </tr>
 <?php
   if (empty($action)) {
+	  
+	  $back_link = '';
+	  if ($HTTP_GET_VARS['vendors_id'] == '9999') {
+		  $back_link = tep_href_link(FILENAME_VENDOR_MODULES, 'module=ffldealershipping'.'&vendors_id=' . $HTTP_GET_VARS['vendors_id']);
+	  }else{
+		  $back_link = tep_href_link(FILENAME_MODULES, 'set=shipping&module=ffldealershipping');
+	  }
+	  
+	  
 ?>
                   <tr>
-                    <td align="right" colspan="2"><?php echo '<a href="' . tep_href_link(FILENAME_FFL_DEALER, 'page=' . $HTTP_GET_VARS['page'] .'&vendors_id=' . $HTTP_GET_VARS['vendors_id']. '&dID=' . $lInfo->ffl_dealers_docs_id . '&action=new') . '">' . tep_image_button('button_new_ffl_dealer.gif', IMAGE_NEW_FFL_DEALER) . '</a> &nbsp; <a href="' . tep_href_link(FILENAME_VENDOR_MODULES, 'module=ffldealershipping'.'&vendors_id=' . $HTTP_GET_VARS['vendors_id']). '">' . tep_image_button('button_back.gif', IMAGE_BACK_FFL_DEALER) . '</a>'; ?></td>
+                    <td align="right" colspan="2"><?php echo '<a href="' . tep_href_link(FILENAME_FFL_DEALER, 'page=' . $HTTP_GET_VARS['page'] .'&vendors_id=' . $HTTP_GET_VARS['vendors_id']. '&dID=' . $lInfo->ffl_dealers_docs_id . '&action=new') . '">' . tep_image_button('button_new_ffl_dealer.gif', IMAGE_NEW_FFL_DEALER) . '</a> &nbsp; <a href="' .$back_link. '">' . tep_image_button('button_back.gif', IMAGE_BACK_FFL_DEALER) . '</a>'; ?></td>
                   </tr>
 <?php
   }
