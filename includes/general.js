@@ -1,3 +1,8 @@
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 function SetFocus() {
   if (document.forms.length > 0) {
     var field = document.forms[0];

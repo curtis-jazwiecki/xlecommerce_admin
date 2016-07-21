@@ -1,4 +1,10 @@
-<? require('includes/application_top.php'); ?>
+<? 
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
+require('includes/application_top.php'); ?>
 <?php
 if (!empty($_GET['action']) && $_GET['action']=='save'){
     $ship_methods = '';

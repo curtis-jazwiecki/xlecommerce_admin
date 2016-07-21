@@ -4,9 +4,9 @@
 
   Charly Wilhelm  charly@yoshi.ch
   
-  Released under the GNU General Public License
-
-  Copyright (c) 2003 osCommerce
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
   
   possible views (srView):
   1 yearly

@@ -2,7 +2,9 @@
 /*
   $Id: language_manager.php
   
-  Copyright (c) 2015 OBN
+  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
   
 */
 

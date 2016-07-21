@@ -2,6 +2,9 @@
 
 /** German localization file for KCFinder
   * author: Tim Wahrendorff <wahrendorff@users.sourceforge.net>
+  * CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
   */
 
 $lang = array(

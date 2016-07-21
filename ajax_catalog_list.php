@@ -1,6 +1,9 @@
 <?php
 /**
  * Facilitates ajax request calls for catalog listing
+ * CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 **/
 header('Content-Type: text/xml');
 header("Cache-Control: no-cache, must-revalidate");

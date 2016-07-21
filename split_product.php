@@ -3,12 +3,9 @@
   $Id: split_product.php v1.1 2007/05/24 JanZ Exp $
   for upsxml.php, dimensions support (splitting a product in several items for shipping)
   
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-  
-  Copyright (c) 2007
-  
-  Released under the GNU General Public License 
+  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc. 
 */
 
   require('includes/application_top.php');

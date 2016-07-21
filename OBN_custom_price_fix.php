@@ -1,4 +1,9 @@
 <?php
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 
   function tep_get_manufacturers($manufacturers_array = '') { // Function borrowed from the Catalog side
     if (!is_array($manufacturers_array)) $manufacturers_array = array();

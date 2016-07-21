@@ -1,4 +1,8 @@
-
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 /* file:jscripts/tiny_mce/classes/TinyMCE_Engine.class.js */
 
 function TinyMCE_Engine() {

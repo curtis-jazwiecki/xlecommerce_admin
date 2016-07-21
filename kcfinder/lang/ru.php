@@ -3,6 +3,9 @@
 /** Russian localization file for KCFinder
   * author: Dark Preacher
   * E-mail: dark@darklab.ru
+  * CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
   */
 
 $lang = array(

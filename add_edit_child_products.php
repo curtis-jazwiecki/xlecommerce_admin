@@ -1,5 +1,9 @@
 <?php
-
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 include 'includes/application_top.php';
 function tep_get_top_parent_models($parent_model = ''){
     $model_str = '';

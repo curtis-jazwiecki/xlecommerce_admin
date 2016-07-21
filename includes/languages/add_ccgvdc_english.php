@@ -1,4 +1,9 @@
 <?php
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 define('BOX_HEADING_GV_ADMIN', 'Vouchers/Coupons');
 define('BOX_GV_ADMIN_QUEUE', 'Gift Voucher Queue');
 define('BOX_GV_ADMIN_MAIL', 'Mail Gift Voucher');

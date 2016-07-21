@@ -2,6 +2,9 @@
 
 /** Hebrew localization file for KCFinder
   * Sig: 1f4f9aee887c97f618c19a82040a4dad
+  * CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
   */
 
 $lang = array(

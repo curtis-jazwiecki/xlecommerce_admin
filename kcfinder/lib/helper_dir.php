@@ -1,5 +1,9 @@
 <?php
-
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 /** This file is part of KCFinder project
   *
   *      @desc Directory helper class

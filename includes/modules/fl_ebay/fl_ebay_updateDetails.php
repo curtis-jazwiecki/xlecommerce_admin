@@ -3,7 +3,9 @@
   fl_ebay_updateDetails.php Michael Hammelmann 25.06.2004
   v 0.1
   http://www.flinkux.de / http://www.t4d.flinkux.de
-  This Part of ebay suite is Released under the GNU General Public License
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
   for more informations contact michael.hammelmann@flinkux.de
 */
 

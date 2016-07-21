@@ -1,3 +1,8 @@
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 (function() {
   var mode = CodeMirror.getMode({tabSize: 4}, "gfm");
   function MT(name) { test.mode(name, mode, Array.prototype.slice.call(arguments, 1)); }

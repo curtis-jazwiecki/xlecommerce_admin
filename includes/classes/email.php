@@ -2,19 +2,16 @@
 /*
   $Id: email.php,v 1.8 2003/06/11 22:24:34 dgw_ Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 
   mail.php - a class to assist in building mime-HTML eMails
 
   The original class was made by Richard Heyes <richard@phpguru.org>
   and can be found here: http://www.phpguru.org
 
-  Renamed and Modified by Jan Wildeboer for osCommerce
+  
 */
 
   class email {

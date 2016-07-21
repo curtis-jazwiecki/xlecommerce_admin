@@ -4,12 +4,9 @@
   $Id: admin/attributes_groups.php v1.1 2013/09/30 mommaroodles Exp $
   for Separate Pricing Per Customer for osC v.2.3.3.4
   
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-  
-  Copyright (c) 2006
-  
-  Released under the GNU General Public License 
+  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
   require('includes/application_top.php');

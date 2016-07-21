@@ -1,7 +1,9 @@
 <?php
 /*
   $Id: googlesitemap.php admin page,v 1.0 8/11/2005 bhakala@pc-productions.net
-  Released under the GNU General Public License
+  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
   require('includes/application_top.php');

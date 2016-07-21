@@ -2,12 +2,9 @@
 /*
   $Id: price_updater.php,v 1.1 2004/04/18 jck Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2004 osCommerce
-
-  Released under the GNU General Public License
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
  */
 
 require('includes/application_top.php');

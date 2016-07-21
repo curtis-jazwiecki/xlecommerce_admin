@@ -1,5 +1,9 @@
 <?php
-
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 /** This file is part of KCFinder project
   *
   *      @desc Join all JavaScript files from current directory
@@ -10,6 +14,7 @@
   *   @license http://opensource.org/licenses/GPL-3.0 GPLv3
   *   @license http://opensource.org/licenses/LGPL-3.0 LGPLv3
   *      @link http://kcfinder.sunhater.com
+  * 
   */
 
 namespace kcfinder;

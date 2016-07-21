@@ -9,8 +9,6 @@ ver 2.10 May 8, 2005
 (c) 2005 Adam Liberman
 www.libermansound.com
 info@libermansound.com
-Please use the osC forum for support.
-Released under the GNU General Public License
 
     This file is part of Quickbooks Import QBI.
 

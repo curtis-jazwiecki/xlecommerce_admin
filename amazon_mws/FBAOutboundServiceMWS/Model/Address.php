@@ -2,6 +2,9 @@
 /** 
  *  PHP Version 5
  *
+ *  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
  *  @category    Amazon
  *  @package     FBAOutboundServiceMWS
  *  @copyright   Copyright 2009 Amazon.com, Inc. All Rights Reserved.

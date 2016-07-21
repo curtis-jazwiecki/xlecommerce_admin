@@ -2,16 +2,9 @@
 /*
   $Id: attributeManager.php,v 1.0 21/02/06 Sam West$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Released under the GNU General Public License
-  
-  English translation to AJAX-AttributeManager-V2.7
-  
-  by Shimon Doodkin
-  http://help.me.pro.googlepages.com
-  helpmepro1@gmail.com
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
 //attributeManagerPrompts.inc.php

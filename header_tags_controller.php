@@ -2,12 +2,9 @@
 /*
   $Id: header_tags_controller.php,v 1.2 2004/08/07 22:50:52 hpdl Exp $
   header_tags_controller Originally Created by: Jack York
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
  
   require('includes/application_top.php');

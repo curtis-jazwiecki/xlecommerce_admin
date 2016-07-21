@@ -1,4 +1,9 @@
 <?php
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 ini_set('display_errors', '1');
 require('includes/application_top.php');
 include(DIR_WS_CLASSES . 'ctctWrapper.php');

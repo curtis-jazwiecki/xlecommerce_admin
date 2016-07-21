@@ -2,12 +2,9 @@
 /*
   $Id: validations.php,v 1.1 2003/03/15 14:38:38 project3000 Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
+  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
   ////////////////////////////////////////////////////////////////////////////////////////////////

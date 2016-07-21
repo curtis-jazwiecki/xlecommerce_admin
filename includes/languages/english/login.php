@@ -2,12 +2,9 @@
 /*
   $Id: login.php,v 1.11 2002/06/03 13:19:42 hpdl Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 osCommerce
-
-  Released under the GNU General Public License
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
 if ($HTTP_GET_VARS['origin'] == FILENAME_CHECKOUT_PAYMENT) {

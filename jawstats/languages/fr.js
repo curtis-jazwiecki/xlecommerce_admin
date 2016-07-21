@@ -1,4 +1,9 @@
-﻿// JAWStats fr translation file
+﻿/*
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
+// JAWStats fr translation file
 // Last Updated: Sunday, 25th January 2009. 04:10:40
 oTranslation = {
 "0 seconds - 30 seconds":"0 seconde - 30 secondes",

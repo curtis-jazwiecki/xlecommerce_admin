@@ -1,4 +1,9 @@
 // Some global instances, this will be filled later
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 var tinyMCE = null, tinyMCELang = null;
 
 function TinyMCE_Popup() {

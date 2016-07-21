@@ -1,4 +1,9 @@
 <?php
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 function tep_get_uploaded_file($filename) {
 	if (isset($_FILES[$filename])) {
 		$uploaded_file = array('name' => $_FILES[$filename]['name'],

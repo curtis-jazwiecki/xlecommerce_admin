@@ -1,4 +1,9 @@
 <?php
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 $oID = (int)$_GET['oID'];
 if (empty($_GET['oID'])) {
 	$title = "No Labels Found";

@@ -3,14 +3,13 @@
 $Id: qbi_products.php,v 2.10 2005/05/08 al Exp $
 Language file: Spanish
 
-Quickbooks Import QBI
-contribution for osCommerce
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 ver 2.10 May 8, 2005
 (c) 2005 Adam Liberman
 www.libermansound.com
 info@libermansound.com
-Please use the osC forum for support.
-Released under the GNU General Public License
 
     This file is part of Quickbooks Import QBI.
 

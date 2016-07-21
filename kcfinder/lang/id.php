@@ -2,6 +2,9 @@
 
 /** {Indonesian} localization file for KCFinder
   * -Razi Senseio (Author)
+  * CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
   */
 
 $lang = array(

@@ -2,12 +2,9 @@
 /*
   $Id: create_order_details.php,v 1.2 2005/09/04 04:42:56 loic Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 osCommerce
-
-  Released under the GNU General Public License
+  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
  tep_draw_hidden_field($account['customers_id']);    

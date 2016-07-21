@@ -1,5 +1,10 @@
 <?php
     NAMESPACE kcfinder;
+    /*
+    CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+    */
 ?>
 <script src="js/index.php" type="text/javascript"></script>
 <script src="js_localize.php?lng=<?php echo $this->lang ?>" type="text/javascript"></script>

@@ -1,4 +1,9 @@
 <?php
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 include('includes/application_top.php');
 $handle = fopen(DIR_FS_CATALOG . 'temp/taxonomy.en-US.txt', 'r');
 if ($handle){

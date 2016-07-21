@@ -2,6 +2,9 @@
 
 /** vi localization file for KCFinder
   * Tran Van Quyet - HQV ltd
+  * CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
   */
 
 $lang = array(

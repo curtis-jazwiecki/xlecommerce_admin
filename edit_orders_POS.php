@@ -2,20 +2,9 @@
 /*
   $Id: edit_orders.php v5.0.5 08/27/2007 djmonkey1 Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2007 osCommerce
-
-  Released under the GNU General Public License http://www.gnu.org/licenses/
-  
-    Order Editor is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-  
-  For Order Editor support or to post bug reports, feature requests, etc, please visit the Order Editor support thread:
-  http://forums.oscommerce.com/index.php?showtopic=54032
+  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
   
   The original Order Editor contribution was written by Jonathan Hilgeman of SiteCreative.com
   

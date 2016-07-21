@@ -2,12 +2,9 @@
 /*
   $Id: languages.php,v 1.6 2003/06/20 16:23:08 hpdl Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 osCommerce
-
-  Released under the GNU General Public License
+  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
   function tep_get_languages_directory($code) {

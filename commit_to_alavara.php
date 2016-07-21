@@ -1,4 +1,9 @@
 <?php
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 require('includes/configure.php');
 require(DIR_WS_INCLUDES . 'database_tables.php');
 require(DIR_WS_FUNCTIONS . 'database.php');

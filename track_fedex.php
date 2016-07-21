@@ -5,6 +5,9 @@
  * This is the updated tracking script to view the tracking status of shipped products. It uses
  * the FedEx Web Service API and requires a production API key to work.
  *
+ * CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
  */
 require('includes/application_top.php');
 

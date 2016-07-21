@@ -2,12 +2,9 @@
 /*
   $Id: backup.php,v 1.21 2002/06/15 11:02:56 harley_vb Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 osCommerce
-
-  Released under the GNU General Public License
+  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
 define('HEADING_TITLE', 'Datenbanksicherung'); 

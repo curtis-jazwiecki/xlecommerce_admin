@@ -1,4 +1,9 @@
 <?php
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 $first_name = trim($_POST['firstname']);
 $last_name = trim($_POST['lastname']);
 $email = trim($_POST['email_address']);

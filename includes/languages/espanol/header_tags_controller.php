@@ -3,14 +3,9 @@
   $Id: header_tags.php,v 1.6 2005/04/10 14:07:36 hpdl Exp $
   Created by Jack York from http://www.oscommerce-solution.com
   
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-  
-  Traduction to spanish by nicko107 www.oscommerce-tutoriales.com
-
-  Released under the GNU General Public License
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 define('HEADING_TITLE_CONTROLLER', 'Header Tags Controller');
 define('HEADING_TITLE_ENGLISH', 'Header Tags');

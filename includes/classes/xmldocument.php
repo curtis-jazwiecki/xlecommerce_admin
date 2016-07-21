@@ -9,7 +9,9 @@
     
     Copyright(c) 2003 by Torin Walker, All rights reserved.
     
-    Released under the GNU General Public License
+    CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
 define("ELEMENT", 0);

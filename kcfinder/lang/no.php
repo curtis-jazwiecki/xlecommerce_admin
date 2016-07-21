@@ -1,5 +1,9 @@
 <?php
-
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 /** Norwegian localization file for KCFinder
   * author: Robin Helgesen (robin@konsept-it.no)
   * country: Norway

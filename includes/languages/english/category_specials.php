@@ -2,12 +2,9 @@
 /*
   $Id: specials.php,v 1.10 2002/03/16 15:07:21 project3000 Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 osCommerce
-
-  Released under the GNU General Public License
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
 define('HEADING_TITLE', 'Special Categories');

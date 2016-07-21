@@ -2,6 +2,9 @@
 
 /** Turkish localization file for KCFinder
   * translation by: Kursad Olmez <kursad.olmez@gmail.com>
+  * CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
   */
 
 $lang = array(
