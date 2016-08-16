@@ -45,8 +45,8 @@
         $day = tep_db_prepare_input($HTTP_POST_VARS['day']);
         $month = tep_db_prepare_input($HTTP_POST_VARS['month']);
         $year = tep_db_prepare_input($HTTP_POST_VARS['year']);
-        
-        // BOF Separate Pricing Per Customer
+		
+		// BOF Separate Pricing Per Customer
         $customers_group = tep_db_prepare_input($_POST['customers_group']);
         $price_query = tep_db_query("select customers_group_price from " . TABLE_PRODUCTS_GROUPS. " WHERE products_id = ".(int)$products_id . " AND customers_group_id  = ".(int)$customers_group);
         while ($gprices = tep_db_fetch_array($price_query)) {
@@ -82,13 +82,14 @@
       //  tep_db_query("insert into " . TABLE_SPECIALS . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) values ('" . (int)$products_id . "', '" . tep_db_input($specials_price) . "', now(), '" . tep_db_input($expires_date) . "', '1')");
         
         // BOF Separate Pricing Per Customer
-    tep_db_query("insert into " . TABLE_SPECIALS . " (products_id, specials_new_products_price, specials_date_added, expires_date, status, customers_group_id) values ('" . (int)$products_id . "', '" . tep_db_input($specials_price) . "', now(), '" . tep_db_input($expires_date) . "', '1', ".(int)$customers_group.")");
+    tep_db_query("insert into " . TABLE_SPECIALS . " (products_id, specials_new_products_price, specials_date_added, expires_date, status, customers_group_id,discount) values ('" . (int)$products_id . "', '" . tep_db_input($specials_price) . "', now(), '" . tep_db_input($expires_date) . "', '1', ".(int)$customers_group.",'" . tep_db_input($HTTP_POST_VARS['specials_price']) . "')");
 // EOF Separate Pricing Per Customer
 
 
         tep_redirect(tep_href_link(FILENAME_SPECIALS, 'page=' . $HTTP_GET_VARS['page']));
         break;
       case 'update':
+        
         $specials_id = tep_db_prepare_input($HTTP_POST_VARS['specials_id']);
         $products_price = tep_db_prepare_input($HTTP_POST_VARS['products_price']);
         $specials_price = tep_db_prepare_input($HTTP_POST_VARS['specials_price']);
@@ -96,7 +97,9 @@
         $month = tep_db_prepare_input($HTTP_POST_VARS['month']);
         $year = tep_db_prepare_input($HTTP_POST_VARS['year']);
 
-        if (substr($specials_price, -1) == '%') $specials_price = ($products_price - (($specials_price / 100) * $products_price));
+        if (substr($specials_price, -1) == '%'){
+          $specials_price = ($products_price - (($specials_price / 100) * $products_price));
+        } 
 
         $expires_date = '';
         if (tep_not_null($day) && tep_not_null($month) && tep_not_null($year)) {
@@ -105,7 +108,7 @@
           $expires_date .= (strlen($day) == 1) ? '0' . $day : $day;
         }
 
-        tep_db_query("update " . TABLE_SPECIALS . " set specials_new_products_price = '" . tep_db_input($specials_price) . "', specials_last_modified = now(), expires_date = '" . tep_db_input($expires_date) . "' where specials_id = '" . (int)$specials_id . "'");
+        tep_db_query("update " . TABLE_SPECIALS . " set specials_new_products_price = '" . tep_db_input($specials_price) . "', specials_last_modified = now(), expires_date = '" . tep_db_input($expires_date) . "', discount = '" . tep_db_input($HTTP_POST_VARS['specials_price']) . "' where specials_id = '" . (int)$specials_id . "'");
 
         tep_redirect(tep_href_link(FILENAME_SPECIALS, 'page=' . $HTTP_GET_VARS['page'] . '&sID=' . $specials_id));
         break;
@@ -210,7 +213,8 @@
             <td>
 			<?php 
 			//echo (isset($sInfo->products_name)) ? $sInfo->products_name . ' <small>(' . $currencies->format($sInfo->products_price) . ')</small>' : tep_draw_products_pull_down('products_id', 'style="font-size:10px"', $specials_array, 'specials'); echo tep_draw_hidden_field('products_price', (isset($sInfo->products_price) ? $sInfo->products_price : '')); 
-			echo (isset($sInfo->products_name) ? $sInfo->products_name . ' <small>(' . $currencies->format($sInfo->products_price) . ')</small>' : '<div class="ui-widget"></div><input id="product" style="width:400px;" /><input type="hidden" name="products_id" id="productid" />' . tep_draw_hidden_field('products_price', (isset($sInfo->products_price) ? $sInfo->products_price : '')));
+			echo (isset($sInfo->products_name) ? $sInfo->products_name . ' <small>(' . $currencies->format($sInfo->products_price) . ')</small>' : '<div class="ui-widget"></div><input id="product" style="width:400px;" /><input type="hidden" name="products_id" id="productid" />');
+            echo tep_draw_hidden_field('products_price', (isset($sInfo->products_price) ? $sInfo->products_price : ''));
 			?>
 			</td>
                         
