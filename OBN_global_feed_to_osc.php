@@ -173,6 +173,25 @@ class global_feed_to_osc
 
 
         // added on 15-02-2016 #ends
+		
+		
+		// added on 16-08-2016 #start
+
+        // added one extra column 'discount' to database table specials to save discount type or amount
+
+
+        $check_discount_column = tep_db_num_rows(tep_db_query("SHOW COLUMNS FROM `specials` LIKE 'discount'"));
+
+        if ($check_discount_column == 0) {
+
+            tep_db_query("ALTER TABLE `specials` ADD `discount` VARCHAR( 10 ) NOT NULL");
+
+        }
+
+        // added on 16-08-2016 #ends
+		
+		
+		
 
 
         tep_db_query("CREATE TABLE IF NOT EXISTS `temp_markup_price` (
