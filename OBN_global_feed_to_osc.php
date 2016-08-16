@@ -182,7 +182,7 @@ class global_feed_to_osc
 
         $check_discount_column = tep_db_num_rows(tep_db_query("SHOW COLUMNS FROM `specials` LIKE 'discount'"));
 
-        if ($check_discount_column == 0) {
+        if ($check_discount_column == 0) { 
 
             tep_db_query("ALTER TABLE `specials` ADD `discount` VARCHAR( 10 ) NOT NULL");
 

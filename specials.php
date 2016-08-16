@@ -9,7 +9,7 @@
 
   require('includes/application_top.php');
 
-  require(DIR_WS_CLASSES . 'currencies.php');
+  require(DIR_WS_CLASSES . 'currencies.php'); 
   $currencies = new currencies();
   
   // BOF Separate Pricing Per Customer
