@@ -1622,7 +1622,7 @@ class global_feed_to_osc
 
                         'roundoff_flag' => $roundoff_flag,
 
-                        'products_size' => '0',
+                        //'products_size' => '0',
 
                         'products_tax_class_id' => '1',
 
