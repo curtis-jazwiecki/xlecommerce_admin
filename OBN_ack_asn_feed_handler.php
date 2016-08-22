@@ -1,4 +1,9 @@
 <?php
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 	require('cron_application_top.php');
 	
 	define('ORDER_STATUS_ACKNOWLEDGED_BY_SUPPLIER',	ORDER_STATUS_ACK);

@@ -1,6 +1,9 @@
 <?php
 /*
     $Id: packaging.php,v 1.02 2007/02/25 torinwalker Exp $
+    CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
     
     Copyright (c) 2003 Torin Walker
     

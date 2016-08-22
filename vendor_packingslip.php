@@ -4,10 +4,9 @@
   $Loc: /catalog/admin/ $
   $Mod: MVS V1.2.3 2009/11/13 kymation $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2006 osCommerce
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
   require_once ('includes/application_top.php');

@@ -1,13 +1,10 @@
 <?php
 /*
   $Id: specials.php,v 1.11 2003/07/06 20:33:01 dgw_ Exp $
+  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.  
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
 */
 
 define('HEADING_TITLE', 'Ofertas');

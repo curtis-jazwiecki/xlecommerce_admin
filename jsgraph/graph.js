@@ -1,3 +1,8 @@
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 function Graph(width, height, stacked) {
 this.stacked = stacked;
 this.width = width || 400;

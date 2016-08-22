@@ -1,4 +1,10 @@
-<? require('includes/application_top.php'); ?>
+<?
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
+ require('includes/application_top.php'); ?>
 <?php
     define('TAB_PRODUCT',               'products');
     define('TAB_PRODUCT_DESC',          'products_description');

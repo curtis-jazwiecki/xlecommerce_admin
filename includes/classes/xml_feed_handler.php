@@ -1,4 +1,9 @@
 <?php
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 	define('NODE_DOCUMENT_ID', 								'DocumentID');// XML feed node
 	define('NODE_GENERATION_DATE', 							'GenerationDate');// XML feed node
 	define('NODE_CATALOG_ID',	 							'CatalogID');// XML feed node

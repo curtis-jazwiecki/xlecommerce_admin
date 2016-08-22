@@ -1,4 +1,9 @@
 /*
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
+/*
  * JAWStats 0.7 Web Statistics
  *
  * Copyright (c) 2009 Jon Combe (jawstats.com)

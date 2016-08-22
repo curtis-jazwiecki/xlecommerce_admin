@@ -1,3 +1,8 @@
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 (function(mod) {
   if (typeof exports == "object" && typeof module == "object") // CommonJS
     mod(require("../../lib/codemirror"), require("../markdown/markdown"), require("../../addon/mode/overlay"));

@@ -2,12 +2,9 @@
 /*
   $Id: gv_mail.php,v 1.3.2.4 2003/05/12 22:54:01 wilt Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 osCommerce
-
-  Released under the GNU General Public License
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
   require('includes/application_top.php');

@@ -2,12 +2,9 @@
 /*
   $Id: gv_queue.php,v 1.2.2.5 2003/05/05 12:46:52 wilt Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 - 2003 osCommerce
-
-  Released under the GNU General Public License
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
   require('includes/application_top.php');

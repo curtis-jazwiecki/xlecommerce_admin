@@ -2,12 +2,9 @@
 /*
   $Id: customers.php,v 1.12 2002/01/12 18:46:27 hpdl Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 osCommerce
-
-  Released under the GNU General Public License
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
 define('HEADING_TITLE', 'Customers');

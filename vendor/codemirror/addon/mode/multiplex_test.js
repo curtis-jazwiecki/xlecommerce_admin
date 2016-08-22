@@ -1,3 +1,8 @@
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 (function() {
   CodeMirror.defineMode("markdown_with_stex", function(){
     var inner = CodeMirror.getMode({}, "stex");

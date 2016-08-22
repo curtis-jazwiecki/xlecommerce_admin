@@ -1,4 +1,9 @@
 <?php
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 define('HEADING_TITLE_MANAGE_SHIPPING_LABEL','Manage Shipping labels');
 define('HEADING_BEGIN_SHIPMENT','Begin Shippment');
 define('HEADING_PRODUCT_NAME','Product Name');

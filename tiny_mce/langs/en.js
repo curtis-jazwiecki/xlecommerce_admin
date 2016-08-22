@@ -1,5 +1,9 @@
 // UK lang variables
-
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 tinyMCE.addToLang('',{
 bold_desc : 'Bold (Ctrl+B)',
 italic_desc : 'Italic (Ctrl+I)',

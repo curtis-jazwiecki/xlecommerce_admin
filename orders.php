@@ -30,48 +30,9 @@
 
 
 
-  osCommerce, Open Source E-Commerce Solutions
-
-
-
-
-
-
-
-  http://www.oscommerce.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  Copyright (c) 2003 osCommerce
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  Released under the GNU General Public License
-
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 
 
 
@@ -6818,11 +6779,11 @@ include(DIR_WS_CLASSES . 'order.php');
 
 
 
-                            if ($show_obn_button){
-
-                                echo '<tr> <td>&nbsp;</td> <td colspan="3"><a href="' . tep_href_link(FILENAME_MANAGE_SHIPPING_LABEL, tep_get_all_get_params()) . '">' . tep_image_button('button_manage_shipping_label.gif', 'Manage shipping label') . '</a> &nbsp;</td>  <td colspan="7"><input type="submit" value="Send Selected Items to OBN" onclick="javascript:return validate_selection(this.form);" />';
-
-                            }
+                           echo '<tr> <td>&nbsp;</td> <td colspan="3"><a href="' . tep_href_link(FILENAME_MANAGE_SHIPPING_LABEL, tep_get_all_get_params()) . '">' . tep_image_button('button_manage_shipping_label.gif', 'Manage shipping label') . '</a> &nbsp;</td>  <td colspan="7">';
+							
+							if(($show_obn_button)){
+								echo '<input type="submit" value="Send Selected Items to OBN" onclick="javascript:return validate_selection(this.form);" />';
+							}
 
 
 

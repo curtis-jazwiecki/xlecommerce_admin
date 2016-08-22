@@ -1,4 +1,9 @@
 <?php
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 if (!empty($action) && $action=='initiate_upload'){
     $argv[1] = 'AddFixedPriceItem';
 } else {

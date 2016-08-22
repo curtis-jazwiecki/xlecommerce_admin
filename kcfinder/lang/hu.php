@@ -2,6 +2,9 @@
 
 /** Hungarian localization file for KCFinder
   * Dubravszky József <joe@chilicreative.hu>
+  * CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
   */
 
 $lang = array(

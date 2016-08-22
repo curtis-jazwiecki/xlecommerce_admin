@@ -2,8 +2,11 @@
 /*
 $Id: qbi_db.php,v 2.10 2005/05/08 al Exp $
 
-Quickbooks Import QBI
-contribution for osCommerce
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+  
+
 ver 2.10 May 8, 2005
 (c) 2005 Adam Liberman
 www.libermansound.com

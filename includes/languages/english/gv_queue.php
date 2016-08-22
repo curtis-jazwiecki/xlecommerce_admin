@@ -2,16 +2,13 @@
 /*
   $Id: gv_queue.php,v 1.2.2.1 2003/04/27 12:36:00 wilt Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 - 2003 osCommerce
-
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
   Gift Voucher System v1.0
   Copyright (c) 2001,2002 Ian C Wilson
   http://www.phesis.org
 
-  Released under the GNU General Public License
 */
 
 define('HEADING_TITLE', 'Gift Voucher Release Queue');

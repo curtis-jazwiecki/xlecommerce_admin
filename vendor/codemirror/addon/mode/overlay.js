@@ -1,3 +1,8 @@
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 // Utility function that allows modes to be combined. The mode given
 // as the base argument takes care of most of the normal mode
 // functionality, but a second (typically simple) mode is used, which

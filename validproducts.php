@@ -2,14 +2,9 @@
 /*
   $Id: validproducts.php,v 0.01 2002/08/17 15:38:34 Richard Fielder
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  
-
-  Copyright (c) 2002 Richard Fielder
-
-  Released under the GNU General Public License
+  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
 require('includes/application_top.php');

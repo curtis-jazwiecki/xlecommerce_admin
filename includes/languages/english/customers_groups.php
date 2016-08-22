@@ -1,5 +1,8 @@
 <?php
 /*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
    for Separate Pricing Per Customer v4.2.1 2007/11/04
 */
   

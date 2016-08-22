@@ -2,12 +2,9 @@
 /*
   $Id: html_graphs.php,v 1.7 2003/06/20 00:18:31 hpdl Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 osCommerce
-
-  Released under the GNU General Public License
+  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 
   HTML_Graphs (v1.5 1998/11/05 06:15:52) by Phil Davis, http://www.pobox.com/~pdavis/
 */

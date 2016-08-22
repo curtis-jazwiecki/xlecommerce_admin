@@ -1,5 +1,9 @@
 ;(function ( $, window, document, undefined ) {
-
+  /*
+    CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+  */
   /*!
    * animo is a powerful little tool that makes managing CSS animations extremely easy. Stack animations, set callbacks, make magic.
    * Modern browsers and almost all mobile browsers support CSS animations (http://caniuse.com/css-animation).

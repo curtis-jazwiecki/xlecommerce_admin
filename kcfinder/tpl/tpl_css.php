@@ -1,3 +1,8 @@
+<!--
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+-->
 <link href="css/index.php" rel="stylesheet" type="text/css" />
 <style type="text/css">
 div.file{width:<?php echo $this->config['thumbWidth'] ?>px;}

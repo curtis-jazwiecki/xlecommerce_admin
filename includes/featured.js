@@ -1,5 +1,9 @@
 //featured.js
-
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 function displaySelection(containerElemID, id, query_type){
 	try{
 		var container = getObjectRef(containerElemID);

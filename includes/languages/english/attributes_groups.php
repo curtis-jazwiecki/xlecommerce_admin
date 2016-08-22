@@ -4,14 +4,10 @@
   Updated for osCommerce 2.3.3.4 2013/09/30 - mommaroodles 
   for Separate Pricing Per Customer
        
-
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2013
-
-  Released under the GNU General Public License
-*/
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+  */
 
 define('HEADING_TITLE', 'Attribute prices for groups');
 define('ERROR_NO_ATTRIBUTE_ID', 'No attribute id was given');

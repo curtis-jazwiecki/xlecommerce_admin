@@ -1,5 +1,9 @@
 <style type="text/css"><!--
-
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
   .SubTitle {
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 11px;

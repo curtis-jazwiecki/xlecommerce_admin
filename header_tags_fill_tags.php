@@ -2,12 +2,9 @@
 /*
   $Id: header_tags_fill_tags.php,v 1.0 2005/08/25
   Originally Created by: Jack York - http://www.oscommerce-solution.com
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
+ CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
  
   require('includes/application_top.php'); 

@@ -2,12 +2,9 @@
 /*
   $Id: tax_classes.php,v 1.5 2002/01/28 00:48:18 harley_vb Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 osCommerce
-
-  Released under the GNU General Public License
+  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 */
 
 define('HEADING_TITLE', 'Steuerklassen');

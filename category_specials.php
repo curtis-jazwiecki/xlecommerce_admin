@@ -1,13 +1,14 @@
 <?php
 /*
 $Id: category_specials.php,v 1.00 2005/11/08 08:13:00
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 
-AddOn to osCommerce, Open Source E-Commerce Solutions
 http://www.wtmtechnologies.com
 
 Copyright (c) 2005 WTM Technologies
 
-Released under the GNU General Public License
 Pleast contact @ ashish@wtmtechnologies.com for bugs, suggestions, doubts, implementation or anything
 */
 

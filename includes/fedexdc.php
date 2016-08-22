@@ -1,5 +1,9 @@
 <?php
-
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 $server = 'production'; // which fedex server to use: test or production
 $request_referer = 'www.lenscoat.com'; // base url for site, e.g.: 'yoursite.com'
 

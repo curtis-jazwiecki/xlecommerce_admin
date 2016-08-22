@@ -1,5 +1,9 @@
 <?php
-
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 /** Dutch localization file for KCFinder
   * author: Lars Anderson <lars16anderson@users.sourceforge.net>
   * update: Richard Leurs

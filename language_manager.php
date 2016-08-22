@@ -2,7 +2,9 @@
 /*
   $Id: language_manager.php
   
-  Copyright (c) 2015 OBN
+  CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
   
 */
 
@@ -160,15 +162,17 @@
       $filename_input_field = tep_draw_input_field('filename');
     } elseif ($action == 'edit') {
       
-        $constantsBeforeInclude = getUserDefinedConstants();
-        include($current_path . '/' . $HTTP_GET_VARS['info']);
-        $constantsAfterInclude = getUserDefinedConstants();
-        $languageConstants = array_diff_assoc($constantsAfterInclude, $constantsBeforeInclude);
-      
-      /*if ($file_array = file($current_path . '/' . $HTTP_GET_VARS['info'])) {
-        $file_contents = addslashes(implode('', $file_array));
-      }*/
-      $filename_input_field = $HTTP_GET_VARS['info'] . tep_draw_hidden_field('filename', $HTTP_GET_VARS['info']);
+        $path_to_post = $current_path . '/' . $HTTP_GET_VARS['info'];
+		$postData = "path". '='.$path_to_post.'&'."action=getConstants";
+		$ch = curl_init();  
+		curl_setopt($ch,CURLOPT_URL,HTTP_SERVER.DIR_WS_ADMIN."getconstants.php");
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+		curl_setopt($ch, CURLOPT_POST, count($postData));
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);    
+		$language_response = curl_exec($ch);
+		curl_close($ch);
+		$languageConstants = json_decode($language_response,true);
+	    $filename_input_field = $HTTP_GET_VARS['info'] . tep_draw_hidden_field('filename', $HTTP_GET_VARS['info']);
     }
 ?>
       

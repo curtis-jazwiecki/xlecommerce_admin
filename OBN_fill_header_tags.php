@@ -1,4 +1,9 @@
 <?php
+/*
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
+*/
 $cron_script='yes';
 require_once('cron_application_top.php');
 $prev_selection_sql = tep_db_query("select * from header_tags_selection");

@@ -1,10 +1,8 @@
 <?php
 /* $Id$
-osCommerce, Open Source E-Commerce Solutions
-http://www.oscommerce.com
-Copyright (c) 2002 osCommerce
-
-Released under the GNU General Public License
+CloudCommerce - Multi-Channel eCommerce Solutions
+  http://www.cloudcommerce.org
+  Copyright(c)2016 Outdoor Business Network, Inc.
 xsell.php
 Original Idea From Isaac Mualem im@imwebdesigning.com <mailto:im@imwebdesigning.com>
 Complete Recoding From Stephen Walker admin@snjcomputers.com
