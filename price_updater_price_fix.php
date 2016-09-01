@@ -81,24 +81,29 @@ while ($row = tep_db_fetch_array($price_update_query))
 	else
 	  { $where_string .= " AND p.products_model LIKE '" . $like . "'"; }
   
-	if ($fixed == 0) // Fixed price change
-	  {
-	    if ($add == 0)  // Subtract
-		  { $markup = (0 - $value); }
-		else // Add
-		  { $markup = $value; }          
-      }
-	else // Percent change
-	  {
-	    if ($add == 0)// Subtract
-		  {
+	if ($fixed == 0) { // Fixed price change
+        if ($add == 0) {  // Subtract
+            $markup = (0 - $value);
+        } else { // Add
+            $markup = $value;
+        }
+    }
+    //else // Percent change
+    elseif ($fixed == 1) { // Percent change
+        if ($add == 0) {// Subtract
             $markup = (0 - $value);
             $markup = $markup . '%';
-          }
-		else  // Add
-		  { $markup = $value . '%'; }  
-	  }
-
+        } else {  // Add
+            $markup = $value . '%';
+        }
+    } elseif ($fixed == 2) { // Margin
+        if ($add == 0) {// Subtract
+            $markup = (0 - $value);
+            $markup = $markup . '% Margin';
+        } else {  // Add
+            $markup = $value . '% Margin';
+        }
+    }
 	// if greater than/less than value is set, add a modifier
 	if($above_below == '0')
 	  {
@@ -127,35 +132,32 @@ while ($row = tep_db_fetch_array($price_update_query))
 
     while ($products_update = tep_db_fetch_array($products_update_query))
 	  {
-        if ($fixed == 0)
-		  {  // Fixed price change
-		    if ($add == 0)
-			  {  // Subtract
+        if ($fixed == 0) {  // Fixed price change
+		    if ($add == 0) {  // Subtract
 				$new_price = $products_update['price'] - $value;
-	    	  }
-			else
-			  {  // Add
+	    	}else{  // Add
 				$new_price = $products_update['price'] + $value;
 			  }
-
-		  }
-		else
-		  {  // Percent change
-	        if ($add == 0)
-			  {  // Subtract
+    	}elseif ($fixed == 2) { // Margin change
+            if ($add == 0) {// subtract
+                $new_price = $products_update['price'] * (1 / (1 - (-$value / 100) ) );
+            } else {// add
+                $new_price = $products_update['price'] * (1 / (1 - ($value / 100) ) );
+            }
+		}else {  // Percent change
+	        if ($add == 0) {  // Subtract
           		$new_price = $products_update['price'] * (1 - ($value / 100));
-              }
-			else
-			  {  // Add
+            }else {  // Add
 				$new_price = $products_update['price'] * (1 + ($value / 100));         
 			  }
-		  }
+		}
+		
 		$roundoff_flag = '0';
-		if ($roundoff == '1')
-		  {
+		
+		if ($roundoff == '1') {
 			$new_price = apply_roundoff($new_price);
 			$roundoff_flag = '1';
-		  }
+		}
      //  echo $products_update['id'] . ' - ' . $products_update['price'] . ' ' . $new_price . '<br>';
 
 		if($above_below == '1' && $above_below_2 == '2')
