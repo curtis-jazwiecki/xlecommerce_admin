@@ -2005,7 +2005,23 @@ if (isset($_GET['pID'])) {
                                         $operator = '+';
                                     }
                                     $markup = str_replace("-", "", $markup);
-                                    if (strpos($markup, '%')) {
+                                    
+                                    if( strpos($markup, 'Margin')){
+                                    
+                                        $markup_flag = 'm';
+                                        
+                                        $markup = str_replace("% Margin", "", $markup);
+                                        
+                                        if($operator == '+'){
+                                            $markup_price = $pInfo->base_price * ((float) (1 / (1 - ($markup / 100) ) ));    
+                                        }else{
+                                            $markup_price = $pInfo->base_price * ((float) (1 / (1 - (-$markup / 100) ) ));
+                                        }
+                                        
+                                       
+                                    
+                                    
+                                    }else if (strpos($markup, '%')) {
                                         $markup_flag = 'p';
                                         $markup = str_replace("%", "", $markup);
                                         $markup_price = $pInfo->base_price * ((float) $markup / 100);
@@ -2013,6 +2029,8 @@ if (isset($_GET['pID'])) {
                                         $markup_flag = 'f';
                                         $markup_price = (float) $markup;
                                     }
+                                    
+                                    
                                     if ($operator == '+') {
                                         $price = $pInfo->base_price + $markup_price;
                                     } else {
@@ -2051,21 +2069,19 @@ if (isset($_GET['pID'])) {
                                             }
                                         }
                                         function updateGross() {
-                                            var operator = "<?php
-    echo $operator;
-    ?>";
-                                            var markup_flag = "<?php
-    echo $markup_flag;
-    ?>";
-                                            var markup = parseFloat(<?php
-    echo $markup;
-    ?>);
-                                            var roundoff_flag = '<?php
-    echo $roundoff_flag;
-    ?>';
+                                            var operator = "<?php  echo $operator; ?>";
+                                            var markup_flag = "<?php echo $markup_flag; ?>";
+                                            var markup = parseFloat(<?php echo $markup; ?>);
+                                            var roundoff_flag = '<?php echo $roundoff_flag; ?>';
                                             var markupPrice = 0;
                                             var grossValue = parseFloat(document.forms["new_product"].base_price.value);
-                                            if (markup_flag == 'p') {
+                                            if (markup_flag == 'm') {
+                                                if (operator == "+") {
+                                                    grossValue = grossValue * ((1 / (1 - (markup / 100) ) ));
+                                                } else {
+                                                    grossValue = grossValue * ((1 / (1 - (-markup / 100) ) ));
+                                                }
+                                            }else if (markup_flag == 'p') {
                                                 if (operator == "+") {
                                                     grossValue = grossValue * ((markup / 100) + 1);
                                                 } else {
