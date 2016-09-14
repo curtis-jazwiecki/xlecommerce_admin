@@ -9,6 +9,7 @@ require_once('cron_application_top.php');
 //$status_id = updateOBN('start');
 require_once('OBN_global_feed_to_osc.php');
 $feed = new global_feed_to_osc();
+$feed->initializePriceFlags();
 $feed->product_feed_to_osc();
 //updateOBN('complete',$status_id);
 // below runs the custom price updates after the main cron has completed
