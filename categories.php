@@ -9708,12 +9708,12 @@ if ($cInfo->amazon_category_id > 0) {
                                                                         if (!empty($info['google_category_id'])) {
 
                                                                             $google_category_name = get_google_category_path($info['google_category_id']);
-
+                                                                        }
   
 
- if ($pInfo->amazon_category_id >0)    {                                                                   }
+ if ($pInfo->amazon_category_id >0)    {                                                                   
 
- $sql = tep_db_query("select node_path, item_type from products where products_id='" . $pInfo->amazon_category_id . "'");
+ $sql = tep_db_query("select node_path, item_type from amazon_tree_guide where id='" . $pInfo->amazon_category_id . "'");
 
  $info = tep_db_fetch_array($sql);
 
