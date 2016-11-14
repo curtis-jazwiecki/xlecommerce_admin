@@ -5853,6 +5853,34 @@ function getAllTrackingDetails($order_id){
     
     return $price;
  }
-
-
+ function set_products_disclaimer($categories_id,$disclaimer_needed = '0',$update_product_disclaimer_by_feed = '0'){
+    
+	$categories = array(); 
+	
+	for ($i = 0, $n = sizeof($categories_id); $i < $n; $i++) {
+		$categories[] = (int) $categories_id[$i]['id'];
+    }
+									
+	if(count($categories)){
+		
+		tep_db_query("update " . TABLE_PRODUCTS . "  p 
+							join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c ON p.products_id = p2c.products_id 
+							join " . TABLE_CATEGORIES . " c ON p2c.categories_id = c.categories_id 
+							join products_xml_feed_flags as pxml on p.products_id = pxml.products_id 
+								set 
+									p.disclaimer_needed = '".(int)$disclaimer_needed."',
+									pxml.flags=concat(substr(flags,1,6),'".$update_product_disclaimer_by_feed."'), 
+									pxml.last_modified=now() 
+										where 
+											c.categories_id in (".implode(', ', $categories).") and p.products_status = '1'");
+		
+		tep_db_query("update " . TABLE_CATEGORIES . " c  
+								set 
+									c.categories_disclaimer_needed = '".(int)$disclaimer_needed."',
+									c.update_disclaimer_by_feed = '".$update_product_disclaimer_by_feed."'
+										where 
+											c.categories_id in (".implode(', ', $categories).")");
+	
+	}
+ }
 ?>
