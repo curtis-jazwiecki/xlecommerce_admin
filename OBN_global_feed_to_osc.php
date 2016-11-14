@@ -690,7 +690,7 @@ class global_feed_to_osc {
 
              */
 
-            $this->default_flag = '111110'; //default value assigned to set the product status
+            $this->default_flag = '1111101'; //default value assigned to set the product status
             //EOF:mod 20120419
 
             $sql_data_array = array(
@@ -909,12 +909,12 @@ class global_feed_to_osc {
                     $status_update_locked = false;
                     $lock_price = 0;
 
-                    $sql = tep_db_query("select p.products_id,p.lock_status,p.products_price,p.base_price,p.markup,p.lock_price,p.roundoff_flag,IF(sp.specials_new_products_price, sp.discount, NULL) as discount from products as p  left join specials as sp USING(products_id) where products_model='" . str_replace("'", "''", $temp_prod_model) . "'");
+                    $sql = tep_db_query("select p.products_id,p.lock_status,p.products_price,p.base_price,p.markup,p.lock_price,p.roundoff_flag,IF(sp.specials_new_products_price, sp.discount, NULL) as discount,p.disclaimer_needed from products as p  left join specials as sp USING(products_id) where products_model='" . str_replace("'", "''", $temp_prod_model) . "'");
 
 
                     //echo "3...";
                     $total_rows = tep_db_num_rows($sql);
-
+                    
                     if ($total_rows) {
 
                         $prod_exists = 1;
@@ -928,7 +928,7 @@ class global_feed_to_osc {
                         $default_roundoff = $sql_info['roundoff_flag'];
                         $products_price = $sql_info['products_price'];
                         $base_price = $sql_info['base_price'];
-
+                        
                         //looks up for product's xml feed flag status
 
                         $sql_query_flag = tep_db_query("select flags from products_xml_feed_flags where products_id='" . $temp_prod_osc_id . "'");
@@ -948,9 +948,17 @@ class global_feed_to_osc {
                             $flag_prod_desc = substr($this->default_flag, 3, 1);
 
                             $flag_prod_image = substr($this->default_flag, 4, 1);
+                            
+                            $update_product_disclaimer_by_feed = (substr($this->default_flag, 6, 1) != '' || substr($this->default_flag, 6, 1) != false) ? substr($this->default_flag, 6, 1) : '1';
 
                         }
                     }
+                    
+                        
+                    
+                     if($update_product_disclaimer_by_feed == '0'){
+                            $temp_disclaimer_status = $sql_info['disclaimer_needed'];
+                     }
 
 
                     $markup = '';
