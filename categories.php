@@ -733,15 +733,11 @@ if (tep_not_null($action)) {
 
                     if ($category_flag == '0') {
 
-                        tep_db_query("update products_xml_feed_flags set flags=concat(substr(flags,1,2),'0',substr(flags,4,2)), last_modified=now() where products_id='" .
-
-                                (int) $prod[$i] . "'");
+                        tep_db_query("update products_xml_feed_flags set flags=concat(substr(flags,1,2),'0',substr(flags,4,2)), last_modified=now() where products_id='" .(int) $prod[$i] . "'");
 
                     } else {
 
-                        tep_db_query("update products_xml_feed_flags set flags=concat(substr(flags,1,2),'1',substr(flags,4,2)), last_modified=now() where products_id='" .
-
-                                (int) $prod[$i] . "'");
+                        tep_db_query("update products_xml_feed_flags set flags=concat(substr(flags,1,2),'1',substr(flags,4,2)), last_modified=now() where products_id='" .(int) $prod[$i] . "'");
 
                     }
 
@@ -930,7 +926,7 @@ if (tep_not_null($action)) {
         case 'insert_category':
 
         case 'update_category':
-
+        
             if (isset($HTTP_POST_VARS['categories_id']))
 
                 $categories_id = tep_db_prepare_input($HTTP_POST_VARS['categories_id']);
@@ -947,6 +943,10 @@ if (tep_not_null($action)) {
 
             $categories_status = tep_db_prepare_input($HTTP_POST_VARS['categories_status']);
 
+            $categories_disclaimer_needed = tep_db_prepare_input($HTTP_POST_VARS['disclaimer_needed']);
+			
+			$categories_update_disclaimer_by_feed = tep_db_prepare_input($HTTP_POST_VARS['update_disclaimer_by_feed']);
+            
             $sql_data_array = array(
 
                 'sort_order' => empty($sort_order) ? '0' : $sort_order,
@@ -957,7 +957,10 @@ if (tep_not_null($action)) {
 
                 'categories_status' => $categories_status == '0' || $categories_status == '1' ? $categories_status : '1',
 
-                'is_category_group' => $is_category_group);
+                
+                'is_category_group' => $is_category_group
+                
+                );
 
             //EOF:category_group
 
@@ -987,32 +990,29 @@ if (tep_not_null($action)) {
 
                 $sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
-                tep_db_perform(TABLE_CATEGORIES, $sql_data_array, 'update', "categories_id = '" .
-
-                        (int) $categories_id . "'");
+                tep_db_perform(TABLE_CATEGORIES, $sql_data_array, 'update', "categories_id = '" .(int) $categories_id . "'");
 
                 //Category Status MOD BEGIN by FIW
-
+				$categories = tep_get_category_tree($categories_id, '', '0', '', true);
+				
                 if (isset($categories_status)) {
-
-                    $categories = tep_get_category_tree($categories_id, '', '0', '', true);
 
                     for ($i = 0, $n = sizeof($categories); $i < $n; $i++) {
 
-                        $update_status = tep_db_query("update `categories` set `categories_status` = '" .
-
-                                (int) $categories_status . "' where `categories_id` = '" . (int) $categories[$i]['id'] .
-
-                                "' ");
-
+                        $update_status = tep_db_query("update `categories` set `categories_status` = '" .(int) $categories_status . "' where `categories_id` = '" . (int) $categories[$i]['id'] ."' ");
+								
                     }
 
                 }
+                
+                set_products_disclaimer($categories,$categories_disclaimer_needed,$categories_update_disclaimer_by_feed);
+                
+                   
 
                 //Category Status MOD END by FIW
 
             }
-
+            
             $languages = tep_get_languages();
 
             for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
@@ -1823,17 +1823,11 @@ if (tep_not_null($action)) {
 
                     // EOF Separate Pricing Per Customer
 
-                    $flags = tep_db_prepare_input($HTTP_POST_VARS['prod_inventory_flag']) .
-
-                            tep_db_prepare_input($HTTP_POST_VARS['prod_price_flag']) . tep_db_prepare_input($HTTP_POST_VARS['prod_category_flag']) .
-
-                            tep_db_prepare_input($HTTP_POST_VARS['prod_desc_flag']) . tep_db_prepare_input($HTTP_POST_VARS['prod_image_flag']);
+                    $flags = tep_db_prepare_input($HTTP_POST_VARS['prod_inventory_flag']) .tep_db_prepare_input($HTTP_POST_VARS['prod_price_flag']) . tep_db_prepare_input($HTTP_POST_VARS['prod_category_flag']) .tep_db_prepare_input($HTTP_POST_VARS['prod_desc_flag']) . tep_db_prepare_input($HTTP_POST_VARS['prod_image_flag']).tep_db_prepare_input($HTTP_POST_VARS['prod_desc_flag']) . tep_db_prepare_input($HTTP_POST_VARS['prod_disclaimer_flag']);
 
                     //if (!empty($flags)){
 
-                    tep_db_query("update products_xml_feed_flags set flags='" . $flags .
-
-                            "', last_modified=now() where products_id='" . (int) $products_id . "'");
+                    tep_db_query("update products_xml_feed_flags set flags='" . $flags . "', last_modified=now() where products_id='" . (int) $products_id . "'");
 
                     //}else{
 
@@ -1865,9 +1859,7 @@ if (tep_not_null($action)) {
 
                             if (!empty($val)) {
 
-                                tep_db_query("update products set parent_products_model = '" . (!empty($parent_model) ? $parent_model : NULL) .
-
-                                        "' where products_id = '" . $val . "'");
+                                tep_db_query("update products set parent_products_model = '" . (!empty($parent_model) ? $parent_model : NULL) . "' where products_id = '" . $val . "'");
 
                             }
 
@@ -2598,6 +2590,8 @@ if (tep_not_null($action)) {
             $flag_prod_desc = tep_db_prepare_input($HTTP_POST_VARS['prod_desc_flag']);
 
             $flag_prod_image = tep_db_prepare_input($HTTP_POST_VARS['prod_image_flag']);
+			
+			$flag_prod_disclaimer = tep_db_prepare_input($HTTP_POST_VARS['prod_disclaimer_flag']);
 
             //BOF astro - update database with new images
 
@@ -2959,7 +2953,7 @@ if (isset($_GET['pID'])) {
 
             theme_advanced_path_location: "bottom",
 
-            extended_valid_elements: "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
+            extended_valid_elements: "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder]",
 
             external_link_list_url: "example_data/example_link_list.js",
 
@@ -3312,6 +3306,9 @@ if (isset($_GET['pID'])) {
                                         $flag_prod_desc = 0;
 
                                         $flag_prod_image = 0;
+										
+										
+										$flag_prod_disclaimer = 0;
 
                                         $sql = tep_db_query("select flags from products_xml_feed_flags where products_id='" .
 
@@ -3334,6 +3331,8 @@ if (isset($_GET['pID'])) {
                                             $flag_prod_desc = substr($flags, 3, 1);
 
                                             $flag_prod_image = substr($flags, 4, 1);
+											
+											$flag_prod_disclaimer = substr($flags,6,1);
 
                                         } else {
 
@@ -3374,6 +3373,8 @@ if (isset($_GET['pID'])) {
                                         $flag_prod_desc = $HTTP_POST_VARS['flag_prod_desc'];
 
                                         $flag_prod_image = $HTTP_POST_VARS['flag_prod_image'];
+										
+										$flag_prod_disclaimer = $HTTP_POST_VARS['flag_prod_disclaimer'];
 
                                     }
 
@@ -3872,6 +3873,32 @@ if (isset($_GET['pID'])) {
                                             $update_prod_image_yes = true;
 
                                             $update_prod_image_no = false;
+
+                                            break;
+
+                                    }
+									
+									 if (!isset($flag_prod_disclaimer)) {
+
+                                        $flag_prod_disclaimer = '0';
+
+                                    }
+
+                                    switch ($flag_prod_disclaimer) {
+
+                                        case '0':
+
+                                            $update_prod_disclaimer_yes = false;
+
+                                            $update_prod_disclaimer_no = true;
+
+                                            break;
+
+                                        case '1':
+
+                                            $update_prod_disclaimer_yes = true;
+
+                                            $update_prod_disclaimer_no = false;
 
                                             break;
 
@@ -4725,31 +4752,48 @@ if (isset($_GET['pID'])) {
 
                                                                                     </tr>
 
-                                                                                    <tr>
+            <tr>
 
-                                                                                        <td><?php
+                <td><?php
 
-                                                                                            echo 'XML feed -> Update product image';
+                    echo 'XML feed -> Update product image';
 
-                                                                                            ?></td>
+                    ?></td>
 
-                                                                                        <td><?php
+                <td><?php
 
-                                                                                            echo '&nbsp;:&nbsp;';
+                    echo '&nbsp;:&nbsp;';
 
-                                                                                            ?></td>
+                    ?></td>
 
-                                                                                        <td><?php
+                <td><?php
 
-                                                                                            echo tep_draw_radio_field('prod_image_flag', '1', $update_prod_image_yes) .
+                    echo tep_draw_radio_field('prod_image_flag', '1', $update_prod_image_yes) .
 
-                                                                                            '&nbsp;Yes&nbsp;' . tep_draw_radio_field('prod_image_flag', '0', $update_prod_image_no) .
+                    '&nbsp;Yes&nbsp;' . tep_draw_radio_field('prod_image_flag', '0', $update_prod_image_no) .
 
-                                                                                            '&nbsp;No';
+                    '&nbsp;No';
 
-                                                                                            ?></td>
+                    ?></td>
 
-                                                                                    </tr>
+            </tr>
+            
+            <!-- added on 13-10-2016 #start -->
+            <tr>
+
+                <td><?php echo 'XML feed -> Update Disclaimer Flag'; ?></td>
+
+                <td><?php echo '&nbsp;:&nbsp;'; ?></td>
+
+                <td><?php echo tep_draw_radio_field('prod_disclaimer_flag', '1', $update_prod_disclaimer_yes) .'&nbsp;Yes&nbsp;' . tep_draw_radio_field('prod_disclaimer_flag', '0', $update_prod_disclaimer_no) .'&nbsp;No'; ?></td>
+
+            </tr>
+            
+            
+            
+            
+            <!-- added on 13-10-2016 #ends -->
+            
 
                                                                                     <?php
 
@@ -8150,6 +8194,8 @@ echo '</td>';
                                                     echo tep_draw_hidden_field('flag_prod_desc', $flag_prod_desc);
 
                                                     echo tep_draw_hidden_field('flag_prod_image', $flag_prod_image);
+													
+													echo tep_draw_hidden_field('flag_prod_disclaimer', $flag_prod_disclaimer);
 
                                                     echo tep_draw_hidden_field('products_image_2', stripslashes($products_image_2_name));
 
@@ -8395,7 +8441,7 @@ echo '</td>';
 
                                                                          */
 
-                                                                        $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.banner_image, c.parent_id, c.sort_order, c.categories_status, c.date_added, c.last_modified, cd.categories_htc_title_tag, cd.categories_htc_desc_tag, cd.categories_htc_keywords_tag, cd.categories_htc_description, c.is_amazon_ok, c.is_ebay_ok from " .
+                                                                        $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.banner_image, c.parent_id, c.sort_order, c.categories_status, c.date_added, c.last_modified, cd.categories_htc_title_tag, cd.categories_htc_desc_tag, cd.categories_htc_keywords_tag, cd.categories_htc_description, c.is_amazon_ok, c.is_ebay_ok,c.categories_disclaimer_needed,c.update_disclaimer_by_feed from " .
 
                                                                                 TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION .
 
@@ -8429,7 +8475,7 @@ echo '</td>';
 
                                                                          */
 
-                                                                        $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.banner_image, c.parent_id, c.sort_order, c.categories_status, c.date_added, c.last_modified, c.is_category_group, cd.categories_htc_title_tag, cd.categories_htc_desc_tag, cd.categories_htc_keywords_tag, cd.categories_htc_description, c.is_amazon_ok, c.is_ebay_ok,c.amazon_category_id from " .
+                                                                        $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.banner_image, c.parent_id, c.sort_order, c.categories_status, c.date_added, c.last_modified, c.is_category_group, cd.categories_htc_title_tag, cd.categories_htc_desc_tag, cd.categories_htc_keywords_tag, cd.categories_htc_description, c.is_amazon_ok, c.is_ebay_ok,c.amazon_category_id,c.categories_disclaimer_needed,c.update_disclaimer_by_feed from " .
 
                                                                                 TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION .
 
@@ -8477,9 +8523,11 @@ echo '</td>';
 
                                                                             //Categories status MOD bEGIN by FIW
 
-                                                                            if (!isset($cInfo->categories_status))
+                                                                            if (!isset($cInfo->categories_status)){
+                                                                                   $cInfo->categories_status = '1'; 
+                                                                            }
 
-                                                                                $cInfo->categories_status = '1';
+                                                                                
 
                                                                             switch ($cInfo->categories_status) {
 
@@ -8500,6 +8548,34 @@ echo '</td>';
                                                                                     $out_status = false;
 
                                                                             }
+                
+                // added on 12-10-2016 #start
+				if($cInfo->categories_disclaimer_needed == '1') {
+                
+                    $categories_disclaimer_needed_active = true;
+                    $categories_disclaimer_needed_inactive = false;
+                   
+                   
+                }else{
+                    
+                    $categories_disclaimer_needed_active = false;
+                    $categories_disclaimer_needed_inactive = true;
+                    
+                }
+				
+				if($cInfo->update_disclaimer_by_feed == '1') {
+                
+                    $update_disclaimer_by_feed_active = true;
+					$update_disclaimer_by_feed_inactive = false;
+                   
+                   
+                }else{
+                    
+                    $update_disclaimer_by_feed_active = false;
+					$update_disclaimer_by_feed_inactive = true;
+                    
+                }
+				// added on 12-10-2016 #ends
 
                                                                             //Categories status MOD END by FIW
 
@@ -9311,31 +9387,17 @@ echo '</td>';
 
                                                                 //BOF:category_group
 
-                                                                $contents[] = array('text' => '<br>Is category Group<br>' . tep_draw_radio_field
-
-                                                                            ('is_category_group', '1', $cat_status_set, '', (!$cInfo->parent_id ? '' :
-
-                                                                                    'disabled')) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('is_category_group', '0', $cat_status_unset) . '&nbsp;No');
+                                                                $contents[] = array('text' => '<br>Is category Group<br>' . tep_draw_radio_field('is_category_group', '1', $cat_status_set, '', (!$cInfo->parent_id ? '' :'disabled')) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('is_category_group', '0', $cat_status_unset) . '&nbsp;No');
 
                                                                 //EOF:category_group
 
-                                                                $contents[] = array('text' => '<br>' . tep_image(DIR_WS_CATALOG_IMAGES . $cInfo->
+                                                                $contents[] = array('text' => '<br>' . tep_image(DIR_WS_CATALOG_IMAGES . $cInfo->categories_image, $cInfo->categories_name) . '<br>' . DIR_WS_CATALOG_IMAGES .'<br><b>' . $cInfo->categories_image . '</b>');
 
-                                                                            categories_image, $cInfo->categories_name) . '<br>' . DIR_WS_CATALOG_IMAGES .
-
-                                                                    '<br><b>' . $cInfo->categories_image . '</b>');
-
-                                                                $contents[] = array('text' => '<br>' . TEXT_EDIT_CATEGORIES_IMAGE . '<br>' .
-
-                                                                    tep_draw_file_field('categories_image'));
+                                                                $contents[] = array('text' => '<br>' . TEXT_EDIT_CATEGORIES_IMAGE . '<br>' . tep_draw_file_field('categories_image'));
 
                                                                 if ($cInfo->banner_image != '') {
 
-                                                                    $contents[] = array('text' => '<br>' . '<a href="' . tep_href_link(HTTP_CATALOG_SERVER .
-
-                                                                                DIR_WS_CATALOG_IMAGES . $cInfo->banner_image) . '">' . '<b>' . $cInfo->
-
-                                                                        banner_image . '</b></a>');
+                                                                    $contents[] = array('text' => '<br>' . '<a href="' . tep_href_link(HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . $cInfo->banner_image) . '">' . '<b>' . $cInfo->banner_image . '</b></a>');
 
                                                                 }
 
@@ -9351,15 +9413,20 @@ echo '</td>';
 
                                                                 //Categroies Status MOD BEGIN by FIW
 
-                                                                $contents[] = array('text' => '<br>Categories Status<br>' . tep_draw_radio_field
-
-                                                                            ('categories_status', '1', $in_status) . '&nbsp;Active&nbsp;' .
-
-                                                                    tep_draw_radio_field('categories_status', '0', $out_status) . '&nbsp;Inactive');
+                                                                $contents[] = array('text' => '<br>Categories Status<br>' . tep_draw_radio_field('categories_status', '1', $in_status) . '&nbsp;Active&nbsp;' . tep_draw_radio_field('categories_status', '0', $out_status) . '&nbsp;Inactive');
 
                                                                 //Categroies Status MOD END by FIW
 
-                                                                // HTC BOC
+                                                                // added on 12-10-2016 #start
+																
+                                                                $contents[] = array('text' => '<br>Disclaimer Needed<br>' . tep_draw_radio_field('disclaimer_needed', '1', $categories_disclaimer_needed_active) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('disclaimer_needed', '0', $categories_disclaimer_needed_inactive) . '&nbsp;No');
+																
+																
+																$contents[] = array('text' => '<br>Update Disclaimer Flag from Feed<br>' . tep_draw_radio_field('update_disclaimer_by_feed', '1', $update_disclaimer_by_feed_active) . '&nbsp;Yes&nbsp;' . tep_draw_radio_field('update_disclaimer_by_feed', '0', $update_disclaimer_by_feed_inactive) . '&nbsp;No');
+																// added on 12-10-2016 #ends
+																
+																
+																// HTC BOC
 
                                                                 $contents[] = array('text' => '<br>' . 'Header Tags Category Title' . $category_htc_title_string);
 
@@ -9540,6 +9607,13 @@ if (isset($cInfo) && is_object($cInfo)) { // category info box contents
 		$contents[] = array('text' => '<br>' . tep_info_image($cInfo->categories_image, $cInfo->categories_name, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT) . '<br>' . $cInfo->categories_image);
 
 		$contents[] = array('text' => '<br>' . TEXT_SUBCATEGORIES . ' ' . $cInfo->childs_count . '<br>' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
+		
+		$contents[] = array('text' => '<br>Disclaimer Needed: ' . (($cInfo->categories_disclaimer_needed == '0') ? 'No' : 'Yes'));
+		
+		$contents[] = array('text' => '<br>Update Disclaimer Flag from Feed: ' . (($cInfo->update_disclaimer_by_feed  == '0') ? 'No' : 'Yes'));
+		
+		
+		
 
 } elseif (isset($pInfo) && is_object($pInfo)) {
 
