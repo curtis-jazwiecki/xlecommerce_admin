@@ -154,7 +154,7 @@ class amazon_manager{
         }
 
         $count = 0;
-        $sql_query = tep_db_query("select a.products_id, a.products_model, a.parent_products_model, a.variation_theme_id, a.base_price, a.products_weight, a.is_amazon_ok, a.amazon_category_id,
+        $sql_query = tep_db_query("select a.products_id, a.products_model, a.parent_products_model, a.variation_theme_id, a.products_price, a.products_weight, a.is_amazon_ok, a.amazon_category_id,
                                   a.products_status, b.products_name, b.products_description,
                                   c.manufacturers_name, pe.upc_ean
                                   from products a " .
@@ -243,6 +243,12 @@ class amazon_manager{
      $item_type = $result['item_type'];
    }
  }
+ 
+        // added on 30-12-2016 #start
+        $marked_up_price = $sql_info['products_price'] * $this->markup_coefficient;
+        // added on 30-12-2016 #ends
+ 
+ 
 		$xml .= '<Message>' .
                             '<MessageID>' . ++$count . '</MessageID>' .
                             '<OperationType>Update</OperationType>' .
@@ -253,7 +259,8 @@ class amazon_manager{
                                 '<DescriptionData>' .
                                     '<Title>' . $this->filter_description_data($sql_info['products_name']) . '</Title>' .
                                     '<Description>' . $this->filter_description_data($sql_info['products_description']) . '</Description>' .
-                                    '<MSRP currency="' . CURRENCY . '">' . number_format($sql_info['base_price'], 2, '.', '') . '</MSRP>' .
+                                    //'<MSRP currency="' . CURRENCY . '">' . number_format($sql_info['products_price'], 2, '.', '') . '</MSRP>' .
+                                    '<MSRP currency="' . CURRENCY . '">' . number_format($marked_up_price, 2, '.', '') . '</MSRP>' .
                                     (!empty($sql_info['manufacturers_name']) ? '<Manufacturer>' . htmlspecialchars($sql_info['manufacturers_name']) .  '</Manufacturer>' : '') .
                                     ($item_type != '' ? '<ItemType>' . $item_type . '</ItemType>': '') .
                                 '</DescriptionData>' .
@@ -321,7 +328,7 @@ class amazon_manager{
         $xml = $this->get_feed_header('_POST_PRODUCT_PRICING_DATA_');
 
         $count = 0;
-        $sql_query = tep_db_query("select a.products_model, if (a.manual_price>0, a.manual_price, a.base_price) as products_price
+        $sql_query = tep_db_query("select a.products_model, if (a.manual_price>0, a.manual_price, a.products_price) as products_price
                                   from " .  TABLE_PRODUCTS . " a
                                   where a.products_status='1' and a.is_amazon_ok='1' limit 20000");
         while ($sql_info = tep_db_fetch_array($sql_query)){
