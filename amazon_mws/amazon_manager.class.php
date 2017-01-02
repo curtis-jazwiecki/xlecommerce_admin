@@ -393,9 +393,9 @@ class amazon_manager{
                 $feed_status = amazon_manager::is_xml_feed_product($sql_info['products_id']);
                     if ($feed_status &&  (strpos($image_name, 'http://') || strpos($image_name,'https://'))) {
                         $image_name = $image_name;
-                    }  else{
+                    }  /*else{
                         $image_name = HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . $image_name;
-                    }
+                    }*/ // commented out as per curts suggestion
 
 
                     $xml .= '<Message>' .
