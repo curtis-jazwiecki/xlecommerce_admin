@@ -138,7 +138,7 @@ class amazon_manager{
             $content = substr($content, 0, 2000);
         }
 
-        $content = stripslashes(htmlspecialchars(utf8_encode($content)));
+        $content = stripslashes(htmlspecialchars(strip_tags(utf8_encode($content))));
         return $content;
     }
 
@@ -255,9 +255,10 @@ class amazon_manager{
                             '<Product>' .
                                 '<SKU>' . htmlspecialchars($sql_info['products_model']) . '</SKU>' .
                                 $upc_ean_str .
-				'<ProductTaxCode>A_SPORT_MISCSPORTS1</ProductTaxCode>' .
+				                '<ProductTaxCode>A_SPORT_MISCSPORTS1</ProductTaxCode>' .
                                 '<DescriptionData>' .
                                     '<Title>' . $this->filter_description_data($sql_info['products_name']) . '</Title>' .
+                                    (!empty($sql_info['manufacturers_name']) ? '<Brand>' . htmlspecialchars($sql_info['manufacturers_name']) .  '</Brand>' : '') . 
                                     '<Description>' . $this->filter_description_data($sql_info['products_description']) . '</Description>' .
                                     //'<MSRP currency="' . CURRENCY . '">' . number_format($sql_info['products_price'], 2, '.', '') . '</MSRP>' .
                                     '<MSRP currency="' . CURRENCY . '">' . number_format($marked_up_price, 2, '.', '') . '</MSRP>' .
