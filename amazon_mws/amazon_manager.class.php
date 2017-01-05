@@ -354,7 +354,7 @@ class amazon_manager{
         $sql_query = tep_db_query("select a.products_model, a.products_quantity
                                   from products a where
                                   a.products_status='1' and       
-                                a.is_amazon_ok='1' and a.products_quantity>='2' limit 20000");
+                                a.is_amazon_ok='1' limit 20000"); //and a.products_quantity>='2' "removed this clause as per curt suggestion"
         while ($sql_info = tep_db_fetch_array($sql_query)){
             //$products_quantity = (((int)$sql_info['products_quantity'] >= 0) ? $sql_info['products_quantity'] : '0');
 			$products_quantity = (($sql_info['products_quantity'] >= MINIMUM_INVENTORY_LEVEL) ? $sql_info['products_quantity'] : '0');
