@@ -138,7 +138,7 @@ class amazon_manager{
             $content = substr($content, 0, 2000);
         }
 
-        $content = stripslashes(htmlspecialchars(utf8_encode($content)));
+        $content = stripslashes(htmlspecialchars(strip_tags(utf8_encode($content))));
         return $content;
     }
 
@@ -154,7 +154,7 @@ class amazon_manager{
         }
 
         $count = 0;
-        $sql_query = tep_db_query("select a.products_id, a.products_model, a.parent_products_model, a.variation_theme_id, a.base_price, a.products_weight, a.is_amazon_ok, a.amazon_category_id,
+        $sql_query = tep_db_query("select a.products_id, a.products_model, a.parent_products_model, a.variation_theme_id, a.products_price, a.products_weight, a.is_amazon_ok, a.amazon_category_id,
                                   a.products_status, b.products_name, b.products_description,
                                   c.manufacturers_name, pe.upc_ean
                                   from products a " .
@@ -243,17 +243,25 @@ class amazon_manager{
      $item_type = $result['item_type'];
    }
  }
+ 
+        // added on 30-12-2016 #start
+        $marked_up_price = $sql_info['products_price'] * $this->markup_coefficient;
+        // added on 30-12-2016 #ends
+ 
+ 
 		$xml .= '<Message>' .
                             '<MessageID>' . ++$count . '</MessageID>' .
                             '<OperationType>Update</OperationType>' .
                             '<Product>' .
                                 '<SKU>' . htmlspecialchars($sql_info['products_model']) . '</SKU>' .
                                 $upc_ean_str .
-				'<ProductTaxCode>A_SPORT_MISCSPORTS1</ProductTaxCode>' .
+				                '<ProductTaxCode>A_SPORT_MISCSPORTS1</ProductTaxCode>' .
                                 '<DescriptionData>' .
                                     '<Title>' . $this->filter_description_data($sql_info['products_name']) . '</Title>' .
+                                    (!empty($sql_info['manufacturers_name']) ? '<Brand>' . htmlspecialchars($sql_info['manufacturers_name']) .  '</Brand>' : '') . 
                                     '<Description>' . $this->filter_description_data($sql_info['products_description']) . '</Description>' .
-                                    '<MSRP currency="' . CURRENCY . '">' . number_format($sql_info['base_price'], 2, '.', '') . '</MSRP>' .
+                                    //'<MSRP currency="' . CURRENCY . '">' . number_format($sql_info['products_price'], 2, '.', '') . '</MSRP>' .
+                                    '<MSRP currency="' . CURRENCY . '">' . number_format($marked_up_price, 2, '.', '') . '</MSRP>' .
                                     (!empty($sql_info['manufacturers_name']) ? '<Manufacturer>' . htmlspecialchars($sql_info['manufacturers_name']) .  '</Manufacturer>' : '') .
                                     ($item_type != '' ? '<ItemType>' . $item_type . '</ItemType>': '') .
                                 '</DescriptionData>' .
@@ -321,7 +329,7 @@ class amazon_manager{
         $xml = $this->get_feed_header('_POST_PRODUCT_PRICING_DATA_');
 
         $count = 0;
-        $sql_query = tep_db_query("select a.products_model, if (a.manual_price>0, a.manual_price, a.base_price) as products_price
+        $sql_query = tep_db_query("select a.products_model, if (a.manual_price>0, a.manual_price, a.products_price) as products_price
                                   from " .  TABLE_PRODUCTS . " a
                                   where a.products_status='1' and a.is_amazon_ok='1' limit 20000");
         while ($sql_info = tep_db_fetch_array($sql_query)){
@@ -346,7 +354,7 @@ class amazon_manager{
         $sql_query = tep_db_query("select a.products_model, a.products_quantity
                                   from products a where
                                   a.products_status='1' and       
-                                a.is_amazon_ok='1' and a.products_quantity>='2' limit 20000");
+                                a.is_amazon_ok='1' limit 20000"); //and a.products_quantity>='2' "removed this clause as per curt suggestion"
         while ($sql_info = tep_db_fetch_array($sql_query)){
             //$products_quantity = (((int)$sql_info['products_quantity'] >= 0) ? $sql_info['products_quantity'] : '0');
 			$products_quantity = (($sql_info['products_quantity'] >= MINIMUM_INVENTORY_LEVEL) ? $sql_info['products_quantity'] : '0');
@@ -386,9 +394,9 @@ class amazon_manager{
                 $feed_status = amazon_manager::is_xml_feed_product($sql_info['products_id']);
                     if ($feed_status &&  (strpos($image_name, 'http://') || strpos($image_name,'https://'))) {
                         $image_name = $image_name;
-                    }  else{
+                    }  /*else{
                         $image_name = HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . $image_name;
-                    }
+                    }*/ // commented out as per curts suggestion
 
 
                     $xml .= '<Message>' .

@@ -1,2 +1,0 @@
-ALTER TABLE `categories` ADD `categories_disclaimer_needed` ENUM( '0', '1' ) NULL DEFAULT NULL;
-ALTER TABLE `categories` ADD `update_disclaimer_by_feed` INT( 2 ) NOT NULL DEFAULT '1' COMMENT '1 = update from feed, 0 = dont update from feed';
