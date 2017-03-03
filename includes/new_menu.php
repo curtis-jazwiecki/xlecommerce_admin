@@ -91,7 +91,7 @@ $(function(){
                   <div data-toggle="collapse-next" class="item user-block has-submenu">
                      <!-- User picture-->
                      <div class="user-block-picture">
-                        <img src="http://v6copy1.obndemo.com/images/store_logo.png" alt="Avatar" style="width:40px; height:40px;" class="img-thumbnail img-circle">
+                        <img src="../../../images/store_logo.png" alt="Avatar" style="width:40px; height:40px;" class="img-thumbnail img-circle">
                         <!-- Status when collapsed-->
                         <div class="user-block-status">
                            <div class="point point-success point-lg"></div>
