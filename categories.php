@@ -1635,11 +1635,11 @@ if (tep_not_null($action)) {
 
                             tep_db_query("insert into " . TABLE_PRODUCTS_EXTENDED .
 
-                                    " (`osc_products_id`,`upc_ean`,`brand_name`,`date_added`,`last_modified`) VALUES('" .
+                                    " (`osc_products_id`,`upc_ean`,`manufacturer_model_number`,`date_added`,`last_modified`) VALUES('" .
 
                                     (int) $products_id . "','" . tep_db_prepare_input($HTTP_POST_VARS['upc_ean']) .
 
-                                    "','" . tep_db_prepare_input($HTTP_POST_VARS['brand_name']) . "',now(),now())");
+                                    "','" . tep_db_prepare_input($HTTP_POST_VARS['manufacturer_model_number']) . "',now(),now())");
 
                         }
 
@@ -1679,11 +1679,11 @@ if (tep_not_null($action)) {
 
                         tep_db_query("insert into " . TABLE_PRODUCTS_EXTENDED .
 
-                                " (`osc_products_id`,`upc_ean`,`brand_name`,`date_added`,`last_modified`) VALUES('" .
+                                " (`osc_products_id`,`upc_ean`,`manufacturer_model_number`,`date_added`,`last_modified`) VALUES('" .
 
                                 (int) $products_id . "','" . tep_db_prepare_input($HTTP_POST_VARS['upc_ean']) .
 
-                                "','" . tep_db_prepare_input($HTTP_POST_VARS['brand_name']) . "',now(),now())");
+                                "','" . tep_db_prepare_input($HTTP_POST_VARS['manufacturer_model_number']) . "',now(),now())");
 
                         //EOF AMAZON INTEGRATION PRODUCT EXTENDED 17 DEC 2013 END
 
@@ -2041,9 +2041,9 @@ if (tep_not_null($action)) {
 
                                 tep_db_query("UPDATE " . TABLE_PRODUCTS_EXTENDED . " SET `upc_ean` = '" .
 
-                                        tep_db_prepare_input($HTTP_POST_VARS['upc_ean']) . "' ,`brand_name` = '" .
+                                        tep_db_prepare_input($HTTP_POST_VARS['upc_ean']) . "' ,`manufacturer_model_number` = '" .
 
-                                        tep_db_prepare_input($HTTP_POST_VARS['brand_name']) .
+                                        tep_db_prepare_input($HTTP_POST_VARS['manufacturer_model_number']) .
 
                                         "' WHERE `osc_products_id` = '" . (int) $products_id . "' ");
 
@@ -2115,9 +2115,9 @@ if (tep_not_null($action)) {
 
                             tep_db_query("UPDATE " . TABLE_PRODUCTS_EXTENDED . " SET `upc_ean` = '" .
 
-                                    tep_db_prepare_input($HTTP_POST_VARS['upc_ean']) . "' ,`brand_name` = '" .
+                                    tep_db_prepare_input($HTTP_POST_VARS['upc_ean']) . "' ,`manufacturer_model_number` = '" .
 
-                                    tep_db_prepare_input($HTTP_POST_VARS['brand_name']) .
+                                    tep_db_prepare_input($HTTP_POST_VARS['manufacturer_model_number']) .
 
                                     "' WHERE `osc_products_id` = '" . (int) $products_id . "' ");
 
@@ -3342,7 +3342,7 @@ if (isset($_GET['pID'])) {
 
                                         //bof AMAZON INTEGRATION product extented 17 dec 2013 start
 
-                                        $products_extended_qry = tep_db_query("SELECT `upc_ean`,`brand_name` FROM `" .
+                                        $products_extended_qry = tep_db_query("SELECT `upc_ean`,`manufacturer_model_number` FROM `" .
 
                                                 TABLE_PRODUCTS_EXTENDED . "` WHERE `osc_products_id` = '" . (int) $HTTP_GET_VARS['pID'] .
 
@@ -5537,7 +5537,7 @@ if (isset($_GET['pID'])) {
 
                                                                                 echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' .
 
-                                                                                tep_draw_input_field('brand_name', $products_extended['brand_name']);
+                                                                                tep_draw_input_field('manufacturer_model_number', $products_extended['manufacturer_model_number']);
 
                                                                                 ?></td>
 
