@@ -16,7 +16,7 @@
 
   class order {
 
-    var $info, $totals, $products, $customer, $delivery;
+    var $info, $totals, $products, $customer, $delivery, $products_invoice;
 
 
 
@@ -27,6 +27,8 @@
       $this->totals = array();
 
       $this->products = array();
+      
+      $this->products_invoice = array();
 
       $this->customer = array();
 
@@ -224,11 +226,8 @@
 
         while ($vendor_order = tep_db_fetch_array($vendor_data_query)) {
 
-/*
 
-          $this->products[$index2] = array (
-
-            'Vid' => $vendor_order['vendors_id'],
+          $this->products_invoice[$vendor_order['vendors_id']] = array (
 
             'Vname' => $vendor_order['vendors_name'],
 
@@ -312,33 +311,46 @@
 
             );
 
-/*
-            $this->products[$index2]['orders_products'][$index] = array (
+                
+                $this->products_invoice[$orders_products['vendors_id']]['orders_products'][$index] = array (
 
-              'qty' => $orders_products['products_quantity'],
+                   'qty' => $orders_products['products_quantity'],
+    
+                    'name' => $orders_products['products_name'],
+    
+                    'model' => $orders_products['products_model'],
+    
+                    'tax' => $orders_products['products_tax'],
+    
+                    'price' => $orders_products['products_price'],
+                    
+                    'vendor_name' => $orders_products['vendors_name'],
+    
+                    'vendor_ship' => $orders_products['shipping_module'],
+    
+                    'shipping_method' => $orders_products['shipping_method'],
+    
+                    'shipping_cost' => $orders_products['shipping_cost'],
+    
+                    'orders_products_status' => $orders_products['orders_products_status'],
+    
+                    'final_price' => $orders_products['final_price'],
+    
+                    'is_xml_feed_product'=>(empty($orders_products['xml_feed_id']) ? 0 : 1),
+    
+                    'orders_products_id'=>$orders_products['orders_products_id'],
+    
+                    'sent_to_obn'=>$orders_products['internal_id'],
+    
+                    'is_ok_for_shipping' => $orders_products['is_ok_for_shipping'], 
+    				
+    				'package_product_id' => $orders_products['package_product_id'], 
 
-              'name' => $orders_products['products_name'],
+                );
+                
+            
+            
 
-              'tax' => $orders_products['products_tax'],
-
-              'model' => $orders_products['products_model'],
-
-              'price' => $orders_products['products_price'],
-
-              'vendor_name' => $orders_products['vendors_name'],
-
-              'vendor_ship' => $orders_products['shipping_module'],
-
-              'shipping_method' => $orders_products['shipping_method'],
-
-              'shipping_cost' => $orders_products['shipping_cost'],
-
-              'final_price' => $orders_products['final_price'],
-
-              'spacer' => '-', 
-
-            );
-*/
 
 
             $subindex = 0;
@@ -360,9 +372,20 @@
                   'price' => $attributes['options_values_price']
 
                 );
+                
+                $this->products_invoice[$orders_products['vendors_id']]['orders_products'][$index]['attributes'][$subindex] = array (
 
+                  'option' => $attributes['products_options'],
 
+                  'value' => $attributes['products_options_values'],
 
+                  'prefix' => $attributes['price_prefix'],
+
+                  'price' => $attributes['options_values_price']
+
+                );
+                
+                
                 $subindex++;
 
               }

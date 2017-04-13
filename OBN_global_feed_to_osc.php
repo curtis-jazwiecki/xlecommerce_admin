@@ -61,6 +61,8 @@ define('NODE_PRODUCT_QUANTITY', 'ProductQuantity');
 
 define('NODE_PRODUCT_MANUFACTURER', 'ProductManufacturer');
 
+define('NODE_PRODUCT_MANUFACTURER_MODELNO', 'ManufacturerModelNo');
+
 if (XML_FEED_DEFAULT_PRICE_TYPE == 'MS')
     define('NODE_PRODUCT_PRICE', 'MSRPPrice');
 
@@ -98,7 +100,7 @@ define('NODE_PRODUCT_SPECIFICATIONS', 'ProductSpecifications');
 
 define('PERMISSIBLE_FEEDS_LIMIT', '25');
 
-define('OBN_FEED_SOS_URL', 'http://67.227.172.78/admin/send_reqd_info_to_retailer.php');
+define('OBN_FEED_SOS_URL', 'https://productdatahub.com/admin/send_reqd_info_to_retailer.php');
 
 class global_feed_to_osc {
 
@@ -607,6 +609,12 @@ class global_feed_to_osc {
 
             $parent_products_model_exists = true;
         }
+        
+        //Add manufacturer part number    
+         $check_column_exists = tep_db_num_rows(tep_db_query("SHOW COLUMNS FROM `products_extended` LIKE 'manufacturer_model_number'"));
+         if ($check_column_exists == 0) {
+             tep_db_query("ALTER TABLE `products_extended` ADD `manufacturer_model_number` varchar(32) default NULL");
+         }   
 
         $specification_table_exists = false;
 
@@ -732,6 +740,8 @@ class global_feed_to_osc {
             $temp_prod_qty = '';
 
             $temp_prod_manuf = '';
+            
+            $temp_prod_manuf_modelno = '';
 
             $temp_prod_price = '';
 
@@ -825,6 +835,8 @@ class global_feed_to_osc {
                     $temp_prod_qty = (string) $product->{NODE_PRODUCT_QUANTITY};
 
                     $temp_prod_manuf = htmlspecialchars_decode((string) $product->{NODE_PRODUCT_MANUFACTURER});
+                    
+                    $temp_prod_manuf_modelno = (string)$product->{NODE_PRODUCT_MANUFACTURER_MODELNO};
 
                     $temp_prod_price = (string) $product->{NODE_PRODUCT_PRICE};
 
@@ -1306,6 +1318,11 @@ class global_feed_to_osc {
                         'osc_products_id' => $temp_prod_osc_id,
                         'xml_feed_id' => $this->xml_feed_osc_id);
 
+                    
+                    if (!empty($temp_prod_manuf_modelno)) {
+                        $sql_data_array['manufacturer_model_number'] = $temp_prod_manuf_modelno;
+                    }
+                    
                     if ($prod_exists) {
 
                         $sql_data_array['last_modified'] = 'now()';
