@@ -516,7 +516,7 @@ function getAvgorderAndTotalIncome(&$avg_order,&$total_order_sales){
 
               $orders_contents2 = '';
 
-
+ 			  $products_count_total = tep_db_fetch_array(tep_db_query("select count(*) as total_products from " . TABLE_PRODUCTS));
 
               $orders_status_query = tep_db_query("select orders_status_name, orders_status_id from " . TABLE_ORDERS_STATUS . " where language_id = '" . $languages_id . "' LIMIT 0,6");
 
@@ -526,11 +526,7 @@ function getAvgorderAndTotalIncome(&$avg_order,&$total_order_sales){
 
 
 
-				$products_total = tep_db_query("select * from " . TABLE_PRODUCTS );
-
-
-
-				$products_count_total = tep_db_num_rows($products_total);
+				
 
 
 
@@ -772,8 +768,6 @@ function getAvgorderAndTotalIncome(&$avg_order,&$total_order_sales){
 
 			$hits_arr = explode(" ", $today);
 
-
-
 			?>
 
 
@@ -934,7 +928,7 @@ function getAvgorderAndTotalIncome(&$avg_order,&$total_order_sales){
 
 
 
-                                    <h3 class="m0"><?php echo $products_count_total; ?></h4></h3>
+                                    <h3 class="m0"><?php echo $products_count_total['total_products']; ?></h4></h3>
 
 
 
@@ -1892,7 +1886,7 @@ function getAvgorderAndTotalIncome(&$avg_order,&$total_order_sales){
 
 
 
-		$file = "http://67.227.172.78/admin/rss_feeds/obn_rss_feed.xml";
+		$file = "https://productdatahub.com/admin/rss_feeds/obn_rss_feed.xml";
 
 
 
@@ -2220,7 +2214,7 @@ function getAvgorderAndTotalIncome(&$avg_order,&$total_order_sales){
 
 
 
-		$file = "http://67.227.172.78/admin/rss_feeds/obn_manufacturer_rss_feed.xml";
+		$file = "https://productdatahub.com/admin/rss_feeds/obn_manufacturer_rss_feed.xml";
 
 
 
