@@ -1,6 +1,6 @@
 <?php
 /*
-CloudCommerce - Multi-Channel eCommerce Solutions
+  CloudCommerce - Multi-Channel eCommerce Solutions
   http://www.cloudcommerce.org
   Copyright(c)2016 Outdoor Business Network, Inc.
 */
@@ -13,7 +13,7 @@ require_once('eBay/get-common/MultiPartMessage.php');
 
 define('DIR_FS_EBAY_FEEDS',     DIR_FS_ROOT . 'eBay/feeds/');
 
-$debug_mode = false;
+$debug_mode = true;
 if ($debug_mode){
     echo 'Start: ' . date('c') . "\n";
 }
@@ -46,7 +46,8 @@ function getFeedXml($job_type, &$items){
 	if ($job_type=='AddFixedPriceItem' || $job_type=='ReviseFixedPriceItem' || $job_type=='RelistFixedPriceItem'){
 		if ($job_type=='AddFixedPriceItem'){
 			//$sql = tep_db_query("select * from products p inner join products_description pd on (p.products_id=pd.products_id and pd.language_id='1') inner join products_extended pe on p.products_id=pe.osc_products_id where p.products_status='1' and p.is_ebay_ok='1' and p.ebay_category_id>0 and item_listed_on_ebay='0'");
-			$sql = tep_db_query("select * from products p inner join products_description pd on (p.products_id=pd.products_id and pd.language_id='1') left join products_extended pe on p.products_id=pe.osc_products_id left join ebay_product_feed_errors pfe on (p.products_model=pfe.sku and pfe.environment='" . EBAY_ENVIRONMENT . "') where (pfe.sku is null or pfe.ack!='failure') and p.products_status='1' and p.is_ebay_ok='1' and p.ebay_category_id>0  and p.products_quantity>='" . (int)EBAY_MIN_STOCK_QTY . "'");
+			$sql = tep_db_query("select p.*, pe.*, pd.*, m.manufacturers_name from products p inner join products_description pd on (p.products_id=pd.products_id and pd.language_id='1') left join products_extended pe on p.products_id=pe.osc_products_id left join manufacturers m on p.manufacturers_id=m.manufacturers_id left join ebay_product_feed_errors pfe on (p.products_model=pfe.sku and pfe.environment='" . EBAY_ENVIRONMENT . "') where (pfe.sku is null or pfe.ack!='failure') and p.products_status='1' and p.is_ebay_ok='1' and p.ebay_category_id>0  and p.products_quantity>='" . (int)EBAY_MIN_STOCK_QTY . "' and item_listed_on_ebay='0'");
+            
     	} elseif ($job_type=='RelistFixedPriceItem' || $job_type=='ReviseFixedPriceItem'){
 			//$sql = tep_db_query("select * from products p inner join products_description pd on (p.products_id=pd.products_id and pd.language_id='1') inner join products_extended pe on p.products_id=pe.osc_products_id where p.products_status='1' and p.is_ebay_ok='1' and p.ebay_category_id>0 and p.item_listed_on_ebay='1'");
 			$sql = tep_db_query("select * from products p inner join products_description pd on (p.products_id=pd.products_id and pd.language_id='1') left join products_extended pe on p.products_id=pe.osc_products_id left join ebay_product_feed_errors pfe on (p.products_model=pfe.sku and pfe.environment='" . EBAY_ENVIRONMENT . "') where (pfe.sku is null or pfe.ack!='failure') and p.products_status='1' and p.is_ebay_ok='1' and p.ebay_category_id>0 and p.item_listed_on_ebay='1'");
@@ -66,12 +67,12 @@ function getFeedXml($job_type, &$items){
 								"</Header>\n";
 				while($entry = tep_db_fetch_array($sql)){
 					$image = $entry['products_largeimage'];
-					if (strpos($image, 'http://')!==false){
+					if (strpos($image, 'http://')!==false || strpos($image, 'https://')!==false){
 						if (strpos($image, 'https://')!==false){
 							$image = str_replace('https://', 'http://', $image);
 						}
 					} else {
-						$image = HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . $image;
+					$image = HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . $image;
 					}
 					if (!empty($image)){
 						$info = @getimagesize($image);
@@ -96,12 +97,12 @@ function getFeedXml($job_type, &$items){
 									case 'gif':
 										$src_image = imagecreatefromgif($image);
 										break;
-									case 'png':
+							 	case 'png':
 										$src_image = imagecreatefrompng($image);
 										break;
 								}
 								
-								if ($src_image){
+                          if ($src_image){
 									imagecopy($dst_image, $src_image, $dst_x, $dst_y, 0, 0, $src_width, $src_height);
 									$modified_image_name = $image_name;
 									switch (strtolower($image_extension)){
@@ -125,12 +126,14 @@ function getFeedXml($job_type, &$items){
 											$modified_image_name = substr($modified_image_name, 0, -4) . '.jpg';
 											imagejpeg($dst_image, DIR_FS_CATALOG_IMAGES . $modified_image_name );
 											$image = HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . $modified_image_name;
+        
 											if (strpos($image, 'https://')!==false){
 												$image = str_replace('https://', 'http://', $image);
 											}
 											break;
 									}
 								}
+								
 							}
 						}
 					}
@@ -141,7 +144,7 @@ function getFeedXml($job_type, &$items){
 						$place_holders = array('{ITEM_TITLE}', '{ITEM_DESCRIPTION}', '{ITEM_IMAGE}');
 						$place_holder_values = array($entry['products_name'], $entry['products_description'], $image);
 						$template = str_replace($place_holders, $place_holder_values, $template_content);
-                        //$return_policy = 'If you are not happy with your purchase, you may return eligible items for refund provided you obtain a Return Request through EBAY. Return shipping is the responsibility of the buyer. All returns MUST be received within 14 days of original purchase date. Any returns that are received and accepted after 14 days or sent back without a return Ebay authorization will have a 20% restocking fee applied, or refused at our discretion. All returns must be NEW and UNOPENED in the original packaging. All tags and information packets must be attached to the item. Any return sent back that does not meet these requirements will be returned to the sender at their expense. Damaged or Defective Items: In the event an item is damaged or defective and it is within the 14 day return period please let us know exactly what the issue is. All items are reviewed upon return and any item found actually not to be defective will be returned to the sender at their expense. If it is passed the 14 day return policy please contact us or the product manufacturer as they are responsible for all warranty issues. BUYERS REMORSE All items returned within the 14 day return period for buyer’s remorse or an attempt to mislead or falsely claim that an item is defective will have a 20% restocking fee applied, or refused at our discretion. FREE SHIPPING Items that are marked "free shipping" that are returned will also be charged a 20% restocking fee to cover shipping expenses incurred during the sale. PRICING AND TYPOGRAPHICAL ERRORS - In the event that an Vision Outfitters product is mistakenly listed at an incorrect price or there is an error in the listing due to web interference , Vision Outfitters reserves the right to refuse or cancel any orders placed for product listed at the incorrect price. Vision Outfitters reserves the right to refuse or cancel any such orders whether or not the order has been confirmed and your credit card charged. If your credit card has already been charged for the purchase and your order is cancelled, Vision Outfitters shall issue a credit to your credit card account in the amount of the incorrect price( NOTE: if you paid by paypal your paypal account will receive the refund). If the order was already shipped and an error is discovered after shipment Vision Outfitters will refund the price paid over our manufacturer cost for the item listed in error or you are welcome to return the item for a full refund. NON-DELIVERABLE ADDRESS - If a package is returned because of a non-deliverable address the original shipping WILL NOT BE REFUNDED and the item will be returned to stock with a 20% restocking fee applied. Buyer will also be responsible for an cost incurred to the shipper to have package returned back to us. PLEASE MAKE SURE YOUR ADDRESS IS CORRECT!';
+                        //$return_policy = 'If you are not happy with your purchase, you may return eligible items for refund provided you obtain a Return Request through EBAY. Return shipping is the responsibility of the buyer. All returns MUST be received within 14 days of original purchase date. Any returns that are received and accepted after 14 days or sent back without a return Ebay authorization will have a 20% restocking fee applied, or refused at our discretion. All returns must be NEW and UNOPENED in the original packaging. All tags and information packets must be attached to the item. Any return sent back that does not meet these requirements will be returned to the sender at their expense. Damaged or Defective Items: In the event an item is damaged or defective and it is within the 14 day return period please let us know exactly what the issue is. All items are reviewed upon return and any item found actually not to be defective will be returned to the sender at their expense. If it is passed the 14 day return policy please contact us or the product manufacturer as they are responsible for all warranty issues. BUYERS REMORSE All items returned within the 14 day return period for buyerï¿½s remorse or an attempt to mislead or falsely claim that an item is defective will have a 20% restocking fee applied, or refused at our discretion. FREE SHIPPING Items that are marked "free shipping" that are returned will also be charged a 20% restocking fee to cover shipping expenses incurred during the sale. PRICING AND TYPOGRAPHICAL ERRORS - In the event that an Vision Outfitters product is mistakenly listed at an incorrect price or there is an error in the listing due to web interference , Vision Outfitters reserves the right to refuse or cancel any orders placed for product listed at the incorrect price. Vision Outfitters reserves the right to refuse or cancel any such orders whether or not the order has been confirmed and your credit card charged. If your credit card has already been charged for the purchase and your order is cancelled, Vision Outfitters shall issue a credit to your credit card account in the amount of the incorrect price( NOTE: if you paid by paypal your paypal account will receive the refund). If the order was already shipped and an error is discovered after shipment Vision Outfitters will refund the price paid over our manufacturer cost for the item listed in error or you are welcome to return the item for a full refund. NON-DELIVERABLE ADDRESS - If a package is returned because of a non-deliverable address the original shipping WILL NOT BE REFUNDED and the item will be returned to stock with a 20% restocking fee applied. Buyer will also be responsible for an cost incurred to the shipper to have package returned back to us. PLEASE MAKE SURE YOUR ADDRESS IS CORRECT!';
 					//}
                     if ((int)$entry['products_quantity']<(int)EBAY_MIN_STOCK_QTY){
                         $entry['products_quantity'] = '0';
@@ -187,6 +190,29 @@ function getFeedXml($job_type, &$items){
 					$xml .=                 "<UPC>" . $entry['upc_ean'] . "</UPC>\n";
 					$xml .=             "</ProductListingDetails>\n";
 					}
+                    
+                    $xml .=           "<ItemSpecifics>\n";
+                    $xml .=           " <NameValueList>\n";
+                    $xml .=             "<Name>Brand</Name>\n";
+                    
+                    if ($entry['manufacturers_id'] > 0 && ( !empty($entry['manufacturer_model_number']) || !empty($entry['brand_name'])) )  {
+                        $xml .=             "<Value>Unbranded</Value>\n";
+                        if(!empty($entry['manufacturer_model_number'])){
+                            $xml .=         "<Name>MPN</Name>\n";
+                            $xml .=         "<Value>" . $entry['manufacturer_model_number'] . "</Value>\n";
+                        }else{
+                            $xml .=         "<Name>MPN</Name>\n";
+                            $xml .=         "<Value>" . $entry['brand_name'] . "</Value>\n";
+                        }
+                    } else {
+                        $xml .=             "<Value>Unbranded</Value>\n";
+                        // no MPN value to be sent
+                    }           
+                                 
+                    $xml .=           " </NameValueList>\n";                   
+                    $xml .=           "</ItemSpecifics>\n";
+
+                    
                     $xml .=             "<Quantity>" . $entry['products_quantity'] . "</Quantity>\n";
                     $xml .=             "<ReturnPolicy>\n";
 					$xml .=                 "<Description><![CDATA[" . htmlspecialchars($return_policy,ENT_SUBSTITUTE) . "]]></Description>\n";
@@ -222,6 +248,7 @@ function getFeedXml($job_type, &$items){
                     $items .= $entry['products_id'] . ', ';
 				}
 				$xml .=		"</BulkDataExchangeRequests>"; 
+                
 			}
 		}
 	} elseif ($job_type=='EndFixedPriceItem'){
@@ -337,7 +364,7 @@ function getFeedXml($job_type, &$items){
 
 $session = new LargeMerchantServiceSession('XML','XML', EBAY_ENVIRONMENT);
 
-$sql = tep_db_query("select id, job_type, job_id, file_reference_id from ebay_jobs where is_open='1' and status_create_job='Success' and uploaded_file is null order by id");
+$sql = tep_db_query("select id, job_type, job_id, file_reference_id from ebay_jobs where is_open='1' and status_create_job='Success' and job_type='AddFixedPriceItem' and uploaded_file is null order by id");
 if (tep_db_num_rows($sql)){
 	while ($entry = tep_db_fetch_array($sql)){
         if ($debug_mode){
@@ -368,6 +395,8 @@ if (tep_db_num_rows($sql)){
     		$request = MultiPartMessage::build($requestBody, $file_data);
     		$responseXML = $session->sendFileTransferServiceUploadRequest($request);
     		$xml = simplexml_load_string($responseXML);
+            print_r($xml);
+            //exit;
             $sql_data = array(
                 'uploaded_file' => $gz_file_name, 
                 'last_modified' => 'now()', 
@@ -379,7 +408,8 @@ if (tep_db_num_rows($sql)){
                         $items = substr($items, 0, -2);
                         switch($entry['job_type']){
                             case 'AddFixedPriceItem':
-                                tep_db_query("update products set item_listed_on_ebay='1' where products_id in(" . $items . ")");
+                                //tep_db_query("update products set item_listed_on_ebay='1' where products_id in(" . $items . ")");
+                                // code moved to ebay_check_job_status.php
                                 break;
                             case 'ReviseFixedPriceItem':
 							case 'RelistFixedPriceItem':
@@ -399,7 +429,7 @@ if (tep_db_num_rows($sql)){
 					$request_abort = createAbortJobRequest($entry['job_id']);
 					//$response_abort = $session->sendBulkDataExchangeRequest('abortJob', $request);
 					$response_abort = $session->sendBulkDataExchangeRequest('abortJob', $request_abort);
-					tep_db_query("update ebay_jobs set is_open='0' where id='" . (int)$entry['id'] . "'");
+                    tep_db_query("update ebay_jobs set status_processing='Aborted', is_open='0' where id='" . (int)$entry['id'] . "'");
 				}
             } else {
                 $sql_data['status_upload_file'] = 'Custom:XML error'; 

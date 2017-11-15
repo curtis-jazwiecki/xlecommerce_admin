@@ -6,14 +6,10 @@ CloudCommerce - Multi-Channel eCommerce Solutions
 */
 require('includes/application_top.php');
 
-
-
 $action = isset($_POST['action']) ? $_POST['action'] : '';
 
 if (empty($action)){
-
     $action = isset($_GET['action']) ? $_GET['action'] : '';
-
 }
 
 
@@ -259,7 +255,7 @@ if ($total_pages){
 
                                     <td><?php echo $entry['file_reference_id']; ?></td>
 
-                                    <td><?php echo $entry['is_open']; ?></td>
+                                    <td><?php echo $entry['is_open']; ?> <span onClick="return getEbayStatus('ebay_check_job_status.php?job_id=<?php echo $entry['job_id']; ?>');" style="cursor:pointer;font-size:12px; color:#0000FF;">[Check Status]</span></td>
 
                                 </tr>
 
@@ -296,19 +292,16 @@ if ($total_pages){
             </tr>
 
         </table>
-
-               <!-- END your table-->
-
+       <!-- END your table-->
+<script type="text/javascript">
+function getEbayStatus(url){
+	window.open(url,'1510141458780','width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');
+	return false;
+	
+}
+</script>
 <!-- body_eof //-->
-
-
-
 <!-- footer //-->
-
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-
 <!-- footer_eof //-->
-
-
-
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
